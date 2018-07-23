@@ -12,7 +12,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WBS.API", "WBS.API\WBS.API.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WBS.DAL", "WBS.DAL\WBS.DAL.csproj", "{D80B603D-F2BE-4D81-BCB5-235AB024A5D3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WBS.TestWBSRefactoring", "WBS.TestWBSRefactoring\WBS.TestWBSRefactoring.csproj", "{0998DC0F-487F-4E7F-A83F-6910E669683D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WBS.TestWBSRefactoring", "WBS.TestWBSRefactoring\WBS.TestWBSRefactoring.csproj", "{0998DC0F-487F-4E7F-A83F-6910E669683D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
