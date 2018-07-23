@@ -1,0 +1,151 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using WBS.DAL.Cache;
+
+namespace WBS.DAL.Data.Models.ViewModels
+{
+    public class DAIRequestViewModel : IViewModel<DAIRequest>, IBaseEntity
+    {
+        public int Id { get; set; }
+
+        public string Number { get; set; }
+
+        public DateTime? CreationData { get; set; }
+
+        public DateTime? LastModifiedData { get; set; }
+
+        public DateTime? ReceiptTaskData { get; set; }
+
+        public DateTime? DirectorApprovalDate { get; set; }
+
+        public DateTime? DeliveryTime { get; set; }
+
+        public string Subject { get; set; }
+
+        public int? SitId { get; set; }
+        public string SitName { get; set; }
+
+        public int? ResultCentreId { get; set; }
+        public string ResultCentreTitle { get; set; }
+
+        public string CommentForDirectorGeneral { get; set; }
+
+        public bool ApprovalOfTechExpertIsRequired { get; set; }
+
+        public int? RationaleForInvestmentId { get; set; }
+        public string RationaleForInvestmentTitle { get; set; }
+
+        public double TotalInvestment { get; set; }
+        public double EstimatedOperationPeriod { get; set; }
+        public double AdditionalSalesPerYear { get; set; }
+        public double MarginOnAddedValue { get; set; }
+        public double PeriodOfPayback { get; set; }
+        public double ExtraAnnualCost { get; set; }
+        public double NetMargin { get; set; }
+        public double InternalRateOfReturn { get; set; }
+        public double NetPresentValue { get; set; }
+        public double SavingsPerYear { get; set; }
+
+
+        public string ReasonForDAI { get; set; }
+
+        public List<ProviderViewModel> Providers { get; set; }
+        public List<TechnicalServiceViewModel> TechnicalServices { get; set; }
+
+        public DAIRequestViewModel(DAIRequest request)
+        {
+            Id = request.Id;
+            CreationData = request.CreationData;
+            LastModifiedData = request.LastModifiedData;
+            ReceiptTaskData = request.ReceiptTaskData;
+            DirectorApprovalDate = request.DirectorApprovalDate;
+            Number = request.Number;
+            DeliveryTime = request.DeliveryTime;
+            Subject = request.Subject;
+            SitId = request.SitId;
+            CommentForDirectorGeneral = request.CommentForDirectorGeneral;
+
+            ApprovalOfTechExpertIsRequired = request.ApprovalOfTechExpertIsRequired;
+
+            if (request.Sit != null) SitName = request.Sit.Title;
+
+            ResultCentreId = request.ResultCentreId;
+            if (request.ResultCentre != null) ResultCentreTitle = request.ResultCentre.Title;
+
+            RationaleForInvestmentId = request.RationaleForInvestmentId;
+            if (request.RationaleForInvestment != null) RationaleForInvestmentTitle = request.RationaleForInvestment.Title;
+
+            if (request.DAIRequestsProviders != null)
+            {
+                Providers = request.DAIRequestsProviders.Select(p => new ProviderViewModel(p.Provider)).ToList();
+            }
+            else
+            {
+                Providers = new List<ProviderViewModel>();
+            }
+            if (request.DAIRequestsTechnicalService != null)
+            {
+                TechnicalServices = request.DAIRequestsTechnicalService.Select(t => new TechnicalServiceViewModel(t.TechnicalServ)).ToList();
+            }
+            else
+            {
+                TechnicalServices = new List<TechnicalServiceViewModel>();
+            }
+
+            TotalInvestment = request.TotalInvestment;
+            EstimatedOperationPeriod = request.EstimatedOperationPeriod;
+            AdditionalSalesPerYear = request.AdditionalSalesPerYear;
+            MarginOnAddedValue = request.MarginOnAddedValue;
+            PeriodOfPayback = request.PeriodOfPayback;
+            ExtraAnnualCost = request.ExtraAnnualCost;
+            NetMargin = request.NetMargin;
+            InternalRateOfReturn = request.InternalRateOfReturn;
+            NetPresentValue = request.NetPresentValue;
+            SavingsPerYear = request.SavingsPerYear;
+
+            ReasonForDAI = request.ReasonForDAI;
+
+        }
+
+        public DAIRequestViewModel() { }
+
+        public override string ToString()
+        {
+            var type = typeof(DAIRequest);
+            return type.FullName;
+        }
+
+        public DAIRequest CreateModel()
+        {
+            return new DAIRequest()
+            {
+                Id = Id,
+                CreationData = CreationData,
+                SitId = SitId,
+                ResultCentreId = ResultCentreId,
+                ApprovalOfTechExpertIsRequired = ApprovalOfTechExpertIsRequired,
+                RationaleForInvestmentId = RationaleForInvestmentId,
+                DeliveryTime = DeliveryTime,
+                DirectorApprovalDate = DirectorApprovalDate,
+
+                TotalInvestment = TotalInvestment,
+                EstimatedOperationPeriod = EstimatedOperationPeriod,
+                AdditionalSalesPerYear = AdditionalSalesPerYear,
+                MarginOnAddedValue = MarginOnAddedValue,
+                PeriodOfPayback = PeriodOfPayback,
+                ExtraAnnualCost = ExtraAnnualCost,
+                NetMargin = NetMargin,
+                InternalRateOfReturn = InternalRateOfReturn,
+                NetPresentValue = NetPresentValue,
+                SavingsPerYear = SavingsPerYear,
+
+                ReasonForDAI = ReasonForDAI,
+
+                CommentForDirectorGeneral = CommentForDirectorGeneral,
+            };
+        }
+
+    }
+}
