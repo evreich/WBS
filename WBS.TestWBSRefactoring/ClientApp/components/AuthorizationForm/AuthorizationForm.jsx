@@ -1,18 +1,18 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import PropTypes from "prop-types";
 
-import { withStyles } from "material-ui/styles";
 import Paper from "material-ui/Paper";
 import Typography from "material-ui/Typography";
+import { withStyles } from "material-ui/styles";
 
 import TextFieldPlaceholder from "../Commons/TextFields/TextFieldPlaceholder";
 import ButtonPrimary from "../Commons/Buttons/ButtonPrimary";
-import actionsCreators from "../../reducers/Authorization";
 import styles from "./AuthorizationForm.css";
 
-class PaperSheet extends Component {
+
+class AuthorizationFormComponent extends Component {
+
     constructor(props) {
         super(props);
         this.state = {
@@ -35,10 +35,10 @@ class PaperSheet extends Component {
 
     submmit = event => {
         event.preventDefault();
-        const { authorization } = this.props;
+        const { getToken } = this.props;
         const { login, password } = this.state;
         const values = { login, password };
-        authorization(values);
+        getToken(values);
     };
 
     render() {
@@ -97,18 +97,10 @@ class PaperSheet extends Component {
     }
 }
 
-PaperSheet.propTypes = {
+AuthorizationFormComponent.propTypes = {
     classes: PropTypes.object.isRequired,
-    authorization: PropTypes.func,
+    getToken: PropTypes.func,
     error: PropTypes.string
 };
 
-const mapStateToProps = state => ({ auth: state.auth });
-const mapDispatchToProps = { ...actionsCreators };
-
-export default withStyles(styles)(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(PaperSheet)
-);
+export default withStyles(styles)(AuthorizationFormComponent);

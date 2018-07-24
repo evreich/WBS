@@ -1,16 +1,36 @@
-import { fetch } from 'domain-task';
-import { Constants, AuthorizationActions } from '../constants';
+import DATA_TYPE from '../settings/contentTypes.js'
+import { getItem } from '../utils/localStorageTools.js';
+import SETTINGS from '../settings/settings.js';
 
-const addAuthTokenToOptions = (options, authData) => ({
-    ...options,
-    headers: {
-        ...options.headers,
-        Authorization: authData ? `Bearer ${authData.access_token}` : '',
+
+const defaultConfig = {
+    contentType: DATA_TYPE.JSON_DATA
+};
+
+function ConvertData(contentType, data){
+    if(!data) return null;
+
+    switch(contentType){
+        case DATA_TYPE.JSON_DATA: 
+            return JSON.stringify(data);
+        default:
+            return null;
     }
-});
+}
 
-const fetchWithToken = (url, options, dispatch, authData) =>
-    ajaxToServer(url, options, dispatch, authData)
+function checkStatus(response) { 
+    if (response.ok) return Promise.resolve(response.json());
+
+    return response.json()
+        .then(json => {
+            const error = new Error(json.message || response.statusText)
+            error.errors = json.errors;
+            return Promise.reject(Object.assign(error, { response }))
+        });
+}
+
+
+/*
 
 const updateRefreshToken = (refreshToken, url, options, dispatch) =>
     fetch(Constants.TOKEN_API_URL, {
@@ -41,13 +61,17 @@ const updateRefreshToken = (refreshToken, url, options, dispatch) =>
             return Promise.reject();
         });
     });
-
+*/
+/*
 const ajaxToServer = (url, options, dispatch, authData) =>
+
     fetch(url, addAuthTokenToOptions(options, authData))
+
     .then(response => {
         if (response.status === 400) {
             alert("Bad Request")
             return Promise.reject(response);
+            !!!!!!!!!!!!
         } else if (response.status === 401) {
             // не авторизован, возможно протух access токен.
             // пробуем поторить запрос, обновив access токен c помощью refresh токена
@@ -71,6 +95,40 @@ const ajaxToServer = (url, options, dispatch, authData) =>
             return Promise.reject(response);
         }
         return response;
-    });
+    });*/
 
-export default fetchWithToken;
+    
+export default function request(config, onSuccess, onError) {
+
+    if (!config.method) throw new Error("Method of request is not defined!");
+    if (!config.route) throw new Error("Sorry, I can't make a request without path. May you can do that?")
+
+    config.contentType = config.contentType || defaultConfig.contentType;
+
+    let headers = {
+        method: config.method,
+        headers: {
+            'content-type': config.contentType
+        },
+    },
+    token = getItem(SETTINGS.AUTH_KEY),
+    auth = null,
+    data = ConvertData(config.contentType, config.data);
+
+    if (token)
+        auth = { Authorization: `Bearer ${token.access_token}` };
+
+    if (auth)
+        headers.headers['Authorization'] = auth.Authorization;
+
+    if (data)
+        headers.body = data;
+
+    fetch(config.route, headers)
+        .then((response) => checkStatus(response))
+        .then((data) => {
+            onSuccess && onSuccess(data);
+        }).catch((error) => {
+            onError && onError(error);
+        });
+}

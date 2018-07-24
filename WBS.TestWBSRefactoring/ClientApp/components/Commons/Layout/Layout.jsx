@@ -9,15 +9,15 @@ import DateFnsUtils from 'material-ui-pickers/utils/date-fns-utils';
 import ruLocale from 'date-fns/locale/ru';
 
 import muiTheme from '../../../muiTheme';
-import SideMenuContainer from '../SideMenuContainer';
+import SideMenuContainer from '../../../containers/SideMenuContainer/SideMenuContainer';
 
 
-const Layout = ({ children, routing, auth }) => {
+const Layout = ({ pushToHome, children, routing, auth }) => {
     let targetRoute = routing.location.pathname;
     const customPush = route => (route !== targetRoute ? push(route) : null);
-    if (!auth || !auth.access_token || !auth.refresh_token) {
+    if (!auth.access_token || !auth.refresh_token) {
         localStorage.removeItem("drawerOpen") // для управления выезжающим меню, чтобы его небыло видно при logout-е
-        customPush('/');
+        targetRoute !== '/' ? pushToHome() : null;
     } else if (auth.privateRoutes) {
         if (auth.privateRoutes.indexOf(targetRoute) !== -1) {
             localStorage.removeItem("drawerOpen")// для управления выезжающим меню, чтобы его небыло видно при logout-е
@@ -31,7 +31,7 @@ const Layout = ({ children, routing, auth }) => {
                 locale={ruLocale}
             >
                 <>
-                    <SideMenuContainer />
+                    <SideMenuContainer auth={auth} />
                     {children}
                 </>
             </MuiPickersUtilsProvider>
@@ -43,12 +43,14 @@ Layout.propTypes = {
     children: PropTypes.array,
     routing: PropTypes.object,
     auth: PropTypes.object,
-    push: PropTypes.func,
+    pushToHome: PropTypes.func,
 }
+
+const mapDispatchToProps = (dispatch) => ({ pushToHome: () => dispatch(push('/'))});
 
 const mapStateToProps = state => ({
     routing: state.routing,
     auth: state.auth,
 });
 
-export default connect(mapStateToProps)(Layout);
+export default connect(mapStateToProps, mapDispatchToProps)(Layout);

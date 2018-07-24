@@ -10,7 +10,7 @@ import { routerMiddleware } from 'react-router-redux';
 import * as reducers from './reducers';
 
 
-export default (history, initialState) => {
+export default (history) => {
     const devTool = typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION__ ?
         window.__REDUX_DEVTOOLS_EXTENSION__ : compose;
 
@@ -20,7 +20,7 @@ export default (history, initialState) => {
     )(createStore);
 
     const rootReducer = combineReducers(reducers);
-    const store = createStoreWithMiddleware(rootReducer, initialState);
+    const store = createStoreWithMiddleware(rootReducer);
 
     if (module.hot) {
         module.hot.accept('./reducers', () => {
