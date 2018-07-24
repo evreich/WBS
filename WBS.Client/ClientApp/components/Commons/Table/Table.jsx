@@ -96,8 +96,8 @@ const СreateTable = ({
                     changePagination,
                     paginationData
                 } = this.props;
-                changePagination({ ...paginationData, currentPage: page }) 
-                getDataTable()          
+                changePagination({ ...paginationData, currentPage: page })
+                getDataTable()
             };
 
             handleChangeRowsPerPage = event => {
@@ -172,11 +172,11 @@ const СreateTable = ({
                 //Вычисление пустых строк для заполнения таблицы
                 const emptyRows = isNeedFillEmptyRow
                     ? elementsPerPage -
-                      Math.min(
-                          elementsPerPage,
-                          elementsCount - currentPage * elementsPerPage
-                      )
-                    : 0;                    
+                    Math.min(
+                        elementsPerPage,
+                        elementsCount - currentPage * elementsPerPage
+                    )
+                    : 0;
 
                 //отрисовка футера таблицы
                 const tableFooter = !isNeedTableFooter ? null : (
@@ -229,7 +229,7 @@ const СreateTable = ({
                                                 displayedColumns={Object.values(
                                                     tableHeaders
                                                 )}
-                                                style={classes}
+                                                classes={classes}
                                                 handleInfoButtonClick={
                                                     this
                                                         .handleOpenInformationModalWindow
@@ -275,4 +275,5 @@ const СreateTable = ({
             }
         }
     );
+
 export default СreateTable;
