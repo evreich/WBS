@@ -14,7 +14,7 @@ import Paper from "material-ui/Paper";
 import TablePaginationActionsWrapped from "../Pagination";
 import SortedTableHead from "./SortedTableHead";
 import { styles } from "./TableStyles.css";
-//import { SortingActions } from "../../../constants";
+import { SortingActions } from "../../../constants";
 import { sortOn } from "../../../helpers/sortinngFunctions";
 import TableToolbar from "./Toolbar";
 import CommonChangeItemModalWindow from "../ModalWindows/ChangeItemModalWindow";
@@ -37,7 +37,7 @@ const СreateTable = ({
                 this.state = {
                     modalWindowInfoIsOpening: false,
                     modalWindowChangingIsOpening: false,
-                    updatingDataItem: {}
+                    updatingDataItem: {},
                 };
 
                 //!!!!!!!!!
@@ -48,11 +48,15 @@ const СreateTable = ({
                 };
                 //!!!!!!!!!
                 delete x.DialogBodyComponent;
+
+                this.sortingData = { sort: SortingActions.SORT_DESC, sortBy: '' };
             }
 
             static propTypes = {
                 classes: PropTypes.object.isRequired,
                 getDataTable: PropTypes.func.isRequired,
+                clearTable: PropTypes.func.isRequired,
+                updateTable: PropTypes.func.isRequired, 
                 // deleteDataTable: PropTypes.func.isRequired,
                 // createDataTable: PropTypes.func.isRequired,
                 // updateDataTable: PropTypes.func.isRequired,
@@ -69,7 +73,6 @@ const СreateTable = ({
                     elementsPerPage: 5,
                     elementsCount:0
                 },
-                sortingData: { sort: "desc", sortBy: "desc" },
                 data: []
             };
 
@@ -78,6 +81,11 @@ const СreateTable = ({
                 const getDataTable = this.props.getDataTable;
                 //
                 getDataTable();
+            }
+
+            componentWillUnmount(){
+                const clearTable = this.props.clearTable;
+                clearTable();
             }
 
             //handlers
@@ -137,30 +145,30 @@ const СreateTable = ({
                 id.x = 'x';
             };
 
-            handleSortByHeaderClick = () => {};
+            handleSortByHeaderClick = sortColumnId => {
+                const sortingData = this.sortingData;
+                const updateTable = this.props.updateTable;
 
-            // handleSortByHeaderClick = sortColumnId => {
-            //     const { sortingData, changeSorting } = this.props;
-            //     let newOrder = SortingActions.SORT_DESC;
+                let newOrder = SortingActions.SORT_DESC;
 
-            //     if (
-            //         sortingData.sortBy === sortColumnId &&
-            //         sortingData.sort === SortingActions.SORT_DESC
-            //     )
-            //         newOrder = SortingActions.SORT_ASC;
+                if (
+                    sortingData.sortBy === sortColumnId &&
+                    sortingData.sort === SortingActions.SORT_DESC
+                )
+                    newOrder = SortingActions.SORT_ASC;
 
-            //     const newData = this.sortData(sortColumnId, newOrder);
-            //     changeSorting(
-            //         { sort: newOrder, sortBy: sortColumnId },
-            //         newData
-            //     );
-            // };
+                const newData = this.sortData(sortColumnId, newOrder);
+           
+                this.sortingData = { sort: newOrder, sortBy: sortColumnId };
+                updateTable(newData);
+            };
 
             sortData = (sortColumnId, order) => {
                 const data = this.props.data;
                 const typeOfSortData =
                     dataFiledsInfo.tableHeaders[sortColumnId].type;
-                return data.sort(sortOn(sortColumnId, typeOfSortData, order));
+
+                return data.sort(sortOn(sortColumnId, typeOfSortData, order)).slice(0);
             };
 
             fillingEmptyRows = emptyRows =>
@@ -175,7 +183,6 @@ const СreateTable = ({
                     classes,
                     pagination,
                     data,
-                    sortingData,
                     // updateDataTable,
                     // createDataTable
                 } = this.props;
@@ -198,7 +205,7 @@ const СreateTable = ({
                         elementsCount - currentPage * elementsPerPage
                     )
                     : 0;
-                    console.log(this.props);
+
                 //отрисовка футера таблицы
                 const tableFooter = !isNeedTableFooter ? null : (
                     <TableRow>
@@ -228,6 +235,7 @@ const СreateTable = ({
                 const { tableHeaders, 
                     // fieldNames, 
                     titleTable } = dataFiledsInfo;
+
                 return (
                     <>
                         <Paper className={classes.root}>
@@ -238,8 +246,8 @@ const СreateTable = ({
                             />
                             <Table className={classes.table}>
                                 <SortedTableHead
-                                    order={sortingData.sort}
-                                    orderBy={sortingData.sortBy}
+                                    order={this.sortingData.sort}
+                                    orderBy={this.sortingData.sortBy}
                                     onRequestSort={this.handleSortByHeaderClick}
                                     columnHeaders={Object.values(tableHeaders)}
                                 />

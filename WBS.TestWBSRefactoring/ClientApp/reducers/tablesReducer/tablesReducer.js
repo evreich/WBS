@@ -15,6 +15,16 @@ export const reducer = (state = initialState, action) => {
             state.errors = ['something went wrong'];
             return state;
         }
+        case TYPE.CLEAR_TABLE: {
+            delete state[action.title];
+            return {
+                ...state,
+            };
+        }
+        case TYPE.UPDATE_TABLE: {
+            state[action.title].data = action.data;
+            return Object.assign({}, state);
+        }
         default:
             return state;
     }

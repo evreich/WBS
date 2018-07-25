@@ -11,6 +11,21 @@ export function receiveTable(data, title) {
     }
 }
 
+export function updateTable(data, title) {
+    return {
+        type: TYPE.UPDATE_TABLE,
+        title,
+        data
+    }
+}
+
+export function clearTable(title) {
+    return {
+        type: TYPE.CLEAR_TABLE,
+        title
+    }
+}
+
 export function errorsReceive(err) {
     return {
         type: TYPE.GET_TABLE_ERROR,
