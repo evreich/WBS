@@ -3,11 +3,13 @@ import TYPE from './actionsTypes.js';
 
 const initialState = { errors: [] };
 
-const tablesReducer = (state = initialState, action) => {
+export const reducer = (state = initialState, action) => {
     switch(action.type){
         case TYPE.GET_TABLE_SUCCESS: {
-            state[action.title] = action.data;
-            return state;
+            return {
+                ...state,
+                [action.title]: action.data
+            };
         }
         case TYPE.GET_TABLE_ERROR: {
             state.errors = ['something went wrong'];
@@ -17,6 +19,3 @@ const tablesReducer = (state = initialState, action) => {
             return state;
     }
 } 
-
-
-export default tablesReducer;

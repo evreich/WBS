@@ -14,7 +14,7 @@ import Paper from "material-ui/Paper";
 import TablePaginationActionsWrapped from "../Pagination";
 import SortedTableHead from "./SortedTableHead";
 import { styles } from "./TableStyles.css";
-import { SortingActions } from "../../../constants";
+//import { SortingActions } from "../../../constants";
 import { sortOn } from "../../../helpers/sortinngFunctions";
 import TableToolbar from "./Toolbar";
 import CommonChangeItemModalWindow from "../ModalWindows/ChangeItemModalWindow";
@@ -39,27 +39,45 @@ const СreateTable = ({
                     modalWindowChangingIsOpening: false,
                     updatingDataItem: {}
                 };
+
+                //!!!!!!!!!
+                const x = {
+                    DialogBodyComponent: DialogBodyComponent,
+                    InformationModalWindow: InformationModalWindow,
+                    ChangeItemModalWindow: ChangeItemModalWindow
+                };
+                //!!!!!!!!!
+                delete x.DialogBodyComponent;
             }
 
             static propTypes = {
                 classes: PropTypes.object.isRequired,
                 getDataTable: PropTypes.func.isRequired,
-                deleteDataTable: PropTypes.func.isRequired,
-                createDataTable: PropTypes.func.isRequired,
-                updateDataTable: PropTypes.func.isRequired,
-                changePagination: PropTypes.func.isRequired,
-                changeSorting: PropTypes.func.isRequired,
-                setUpdatingItem: PropTypes.func.isRequired,
+                // deleteDataTable: PropTypes.func.isRequired,
+                // createDataTable: PropTypes.func.isRequired,
+                // updateDataTable: PropTypes.func.isRequired,
+                // changeSorting: PropTypes.func.isRequired,
+                // setUpdatingItem: PropTypes.func.isRequired,
                 data: PropTypes.array.isRequired,
                 sortingData: PropTypes.object.isRequired,
-                paginationData: PropTypes.object.isRequired
+                pagination: PropTypes.object.isRequired
+            };
+
+            static defaultProps = {
+                pagination: {
+                    currentPage: 0,
+                    elementsPerPage: 5,
+                    elementsCount:0
+                },
+                sortingData: { sort: "desc", sortBy: "desc" },
+                data: []
             };
 
             //lifecycle hooks
             componentDidMount() {
                 const getDataTable = this.props.getDataTable;
                 //
-                getDataTable(this.title);
+                getDataTable();
             }
 
             //handlers
@@ -96,47 +114,47 @@ const СreateTable = ({
             handleChangePage = (event, page) => {
                 const {
                     getDataTable,
-                    changePagination,
-                    paginationData
+                    pagination
                 } = this.props;
-                changePagination({ ...paginationData, currentPage: page })
-                getDataTable()
+
+                getDataTable(page, pagination.elementsPerPage);
             };
+
+            handleChangeRowsPerPage = () => {};
 
             handleChangeRowsPerPage = event => {
                 const {
                     getDataTable,
-                    changePagination,
-                    paginationData
+                    pagination
                 } = this.props;
-                changePagination({
-                    ...paginationData,
-                    elementsPerPage: event.target.value
-                });
-                getDataTable();
+
+                getDataTable(pagination.currentPage, event.target.value);
             };
 
             handleDeleteButtonClick = id => {
-                const deleteDataTable = this.props.deleteDataTable;
-                deleteDataTable(id);
+                //const deleteDataTable = this.props.deleteDataTable;
+                //deleteDataTable(id);
+                id.x = 'x';
             };
 
-            handleSortByHeaderClick = sortColumnId => {
-                const { sortingData, changeSorting } = this.props;
-                let newOrder = SortingActions.SORT_DESC;
+            handleSortByHeaderClick = () => {};
 
-                if (
-                    sortingData.sortBy === sortColumnId &&
-                    sortingData.sort === SortingActions.SORT_DESC
-                )
-                    newOrder = SortingActions.SORT_ASC;
+            // handleSortByHeaderClick = sortColumnId => {
+            //     const { sortingData, changeSorting } = this.props;
+            //     let newOrder = SortingActions.SORT_DESC;
 
-                const newData = this.sortData(sortColumnId, newOrder);
-                changeSorting(
-                    { sort: newOrder, sortBy: sortColumnId },
-                    newData
-                );
-            };
+            //     if (
+            //         sortingData.sortBy === sortColumnId &&
+            //         sortingData.sort === SortingActions.SORT_DESC
+            //     )
+            //         newOrder = SortingActions.SORT_ASC;
+
+            //     const newData = this.sortData(sortColumnId, newOrder);
+            //     changeSorting(
+            //         { sort: newOrder, sortBy: sortColumnId },
+            //         newData
+            //     );
+            // };
 
             sortData = (sortColumnId, order) => {
                 const data = this.props.data;
@@ -155,22 +173,22 @@ const СreateTable = ({
             render() {
                 const {
                     classes,
-                    paginationData,
+                    pagination,
                     data,
                     sortingData,
-                    updateDataTable,
-                    createDataTable
+                    // updateDataTable,
+                    // createDataTable
                 } = this.props;
-                const {
-                    modalWindowInfoIsOpening,
-                    modalWindowChangingIsOpening,
-                    updatingDataItem
-                } = this.state;
+                // const {
+                //     modalWindowInfoIsOpening,
+                //     modalWindowChangingIsOpening,
+                //     updatingDataItem
+                // } = this.state;
                 const {
                     currentPage,
                     elementsPerPage,
                     elementsCount
-                } = paginationData;
+                } = pagination;
 
                 //Вычисление пустых строк для заполнения таблицы
                 const emptyRows = isNeedFillEmptyRow
@@ -180,7 +198,7 @@ const СreateTable = ({
                         elementsCount - currentPage * elementsPerPage
                     )
                     : 0;
-
+                    console.log(this.props);
                 //отрисовка футера таблицы
                 const tableFooter = !isNeedTableFooter ? null : (
                     <TableRow>
@@ -207,7 +225,9 @@ const СreateTable = ({
                     </TableRow>
                 );
 
-                const { tableHeaders, fieldNames, titleTable } = dataFiledsInfo;
+                const { tableHeaders, 
+                    // fieldNames, 
+                    titleTable } = dataFiledsInfo;
                 return (
                     <>
                         <Paper className={classes.root}>
@@ -247,7 +267,7 @@ const СreateTable = ({
                             </Table>
                         </Paper>
 
-                        {/*Модальные окна*/}
+                        {/* Модальные окна
                         <InformationModalWindow
                             open={modalWindowInfoIsOpening}
                             formData={updatingDataItem}
@@ -272,7 +292,7 @@ const СreateTable = ({
                             data={updatingDataItem}
                             cancel={this.handleCloseChangeModalWindow}
                             DialogBodyComponent={DialogBodyComponent}
-                        />
+                        /> */}
                     </>
                 );
             }

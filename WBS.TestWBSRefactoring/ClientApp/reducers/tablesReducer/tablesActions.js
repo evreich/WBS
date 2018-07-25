@@ -1,12 +1,13 @@
-import TYPE from './actionsTypes'
-import { request } from '../../api/api';
+import TYPE from './actionsTypes';
+import request from '../../utils/fetchUtil';
 import REQUEST_METHOD from '../../settings/httpMethods';
 
 
-export function receiveTable(data) {
+export function receiveTable(data, title) {
     return {
         type: TYPE.GET_TABLE_SUCCESS,
-        ...data
+        title,
+        data
     }
 }
 
@@ -17,7 +18,7 @@ export function errorsReceive(err) {
     }
 }
 
-export function getTable(pageIndex = 1, pageSize = 4, route) {
+export function getTable(currentPage = 0, elementsPerPage = 5, route, title) {
     return (dispatch) => {
 
         if (!route) throw new Error("Can't resolve URI");
@@ -25,9 +26,13 @@ export function getTable(pageIndex = 1, pageSize = 4, route) {
         request(
             {
                 method: REQUEST_METHOD.HTTP_GET,
-                route: route + `${pageIndex}/${pageSize}`,
+                route: route + `${currentPage}/${elementsPerPage}`,
             }, 
-            (data) => dispatch(receiveTable(data)),
+            (data) => {
+                if(!title) throw new Error("Title is undefined");
+
+                dispatch(receiveTable(data, title))
+            },
             (ex) => dispatch(errorsReceive(ex))
         );
 

@@ -3,9 +3,10 @@
 }
 
 <script>
+    const groot = "http://localhost:50120/api";
     document.api = {
-        auth: 'http://localhost:50120/api/auth/login',
-
+        auth: `${groot}/auth/login`,
+        categoriesOfEquipment: `${groot}/CategoriesOfEquipment/`,
     };
 </script>
 

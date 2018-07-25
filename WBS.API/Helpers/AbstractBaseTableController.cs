@@ -23,7 +23,7 @@ namespace WBS.API.Helpers
             _logger = logger;
         }
         
-        [HttpGet]
+        [HttpGet("{currentPage}/{pageSize}")]
         [Authorize]
         public virtual IActionResult Get(int currentPage = 0, int pageSize = 5) 
         {

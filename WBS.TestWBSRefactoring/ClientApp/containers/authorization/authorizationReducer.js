@@ -5,7 +5,6 @@ import SETTINGS from '../../settings/settings';
 const initialState = getItem(SETTINGS.AUTH_KEY) || {};
 
 export const reducer = (state = initialState, action) => {
-    console.log(action);
     switch (action.type) {
         case TYPE.GET_AUTH_TOKEN_SUCCESS:
             setItem(SETTINGS.AUTH_KEY, action.payload);
