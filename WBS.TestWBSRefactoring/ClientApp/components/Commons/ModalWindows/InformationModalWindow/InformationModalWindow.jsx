@@ -21,8 +21,10 @@ class InformationModalWindow extends React.PureComponent {
         handleUpdateButtonClick: PropTypes.func,
         formFieldNames: PropTypes.array.isRequired,
         open: PropTypes.bool.isRequired,
+        onExited: PropTypes.func,
         classes: PropTypes.object.isRequired
     };
+ 
 
     handleDeleteButtonClick = () => {
         const {
@@ -40,12 +42,12 @@ class InformationModalWindow extends React.PureComponent {
     };
 
     render() {
-        const { formData, cancel, formFieldNames, open, classes } = this.props;
+        const { formData, cancel, formFieldNames, open, classes, onExited } = this.props;
         const firstPropOfObj = formFieldNames[0];
         const otherPropsOfObj = formFieldNames.slice(1);
 
         return (
-            <Dialog open={open} onClose={cancel} maxWidth={false}>
+            <Dialog open={open} onExited={onExited} onClose={cancel} maxWidth={false}>
                 <DialogTitle
                     className={classes.dialogTitle}
                     id="form-dialog-title"

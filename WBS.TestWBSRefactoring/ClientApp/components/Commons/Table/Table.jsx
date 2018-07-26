@@ -94,7 +94,12 @@ const СreateTable = ({
             handleCloseInformationModalWindow = () => {
                 this.setState({
                     modalWindowInfoIsOpening: false,
-                    updatingDataItem: {}
+                });
+            };
+
+            handleExitInformationModalWindow = () => {
+                this.setState({
+                    updatingDataItem: null
                 });
             };
 
@@ -113,8 +118,6 @@ const СreateTable = ({
 
                 getDataTable(page, pagination.elementsPerPage);
             };
-
-            handleChangeRowsPerPage = () => { };
 
             handleChangeRowsPerPage = event => {
                 const {
@@ -221,8 +224,10 @@ const СreateTable = ({
                 );
 
                 const {
-                    tableHeaders,
-                    fieldNames,
+                    infoWindowModel,
+                    createWindowFields, 
+                    editWindowFields,
+                    tableHeaders, 
                     titleTable
                 } = dataFiledsInfo;
 
@@ -267,9 +272,10 @@ const СreateTable = ({
                         {/* Модальные окна */}
                         <InformationModalWindow
                             open={modalWindowInfoIsOpening}
+                            onExited={this.handleExitInformationModalWindow}
                             formData={updatingDataItem}
                             cancel={this.handleCloseInformationModalWindow}
-                            formFieldNames={Object.values(fieldNames)}
+                            formFieldNames={Object.values(infoWindowModel)}
                             handleDeleteButtonClick={
                                 this.handleDeleteButtonClick
                             }
@@ -281,6 +287,7 @@ const СreateTable = ({
                         <ChangeItemModalWindow
                             open={modalWindowChangingIsOpening}
                             save={changeData}
+                            formFields={updatingDataItem ? editWindowFields : createWindowFields }
                             data={updatingDataItem}
                             cancel={this.handleCloseChangeModalWindow}
                             DialogBodyComponent={DialogBodyComponent}

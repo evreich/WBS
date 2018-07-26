@@ -4,32 +4,29 @@ import PropTypes from "prop-types";
 import TextFieldMultiline from "../Commons/TextFields/TextFieldMultiline";
 import TextFieldSelect from "../Commons/TextFields/TextFieldSelect";
 import TextFieldPlaceholder from "../Commons/TextFields/TextFieldPlaceholder";
-import { fieldNames } from "./DataFieldsInfo";
 import { getCategoryGroups } from "./dialogBodyAPI";
 
 class CategoriesOfEquipmentDialogBody extends React.PureComponent {
     constructor(props) {
         super(props);
-        const {
-            categoryGroupId,
-            code,
-            title,
-            depreciationPeriod
-        } = fieldNames;
+        const fields = Object.values(props.formFields).reduce((fieldsInitObj, currField) => ({
+                ...fieldsInitObj,
+                [currField.id]: ''
+            })
+        , {});
+
         this.state = {
             id: 0,
-            [categoryGroupId.id]: 0,
-            [code.id]: "",
-            [title.id]: "",
-            [depreciationPeriod.id]: "",
-            categoryGroups: []
+            categoryGroups: [],
+            ...fields
         };
     }
 
     static propTypes = {
         errors: PropTypes.object,
         data: PropTypes.any.isRequired,
-        onRef: PropTypes.func.isRequired
+        onRef: PropTypes.func.isRequired,
+        formFields: PropTypes.object
     };
 
     //lifecycles
@@ -64,14 +61,14 @@ class CategoriesOfEquipmentDialogBody extends React.PureComponent {
     };
 
     render() {
-        const { errors } = this.props;
+        const { errors, formFields } = this.props;
         const { categoryGroupId, code, title, depreciationPeriod, categoryGroups } = this.state;
         const {
             categoryGroupId: categoryName,
             code: codeName,
             title: titleName,
             depreciationPeriod: periodName
-        } = fieldNames;
+        } = formFields;
 
         return (
             <>

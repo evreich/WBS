@@ -2,7 +2,7 @@ import { TypesOfColumnData } from "../../constants";
 
 //Cвойства объекта должны соответствовать свойствам данных,
 //получаемых с сервера
-export const fieldNames = {
+const commonFields = {
     categoryGroupId: {
         id: "categoryGroupId",
         label: "Группа категории"
@@ -25,25 +25,49 @@ export const fieldNames = {
     }
 };
 
+const createWindowFields = {
+    [commonFields.categoryGroupId.id]: commonFields.categoryGroupId,
+    [commonFields.code.id]: commonFields.code,
+    [commonFields.title.id]: commonFields.title,
+    [commonFields.depreciationPeriod.id]: commonFields.depreciationPeriod,
+}
+
+const editWindowFields = {
+    ...createWindowFields
+}
+
+const infoWindowModel = {
+    [commonFields.categoryGroupTitle.id]: commonFields.categoryGroupTitle,
+    [commonFields.code.id]: commonFields.code,
+    [commonFields.title.id]: commonFields.title,
+    [commonFields.depreciationPeriod.id]: commonFields.depreciationPeriod,
+}
+
 const tableHeaders = {
-    [fieldNames.categoryGroupTitle.id]: {
-        ...fieldNames.categoryGroupTitle,
+    [commonFields.categoryGroupTitle.id]: {
+        ...commonFields.categoryGroupTitle,
         type: TypesOfColumnData.NUMBER
     },
-    [fieldNames.code.id]: {
-        ...fieldNames.code,
+    [commonFields.code.id]: {
+        ...commonFields.code,
         type: TypesOfColumnData.STRING
     },
-    [fieldNames.title.id]: {
-        ...fieldNames.title,
+    [commonFields.title.id]: {
+        ...commonFields.title,
         type: TypesOfColumnData.STRING
     },
-    [fieldNames.depreciationPeriod.id]: {
-        ...fieldNames.depreciationPeriod,
+    [commonFields.depreciationPeriod.id]: {
+        ...commonFields.depreciationPeriod,
         type: TypesOfColumnData.DATE
     }
 };
 
 const titleTable = "Категории оборудования";
 
-export default { fieldNames, tableHeaders, titleTable };
+export default { 
+    createWindowFields, 
+    editWindowFields, 
+    infoWindowModel, 
+    tableHeaders, 
+    titleTable 
+};
