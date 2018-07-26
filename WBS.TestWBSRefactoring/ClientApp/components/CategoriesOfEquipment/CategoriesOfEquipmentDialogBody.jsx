@@ -1,9 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
+
 import TextFieldMultiline from "../Commons/TextFields/TextFieldMultiline";
 import TextFieldSelect from "../Commons/TextFields/TextFieldSelect";
 import TextFieldPlaceholder from "../Commons/TextFields/TextFieldPlaceholder";
 import { fieldNames } from "./DataFieldsInfo";
+import { getCategoryGroups } from "./dialogBodyAPI";
 
 class CategoriesOfEquipmentDialogBody extends React.PureComponent {
     constructor(props) {
@@ -19,13 +21,12 @@ class CategoriesOfEquipmentDialogBody extends React.PureComponent {
             [categoryGroupId.id]: 0,
             [code.id]: "",
             [title.id]: "",
-            [depreciationPeriod.id]: ""
+            [depreciationPeriod.id]: "",
+            categoryGroups: []
         };
     }
 
     static propTypes = {
-        getGroupsForSelect: PropTypes.func,
-        groups: PropTypes.array.isRequired,
         errors: PropTypes.object,
         data: PropTypes.any.isRequired,
         onRef: PropTypes.func.isRequired
@@ -36,12 +37,22 @@ class CategoriesOfEquipmentDialogBody extends React.PureComponent {
         return nextProps && nextProps.data ? { ...nextProps.data } : null;
     }
 
+    setCategoryGroups = (data) => {
+        this.setState({
+            categoryGroups: data
+        });
+    }
+
+    showError = () => {
+
+    }
+
     componentDidMount() {
-        const { getGroupsForSelect, onRef } = this.props;
+        const onRef = this.props.onRef;
         //связываем с родительским компонентом,
         //чтобы он имел доступ к методам дочернего компонента
         onRef(this);
-        getGroupsForSelect();
+        getCategoryGroups(this.setCategoryGroups, this.showError);
     }
 
     getDataToSave = () => this.state;
@@ -53,8 +64,8 @@ class CategoriesOfEquipmentDialogBody extends React.PureComponent {
     };
 
     render() {
-        const { errors, groups } = this.props;
-        const { categoryGroupId, code, title, depreciationPeriod } = this.state;
+        const { errors } = this.props;
+        const { categoryGroupId, code, title, depreciationPeriod, categoryGroups } = this.state;
         const {
             categoryGroupId: categoryName,
             code: codeName,
@@ -73,8 +84,8 @@ class CategoriesOfEquipmentDialogBody extends React.PureComponent {
                         fullWidth: true
                     }}
                     items={
-                        groups &&
-                        groups.map(elem => ({
+                        categoryGroups &&
+                        categoryGroups.map(elem => ({
                             value: elem.id,
                             text: elem.title
                         }))
@@ -85,7 +96,7 @@ class CategoriesOfEquipmentDialogBody extends React.PureComponent {
                         name: codeName.id,
                         label: codeName.label,
                         value: code,
-                        type: "number",
+                        type: "text",
                         onChange: this.handleChange,
                         fullWidth: true
                     }}

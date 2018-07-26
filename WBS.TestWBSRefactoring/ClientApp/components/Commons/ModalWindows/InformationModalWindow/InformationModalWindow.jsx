@@ -53,46 +53,48 @@ class InformationModalWindow extends React.PureComponent {
                     <div>Информационное окно</div>
                 </DialogTitle>
                 <DialogContent>
-                    <div className={classes.dialogContent}>
-                        <table border="0" cellPadding="5" cellSpacing="0">
-                            <tbody>
-                                <tr className={classes.row}>
-                                    <td>{firstPropOfObj.label}</td>
-                                    <td>
-                                        <div className={classes.cellValue}>
-                                            {formData[firstPropOfObj.id]}
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <ButtonDelete
-                                            className={classes.deleteButton}
-                                            onClick={
-                                                this.handleDeleteButtonClick
-                                            }
-                                            size={"small"}
-                                        />
-                                        <ButtonUpdate
-                                            onClick={
-                                                this.handleUpdateButtonClick
-                                            }
-                                            size={"small"}
-                                        />
-                                    </td>
-                                </tr>
-                                {otherPropsOfObj.map(elem => (
-                                    <tr className={classes.row} key={elem.id}>
-                                        <td>{elem.label}</td>
+                    {formData &&
+                        <div className={classes.dialogContent}>
+                            <table border="0" cellPadding="5" cellSpacing="0">
+                                <tbody>
+                                    <tr className={classes.row}>
+                                        <td>{firstPropOfObj.label}</td>
                                         <td>
                                             <div className={classes.cellValue}>
-                                                {formData[elem.id]}
+                                                {formData[firstPropOfObj.id]}
                                             </div>
                                         </td>
-                                        <td />
+                                        <td>
+                                            <ButtonDelete
+                                                className={classes.deleteButton}
+                                                onClick={
+                                                    this.handleDeleteButtonClick
+                                                }
+                                                size={"small"}
+                                            />
+                                            <ButtonUpdate
+                                                onClick={
+                                                    this.handleUpdateButtonClick
+                                                }
+                                                size={"small"}
+                                            />
+                                        </td>
                                     </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                    </div>
+                                    {otherPropsOfObj.map(elem => (
+                                        <tr className={classes.row} key={elem.id}>
+                                            <td>{elem.label}</td>
+                                            <td>
+                                                <div className={classes.cellValue}>
+                                                    {formData[elem.id]}
+                                                </div>
+                                            </td>
+                                            <td />
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    }
                     <DialogActions>
                         <Button
                             onClick={cancel}

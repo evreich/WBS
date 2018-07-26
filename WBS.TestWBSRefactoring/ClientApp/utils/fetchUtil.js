@@ -19,6 +19,7 @@ function ConvertData(contentType, data){
 }
 
 function checkStatus(response) { 
+
     if (response.ok) return Promise.resolve(response.json());
 
     return response.json()

@@ -1,13 +1,16 @@
 import React from "react";
 import PropTypes from "prop-types";
+
 import Dialog, {
     DialogActions,
     DialogContent,
     DialogTitle
 } from "material-ui/Dialog";
 import Button from "material-ui/Button";
-import styles from './ChangeItemModalWindow.css'
 import { withStyles } from 'material-ui/styles';
+
+import styles from './ChangeItemModalWindow.css';
+import HTTP_METHOD from '../../../../settings/httpMethods';
 
 class ChangeItemModalWindow extends React.Component {
     constructor(props) {
@@ -18,20 +21,23 @@ class ChangeItemModalWindow extends React.Component {
     static propTypes = {
         cancel: PropTypes.func.isRequired,
         save: PropTypes.func.isRequired,
-        getGroupsForSelect: PropTypes.func,
-        groups: PropTypes.array,
         error: PropTypes.object,
         open: PropTypes.bool.isRequired,
         data: PropTypes.any,
         DialogBodyComponent: PropTypes.func.isRequired,
-        classes: PropTypes.object 
+        classes: PropTypes.object,
+        currentPage: PropTypes.number,
+        elementsPerPage: PropTypes.number 
     };
 
     onSaveButtonClick = () => {
         const values = this.dialogContent.getDataToSave();
-        const { save, cancel } = this.props;
+        const { save, cancel, data, currentPage, elementsPerPage } = this.props;
+
         if(values) {
-            save(values);
+            let method = data ? HTTP_METHOD.HTTP_PUT : HTTP_METHOD.HTTP_POST;
+
+            save(currentPage, elementsPerPage, method, values);
             cancel(values);
         }
     };

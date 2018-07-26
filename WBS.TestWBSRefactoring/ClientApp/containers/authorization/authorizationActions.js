@@ -2,7 +2,6 @@ import TYPE from './authorizationActionsTypes';
 import request from '../../utils/fetchUtil';
 import REQUEST_METHOD from '../../settings/httpMethods.js';
 
-
 const api = document.api;
 
 export function receiveToken(data) {

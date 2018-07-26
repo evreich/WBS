@@ -32,7 +32,7 @@ const tableHeaders = {
     },
     [fieldNames.code.id]: {
         ...fieldNames.code,
-        type: TypesOfColumnData.NUMBER
+        type: TypesOfColumnData.STRING
     },
     [fieldNames.title.id]: {
         ...fieldNames.title,

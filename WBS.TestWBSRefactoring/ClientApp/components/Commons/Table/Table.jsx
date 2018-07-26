@@ -37,17 +37,8 @@ const СreateTable = ({
                 this.state = {
                     modalWindowInfoIsOpening: false,
                     modalWindowChangingIsOpening: false,
-                    updatingDataItem: {},
+                    updatingDataItem: null,
                 };
-
-                //!!!!!!!!!
-                const x = {
-                    DialogBodyComponent: DialogBodyComponent,
-                    InformationModalWindow: InformationModalWindow,
-                    ChangeItemModalWindow: ChangeItemModalWindow
-                };
-                //!!!!!!!!!
-                delete x.DialogBodyComponent;
 
                 this.sortingData = { sort: SortingActions.SORT_DESC, sortBy: '' };
             }
@@ -56,22 +47,18 @@ const СreateTable = ({
                 classes: PropTypes.object.isRequired,
                 getDataTable: PropTypes.func.isRequired,
                 clearTable: PropTypes.func.isRequired,
-                updateTable: PropTypes.func.isRequired, 
-                // deleteDataTable: PropTypes.func.isRequired,
-                // createDataTable: PropTypes.func.isRequired,
-                // updateDataTable: PropTypes.func.isRequired,
-                // changeSorting: PropTypes.func.isRequired,
-                // setUpdatingItem: PropTypes.func.isRequired,
+                updateTable: PropTypes.func.isRequired,
+                changeData: PropTypes.func.isRequired,
                 data: PropTypes.array.isRequired,
-                sortingData: PropTypes.object.isRequired,
-                pagination: PropTypes.object.isRequired
+                pagination: PropTypes.object.isRequired,
+                deleteData: PropTypes.func.isRequired
             };
 
             static defaultProps = {
                 pagination: {
                     currentPage: 0,
                     elementsPerPage: 5,
-                    elementsCount:0
+                    elementsCount: 0
                 },
                 data: []
             };
@@ -79,11 +66,10 @@ const СreateTable = ({
             //lifecycle hooks
             componentDidMount() {
                 const getDataTable = this.props.getDataTable;
-                //
                 getDataTable();
             }
 
-            componentWillUnmount(){
+            componentWillUnmount() {
                 const clearTable = this.props.clearTable;
                 clearTable();
             }
@@ -128,7 +114,7 @@ const СreateTable = ({
                 getDataTable(page, pagination.elementsPerPage);
             };
 
-            handleChangeRowsPerPage = () => {};
+            handleChangeRowsPerPage = () => { };
 
             handleChangeRowsPerPage = event => {
                 const {
@@ -140,9 +126,12 @@ const СreateTable = ({
             };
 
             handleDeleteButtonClick = id => {
-                //const deleteDataTable = this.props.deleteDataTable;
-                //deleteDataTable(id);
-                id.x = 'x';
+                const {
+                    pagination,
+                    deleteData 
+                } = this.props;
+
+                deleteData(pagination.currentPage, pagination.elementsPerPage, id);
             };
 
             handleSortByHeaderClick = sortColumnId => {
@@ -158,7 +147,7 @@ const СreateTable = ({
                     newOrder = SortingActions.SORT_ASC;
 
                 const newData = this.sortData(sortColumnId, newOrder);
-           
+
                 this.sortingData = { sort: newOrder, sortBy: sortColumnId };
                 updateTable(newData);
             };
@@ -183,14 +172,13 @@ const СreateTable = ({
                     classes,
                     pagination,
                     data,
-                    // updateDataTable,
-                    // createDataTable
+                    changeData
                 } = this.props;
-                // const {
-                //     modalWindowInfoIsOpening,
-                //     modalWindowChangingIsOpening,
-                //     updatingDataItem
-                // } = this.state;
+                const {
+                    modalWindowInfoIsOpening,
+                    modalWindowChangingIsOpening,
+                    updatingDataItem
+                } = this.state;
                 const {
                     currentPage,
                     elementsPerPage,
@@ -232,9 +220,11 @@ const СreateTable = ({
                     </TableRow>
                 );
 
-                const { tableHeaders, 
-                    // fieldNames, 
-                    titleTable } = dataFiledsInfo;
+                const {
+                    tableHeaders,
+                    fieldNames,
+                    titleTable
+                } = dataFiledsInfo;
 
                 return (
                     <>
@@ -262,8 +252,7 @@ const СreateTable = ({
                                                 )}
                                                 classes={classes}
                                                 handleInfoButtonClick={
-                                                    this
-                                                        .handleOpenInformationModalWindow
+                                                    this.handleOpenInformationModalWindow
                                                 }
                                             />
                                         ))}
@@ -275,7 +264,7 @@ const СreateTable = ({
                             </Table>
                         </Paper>
 
-                        {/* Модальные окна
+                        {/* Модальные окна */}
                         <InformationModalWindow
                             open={modalWindowInfoIsOpening}
                             formData={updatingDataItem}
@@ -291,16 +280,13 @@ const СreateTable = ({
 
                         <ChangeItemModalWindow
                             open={modalWindowChangingIsOpening}
-                            save={
-                                Object.getOwnPropertyNames(updatingDataItem)
-                                    .length !== 0 && updatingDataItem.id
-                                    ? updateDataTable
-                                    : createDataTable
-                            }
+                            save={changeData}
                             data={updatingDataItem}
                             cancel={this.handleCloseChangeModalWindow}
                             DialogBodyComponent={DialogBodyComponent}
-                        /> */}
+                            currentPage={currentPage}
+                            elementsPerPage={elementsPerPage}
+                        />
                     </>
                 );
             }

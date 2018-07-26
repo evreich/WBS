@@ -22,8 +22,9 @@ export const reducer = (state = initialState, action) => {
             };
         }
         case TYPE.UPDATE_TABLE: {
-            state[action.title].data = action.data;
-            return Object.assign({}, state);
+            let newState = Object.assign({}, state);
+            newState[action.title].data = action.data;
+            return newState;
         }
         default:
             return state;
