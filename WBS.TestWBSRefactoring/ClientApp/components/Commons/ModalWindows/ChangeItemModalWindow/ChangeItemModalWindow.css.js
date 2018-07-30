@@ -14,6 +14,6 @@ const styles = () => ({
         color: "white",
         background: "red",
         "&:hover": { background: "#b50606", backgroundClip: 'padding-box' }
-    }
+    },
 });
 export default styles;

@@ -16,7 +16,7 @@ import { withStyles } from "material-ui/styles";
 class InformationModalWindow extends React.PureComponent {
     static propTypes = {
         cancel: PropTypes.func,
-        formData: PropTypes.object.isRequired,
+        formData: PropTypes.object,
         handleDeleteButtonClick: PropTypes.func,
         handleUpdateButtonClick: PropTypes.func,
         formFieldNames: PropTypes.array.isRequired,

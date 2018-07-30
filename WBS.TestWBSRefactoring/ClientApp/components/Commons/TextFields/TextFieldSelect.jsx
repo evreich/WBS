@@ -24,7 +24,8 @@ const TextFieldSelect = (props) => {
                         disableEnforceFocus: true
                     },
                 }}
-                select         
+                select 
+                style={{ display: "flex"}}          
             >
                 {items && items.map((item) =>
                     <MenuItem key={item.value} value={item.value}>

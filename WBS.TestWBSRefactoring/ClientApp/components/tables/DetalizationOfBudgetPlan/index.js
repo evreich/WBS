@@ -1,0 +1,2 @@
+import DetalizatiobOfBudgetPlan from './DetalizationOfBudgetPlan'
+export default DetalizatiobOfBudgetPlan

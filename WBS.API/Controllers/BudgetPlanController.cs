@@ -32,7 +32,7 @@ namespace WBS.API.Controllers
             _budgetPlanDAL = budgetPlanDAL;
         }
 
-        [HttpGet]
+        [HttpGet("{currentPage}/{pageSize}")]
         [Authorize]
         public override IActionResult Get(int currentPage = 0, int pageSize = 5)
         {

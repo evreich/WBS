@@ -51,7 +51,7 @@ const СreateTable = ({
                 changeData: PropTypes.func.isRequired,
                 data: PropTypes.array.isRequired,
                 pagination: PropTypes.object.isRequired,
-                deleteData: PropTypes.func.isRequired
+                deleteData: PropTypes.func
             };
 
             static defaultProps = {

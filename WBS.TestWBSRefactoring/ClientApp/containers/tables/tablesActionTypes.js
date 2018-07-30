@@ -1,0 +1,8 @@
+const types = {
+    GET_TABLE_SUCCESS: 'GET_TABLE_SUCCESS',
+    GET_TABLE_ERROR:   'GET_TABLE_ERROR',
+    CLEAR_TABLE: 'CLEAR_TABLE',
+    UPDATE_TABLE: 'UPDATE_TABLE'
+};
+
+export default types;

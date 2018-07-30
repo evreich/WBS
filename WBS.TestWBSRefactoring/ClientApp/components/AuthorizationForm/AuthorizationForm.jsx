@@ -66,7 +66,8 @@ class AuthorizationFormComponent extends Component {
                                             type: "text",
                                             placeholder: "Введите логин",
                                             label: "Логин",
-                                            onChange: this.handleChange
+                                            onChange: this.handleChange,
+                                            fullWidth: true
                                         }}
                                     />
                                     <TextFieldPlaceholder
@@ -75,7 +76,8 @@ class AuthorizationFormComponent extends Component {
                                             type: "password",
                                             placeholder: "Введите пароль",
                                             label: "Пароль",
-                                            onChange: this.handleChange
+                                            onChange: this.handleChange,
+                                            fullWidth: true
                                         }}
                                     />
                                     {error && (

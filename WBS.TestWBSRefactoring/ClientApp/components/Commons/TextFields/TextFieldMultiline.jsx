@@ -9,6 +9,7 @@ const TextFieldMultiline = props => {
         <TextField
             {...muProps}
             multiline
+            style={{ display: "flex"}}  
             rows={muProps && muProps.rows ? muProps.rows : 1}
             className={styles.textField}
             margin="normal"

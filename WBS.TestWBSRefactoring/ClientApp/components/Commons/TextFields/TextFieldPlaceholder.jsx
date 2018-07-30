@@ -14,6 +14,7 @@ const TextFieldPlaceholder = props => {
             InputLabelProps={{
                 shrink: true
             }}
+            style={{ display: "flex"}}        
         />
     );
 };
