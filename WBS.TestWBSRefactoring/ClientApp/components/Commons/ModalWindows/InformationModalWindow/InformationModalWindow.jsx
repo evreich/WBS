@@ -37,8 +37,8 @@ class InformationModalWindow extends React.PureComponent {
     };
 
     handleUpdateButtonClick = () => {
-        const { formData, handleUpdateButtonClick } = this.props;
-        handleUpdateButtonClick(formData);
+        const { handleUpdateButtonClick } = this.props;
+        handleUpdateButtonClick();
     };
 
     render() {
@@ -63,7 +63,7 @@ class InformationModalWindow extends React.PureComponent {
                                         <td>{firstPropOfObj.label}</td>
                                         <td>
                                             <div className={classes.cellValue}>
-                                                {formData[firstPropOfObj.id]}
+                                                {formData[firstPropOfObj.propName]}
                                             </div>
                                         </td>
                                         <td>
@@ -83,11 +83,11 @@ class InformationModalWindow extends React.PureComponent {
                                         </td>
                                     </tr>
                                     {otherPropsOfObj.map(elem => (
-                                        <tr className={classes.row} key={elem.id}>
+                                        <tr className={classes.row} key={elem.propName}>
                                             <td>{elem.label}</td>
                                             <td>
                                                 <div className={classes.cellValue}>
-                                                    {formData[elem.id]}
+                                                    {formData[elem.propName]}
                                                 </div>
                                             </td>
                                             <td />

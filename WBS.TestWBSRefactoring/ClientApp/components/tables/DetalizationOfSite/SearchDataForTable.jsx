@@ -14,9 +14,13 @@ import { withStyles } from "material-ui/styles";
 
 import TextFieldSelect from "../../Commons/TextFields/TextFieldSelect";
 import TextFieldPlaceholder from "../../Commons/TextFields/TextFieldPlaceholder";
-import monthsForSelect from '../../../constants/monthsConstants';
+import monthsForSelect from "../../../constants/monthsConstants";
 import { styles } from "../../Commons/Table/TableStyles.css";
-import { getResultCentres, getTypesOfInvestment, getGroupCategories } from '../helpersAPI';
+import {
+    getResultCentres,
+    getTypesOfInvestment,
+    getCategoryGroups
+} from "../helpersAPI";
 
 class SearchDataForTable extends React.PureComponent {
     constructor(props) {
@@ -34,41 +38,39 @@ class SearchDataForTable extends React.PureComponent {
         };
     }
     static propTypes = {
-        classes: PropTypes.object.isRequired,
+        classes: PropTypes.object.isRequired
     };
 
     componentDidMount() {
-        getTypesOfInvestment();
-        getResultCentres();
-        getGroupCategories();
+        getTypesOfInvestment(this.setTypesOfInvestment, this.showError);
+        getResultCentres(this.setResultCentres, this.showError);
+        getCategoryGroups(this.setCategoryGroups, this.showError);
     }
-    //TODO: реализовать обраьотчики на кнопки Поиск, Очистка, Экспорт в Excel
-    setCategoryGroups = (data) => {
+
+    setCategoryGroups = data => {
         this.setState({
             categoryGroups: data
         });
-    }
+    };
 
-    setResultCentres = (data) => {
+    setResultCentres = data => {
         this.setState({
             resultCentres: data
         });
-    }
+    };
 
-    setTypesOfInvestment = (data) => {
+    setTypesOfInvestment = data => {
         this.setState({
             typesOfInvestment: data
         });
-    }
+    };
 
-    showError = () => {
+    showError = () => {};
 
-    }
- 
+    //TODO: реализовать обраьотчики на кнопки Поиск, Очистка, Экспорт в Excel
+
     render() {
-        const {
-            classes
-        } = this.props;
+        const { classes } = this.props;
         const {
             resultCentres,
             typesOfInvestment,
@@ -87,22 +89,22 @@ class SearchDataForTable extends React.PureComponent {
                         Поиск строк бюджетного плана
                     </Typography>
                 </ExpansionPanelSummary>
-                <ExpansionPanelDetails>
-                    <div style={{flexBasis: '50%'}}>
+                <ExpansionPanelDetails style={{justifyContent: 'space-between'}}>
+                    <div style={{ flexBasis: "50%" }}>
                         <TextFieldSelect
-                        muProps={{
-                            name: "selectedResultCenter",
-                            value: selectedResultCenter,
-                            label: "Центр результатов",
-                            onChange: this.handleChange
-                        }}
-                        items={
-                            resultCentres &&
-                            resultCentres.map(r => ({
-                                value: r.id,
-                                text: r.title
-                            }))
-                        }
+                            muProps={{
+                                name: "selectedResultCenter",
+                                value: selectedResultCenter,
+                                label: "Центр результатов",
+                                onChange: this.handleChange
+                            }}
+                            items={
+                                resultCentres &&
+                                resultCentres.map(r => ({
+                                    value: r.id,
+                                    text: r.title
+                                }))
+                            }
                         />
 
                         <TextFieldSelect
@@ -137,7 +139,7 @@ class SearchDataForTable extends React.PureComponent {
                             }
                         />
                     </div>
-                    <div style={{flexBasis: '50%'}}>
+                    <div>
                         <TextFieldPlaceholder
                             muProps={{
                                 name: "selectedCategory",

@@ -11,7 +11,7 @@ const CommonTableRow = props => {
             onClick={() => handleInfoButtonClick(row)}
         >
             {displayedColumns && displayedColumns.map(elem => (
-                <TableCell key={elem.id} className={classes.cell}>{row[elem.id]}</TableCell>
+                <TableCell key={elem.propName} className={classes.cell}>{row[elem.propName]}</TableCell>
             ))}
         </TableRow>
     );

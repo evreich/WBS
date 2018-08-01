@@ -1,7 +1,7 @@
 const transformFieldsToState = (fields) => 
     fields.reduce((fieldsInitObj, currField) => ({
         ...fieldsInitObj,
-        [currField.id]: ''
+        [currField.propName]: ''
     })
     , {});
 

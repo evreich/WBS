@@ -4,32 +4,32 @@ import { TypesOfColumnData } from "../../../constants";
 //получаемых с сервера
 const commonFields = {
     categoryGroupId: {
-        id: "categoryGroupId",
+        propName: "categoryGroupId",
         label: "Группа категории"
     },
     categoryGroupTitle: {
-        id: "categoryGroupTitle",
+        propName: "categoryGroupTitle",
         label: "Группа категории"
     },
     code: {
-        id: "code",
+        propName: "code",
         label: "Код"
     },
     title: {
-        id: "title",
+        propName: "title",
         label: "Название"
     },
     depreciationPeriod: {
-        id: "depreciationPeriod",
+        propName: "depreciationPeriod",
         label: "Амортизация, лет."
     }
 };
 
 const createWindowFields = {
-    [commonFields.categoryGroupId.id]: commonFields.categoryGroupId,
-    [commonFields.code.id]: commonFields.code,
-    [commonFields.title.id]: commonFields.title,
-    [commonFields.depreciationPeriod.id]: commonFields.depreciationPeriod,
+    [commonFields.categoryGroupId.propName]: commonFields.categoryGroupId,
+    [commonFields.code.propName]: commonFields.code,
+    [commonFields.title.propName]: commonFields.title,
+    [commonFields.depreciationPeriod.propName]: commonFields.depreciationPeriod,
 }
 
 const editWindowFields = {
@@ -37,26 +37,26 @@ const editWindowFields = {
 }
 
 const infoWindowModel = {
-    [commonFields.categoryGroupTitle.id]: commonFields.categoryGroupTitle,
-    [commonFields.code.id]: commonFields.code,
-    [commonFields.title.id]: commonFields.title,
-    [commonFields.depreciationPeriod.id]: commonFields.depreciationPeriod,
+    [commonFields.categoryGroupTitle.propName]: commonFields.categoryGroupTitle,
+    [commonFields.code.propName]: commonFields.code,
+    [commonFields.title.propName]: commonFields.title,
+    [commonFields.depreciationPeriod.propName]: commonFields.depreciationPeriod,
 }
 
 const tableHeaders = {
-    [commonFields.categoryGroupTitle.id]: {
+    [commonFields.categoryGroupTitle.propName]: {
         ...commonFields.categoryGroupTitle,
         type: TypesOfColumnData.STRING
     },
-    [commonFields.code.id]: {
+    [commonFields.code.propName]: {
         ...commonFields.code,
         type: TypesOfColumnData.STRING
     },
-    [commonFields.title.id]: {
+    [commonFields.title.propName]: {
         ...commonFields.title,
         type: TypesOfColumnData.STRING
     },
-    [commonFields.depreciationPeriod.id]: {
+    [commonFields.depreciationPeriod.propName]: {
         ...commonFields.depreciationPeriod,
         type: TypesOfColumnData.NUMBER
     }

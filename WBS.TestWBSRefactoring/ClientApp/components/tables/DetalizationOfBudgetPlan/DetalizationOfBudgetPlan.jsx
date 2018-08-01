@@ -7,132 +7,150 @@ import Paper from "material-ui/Paper";
 import { withStyles } from "material-ui/styles";
 
 import TabContainer from "../../Commons/TabContainer";
-import DetalizationOfSite from '../../../components/tables/DetalizationOfSite';
+import DetalizationOfSite from "../DetalizationOfSite";
 import TextFieldSelect from "../../Commons/TextFields/TextFieldSelect";
 import { styles } from "./DetalizationOfBudgetPlan.css";
-import { getSites } from '../helpersAPI';
+import { getSites } from "../helpersAPI";
 
 const fieldNames = {
     selectedSite: {
-        id: "selectedSite",
+        propName: "selectedSite",
         label: "Выберите текущий сит"
     },
     tab: {
-        id: "tab",
+        propName: "tab",
         label: ""
     }
 };
 
-class DetalizationOfBudgetPlan extends React.PureComponent {
-    constructor(props) {
-        super(props);
-        this.state = {
-            sits: [],
-            [fieldNames.tab.id]: 0,
-            [fieldNames.selectedSite.id]: 0
+export const QueryParamsContext = React.createContext({
+    budgetPlanId: 0,
+    siteId: 0
+});
+
+export const DetalizationOfBudgetPlan = withStyles(styles)(
+    class extends React.PureComponent {
+        constructor(props) {
+            super(props);
+            this.state = {
+                sits: [],
+                [fieldNames.tab.propName]: 0,
+                [fieldNames.selectedSite.propName]: 0
+            };
+        }
+
+        static propTypes = {
+            budgetPlanId: PropTypes.number.isRequired,
+            classes: PropTypes.object.isRequired
         };
-    }
 
-    static propTypes = {
-        budgetPlanId: PropTypes.number.isRequired,
-        classes: PropTypes.object.isRequired,
-    };
+        setInitialValueSelectedSite = () => this.setState({ selectedSite: 0 });
 
-    static getDerivedStateFromProps(nextProps) {
-        return nextProps ? { selectedSite: 0 } : null;
-    }
+        componentDidUpdate(prevProps) {
+            if (this.props.budgetPlanId !== prevProps.budgetPlanId)
+                this.setInitialValueSelectedSite();
+        }
 
-    setSites = (data) => {
-        this.setState({
-            sits: data
-        })
-    }
-    //TODO: Create show error
-    showError = () => {
+        setSites = data => {
+            this.setState({
+                sits: data
+            });
+        };
+        //TODO: Create show error
+        showError = () => {};
 
-    }
+        componentDidMount() {
+            getSites(this.setSites, this.showError);
+        }
 
-    componentDidMount() {
-        getSites(this.setSites, this.showError);
-    }
+        handleChange = e => {
+            const { name, value } = e.target;
+            this.setState({ [name]: value });
+        };
 
-    handleChange = e => {
-        const { name, value } = e.target;
-        this.setState({ [name]: value });
-    };
-   
-    handleTabChange = (event, value) => {
-        this.setState({ [fieldNames.tab.id]: value });
-    };
+        handleTabChange = (event, value) => {
+            this.setState({ [fieldNames.tab.propName]: value });
+        };
 
-    render() {
-        const { classes, budgetPlanId } = this.props;
-        const { tab, selectedSite, sits } = this.state;
-        const { tab: tabName, selectedSite: selectedSiteName } = fieldNames;
+        render() {
+            const { classes, budgetPlanId } = this.props;
+            const { tab, selectedSite, sits } = this.state;
+            const { tab: tabName, selectedSite: selectedSiteName } = fieldNames;
 
-        return <Paper className={classes.root}>
-            <TextFieldSelect
-                muProps={{
-                    name: selectedSiteName.id,
-                    label: selectedSiteName.label,
-                    value: selectedSite,
-                    onChange: this.handleChange,
-                    margin: "none"
-                }}
-                items={
-                    sits &&
-                    sits.map(elem => ({
-                        value: elem.id,
-                        text: elem.title
-                    }))
-                }
-            />
-
-            <hr style={{ marginTop: 0 }} />
-            <Tabs
-                value={tab}
-                name={tabName.id}
-                onChange={this.handleTabChange}
-                indicatorColor="primary"
-                textColor="secondary"
-                scrollable
-                scrollButtons="on"
-            >
-                <Tab label="Детальный план сита" />
-                <Tab label="Сводка по плану сита" />
-                <Tab label="Сводка по всем ситам" />
-                <Tab label="Амортизация по ситу" />
-                <Tab label="Амортизация по всем ситам" />
-                <Tab label="Hyperion экспорт" />
-                <Tab label="Hyperion импорт" />
-            </Tabs>
-            <hr style={{ marginTop: 0 }} />
-            {tab === 0 && (
-                <TabContainer>
-                    {selectedSite !== 0 ? (
-                        <DetalizationOfSite
-                            siteId={selectedSite}
-                            budgetPlanId={budgetPlanId}
+            return (
+                <Paper className={classes.root}>
+                    <div className={classes.siteSelect}>
+                        <TextFieldSelect
+                            muProps={{
+                                name: selectedSiteName.propName,
+                                label: selectedSiteName.label,
+                                value: selectedSite,
+                                onChange: this.handleChange,
+                                margin: "none"
+                            }}
+                            items={
+                                sits &&
+                                sits.map(elem => ({
+                                    value: elem.id,
+                                    text: elem.title
+                                }))
+                            }
                         />
-                    ) : (
-                            <span>
-                                Выберите Сит для получения детализированной
-                                информации
-                            </span>
-                        )}
-                </TabContainer>
-            )}
-            {tab === 1 && <TabContainer>Сводка по плану сита</TabContainer>}
-            {tab === 2 && <TabContainer>Сводка по всем ситам</TabContainer>}
-            {tab === 3 && <TabContainer>Амортизация по ситу</TabContainer>}
-            {tab === 4 && (
-                <TabContainer>Амортизация по всем ситам</TabContainer>
-            )}
-            {tab === 5 && <TabContainer>Hyperion экспорт</TabContainer>}
-            {tab === 6 && <TabContainer>Hyperion импорт</TabContainer>}
-        </Paper>
-
+                    </div>
+                    <hr style={{ marginTop: 0 }} />
+                    <Tabs
+                        value={tab}
+                        name={tabName.propName}
+                        onChange={this.handleTabChange}
+                        indicatorColor="primary"
+                        textColor="secondary"
+                        scrollable
+                        scrollButtons="on"
+                    >
+                        <Tab label="Детальный план сита" />
+                        <Tab label="Сводка по плану сита" />
+                        <Tab label="Сводка по всем ситам" />
+                        <Tab label="Амортизация по ситу" />
+                        <Tab label="Амортизация по всем ситам" />
+                        <Tab label="Hyperion экспорт" />
+                        <Tab label="Hyperion импорт" />
+                    </Tabs>
+                    <hr style={{ marginTop: 0 }} />
+                    {tab === 0 && (
+                        <TabContainer>
+                            {selectedSite !== 0 ? (
+                                <QueryParamsContext.Provider
+                                    value={{
+                                        siteId: selectedSite,
+                                        budgetPlanId: budgetPlanId
+                                    }}
+                                >
+                                    <DetalizationOfSite />
+                                </QueryParamsContext.Provider>
+                            ) : (
+                                <span>
+                                    Выберите Сит для получения детализированной
+                                    информации
+                                </span>
+                            )}
+                        </TabContainer>
+                    )}
+                    {tab === 1 && (
+                        <TabContainer>Сводка по плану сита</TabContainer>
+                    )}
+                    {tab === 2 && (
+                        <TabContainer>Сводка по всем ситам</TabContainer>
+                    )}
+                    {tab === 3 && (
+                        <TabContainer>Амортизация по ситу</TabContainer>
+                    )}
+                    {tab === 4 && (
+                        <TabContainer>Амортизация по всем ситам</TabContainer>
+                    )}
+                    {tab === 5 && <TabContainer>Hyperion экспорт</TabContainer>}
+                    {tab === 6 && <TabContainer>Hyperion импорт</TabContainer>}
+                </Paper>
+            );
+        }
     }
-}
-
-export default withStyles(styles)(DetalizationOfBudgetPlan);
+);

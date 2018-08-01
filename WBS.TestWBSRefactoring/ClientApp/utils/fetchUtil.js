@@ -2,7 +2,6 @@ import DATA_TYPE from '../settings/contentTypes.js'
 import { getItem } from '../utils/localStorageTools.js';
 import SETTINGS from '../settings/settings.js';
 
-
 const defaultConfig = {
     contentType: DATA_TYPE.JSON_DATA
 };
@@ -19,7 +18,6 @@ function ConvertData(contentType, data){
 }
 
 function checkStatus(response) { 
-
     if (response.ok) return Promise.resolve(response.json());
 
     return response.json()
@@ -30,9 +28,7 @@ function checkStatus(response) {
         });
 }
 
-
 /*
-
 const updateRefreshToken = (refreshToken, url, options, dispatch) =>
     fetch(Constants.TOKEN_API_URL, {
         method: 'POST',
@@ -63,41 +59,6 @@ const updateRefreshToken = (refreshToken, url, options, dispatch) =>
         });
     });
 */
-/*
-const ajaxToServer = (url, options, dispatch, authData) =>
-
-    fetch(url, addAuthTokenToOptions(options, authData))
-
-    .then(response => {
-        if (response.status === 400) {
-            alert("Bad Request")
-            return Promise.reject(response);
-            !!!!!!!!!!!!
-        } else if (response.status === 401) {
-            // не авторизован, возможно протух access токен.
-            // пробуем поторить запрос, обновив access токен c помощью refresh токена
-            const refreshToken = authData && authData.refresh_token;
-            if (refreshToken) {
-                return updateRefreshToken(refreshToken, url, options, dispatch)
-            } else {
-                // refresh токена нет - редирект на логон форму
-                dispatch({ type: AuthorizationActions.AUTHORIZATION, payload: {} });
-                alert('Refresh токена нет')
-                return Promise.reject(response);
-            }
-            // возможно обработка 403 не нужна, настроить доступ по полю routеs из таблицы роли 
-        } else if (response.status === 403) {
-            //todo: редирект на Forbidden Page
-            alert('редирект на Forbidden Page here')
-            return Promise.reject(response);
-        } else if (response.status === 500) {
-            //todo: редирект на Forbidden Page
-            alert('Возникла серверная ошибка! Обратитесь в тех поддержку')
-            return Promise.reject(response);
-        }
-        return response;
-    });*/
-
     
 export default function request(config, onSuccess, onError) {
 

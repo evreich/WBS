@@ -11,4 +11,10 @@ export const styles = () => ({
     header: {
         background: 'linear-gradient(0deg, #f1f8e9, #fff)'
     },
+    siteSelect: {
+        marginTop: '2%',
+        marginLeft: '24px',
+        marginBottom: '2%'
+    },
+
 });

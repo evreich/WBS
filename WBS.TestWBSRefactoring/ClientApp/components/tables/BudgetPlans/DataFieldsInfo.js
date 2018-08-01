@@ -4,37 +4,37 @@ import { TypesOfColumnData } from "../../../constants";
 //получаемых с сервера
 export const commonFields = {
     year: {
-        id: "year",
+        propName: "year",
         label: "Год"
     },
     status: {
-        id: "status",
+        propName: "status",
         label: "Статус"
     },
     eventLog: {
-        id: "eventLog",
+        propName: "eventLog",
         label: "Протокол событий"
     },
     managementPlan: {
-        id: "managementPlan",
+        propName: "managementPlan",
         label: "Управление планом"
     }
 };
  
 const tableHeaders = {
-    [commonFields.year.id]: {
+    [commonFields.year.propName]: {
         ...commonFields.year,
         type: TypesOfColumnData.NUMBER
     },
-    [commonFields.status.id]: {
+    [commonFields.status.propName]: {
         ...commonFields.status,
         type: TypesOfColumnData.STRING
     },
-    [commonFields.eventLog.id]: {
+    [commonFields.eventLog.propName]: {
         ...commonFields.eventLog,
         type: TypesOfColumnData.NONE
     },
-    [commonFields.managementPlan.id]: {
+    [commonFields.managementPlan.propName]: {
         ...commonFields.managementPlan,
         type: TypesOfColumnData.NONE
     }
@@ -43,7 +43,7 @@ const tableHeaders = {
 const titleTable = "Бюджетные планы";
  
 const createWindowFields = {
-    [commonFields.year.id]: commonFields.year,
+    [commonFields.year.propName]: commonFields.year,
 }
 
 const editWindowFields = {

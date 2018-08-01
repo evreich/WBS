@@ -4,60 +4,60 @@ import { TypesOfColumnData } from "../../../constants";
 //получаемых с сервера
 const commonFields = {
     resultCenterId: {
-        id: "resultCenterId",
+        propName: "resultCenterId",
         label: "Центр результата"
     },
     resultCenterTitle: {
-        id: "resultCenterTitle",
+        propName: "resultCenter",
         label: "Центр результата"
     },
     typeOfInvestmentId: {
-        id: "typeOfInvestmentId",
+        propName: "typeOfInvestmentId",
         label: "Тип инвестиций"
     },
     typeOfInvestmentTitle: {
-        id: "typeOfInvestmentTitle",
+        propName: "typeOfInvestment",
         label: "Тип инвестиций"
     },
-    categoryId: {
-        id: "categoryId",
+    categoryOfEquipmentId: {
+        propName: "categoryOfEquipmentId",
         label: "Категория"
     },
-    categoryTitle: {
-        id: "categoryTitle",
+    categoryOfEquipmentTitle: {
+        propName: "categoryOfEquipment",
         label: "Категория"
     },
     subjectOfInvestment: {
-        id: "subjectOfInvestment",
+        propName: "subjectOfInvestment",
         label: "Предмет инвестиций"
     },
     dateOfDelivery: {
-        id: "dateOfDelivery",
+        propName: "dateOfDelivery",
         label: "Дата поставки"
     },
     count: {
-        id: "count",
+        propName: "count",
         label: "Количество"
     },
     price: {
-        id: "price",
+        propName: "price",
         label: "Цена, руб."
     },
     amount: {
-        id: "amount",
+        propName: "amount",
         label: "Сумма, руб."
     }
 };
 
 const createWindowFields = {
-    [commonFields.resultCenterId.id]: commonFields.resultCenterId,
-    [commonFields.typeOfInvestmentId.id]: commonFields.typeOfInvestmentId,
-    [commonFields.categoryId.id]: commonFields.categoryId,
-    [commonFields.subjectOfInvestment.id]: commonFields.subjectOfInvestment,
-    [commonFields.dateOfDelivery.id]: commonFields.dateOfDelivery,
-    [commonFields.count.id]: commonFields.count,
-    [commonFields.price.id]: commonFields.price,
-    [commonFields.amount.id]: commonFields.amount,
+    [commonFields.resultCenterId.propName]: commonFields.resultCenterId,
+    [commonFields.typeOfInvestmentId.propName]: commonFields.typeOfInvestmentId,
+    [commonFields.categoryOfEquipmentId.propName]: commonFields.categoryOfEquipmentId,
+    [commonFields.subjectOfInvestment.propName]: commonFields.subjectOfInvestment,
+    [commonFields.dateOfDelivery.propName]: commonFields.dateOfDelivery,
+    [commonFields.count.propName]: commonFields.count,
+    [commonFields.price.propName]: commonFields.price,
+    [commonFields.amount.propName]: commonFields.amount
 }
 
 const editWindowFields = {
@@ -65,46 +65,46 @@ const editWindowFields = {
 }
 
 const infoWindowModel = {
-    [commonFields.resultCenterTitle.id]: commonFields.resultCenterTitle,
-    [commonFields.typeOfInvestmentTitle.id]: commonFields.typeOfInvestmentTitle,
-    [commonFields.categoryTitle.id]: commonFields.categoryTitle,
-    [commonFields.subjectOfInvestment.id]: commonFields.subjectOfInvestment,
-    [commonFields.dateOfDelivery.id]: commonFields.dateOfDelivery,
-    [commonFields.count.id]: commonFields.count,
-    [commonFields.price.id]: commonFields.price,
-    [commonFields.amount.id]: commonFields.amount,
+    [commonFields.resultCenterTitle.propName]: commonFields.resultCenterTitle,
+    [commonFields.typeOfInvestmentTitle.propName]: commonFields.typeOfInvestmentTitle,
+    [commonFields.categoryOfEquipmentTitle.propName]: commonFields.categoryOfEquipmentTitle,
+    [commonFields.subjectOfInvestment.propName]: commonFields.subjectOfInvestment,
+    [commonFields.dateOfDelivery.propName]: commonFields.dateOfDelivery,
+    [commonFields.count.propName]: commonFields.count,
+    [commonFields.price.propName]: commonFields.price,
+    [commonFields.amount.propName]: commonFields.amount,
 }
 
 const tableHeaders = {
-    [commonFields.resultCenterTitle.id]: {
-        ...commonFields.resultCenter,
+    [commonFields.resultCenterTitle.propName]: {
+        ...commonFields.resultCenterTitle,
         type: TypesOfColumnData.STRING
     },
-    [commonFields.typeOfInvestmentTitle.id]: {
-        ...commonFields.typeOfInvestment,
+    [commonFields.typeOfInvestmentTitle.propName]: {
+        ...commonFields.typeOfInvestmentTitle,
         type: TypesOfColumnData.STRING
     },
-    [commonFields.categoryTitle.id]: {
-        ...commonFields.category,
+    [commonFields.categoryOfEquipmentTitle.propName]: {
+        ...commonFields.categoryOfEquipmentTitle,
         type: TypesOfColumnData.STRING
     },
-    [commonFields.subjectOfInvestment.id]: {
+    [commonFields.subjectOfInvestment.propName]: {
         ...commonFields.subjectOfInvestment,
         type: TypesOfColumnData.STRING
     },
-    [commonFields.dateOfDelivery.id]: {
+    [commonFields.dateOfDelivery.propName]: {
         ...commonFields.dateOfDelivery,
         type: TypesOfColumnData.DATE
     },
-    [commonFields.count.id]: {
+    [commonFields.count.propName]: {
         ...commonFields.count,
         type: TypesOfColumnData.NUMBER
     },
-    [commonFields.price.id]: {
+    [commonFields.price.propName]: {
         ...commonFields.price,
         type: TypesOfColumnData.NUMBER
     },
-    [commonFields.amount.id]: {
+    [commonFields.amount.propName]: {
         ...commonFields.amount,
         type: TypesOfColumnData.NUMBER
     }

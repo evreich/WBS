@@ -28,7 +28,8 @@ class ChangeItemModalWindow extends React.Component {
         classes: PropTypes.object,
         currentPage: PropTypes.number,
         elementsPerPage: PropTypes.number,
-        formFields: PropTypes.object 
+        formFields: PropTypes.object,
+        header: PropTypes.string 
     };
 
     onSaveButtonClick = () => {
@@ -44,10 +45,9 @@ class ChangeItemModalWindow extends React.Component {
     };
 
     render() {
-        const { open, cancel, data, DialogBodyComponent, classes, formFields } = this.props;
-        const header = data && data.id ? "Редактирование" : "Создание";
+        const { open, cancel, data, DialogBodyComponent, classes, formFields, header } = this.props;
         return (
-            <Dialog open={open} onClose={this.cancel} maxWidth={'xs'}>
+            <Dialog open={open} onClose={this.cancel} maxWidth={false} classes={{paper: classes.container}}>
                 <DialogTitle id="form-dialog-title" className={classes.dialogTitle}>
                     <div>{header}</div>
                 </DialogTitle>

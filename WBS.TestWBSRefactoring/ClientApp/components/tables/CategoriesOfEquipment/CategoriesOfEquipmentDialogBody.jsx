@@ -10,12 +10,12 @@ import transformFieldsToState from '../../../helpers/transformFieldsToState';
 class CategoriesOfEquipmentDialogBody extends React.PureComponent {
     constructor(props) {
         super(props);
-        const fields = transformFieldsToState(Object.values(props.formFields));
+        this.fields = transformFieldsToState(Object.values(props.formFields));
 
         this.state = {
             id: 0,
             categoryGroups: [],
-            ...fields
+            ...this.fields
         };
     }
 
@@ -71,7 +71,7 @@ class CategoriesOfEquipmentDialogBody extends React.PureComponent {
             <>
                 <TextFieldSelect
                     muProps={{
-                        name: categoryName.id,
+                        name: categoryName.propName,
                         label: categoryName.label,
                         value: categoryGroupId,
                         onChange: this.handleChange,
@@ -87,7 +87,7 @@ class CategoriesOfEquipmentDialogBody extends React.PureComponent {
                 />
                 <TextFieldPlaceholder
                     muProps={{
-                        name: codeName.id,
+                        name: codeName.propName,
                         label: codeName.label,
                         value: code,
                         type: "text",
@@ -97,7 +97,7 @@ class CategoriesOfEquipmentDialogBody extends React.PureComponent {
                 />
                 <TextFieldMultiline
                     muProps={{
-                        name: titleName.id,
+                        name: titleName.propName,
                         label: titleName.label,
                         value: title,
                         onChange: this.handleChange,
@@ -106,7 +106,7 @@ class CategoriesOfEquipmentDialogBody extends React.PureComponent {
                 />
                 <TextFieldPlaceholder
                     muProps={{
-                        name: periodName.id,
+                        name: periodName.propName,
                         label: periodName.label,
                         value: depreciationPeriod,
                         type: "number",

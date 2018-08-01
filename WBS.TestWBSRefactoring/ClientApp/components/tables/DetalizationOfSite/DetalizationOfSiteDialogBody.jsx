@@ -3,121 +3,129 @@ import PropTypes from "prop-types";
 
 import TextFieldSelect from "../../Commons/TextFields/TextFieldSelect";
 import TextFieldPlaceholder from "../../Commons/TextFields/TextFieldPlaceholder";
+import { QueryParamsContext } from "../DetalizationOfBudgetPlan/DetalizationOfBudgetPlan";
+import transformFieldsToState from "../../../helpers/transformFieldsToState";
+import {
+    getResultCentres,
+    getTypesOfInvestment,
+    getCategoryGroups
+} from "../helpersAPI";
 
-import { commonFields } from "./DataFieldsInfo";
-import { getResultCentres, getTypesOfInvestment, getGroupCategories } from '../helpersAPI';
- 
+const budgetPlanPropName = "budgetPlanId";
+const sitePropName = "siteId";
+
 class DetalizationOfSiteDialogBody extends React.PureComponent {
     constructor(props) {
         super(props);
-        const {
-            resultCenterId,
-            typeOfInvestmentId,
-            categoryId,
-            subjectOfInvestment,
-            dateOfDelivery,
-            count,
-            price
-        } = commonFields;
+        const fields = transformFieldsToState(Object.values(props.formFields));
+
         this.state = {
             id: 0,
+            [budgetPlanPropName]: 0,
+            [sitePropName]: 0,
             resultCentres: [],
             typesOfInvestment: [],
             categoryGroups: [],
-            [resultCenterId.id]: 0,
-            [typeOfInvestmentId.id]: 0,
-            [categoryId.id]: 0,
-            [subjectOfInvestment.id]: "",
-            [dateOfDelivery.id]: new Date(),
-            [count.id]: 0,
-            [price.id]: 0
+            ...fields
         };
     }
- 
+
     static propTypes = {
         errors: PropTypes.object,
-        data: PropTypes.object.isRequired,
+        data: PropTypes.object,
         onRef: PropTypes.func.isRequired,
-        siteId: PropTypes.number.isRequired,
-        budgetPlanId: PropTypes.object.isRequired
+        formFields: PropTypes.object
     };
- 
+
     //lifecycles
     static getDerivedStateFromProps(nextProps) {
         return nextProps && nextProps.data ? { ...nextProps.data } : null;
     }
- 
+
     componentDidMount() {
         const onRef = this.props.onRef;
         //связываем с родительским компонентом,
         //чтобы он имел доступ к методам дочернего компонента
         onRef(this);
-        getTypesOfInvestment();
-        getGroupCategories();
-        getResultCentres();
+        getTypesOfInvestment(this.setTypesOfInvestment, this.showError);
+        getCategoryGroups(this.setCategoryGroups, this.showError);
+        getResultCentres(this.setResultCentres, this.showError);
     }
 
-    setCategoryGroups = (data) => {
+    setCategoryGroups = data => {
         this.setState({
             categoryGroups: data
         });
-    }
+    };
 
-    setResultCentres = (data) => {
+    setResultCentres = data => {
         this.setState({
             resultCentres: data
         });
-    }
+    };
 
-    setTypesOfInvestment = (data) => {
+    setTypesOfInvestment = data => {
         this.setState({
             typesOfInvestment: data
         });
-    }
+    };
 
-    showError = () => {
+    showError = () => {};
 
-    }
- 
-    getDataToSave = () => this.state;
- 
+    getDataToSave = () => {
+        const amount = this.props.formFields.amount;
+        const { count, price } = this.state;
+
+        return {
+            ...this.state,
+            [amount.propName]: count * price
+        };
+    };
+
     //handlers
     handleChange = e => {
         const { name, value } = e.target;
         this.setState({ [name]: value });
     };
- 
+
     render() {
-        const {
-            errors,
-        } = this.props;
+        const { errors, formFields } = this.props;
         const {
             resultCentres,
             typesOfInvestment,
-            categories,
+            categoryGroups,
             resultCenterId,
             typeOfInvestmentId,
-            categoryId,
+            categoryOfEquipmentId,
             subjectOfInvestment,
-            investmentDate,
+            dateOfDelivery,
             count,
-            costItem
+            price
         } = this.state;
         const {
             resultCenterId: resultCenterName,
             typeOfInvestmentId: typeOfInvestmentName,
-            categoryId: categoryName,
+            categoryOfEquipmentId: categoryName,
             subjectOfInvestment: subjectOfInvestmentName,
             dateOfDelivery: dateOfDeliveryName,
             count: countName,
             price: priceName
-        } = commonFields;
- 
+        } = formFields;
+
         return (
             <>
+                <QueryParamsContext.Consumer>
+                    {({ budgetPlanId, siteId }) => (
+                        this.setState({
+                            [budgetPlanPropName]: budgetPlanId,
+                            [sitePropName]: siteId
+                        })
+                    )}
+                </QueryParamsContext.Consumer>
+
                 <TextFieldSelect
                     muProps={{
-                        name: resultCenterName.id,
+                        name: resultCenterName.propName,
                         label: resultCenterName.label,
                         value: resultCenterId,
                         onChange: this.handleChange,
@@ -133,7 +141,7 @@ class DetalizationOfSiteDialogBody extends React.PureComponent {
                 />
                 <TextFieldSelect
                     muProps={{
-                        name: typeOfInvestmentName.id,
+                        name: typeOfInvestmentName.propName,
                         label: typeOfInvestmentName.label,
                         value: typeOfInvestmentId,
                         onChange: this.handleChange,
@@ -149,15 +157,15 @@ class DetalizationOfSiteDialogBody extends React.PureComponent {
                 />
                 <TextFieldSelect
                     muProps={{
-                        name: categoryName.id,
+                        name: categoryName.propName,
                         label: categoryName.label,
-                        value: categoryId,
+                        value: categoryOfEquipmentId,
                         onChange: this.handleChange,
                         fullWidth: true
                     }}
                     items={
-                        categories &&
-                        categories.map(elem => ({
+                        categoryGroups &&
+                        categoryGroups.map(elem => ({
                             value: elem.id,
                             text: elem.title
                         }))
@@ -165,27 +173,27 @@ class DetalizationOfSiteDialogBody extends React.PureComponent {
                 />
                 <TextFieldPlaceholder
                     muProps={{
-                        name: subjectOfInvestmentName.id,
+                        name: subjectOfInvestmentName.propName,
                         label: subjectOfInvestmentName.label,
                         value: subjectOfInvestment,
-                        type: "number",
+                        type: "text",
                         onChange: this.handleChange,
                         fullWidth: true
                     }}
                 />
                 <TextFieldPlaceholder
                     muProps={{
-                        name: dateOfDeliveryName.id,
+                        name: dateOfDeliveryName.propName,
                         label: dateOfDeliveryName.label,
-                        value: investmentDate,
-                        type: "number",
+                        value: dateOfDelivery,
+                        type: "date",
                         onChange: this.handleChange,
                         fullWidth: true
                     }}
                 />
                 <TextFieldPlaceholder
                     muProps={{
-                        name: countName.id,
+                        name: countName.propName,
                         label: countName.label,
                         value: count,
                         type: "number",
@@ -195,20 +203,20 @@ class DetalizationOfSiteDialogBody extends React.PureComponent {
                 />
                 <TextFieldPlaceholder
                     muProps={{
-                        name: priceName.id,
+                        name: priceName.propName,
                         label: priceName.label,
-                        value: costItem,
+                        value: price,
                         type: "number",
                         onChange: this.handleChange,
                         fullWidth: true
                     }}
                 />
- 
+
                 {/*TODO: VALIDATION */}
                 {errors && <span style={{ color: "red" }}>{errors}</span>}
             </>
         );
     }
 }
- 
+
 export default DetalizationOfSiteDialogBody;

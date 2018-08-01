@@ -8,11 +8,11 @@ namespace WBS.DAL.Data.Models.ViewModels
     {
         public int Id { get; set; }
 
-        public string ItemOfInvestment { get; set; }
-        public DateTime InvestmentDate { get; set; }
+        public string SubjectOfInvestment { get; set; }
+        public string DateOfDelivery { get; set; }
         public int Count { get; set; }
-        public double CostItem { get; set; }
-        public double AmountAllItems { get; set; }
+        public double Price { get; set; }
+        public double Amount { get; set; }
 
         //relationships
         public int BudgetPlanId { get; set; }
@@ -37,11 +37,11 @@ namespace WBS.DAL.Data.Models.ViewModels
         public ItemOfBudgetPlanViewModel(ItemOfBudgetPlan item)
         {
             Id = item.Id;
-            ItemOfInvestment = item.ItemOfInvestment;
-            InvestmentDate = item.InvestmentDate;
+            SubjectOfInvestment = item.SubjectOfInvestment;
+            DateOfDelivery = item.DateOfDelivery.ToString("yyyy-MM-dd");
             Count = item.Count;
-            CostItem = item.CostItem;
-            AmountAllItems = item.AmountAllItems;
+            Price = item.Price;
+            Amount = item.Amount;
 
             BudgetPlanId = item.BudgetPlanId;
             if (item.BudgetPlan != null) BudgetPlan = item.BudgetPlan.Year.ToString();
@@ -64,11 +64,11 @@ namespace WBS.DAL.Data.Models.ViewModels
             return new ItemOfBudgetPlan()
             {
                 Id = this.Id,
-                ItemOfInvestment = this.ItemOfInvestment,
-                InvestmentDate = this.InvestmentDate,
+                SubjectOfInvestment = this.SubjectOfInvestment,
+                DateOfDelivery = DateTime.Parse(this.DateOfDelivery),
                 Count = this.Count,
-                CostItem = this.CostItem,
-                AmountAllItems = this.AmountAllItems,
+                Price = this.Price,
+                Amount = this.Amount,
 
                 BudgetPlanId = this.BudgetPlanId,
                 CategoryOfEquipmentId = this.CategoryOfEquipmentId,

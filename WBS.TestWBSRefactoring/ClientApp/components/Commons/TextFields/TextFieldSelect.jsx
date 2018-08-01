@@ -1,4 +1,4 @@
-﻿import React, { Fragment } from 'react';
+﻿import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import styles from '../TextFields/TextField.css'
@@ -11,7 +11,6 @@ const TextFieldSelect = (props) => {
     const { classes, muProps, items } = props;
     const { margin, disabled, defaultValue } = muProps;
     return (
-        <Fragment>
             <TextField
                 {...muProps}
                 margin={margin ? margin : "normal"}
@@ -33,7 +32,6 @@ const TextFieldSelect = (props) => {
                     </MenuItem>
                 )}
             </TextField>
-        </Fragment>
     )
 }
 

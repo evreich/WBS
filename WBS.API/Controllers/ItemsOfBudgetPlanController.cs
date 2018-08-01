@@ -22,12 +22,11 @@ namespace WBS.API.Controllers
             : base(abstractDAL, logger) { }
 
         [Authorize]
-        [HttpGet("getDetailsOfBP")]
-        public IActionResult Get(int siteId, int budgetPlan, int currentPage = 0, int pageSize = 5)
+        [HttpGet("{siteId}/{budgetPlanId}/{currentPage}/{pageSize}")]
+        public IActionResult Get(int siteId, int budgetPlanId, int currentPage = 0, int pageSize = 5)
         {
             _logger.LogInformation("Getting information is started");
-            var data = _dal.Get();
-            var allData = _dal.Get().Where(item => item.BudgetPlan.Year == budgetPlan && item.SiteId == siteId)
+            var allData = _dal.Get().Where(item => item.BudgetPlanId == budgetPlanId && item.SiteId == siteId)
                         .OrderBy(f => f.Id);
             var dataForPage = allData.Skip((currentPage) * pageSize)
                             .Take(pageSize)

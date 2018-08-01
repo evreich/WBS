@@ -21,6 +21,9 @@ import CommonChangeItemModalWindow from "../ModalWindows/ChangeItemModalWindow";
 import CommonInformationModalWindow from "../ModalWindows/InformationModalWindow";
 import CommonTableRow from "./TableRow";
 
+const createTitleModalWindow = "Создание";
+const editTitleModalWindow = "Редактироваие";
+
 const СreateTable = ({
     dataFiledsInfo,
     DialogBodyComponent,
@@ -28,9 +31,10 @@ const СreateTable = ({
     InformationModalWindow = CommonInformationModalWindow,
     ChangeItemModalWindow = CommonChangeItemModalWindow,
     isNeedFillEmptyRow = true,
-    isNeedTableFooter = true
+    isNeedTableFooter = true,
+    tableStyles={},
 }) =>
-    withStyles(styles)(
+    withStyles(() => ({...styles, ...tableStyles})) (
         class CommonTable extends React.PureComponent {
             constructor(props) {
                 super(props);
@@ -38,6 +42,7 @@ const СreateTable = ({
                     modalWindowInfoIsOpening: false,
                     modalWindowChangingIsOpening: false,
                     updatingDataItem: null,
+                    changeModalWindowTitle: createTitleModalWindow
                 };
 
                 this.sortingData = { sort: SortingActions.SORT_DESC, sortBy: '' };
@@ -51,7 +56,8 @@ const СreateTable = ({
                 changeData: PropTypes.func.isRequired,
                 data: PropTypes.array.isRequired,
                 pagination: PropTypes.object.isRequired,
-                deleteData: PropTypes.func
+                deleteData: PropTypes.func,
+                queryParams: PropTypes.object
             };
 
             static defaultProps = {
@@ -65,8 +71,8 @@ const СreateTable = ({
 
             //lifecycle hooks
             componentDidMount() {
-                const getDataTable = this.props.getDataTable;
-                getDataTable();
+                const { getDataTable, queryParams } = this.props;
+                getDataTable(undefined, undefined, queryParams);
             }
 
             componentWillUnmount() {
@@ -85,11 +91,19 @@ const СreateTable = ({
                 });
             };
 
-            handleOpenChangeModalWindow = () => {
+            handleOpenOnCreateChangeModalWindow = () => {
                 this.setState({
-                    modalWindowChangingIsOpening: true
+                    modalWindowChangingIsOpening: true,
+                    changeModalWindowTitle: createTitleModalWindow
                 });
             };
+
+            handleOpenOnEditChangeModalWindow = () => {
+                this.setState({
+                    modalWindowChangingIsOpening: true,
+                    changeModalWindowTitle: editTitleModalWindow
+                });
+            }
 
             handleCloseInformationModalWindow = () => {
                 this.setState({
@@ -180,7 +194,8 @@ const СreateTable = ({
                 const {
                     modalWindowInfoIsOpening,
                     modalWindowChangingIsOpening,
-                    updatingDataItem
+                    updatingDataItem, 
+                    changeModalWindowTitle
                 } = this.state;
                 const {
                     currentPage,
@@ -236,7 +251,7 @@ const СreateTable = ({
                         <Paper className={classes.root}>
                             {/*Таблица*/}
                             <TableToolbar
-                                onCreate={this.handleOpenChangeModalWindow}
+                                onCreate={this.handleOpenOnCreateChangeModalWindow}
                                 title={titleTable}
                             />
                             <Table className={classes.table}>
@@ -280,7 +295,7 @@ const СreateTable = ({
                                 this.handleDeleteButtonClick
                             }
                             handleUpdateButtonClick={
-                                this.handleOpenChangeModalWindow
+                                this.handleOpenOnEditChangeModalWindow
                             }
                         />
 
@@ -293,6 +308,7 @@ const СreateTable = ({
                             DialogBodyComponent={DialogBodyComponent}
                             currentPage={currentPage}
                             elementsPerPage={elementsPerPage}
+                            header={ changeModalWindowTitle }
                         />
                     </>
                 );

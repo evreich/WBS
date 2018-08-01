@@ -24,7 +24,7 @@ export const toolbarStyles = theme => ({
     },
 });
 
-export const styles = () => ({
+export const styles = {
     root: {
         width: '80%',
         marginTop: 50,
@@ -82,4 +82,4 @@ export const styles = () => ({
     tooltip: {
         borderEadius: 10
     }
-});
+};

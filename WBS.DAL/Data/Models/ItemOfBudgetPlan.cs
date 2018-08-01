@@ -11,11 +11,11 @@ namespace WBS.DAL.Data.Models
         public int Id { get; set; }
 
         [MaxLength(200)]
-        public string ItemOfInvestment { get; set; }
-        public DateTime InvestmentDate { get; set; }
+        public string SubjectOfInvestment { get; set; }
+        public DateTime DateOfDelivery { get; set; }
         public int Count { get; set; }
-        public double CostItem { get; set; }
-        public double AmountAllItems { get; set; }
+        public double Price { get; set; }
+        public double Amount { get; set; }
 
         //relationships
         public int BudgetPlanId { get; set; }

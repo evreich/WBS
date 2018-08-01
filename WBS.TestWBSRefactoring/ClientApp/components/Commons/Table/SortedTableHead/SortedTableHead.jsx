@@ -26,9 +26,9 @@ const SortedTableHead = props => {
                         column => (
                             <TableCell
                                 className={classes.cell}
-                                key={column.id}
+                                key={column.propName}
                                 sortDirection={
-                                    orderBy === column.id ? order : false
+                                    orderBy === column.propName ? order : false
                                 }
                             >
                                 <Tooltip
@@ -42,9 +42,9 @@ const SortedTableHead = props => {
                                 >
                                     <TableSortLabel
                                         style={classes.label}
-                                        active={orderBy === column.id}
+                                        active={orderBy === column.propName}
                                         direction={order}
-                                        onClick={handleColumnSortClick(column.id)}
+                                        onClick={handleColumnSortClick(column.propName)}
                                     >
                                         {column.label}
                                     </TableSortLabel>

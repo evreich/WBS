@@ -287,24 +287,24 @@ namespace WBS.DAL.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<double>("AmountAllItems");
+                    b.Property<double>("Amount");
 
                     b.Property<int>("BudgetPlanId");
 
                     b.Property<int>("CategoryOfEquipmentId");
 
-                    b.Property<double>("CostItem");
-
                     b.Property<int>("Count");
 
-                    b.Property<DateTime>("InvestmentDate");
+                    b.Property<DateTime>("DateOfDelivery");
 
-                    b.Property<string>("ItemOfInvestment")
-                        .HasMaxLength(200);
+                    b.Property<double>("Price");
 
                     b.Property<int?>("ResultCenterId");
 
                     b.Property<int>("SiteId");
+
+                    b.Property<string>("SubjectOfInvestment")
+                        .HasMaxLength(200);
 
                     b.Property<int>("TypeOfInvestmentId");
 

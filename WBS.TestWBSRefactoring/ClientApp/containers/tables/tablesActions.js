@@ -32,16 +32,17 @@ export function errorsReceive(err) {
     }
 }
 
-export function getTable(currentPage = 0, elementsPerPage = 5, route, title) {
+export function getTable(currentPage = 0, elementsPerPage = 5, route, title, queryParams) {
     return (dispatch) => {
-
         if (!route) throw new Error("Can't resolve URI");
 
-
+        const queryPath = queryParams && Object.values(queryParams).reduce((allPath, currParam) => allPath = allPath.concat(currParam ,'/') , "");
+        const commonPath = `${currentPage}/${elementsPerPage}`;
+        const allPath = queryPath ? queryPath.concat(commonPath) : commonPath
         request(
             {
                 method: REQUEST_METHOD.HTTP_GET,
-                route: route + `${currentPage}/${elementsPerPage}`,
+                route: route + allPath,
             }, 
             (data) => {
                 if(!title) throw new Error("Title is undefined");

@@ -14,7 +14,7 @@ class BudgetPlanDialogBody extends React.PureComponent {
     constructor(props) {
         super(props);
         this.state = {
-            [commonFields.year.id]: minYearOfBusinessPlan,
+            [commonFields.year.propName]: minYearOfBusinessPlan,
             validationErorr: ""
         };
     }
@@ -57,7 +57,7 @@ class BudgetPlanDialogBody extends React.PureComponent {
             <>
                 <TextFieldPlaceholder
                     muProps={{
-                        name: yearName.id,
+                        name: yearName.propName,
                         value: year,
                         label: yearName.label,
                         type: "number",
