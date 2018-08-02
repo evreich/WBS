@@ -2,12 +2,14 @@
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Autosuggest from 'react-autosuggest';
-//import match from 'autosuggest-highlight/umd/match';
-//import parse from 'autosuggest-highlight/umd/parse';
+
 import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
 import MenuItem from '@material-ui/core/MenuItem';
 import { withStyles } from '@material-ui/core/styles';
+//import match from 'autosuggest-highlight/umd/match';
+//import parse from 'autosuggest-highlight/umd/parse';
+
 import actionsCreators from '../../../reducers/helpers';
 
 const suggestionCount = 20;

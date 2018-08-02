@@ -1,9 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import IconButton from 'material-ui/IconButton';
 import { withStyles } from 'material-ui/styles';
-import styles from './Button.css'
 import EditIcon from 'material-ui-icons/Edit';
+
+import styles from './Button.css'
 
 function IconLabelButtons(props) {
   const { classes, size, onClick, href } = props;

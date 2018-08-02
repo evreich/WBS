@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import Button from 'material-ui/Button';
+
 import IconButton from 'material-ui/IconButton';
 import { withStyles } from 'material-ui/styles';
 import Delete from 'material-ui-icons/Delete';
+
 import styles from './Button.css'
 
 function ButtonDelete(props) {

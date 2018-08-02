@@ -32,7 +32,8 @@ namespace WBS.DAL.Data.Models.ViewModels
             return new Provider
             {
                 Id = Id,
-                Title = Title
+                Title = Title,
+                ProvidersTechnicalServices = Profiles.Select(elem => new ProvidersTechnicalService(Id, elem.Id)).ToList()
             };
         }
     }

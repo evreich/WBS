@@ -1,12 +1,14 @@
 import React from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
+
 import { withStyles } from 'material-ui/styles';
 import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
 import AddCircleOutlineIcon from 'material-ui-icons/AddCircleOutline';
 import Button from 'material-ui/Button';
 import Tooltip from 'material-ui/Tooltip';
+
 import {toolbarStyles } from './TableStyles.css';
 
 let TableToolbar = props => {

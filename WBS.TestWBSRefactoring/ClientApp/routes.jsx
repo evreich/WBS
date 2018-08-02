@@ -5,12 +5,21 @@ import Layout from './components/Commons/Layout';
 import AuthorizationForm from './containers/authorization/authorizationContainer';
 import Home from './components/Home';
 import CategoriesOfEquipment from './components/tables/CategoriesOfEquipment';
+import CategoryGroups from './components/tables/CategoryGroups'
 import BudgetPlans from './components/tables/BudgetPlans';
+import TypeOfInvestments from './components/tables/TypesOfInvestment';
+import ResultCentres from './components/tables/ResultCentres';
+import Providers from './components/tables/Providers';
+
 const routes = ( 
     <Layout>
         <Route exact path="/" component={AuthorizationForm} />
         <Route path="/CategoriesOfEquipment" component={CategoriesOfEquipment} /> 
         <Route path="/BudgetPlans" component={BudgetPlans} />
+        <Route path="/CategoryGroups" component={CategoryGroups} />
+        <Route path="/TypeOfInvestments" component={TypeOfInvestments} />
+        <Route path="/ResultCentres" component={ResultCentres} />
+        <Route path="/Providers" component={Providers} />
         <Route path="/Home" component={Home} />
     </Layout>
 );

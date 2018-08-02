@@ -1,5 +1,6 @@
 ﻿import React from "react";
 import PropTypes from "prop-types";
+
 import {
     TableCell,
     TableHead,
@@ -7,6 +8,7 @@ import {
     TableSortLabel
 } from "material-ui/Table";
 import Tooltip from "@material-ui/core/Tooltip";
+
 import { styles as classes } from "./SortedTableHead.css";
 import { TypesOfColumnData } from "../../../../constants";
 

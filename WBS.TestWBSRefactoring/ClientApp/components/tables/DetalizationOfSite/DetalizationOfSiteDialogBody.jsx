@@ -8,7 +8,7 @@ import transformFieldsToState from "../../../helpers/transformFieldsToState";
 import {
     getResultCentres,
     getTypesOfInvestment,
-    getCategoryGroups
+    getCategoriesOfEquip
 } from "../helpersAPI";
 
 const budgetPlanPropName = "budgetPlanId";
@@ -48,7 +48,7 @@ class DetalizationOfSiteDialogBody extends React.PureComponent {
         //чтобы он имел доступ к методам дочернего компонента
         onRef(this);
         getTypesOfInvestment(this.setTypesOfInvestment, this.showError);
-        getCategoryGroups(this.setCategoryGroups, this.showError);
+        getCategoriesOfEquip(this.setCategoryGroups, this.showError);
         getResultCentres(this.setResultCentres, this.showError);
     }
 
@@ -74,10 +74,34 @@ class DetalizationOfSiteDialogBody extends React.PureComponent {
 
     getDataToSave = () => {
         const amount = this.props.formFields.amount;
-        const { count, price } = this.state;
+        const {
+            resultCentres,
+            typesOfInvestment,
+            categoryGroups,
+            resultCenterId,
+            typeOfInvestmentId,
+            categoryOfEquipmentId,
+            subjectOfInvestment,
+            dateOfDelivery,
+            count,
+            price,
+            budgetPlanId,
+            siteId
+        } = this.state;
 
         return {
-            ...this.state,
+            budgetPlanId,
+            siteId,
+            resultCentres,
+            typesOfInvestment,
+            categoryGroups,
+            resultCenterId,
+            typeOfInvestmentId,
+            categoryOfEquipmentId,
+            subjectOfInvestment,
+            dateOfDelivery,
+            count,
+            price,
             [amount.propName]: count * price
         };
     };
@@ -115,12 +139,12 @@ class DetalizationOfSiteDialogBody extends React.PureComponent {
         return (
             <>
                 <QueryParamsContext.Consumer>
-                    {({ budgetPlanId, siteId }) => (
+                    {({ budgetPlanId, siteId }) =>
                         this.setState({
                             [budgetPlanPropName]: budgetPlanId,
                             [sitePropName]: siteId
                         })
-                    )}
+                    }
                 </QueryParamsContext.Consumer>
 
                 <TextFieldSelect

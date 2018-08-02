@@ -5,15 +5,24 @@
 <script>
     const root = "http://localhost:50120/api";
     document.api = {
-        auth: `${root}/auth/login`,
+        //main paths to controllers
+        auth: `${root}/auth/login/`,
         categoriesOfEquipment: `${root}/CategoriesOfEquipment/`,
         categoryGroups: `${root}/CategoryGroup/`,
-        categoryGroupsSelection: `${root}/CategoryGroup/categoriesSelection/`,
         budgetPlan: `${root}/BudgetPlan/`,
-        sitsSelection: `${root}/Site/sitsSelection`,
-        resultCentresSelection: `${root}/ResultCentres/resCentresSelection`,
-        typesOfInvestmentSelection: `${root}/TypesOfInvestment/typesofinvestmentSelection`,
         itemsOfBudgetPlan: `${root}/ItemsOfBudgetPlan/`,
+        typeOfInvestments: `${root}/TypesOfInvestment/`,
+        resultCentres: `${root}/ResultCentres/`,
+        providers: `${root}/Provider/`,
+
+        //selections for helpersAPI
+        categoryGroupsSelection: `${root}/CategoryGroup/categoriesSelection/`,
+        categoriesOfEquipSelection: `${root}/CategoriesOfEquipment/categoriesOfEquipSelection/`,
+        sitsSelection: `${root}/Site/sitsSelection/`,
+        resultCentresSelection: `${root}/ResultCentres/resCentresSelection/`,
+        typesOfInvestmentSelection: `${root}/TypesOfInvestment/typesofinvestmentSelection/`,
+        technicalServsSelection: `${root}/TechnicalService/technicalServsSelection`,
+
     };
 </script>
 

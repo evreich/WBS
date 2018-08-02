@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+
 import TextFieldPlaceholder from "../../Commons/TextFields/TextFieldPlaceholder";
 import { commonFields } from "./DataFieldsInfo";
  

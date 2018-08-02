@@ -325,16 +325,11 @@ namespace WBS.DAL.Migrations
 
             modelBuilder.Entity("WBS.DAL.Data.Models.ProvidersTechnicalService", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
                     b.Property<int>("ProviderId");
 
                     b.Property<int>("TechnicalServiceId");
 
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProviderId");
+                    b.HasKey("ProviderId", "TechnicalServiceId");
 
                     b.HasIndex("TechnicalServiceId");
 
@@ -646,7 +641,7 @@ namespace WBS.DAL.Migrations
                     b.HasOne("WBS.DAL.Provider", "Provider")
                         .WithMany("ProvidersTechnicalServices")
                         .HasForeignKey("ProviderId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("WBS.DAL.Data.Models.TechnicalService", "TechnicalService")
                         .WithMany()

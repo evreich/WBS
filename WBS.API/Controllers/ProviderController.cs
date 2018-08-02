@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using WBS.API.Helpers;
 using WBS.DAL;
 using WBS.DAL.Data.Helpers;
+using WBS.DAL.Data.Models;
 using WBS.DAL.Data.Models.ViewModels;
 
 namespace WBS.API.Controllers
@@ -16,7 +17,8 @@ namespace WBS.API.Controllers
     [Route("api/[controller]")]
     public class ProviderController : AbstractBaseTableController<Provider, ProviderViewModel>
     {
-        public ProviderController(AbstractDAL<Provider> dal, IServiceProvider provider, ILogger<ProviderController> logger): base(dal, logger)
+        public ProviderController(AbstractDAL<Provider> dal, IServiceProvider provider, 
+            ILogger<ProviderController> logger): base(dal, logger)
         {
         }
 
@@ -27,6 +29,7 @@ namespace WBS.API.Controllers
             _logger.LogInformation("Get provider, ID: '{id}", id);
             return Ok(_dal.Get(id));
         }
+
         [HttpGet("FilteredProviders")]
         [Authorize]
         public IActionResult FilteredProviders(int currentPage = 0, int pageSize = 5, string title = "", string techServs ="")
@@ -54,7 +57,6 @@ namespace WBS.API.Controllers
                 }
 
             }
-
 
             _logger.LogInformation("Getting information is completed");
             return Ok(new DataWithPaginationViewModel<ProviderViewModel>

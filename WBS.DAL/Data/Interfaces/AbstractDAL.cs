@@ -10,7 +10,7 @@ namespace WBS.DAL
     public abstract class AbstractDAL<T> where T : class, IBaseEntity
     {
         protected readonly WBSContext _context;
-        private readonly ICache _cache;
+        protected readonly ICache _cache;
 
         public AbstractDAL(WBSContext context, ICache cache)
         {
@@ -52,6 +52,7 @@ namespace WBS.DAL
 
         public virtual T Delete(object id)
         {
+            //TODO: Analize and refactoring
             var item = _context.Set<T>().Find(id);
             if (item != null)
             {

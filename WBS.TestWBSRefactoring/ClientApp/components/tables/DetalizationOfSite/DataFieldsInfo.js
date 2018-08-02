@@ -5,47 +5,58 @@ import { TypesOfColumnData } from "../../../constants";
 const commonFields = {
     resultCenterId: {
         propName: "resultCenterId",
-        label: "Центр результата"
+        label: "Центр результата",
+        type: TypesOfColumnData.NUMBER
     },
     resultCenterTitle: {
         propName: "resultCenter",
-        label: "Центр результата"
+        label: "Центр результата",
+        type: TypesOfColumnData.STRING
     },
     typeOfInvestmentId: {
         propName: "typeOfInvestmentId",
-        label: "Тип инвестиций"
+        label: "Тип инвестиций",
+        type: TypesOfColumnData.NUMBER
     },
     typeOfInvestmentTitle: {
         propName: "typeOfInvestment",
-        label: "Тип инвестиций"
+        label: "Тип инвестиций",
+        type: TypesOfColumnData.STRING
     },
     categoryOfEquipmentId: {
         propName: "categoryOfEquipmentId",
-        label: "Категория"
+        label: "Категория",
+        type: TypesOfColumnData.NUMBER
     },
     categoryOfEquipmentTitle: {
         propName: "categoryOfEquipment",
-        label: "Категория"
+        label: "Категория",
+        type: TypesOfColumnData.STRING
     },
     subjectOfInvestment: {
         propName: "subjectOfInvestment",
-        label: "Предмет инвестиций"
+        label: "Предмет инвестиций",
+        type: TypesOfColumnData.STRING
     },
     dateOfDelivery: {
         propName: "dateOfDelivery",
-        label: "Дата поставки"
+        label: "Дата поставки",
+        type: TypesOfColumnData.DATE
     },
     count: {
         propName: "count",
-        label: "Количество"
+        label: "Количество",
+        type: TypesOfColumnData.NUMBER
     },
     price: {
         propName: "price",
-        label: "Цена, руб."
+        label: "Цена, руб.",
+        type: TypesOfColumnData.NUMBER
     },
     amount: {
         propName: "amount",
-        label: "Сумма, руб."
+        label: "Сумма, руб.",
+        type: TypesOfColumnData.NUMBER
     }
 };
 
@@ -76,38 +87,14 @@ const infoWindowModel = {
 }
 
 const tableHeaders = {
-    [commonFields.resultCenterTitle.propName]: {
-        ...commonFields.resultCenterTitle,
-        type: TypesOfColumnData.STRING
-    },
-    [commonFields.typeOfInvestmentTitle.propName]: {
-        ...commonFields.typeOfInvestmentTitle,
-        type: TypesOfColumnData.STRING
-    },
-    [commonFields.categoryOfEquipmentTitle.propName]: {
-        ...commonFields.categoryOfEquipmentTitle,
-        type: TypesOfColumnData.STRING
-    },
-    [commonFields.subjectOfInvestment.propName]: {
-        ...commonFields.subjectOfInvestment,
-        type: TypesOfColumnData.STRING
-    },
-    [commonFields.dateOfDelivery.propName]: {
-        ...commonFields.dateOfDelivery,
-        type: TypesOfColumnData.DATE
-    },
-    [commonFields.count.propName]: {
-        ...commonFields.count,
-        type: TypesOfColumnData.NUMBER
-    },
-    [commonFields.price.propName]: {
-        ...commonFields.price,
-        type: TypesOfColumnData.NUMBER
-    },
-    [commonFields.amount.propName]: {
-        ...commonFields.amount,
-        type: TypesOfColumnData.NUMBER
-    }
+    [commonFields.resultCenterTitle.propName]: commonFields.resultCenterTitle,
+    [commonFields.typeOfInvestmentTitle.propName]: commonFields.typeOfInvestmentTitle,
+    [commonFields.categoryOfEquipmentTitle.propName]: commonFields.categoryOfEquipmentTitle,
+    [commonFields.subjectOfInvestment.propName]: commonFields.subjectOfInvestment,
+    [commonFields.dateOfDelivery.propName]: commonFields.dateOfDelivery,
+    [commonFields.count.propName]: commonFields.count,
+    [commonFields.price.propName]: commonFields.price,
+    [commonFields.amount.propName]: commonFields.amount
 };
 
 const titleTable = "Детальный план сита";

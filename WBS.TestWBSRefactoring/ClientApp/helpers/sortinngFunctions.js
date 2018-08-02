@@ -26,6 +26,7 @@ export const sortOn = (sortingDataProp, type, sortOrder) => (
                 ? nextItem[sortingDataProp] - currItem[sortingDataProp]
                 : currItem[sortingDataProp] - nextItem[sortingDataProp];
         case TypesOfColumnData.NONE:
+        case TypesOfColumnData.ARRAY:
             return 0
     }
 };

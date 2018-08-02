@@ -1,4 +1,3 @@
-
 const styles = theme => ({
   container: {
     display: 'inline',

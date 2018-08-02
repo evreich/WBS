@@ -10,8 +10,10 @@ import Dialog, {
     DialogTitle
 } from "material-ui/Dialog";
 import Button from "material-ui/Button";
-import styles from "./InformationModalWindow.css";
 import { withStyles } from "material-ui/styles";
+
+import styles from "./InformationModalWindow.css";
+import { TypesOfColumnData } from "../../../../constants";
 
 class InformationModalWindow extends React.PureComponent {
     static propTypes = {
@@ -24,7 +26,6 @@ class InformationModalWindow extends React.PureComponent {
         onExited: PropTypes.func,
         classes: PropTypes.object.isRequired
     };
- 
 
     handleDeleteButtonClick = () => {
         const {
@@ -42,12 +43,24 @@ class InformationModalWindow extends React.PureComponent {
     };
 
     render() {
-        const { formData, cancel, formFieldNames, open, classes, onExited } = this.props;
+        const {
+            formData,
+            cancel,
+            formFieldNames,
+            open,
+            classes,
+            onExited
+        } = this.props;
         const firstPropOfObj = formFieldNames[0];
         const otherPropsOfObj = formFieldNames.slice(1);
 
         return (
-            <Dialog open={open} onExited={onExited} onClose={cancel} maxWidth={false}>
+            <Dialog
+                open={open}
+                onExited={onExited}
+                onClose={cancel}
+                maxWidth={false}
+            >
                 <DialogTitle
                     className={classes.dialogTitle}
                     id="form-dialog-title"
@@ -55,7 +68,7 @@ class InformationModalWindow extends React.PureComponent {
                     <div>Информационное окно</div>
                 </DialogTitle>
                 <DialogContent>
-                    {formData &&
+                    {formData && (
                         <div className={classes.dialogContent}>
                             <table border="0" cellPadding="5" cellSpacing="0">
                                 <tbody>
@@ -63,7 +76,11 @@ class InformationModalWindow extends React.PureComponent {
                                         <td>{firstPropOfObj.label}</td>
                                         <td>
                                             <div className={classes.cellValue}>
-                                                {formData[firstPropOfObj.propName]}
+                                                {
+                                                    formData[
+                                                        firstPropOfObj.propName
+                                                    ]
+                                                }
                                             </div>
                                         </td>
                                         <td>
@@ -83,11 +100,23 @@ class InformationModalWindow extends React.PureComponent {
                                         </td>
                                     </tr>
                                     {otherPropsOfObj.map(elem => (
-                                        <tr className={classes.row} key={elem.propName}>
+                                        <tr
+                                            className={classes.row}
+                                            key={elem.propName}
+                                        >
                                             <td>{elem.label}</td>
                                             <td>
-                                                <div className={classes.cellValue}>
-                                                    {formData[elem.propName]}
+                                                <div
+                                                    className={
+                                                        classes.cellValue
+                                                    }
+                                                >
+                                                    {elem.type ===
+                                                    TypesOfColumnData.ARRAY
+                                                        ? formData[elem.propName].map(item => item.title).join(", ")
+                                                        : formData[
+                                                              elem.propName
+                                                          ]}
                                                 </div>
                                             </td>
                                             <td />
@@ -96,7 +125,7 @@ class InformationModalWindow extends React.PureComponent {
                                 </tbody>
                             </table>
                         </div>
-                    }
+                    )}
                     <DialogActions>
                         <Button
                             onClick={cancel}

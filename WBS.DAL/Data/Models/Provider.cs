@@ -18,6 +18,11 @@ namespace WBS.DAL
      
         public List<ProvidersTechnicalService> ProvidersTechnicalServices { get; set; }
 
+        public Provider()
+        {
+            ProvidersTechnicalServices = new List<ProvidersTechnicalService>();
+        }
+
         public override string ToString()
         {
             var type = typeof(Provider);

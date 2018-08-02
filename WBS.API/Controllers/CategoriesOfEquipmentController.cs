@@ -24,5 +24,16 @@ namespace WBS.API.Controllers
         public CategoriesOfEquipmentController(AbstractDAL<CategoryOfEquipment> dal, ILogger<CategoriesOfEquipmentController> logger) 
             : base(dal, logger)
         { }
+
+
+        [HttpGet("categoriesOfEquipSelection")]
+        [Authorize(Roles = "admin")]
+        public IActionResult GetCategoriesOfEquipForSelection()
+        {
+            _logger.LogInformation(nameof(GetCategoriesOfEquipForSelection));
+            var result = _dal.Get().Select(c => new CategoriesOfEquipmentViewModel(c));
+            _logger.LogInformation("Getting information is succesful");
+            return Ok(result);
+        }
     }
 }

@@ -90,7 +90,7 @@ class CategoriesOfEquipmentDialogBody extends React.PureComponent {
                         name: codeName.propName,
                         label: codeName.label,
                         value: code,
-                        type: "text",
+                        type: "number",
                         onChange: this.handleChange,
                         fullWidth: true
                     }}

@@ -30,7 +30,6 @@ namespace WBS.API.Extensions
             services.AddScoped<AbstractDAL<TechnicalService>, TechnicalServiceDAL>();
             services.AddScoped<AbstractDAL<DAIRequest>, DAIRequestDAL>();
             services.AddScoped<AbstractDAL<RationaleForInvestment>, RationaleForInvestmentsDAL>();
-            services.AddScoped<AbstractDAL<ProvidersTechnicalService>, ProvidersTechnicalServicesDAL>();
             services.AddDbContext<WBSContext>(options => options.UseNpgsql(configuration.GetConnectionString("DefaultConnection")));
         }
     }

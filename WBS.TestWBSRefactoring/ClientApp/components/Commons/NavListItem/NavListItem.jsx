@@ -1,11 +1,12 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
+
+import { Link } from 'react-router-dom';
+
 import Collapse from 'material-ui/transitions/Collapse';
 import List, { ListItem, ListItemIcon, ListItemText } from 'material-ui/List';
 import ExpandLess from 'material-ui-icons/ExpandLess';
 import ExpandMore from 'material-ui-icons/ExpandMore';
-import { Link } from 'react-router-dom';
-// import { ListItem, ListItemIcon, ListItemText } from 'material-ui/List';
 
 class NavListItem extends Component {
   state = { open: false };

@@ -28,6 +28,18 @@ export function getTypesOfInvestment(onSuccess, onError) {
     rootRequest(currRoute, onSuccess, onError);
 }
 
+export function getTechnicalServs(onSuccess, onError) {
+    const currRoute = ROUTE.technicalServsSelection;
+
+    rootRequest(currRoute, onSuccess, onError);
+}
+
+export function getCategoriesOfEquip(onSuccess, onError) {
+    const currRoute = ROUTE.categoriesOfEquipSelection;
+
+    rootRequest(currRoute, onSuccess, onError);
+}
+
 const rootRequest = (currRoute, onSuccess, onError) => {
     if (!currRoute) throw new Error("Can't resolve URI");
 

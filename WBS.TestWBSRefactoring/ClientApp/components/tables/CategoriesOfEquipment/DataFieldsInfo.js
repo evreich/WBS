@@ -5,23 +5,28 @@ import { TypesOfColumnData } from "../../../constants";
 const commonFields = {
     categoryGroupId: {
         propName: "categoryGroupId",
-        label: "Группа категории"
+        label: "Группа категории",
+        type: TypesOfColumnData.NUMBER
     },
     categoryGroupTitle: {
         propName: "categoryGroupTitle",
-        label: "Группа категории"
+        label: "Группа категории",
+        type: TypesOfColumnData.STRING
     },
     code: {
         propName: "code",
-        label: "Код"
+        label: "Код",
+        type: TypesOfColumnData.NUMBER
     },
     title: {
         propName: "title",
-        label: "Название"
+        label: "Название",
+        type: TypesOfColumnData.STRING
     },
     depreciationPeriod: {
         propName: "depreciationPeriod",
-        label: "Амортизация, лет."
+        label: "Амортизация, лет.",
+        type: TypesOfColumnData.NUMBER
     }
 };
 
@@ -44,22 +49,10 @@ const infoWindowModel = {
 }
 
 const tableHeaders = {
-    [commonFields.categoryGroupTitle.propName]: {
-        ...commonFields.categoryGroupTitle,
-        type: TypesOfColumnData.STRING
-    },
-    [commonFields.code.propName]: {
-        ...commonFields.code,
-        type: TypesOfColumnData.STRING
-    },
-    [commonFields.title.propName]: {
-        ...commonFields.title,
-        type: TypesOfColumnData.STRING
-    },
-    [commonFields.depreciationPeriod.propName]: {
-        ...commonFields.depreciationPeriod,
-        type: TypesOfColumnData.NUMBER
-    }
+    [commonFields.categoryGroupTitle.propName]: commonFields.categoryGroupTitle,
+    [commonFields.code.propName]: commonFields.code,
+    [commonFields.title.propName]: commonFields.title,
+    [commonFields.depreciationPeriod.propName]: commonFields.depreciationPeriod
 };
 
 const titleTable = "Категории оборудования";

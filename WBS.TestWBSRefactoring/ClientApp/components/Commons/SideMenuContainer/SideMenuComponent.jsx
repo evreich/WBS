@@ -71,6 +71,7 @@ class SideMenuComponent extends Component {
       <Drawer
         variant="persistent"
         open={open}
+        onClose={this.handleDrawerClose}
         style={{ position: 'fixed', display: open ? 'block': 'none', marginTop: -10 }}
         classes={{
           paper: classes.drawerPaper,
@@ -188,7 +189,7 @@ class SideMenuComponent extends Component {
               className={classes.nested}
               text="Поставщики"
               icon={<SupervisorAccountIcon />}
-              to="/Vendors"
+              to="/Providers"
             />
             <NavListItem
               className={classes.nested}
@@ -200,7 +201,7 @@ class SideMenuComponent extends Component {
               className={classes.nested}
               text="Типы инвестиций"
               icon={<TrendingUpIcon />}
-              to="/Investment"
+              to="/TypeOfInvestments"
             />
             <NavListItem
               className={classes.nested}
