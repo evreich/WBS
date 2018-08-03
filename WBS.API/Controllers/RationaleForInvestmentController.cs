@@ -14,7 +14,6 @@ using WBS.DAL.Data.Helpers;
 using WBS.DAL.Data.Models;
 using WBS.DAL.Data.Models.ViewModels;
 using WBS.DAL.Models;
-using WBS.DAL4.Data.Models.ViewModels;
 
 namespace WBS.API.Controllers
 {

@@ -30,7 +30,8 @@ const DetalizationOfSiteContainer = (dataFields, DialogBody, tableStyles) =>
     )(
         CreateTable({
             dataFiledsInfo: dataFields,
-            DialogBodyComponent: DialogBody,
+            AddItemDialogBodyComponent: DialogBody,
+            ChangeItemDialogBodyComponent: DialogBody,
             tableStyles: tableStyles,
         })
     );

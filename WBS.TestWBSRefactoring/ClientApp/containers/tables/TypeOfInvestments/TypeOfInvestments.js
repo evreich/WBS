@@ -29,7 +29,8 @@ const TypeOfInvestmentsContainer = (dataFields, DialogBody, tableStyles) =>
     )(
         CreateTable({
             dataFiledsInfo: dataFields,
-            DialogBodyComponent: DialogBody,
+            AddItemDialogBodyComponent: DialogBody,
+            ChangeItemDialogBodyComponent: DialogBody,
             title: TABLE,
             tableStyles: tableStyles
         })

@@ -63,34 +63,42 @@ const commonFields = {
 const createWindowFields = {
     [commonFields.resultCenterId.propName]: commonFields.resultCenterId,
     [commonFields.typeOfInvestmentId.propName]: commonFields.typeOfInvestmentId,
-    [commonFields.categoryOfEquipmentId.propName]: commonFields.categoryOfEquipmentId,
-    [commonFields.subjectOfInvestment.propName]: commonFields.subjectOfInvestment,
+    [commonFields.categoryOfEquipmentId.propName]:
+        commonFields.categoryOfEquipmentId,
+    [commonFields.subjectOfInvestment.propName]:
+        commonFields.subjectOfInvestment,
     [commonFields.dateOfDelivery.propName]: commonFields.dateOfDelivery,
     [commonFields.count.propName]: commonFields.count,
     [commonFields.price.propName]: commonFields.price,
     [commonFields.amount.propName]: commonFields.amount
-}
+};
 
 const editWindowFields = {
     ...createWindowFields
-}
+};
 
 const infoWindowModel = {
     [commonFields.resultCenterTitle.propName]: commonFields.resultCenterTitle,
-    [commonFields.typeOfInvestmentTitle.propName]: commonFields.typeOfInvestmentTitle,
-    [commonFields.categoryOfEquipmentTitle.propName]: commonFields.categoryOfEquipmentTitle,
-    [commonFields.subjectOfInvestment.propName]: commonFields.subjectOfInvestment,
+    [commonFields.typeOfInvestmentTitle.propName]:
+        commonFields.typeOfInvestmentTitle,
+    [commonFields.categoryOfEquipmentTitle.propName]:
+        commonFields.categoryOfEquipmentTitle,
+    [commonFields.subjectOfInvestment.propName]:
+        commonFields.subjectOfInvestment,
     [commonFields.dateOfDelivery.propName]: commonFields.dateOfDelivery,
     [commonFields.count.propName]: commonFields.count,
     [commonFields.price.propName]: commonFields.price,
-    [commonFields.amount.propName]: commonFields.amount,
-}
+    [commonFields.amount.propName]: commonFields.amount
+};
 
 const tableHeaders = {
     [commonFields.resultCenterTitle.propName]: commonFields.resultCenterTitle,
-    [commonFields.typeOfInvestmentTitle.propName]: commonFields.typeOfInvestmentTitle,
-    [commonFields.categoryOfEquipmentTitle.propName]: commonFields.categoryOfEquipmentTitle,
-    [commonFields.subjectOfInvestment.propName]: commonFields.subjectOfInvestment,
+    [commonFields.typeOfInvestmentTitle.propName]:
+        commonFields.typeOfInvestmentTitle,
+    [commonFields.categoryOfEquipmentTitle.propName]:
+        commonFields.categoryOfEquipmentTitle,
+    [commonFields.subjectOfInvestment.propName]:
+        commonFields.subjectOfInvestment,
     [commonFields.dateOfDelivery.propName]: commonFields.dateOfDelivery,
     [commonFields.count.propName]: commonFields.count,
     [commonFields.price.propName]: commonFields.price,
@@ -99,4 +107,10 @@ const tableHeaders = {
 
 const titleTable = "Детальный план сита";
 
-export default { createWindowFields, editWindowFields, infoWindowModel, tableHeaders, titleTable };
+export default {
+    createWindowFields,
+    editWindowFields,
+    infoWindowModel,
+    tableHeaders,
+    titleTable
+};

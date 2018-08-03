@@ -27,6 +27,7 @@ export const sortOn = (sortingDataProp, type, sortOrder) => (
                 : currItem[sortingDataProp] - nextItem[sortingDataProp];
         case TypesOfColumnData.NONE:
         case TypesOfColumnData.ARRAY:
+        case TypesOfColumnData.BOOLEAN:
             return 0
     }
 };

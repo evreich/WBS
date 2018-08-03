@@ -20,6 +20,8 @@ const setInitValueForType = type => {
             return new Date();
         case TypesOfColumnData.ARRAY:
             return [];
+        case TypesOfColumnData.BOOLEAN:
+            return false;
         default:
             break;
     }

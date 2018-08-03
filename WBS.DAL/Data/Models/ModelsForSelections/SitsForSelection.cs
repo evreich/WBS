@@ -4,7 +4,7 @@ using System.Text;
 using WBS.DAL;
 using WBS.DAL.Data.Models;
 using WBS.DAL.Data.Models.ViewModels;
-namespace WBS.DAL4.Data.Models.ViewModels
+namespace WBS.DAL.Data.Models.ViewModels
 {
     public class SitsForSelection
     {

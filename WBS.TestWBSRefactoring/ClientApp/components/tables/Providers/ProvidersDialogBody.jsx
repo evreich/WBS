@@ -9,12 +9,12 @@ import { getTechnicalServs } from "../helpersAPI";
 class ProvidersDialogBody extends React.PureComponent {
     constructor(props) {
         super(props);
-        this.fields = transformFieldsToState(Object.values(props.formFields));
+        const fields = transformFieldsToState(Object.values(props.formFields));
 
         this.state = {
             id: 0,
             technicalServs: [],
-            ...this.fields
+            ...fields
         };
     }
 

@@ -26,15 +26,16 @@ const editTitleModalWindow = "Редактироваие";
 
 const СreateTable = ({
     dataFiledsInfo,
-    DialogBodyComponent,
+    AddItemDialogBodyComponent,
+    ChangeItemDialogBodyComponent,
     RowComponent = CommonTableRow,
     InformationModalWindow = CommonInformationModalWindow,
     ChangeItemModalWindow = CommonChangeItemModalWindow,
     isNeedFillEmptyRow = true,
     isNeedTableFooter = true,
-    tableStyles={},
+    tableStyles = {}
 }) =>
-    withStyles(() => ({...styles, ...tableStyles})) (
+    withStyles(() => ({ ...styles, ...tableStyles }))(
         class CommonTable extends React.PureComponent {
             constructor(props) {
                 super(props);
@@ -45,7 +46,10 @@ const СreateTable = ({
                     changeModalWindowTitle: createTitleModalWindow
                 };
 
-                this.sortingData = { sort: SortingActions.SORT_DESC, sortBy: '' };
+                this.sortingData = {
+                    sort: SortingActions.SORT_DESC,
+                    sortBy: ""
+                };
             }
 
             static propTypes = {
@@ -81,7 +85,7 @@ const СreateTable = ({
             }
 
             //handlers
-            handleCloseChangeModalWindow = (item) => {
+            handleCloseChangeModalWindow = item => {
                 const updatingDataItem = this.state.updatingDataItem;
                 const currItem = item.id ? item : updatingDataItem;
 
@@ -103,11 +107,11 @@ const СreateTable = ({
                     modalWindowChangingIsOpening: true,
                     changeModalWindowTitle: editTitleModalWindow
                 });
-            }
+            };
 
             handleCloseInformationModalWindow = () => {
                 this.setState({
-                    modalWindowInfoIsOpening: false,
+                    modalWindowInfoIsOpening: false
                 });
             };
 
@@ -125,30 +129,25 @@ const СreateTable = ({
             };
 
             handleChangePage = (event, page) => {
-                const {
-                    getDataTable,
-                    pagination
-                } = this.props;
+                const { getDataTable, pagination } = this.props;
 
                 getDataTable(page, pagination.elementsPerPage);
             };
 
             handleChangeRowsPerPage = event => {
-                const {
-                    getDataTable,
-                    pagination
-                } = this.props;
+                const { getDataTable, pagination } = this.props;
 
                 getDataTable(pagination.currentPage, event.target.value);
             };
 
-            handleDeleteButtonClick = id => {
-                const {
-                    pagination,
-                    deleteData 
-                } = this.props;
+            handleDeleteButtonClick = data => {
+                const { pagination, deleteData } = this.props;
 
-                deleteData(pagination.currentPage, pagination.elementsPerPage, id);
+                deleteData(
+                    pagination.currentPage,
+                    pagination.elementsPerPage,
+                    data
+                );
             };
 
             handleSortByHeaderClick = sortColumnId => {
@@ -174,7 +173,9 @@ const СreateTable = ({
                 const typeOfSortData =
                     dataFiledsInfo.tableHeaders[sortColumnId].type;
 
-                return data.sort(sortOn(sortColumnId, typeOfSortData, order)).slice(0);
+                return data
+                    .sort(sortOn(sortColumnId, typeOfSortData, order))
+                    .slice(0);
             };
 
             fillingEmptyRows = emptyRows =>
@@ -185,16 +186,11 @@ const СreateTable = ({
                 );
 
             render() {
-                const {
-                    classes,
-                    pagination,
-                    data,
-                    changeData
-                } = this.props;
+                const { classes, pagination, data, changeData } = this.props;
                 const {
                     modalWindowInfoIsOpening,
                     modalWindowChangingIsOpening,
-                    updatingDataItem, 
+                    updatingDataItem,
                     changeModalWindowTitle
                 } = this.state;
                 const {
@@ -206,10 +202,10 @@ const СreateTable = ({
                 //Вычисление пустых строк для заполнения таблицы
                 const emptyRows = isNeedFillEmptyRow
                     ? elementsPerPage -
-                    Math.min(
-                        elementsPerPage,
-                        elementsCount - currentPage * elementsPerPage
-                    )
+                      Math.min(
+                          elementsPerPage,
+                          elementsCount - currentPage * elementsPerPage
+                      )
                     : 0;
 
                 //отрисовка футера таблицы
@@ -240,9 +236,9 @@ const СreateTable = ({
 
                 const {
                     infoWindowModel,
-                    createWindowFields, 
+                    createWindowFields,
                     editWindowFields,
-                    tableHeaders, 
+                    tableHeaders,
                     titleTable
                 } = dataFiledsInfo;
 
@@ -251,7 +247,9 @@ const СreateTable = ({
                         <Paper className={classes.root}>
                             {/*Таблица*/}
                             <TableToolbar
-                                onCreate={this.handleOpenOnCreateChangeModalWindow}
+                                onCreate={
+                                    this.handleOpenOnCreateChangeModalWindow
+                                }
                                 title={titleTable}
                             />
                             <Table className={classes.table}>
@@ -272,7 +270,8 @@ const СreateTable = ({
                                                 )}
                                                 classes={classes}
                                                 handleInfoButtonClick={
-                                                    this.handleOpenInformationModalWindow
+                                                    this
+                                                        .handleOpenInformationModalWindow
                                                 }
                                             />
                                         ))}
@@ -302,13 +301,21 @@ const СreateTable = ({
                         <ChangeItemModalWindow
                             open={modalWindowChangingIsOpening}
                             save={changeData}
-                            formFields={updatingDataItem ? editWindowFields : createWindowFields }
+                            formFields={
+                                updatingDataItem
+                                    ? editWindowFields
+                                    : createWindowFields
+                            }
                             data={updatingDataItem}
                             cancel={this.handleCloseChangeModalWindow}
-                            DialogBodyComponent={DialogBodyComponent}
+                            DialogBodyComponent={
+                                updatingDataItem
+                                    ? ChangeItemDialogBodyComponent
+                                    : AddItemDialogBodyComponent
+                            }
                             currentPage={currentPage}
                             elementsPerPage={elementsPerPage}
-                            header={ changeModalWindowTitle }
+                            header={changeModalWindowTitle}
                         />
                     </>
                 );

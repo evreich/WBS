@@ -1,6 +1,7 @@
 import TYPE from './tablesActionTypes';
 import request from '../../utils/fetchUtil';
 import REQUEST_METHOD from '../../settings/httpMethods';
+import { concatParamsToPath } from '../../helpers/helperAPIRequest';
 
 export function receiveTable(data, title) {
     return {
@@ -36,9 +37,10 @@ export function getTable(currentPage = 0, elementsPerPage = 5, route, title, que
     return (dispatch) => {
         if (!route) throw new Error("Can't resolve URI");
 
-        const queryPath = queryParams && Object.values(queryParams).reduce((allPath, currParam) => allPath = allPath.concat(currParam ,'/') , "");
+        const queryPath = concatParamsToPath(queryParams);
         const commonPath = `${currentPage}/${elementsPerPage}`;
         const allPath = queryPath ? queryPath.concat(commonPath) : commonPath
+        
         request(
             {
                 method: REQUEST_METHOD.HTTP_GET,

@@ -33,7 +33,8 @@ const BudgetPlansContainer = (
     )(
         CreateTable({
             dataFiledsInfo: dataFields,
-            DialogBodyComponent: DialogBody,
+            AddItemDialogBodyComponent: DialogBody,
+            ChangeItemDialogBodyComponent: DialogBody,
             RowComponent: TableRow,
             InformationModalWindow,
             isNeedFillEmptyRow: false,

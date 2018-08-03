@@ -1,5 +1,4 @@
-import request from '../../utils/fetchUtil';
-import REQUEST_METHOD from '../../settings/httpMethods';
+import { rootRequest } from '../../helpers/helperAPIRequest';
 
 const ROUTE = document.api;
 
@@ -40,15 +39,20 @@ export function getCategoriesOfEquip(onSuccess, onError) {
     rootRequest(currRoute, onSuccess, onError);
 }
 
-const rootRequest = (currRoute, onSuccess, onError) => {
-    if (!currRoute) throw new Error("Can't resolve URI");
+export function getFormats(onSuccess, onError) {
+    const currRoute = ROUTE.formatsSelection;
 
-    request(
-        {
-            method: REQUEST_METHOD.HTTP_GET,
-            route: currRoute,
-        },
-        (data) => onSuccess(data),
-        (ex) => onError(ex)
-    )
-};
+    rootRequest(currRoute, onSuccess, onError);
+}
+
+export function getProfilesForSelect(onSuccess, onError) {
+    const currRoute = ROUTE.filteredProfilesForSelect;
+
+    rootRequest(currRoute, onSuccess, onError);
+}
+
+export function getRolesForSelect(onSuccess, onError) {
+    const currRoute = ROUTE.rolesSelection;
+
+    rootRequest(currRoute, onSuccess, onError);
+}

@@ -29,7 +29,8 @@ const CategoriesOfEquipmentContainer = (dataFields, DialogBody) =>
     )(
         CreateTable({
             dataFiledsInfo: dataFields,
-            DialogBodyComponent: DialogBody,
+            AddItemDialogBodyComponent: DialogBody,
+            ChangeItemDialogBodyComponent: DialogBody,
             title: TABLE
         })
     );

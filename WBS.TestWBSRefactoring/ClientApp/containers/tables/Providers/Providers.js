@@ -29,7 +29,8 @@ const ProvidersContainer = (dataFields, DialogBody, ProviderTableRow, tableStyle
     )(
         CreateTable({
             dataFiledsInfo: dataFields,
-            DialogBodyComponent: DialogBody,
+            AddItemDialogBodyComponent: DialogBody,
+            ChangeItemDialogBodyComponent: DialogBody,
             title: TABLE,
             tableStyles: tableStyles,
             RowComponent: ProviderTableRow

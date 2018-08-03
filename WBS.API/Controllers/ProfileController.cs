@@ -12,8 +12,8 @@ using WBS.DAL;
 using WBS.DAL.Authorization;
 using WBS.DAL.Authorization.Models;
 using WBS.DAL.Data.Helpers;
+using WBS.DAL.Data.Models.ModelsForSelections;
 using WBS.DAL.Data.Models.ViewModels;
-using WBS.DAL4.Data.Models.ViewModels;
 
 namespace WBS.API.Controllers
 {
@@ -127,7 +127,7 @@ namespace WBS.API.Controllers
         }
 
 
-        [HttpGet]
+        [HttpGet("{currentPage}/{pazeSize}")]
         public IActionResult Get(int currentPage = 0, int pageSize = 5)
         {
             _logger.LogInformation("Get information about profiles on page");
@@ -154,15 +154,16 @@ namespace WBS.API.Controllers
             return Ok(result);
         }
 
-        [HttpGet("usersSelection")]
+        [HttpGet("usersSelection/{query}/{count}")]
         public IActionResult GetProfilesForSelection(string query = "", int? count = null)
         {
             _logger.LogInformation(nameof(GetProfilesForSelection));
             //выбираем только тех пользователей, у которых нет пометки на удаление
             var result = _dal.GetUsers()
                 .Where(p => !p.DeletionMark
-                && (string.IsNullOrEmpty(query)
-                || !string.IsNullOrEmpty(p.Fio) && (p.Fio.ToUpper().Contains(query.ToUpper()) || p.Login.ToUpper().Contains(query.ToUpper()))))
+                       && (string.IsNullOrEmpty(query) ||
+                          (!string.IsNullOrEmpty(p.Fio) && p.Fio.ToUpper().Contains(query.ToUpper())
+                           || !string.IsNullOrEmpty(p.Login)) && p.Login.ToUpper().Contains(query.ToUpper())))                          
                 .Select(f => new ProfilesForSelection(f));
                 
             if (count.HasValue)

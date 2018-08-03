@@ -13,7 +13,6 @@ using WBS.DAL.Data.Models.ViewModels;
 using WBS.DAL.Data.Models;
 using Microsoft.Extensions.Logging;
 using WBS.API.Helpers;
-using WBS.DAL4.Data.Models.ViewModels;
 
 namespace WBS.API.Controllers
 {

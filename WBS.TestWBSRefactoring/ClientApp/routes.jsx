@@ -10,6 +10,9 @@ import BudgetPlans from './components/tables/BudgetPlans';
 import TypeOfInvestments from './components/tables/TypesOfInvestment';
 import ResultCentres from './components/tables/ResultCentres';
 import Providers from './components/tables/Providers';
+import Sits from './components/tables/Sits';
+import Formats from './components/tables/Format';
+import Profiles from './components/tables/Profiles';
 
 const routes = ( 
     <Layout>
@@ -20,6 +23,9 @@ const routes = (
         <Route path="/TypeOfInvestments" component={TypeOfInvestments} />
         <Route path="/ResultCentres" component={ResultCentres} />
         <Route path="/Providers" component={Providers} />
+        <Route path="/Sits" component={Sits} />
+        <Route path="/Formats" component={Formats} />
+        <Route path="/Profiles" component={Profiles} />
         <Route path="/Home" component={Home} />
     </Layout>
 );

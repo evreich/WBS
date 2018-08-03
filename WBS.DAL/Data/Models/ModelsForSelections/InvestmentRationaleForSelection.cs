@@ -5,7 +5,7 @@ using WBS.DAL.Data.Models;
 using WBS.DAL.Data.Models.ViewModels;
 using WBS.DAL.Models;
 
-namespace WBS.DAL4.Data.Models.ViewModels
+namespace WBS.DAL.Data.Models.ViewModels
 {
     public class InvestmentRationaleForSelection
     {
