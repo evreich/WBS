@@ -150,3 +150,4 @@ ChooseVendorModalForm.propTypes = {
     technicalServs: PropTypes.array
 };
 
+export default ChooseVendorModalForm;

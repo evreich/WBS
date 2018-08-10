@@ -103,6 +103,24 @@ namespace WBS.DAL.Migrations
                     b.ToTable("UserRoles");
                 });
 
+            modelBuilder.Entity("WBS.DAL.Data.Models.Attachment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int?>("DaiId");
+
+                    b.Property<byte[]>("Data");
+
+                    b.Property<string>("FileName");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DaiId");
+
+                    b.ToTable("Attachments");
+                });
+
             modelBuilder.Entity("WBS.DAL.Data.Models.BudgetPlan", b =>
                 {
                     b.Property<int>("Id")
@@ -530,6 +548,14 @@ namespace WBS.DAL.Migrations
                     b.HasOne("WBS.DAL.Authorization.Models.User", "User")
                         .WithMany("UserRoles")
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.SetNull);
+                });
+
+            modelBuilder.Entity("WBS.DAL.Data.Models.Attachment", b =>
+                {
+                    b.HasOne("WBS.DAL.Data.Models.DAIRequest", "DAI")
+                        .WithMany()
+                        .HasForeignKey("DaiId")
                         .OnDelete(DeleteBehavior.SetNull);
                 });
 

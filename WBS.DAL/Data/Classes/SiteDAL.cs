@@ -12,7 +12,7 @@ namespace WBS.DAL
     {
         public SiteDAL(WBSContext context, ICache cache) : base(context, cache) { }
 
-        protected override IEnumerable<Site> GetItems()
+        protected override List<Site> GetItems()
         {
             return _context.Sites
                 .Include(s => s.CreaterOfBudget)

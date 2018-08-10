@@ -10,7 +10,7 @@ namespace WBS.DAL
     {
         public ProviderDAL(WBSContext context, ICache cache) : base(context, cache) { }      
 
-        protected override IEnumerable<Provider> GetItems()
+        protected override List<Provider> GetItems()
         {
             return _context.Providers.Include(p => p.ProvidersTechnicalServices).ThenInclude(ts => ts.TechnicalService).ToList();
         }

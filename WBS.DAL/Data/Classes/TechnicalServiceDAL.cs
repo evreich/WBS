@@ -20,7 +20,7 @@ namespace WBS.DAL
                 .FirstOrDefault();
         }
 
-        protected override IEnumerable<TechnicalService> GetItems()
+        protected override List<TechnicalService> GetItems()
         {
             return _context.TechnicalServices.ToList();
         }

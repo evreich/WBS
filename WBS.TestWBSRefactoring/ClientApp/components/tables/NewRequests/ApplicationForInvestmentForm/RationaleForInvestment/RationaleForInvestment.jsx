@@ -49,10 +49,6 @@ class RationaleForInvestment extends React.PureComponent {
         this.setState({ [name]: value });
     };
 
-    handleChangeRadio = event => {
-        this.setState({ isShowTechServs: event.target.value });
-    };
-    
     handleChangeCheckbox = name => event => {
         this.setState({ [name]: event.target.checked });
     };
@@ -109,9 +105,7 @@ class RationaleForInvestment extends React.PureComponent {
                         label={approvalOfTechExpertIsRequiredName.label}
                         defaultChecked={approvalOfTechExpertIsRequired}
                         checkboxStyle={{ height: 24 }}
-                        onChange={this.handleChangeCheckbox(
-                            "approvalOfTechExpertIsRequired"
-                        )}
+                        onChange={this.handleChangeCheckbox(approvalOfTechExpertIsRequiredName.propname)}
                     />
                 </div>
                 <div

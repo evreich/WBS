@@ -24,7 +24,7 @@ namespace WBS.DAL.Data.Classes
                 .FirstOrDefault(item => item.Id == (int)id);
         }
 
-        protected override IEnumerable<Event> GetItems()
+        protected override List<Event> GetItems()
         {
             return _context.Events
                 .Include(item => item.BudgetPlan)

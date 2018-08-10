@@ -18,7 +18,7 @@ namespace WBS.DAL
             _cache = cache;
         }
 
-        protected abstract IEnumerable<T> GetItems();
+        protected abstract List<T> GetItems();
         protected abstract T GetItem(object id);
 
         public virtual T Create(T item)

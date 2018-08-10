@@ -42,16 +42,12 @@ class ExpansionElementsComponent extends React.PureComponent {
         //set investmentRational
     }
 
+    getDataToSave =() => this.sate;
+
     //handlers
     handleChange = e => {
         const { name, value } = e.target;
         this.setState({ [name]: value });
-    };
-
-    //TODO!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    //переделать под чекбоксы
-    handleChangeRadio = event => {
-        this.setState({ isShowTechServs: event.target.value });
     };
 
     handleChangeStateValue = (name, value) => {

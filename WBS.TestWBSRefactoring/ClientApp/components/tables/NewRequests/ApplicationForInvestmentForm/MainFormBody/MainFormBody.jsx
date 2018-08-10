@@ -72,7 +72,27 @@ class MainFormBody extends React.PureComponent {
         getTechnicalServs(this.setTechServs, this.showError);
     }
 
-    getDataToSave = () => this.state;
+    getDataToSave = () => {
+        const {
+            number,
+            directorApprovalDate,
+            siteId,
+            resultCentreId,
+            deliveryTime,
+            technicalServs,
+            selectedTechServs
+        } = this.state;
+        return {
+            number,
+            directorApprovalDate,
+            siteId,
+            resultCentreId,
+            deliveryTime,
+            technicalServices: technicalServs.filter(item =>
+                selectedTechServs.includes(item.title)
+            )
+        };
+    };
 
     //handlers
     handleChange = e => {
@@ -84,6 +104,9 @@ class MainFormBody extends React.PureComponent {
         this.setState({ isShowTechServs: event.target.value });
     };
 
+    handleDateChange = name => date => {
+        this.setState({ [name]: date });
+    };
     handleChangeCheckbox = name => event => {
         event.persist();
         this.setState(prevState => {
@@ -125,36 +148,38 @@ class MainFormBody extends React.PureComponent {
         return (
             <>
                 <div className={classes.flexRow}>
-                        <TextFieldPlaceholder
-                            muProps={{
-                                name: numberName.propName,
-                                label: numberName.label,
-                                value: number,
-                                type: "number",
-                                onChange: this.handleChange,
-                                disabled: true,
-                                style: { width: 300 }
-                            }}
-                        />
-                        <DatePicker
-                            name={directorApprovalDateName.propName}
-                            label={directorApprovalDateName.label}
-                            value={directorApprovalDate || null}
-                            disabled={true}
-                            onChange={this.handleChange}
-                            style={{ width: 300, marginTop: '15px' }}
-                        />
-                        <TextFieldPlaceholder
-                            muProps={{
-                                name: "",
-                                label: "Текущий этап",
-                                value: "",
-                                type: "number",
-                                onChange: this.handleChange,
-                                disabled: true,
-                                style: { width: 300, color: "#296E50" }
-                            }}
-                        />
+                    <TextFieldPlaceholder
+                        muProps={{
+                            name: numberName.propName,
+                            label: numberName.label,
+                            value: number,
+                            type: "number",
+                            onChange: this.handleChange,
+                            disabled: true,
+                            style: { width: 300 }
+                        }}
+                    />
+                    <DatePicker
+                        name={directorApprovalDateName.propName}
+                        label={directorApprovalDateName.label}
+                        value={directorApprovalDate || null}
+                        disabled={true}
+                        onChange={this.handleDateChange(
+                            directorApprovalDateName.propName
+                        )}
+                        style={{ width: 300, marginTop: "15px" }}
+                    />
+                    <TextFieldPlaceholder
+                        muProps={{
+                            name: "",
+                            label: "Текущий этап",
+                            value: "",
+                            type: "number",
+                            onChange: this.handleChange,
+                            disabled: true,
+                            style: { width: 300, color: "#296E50" }
+                        }}
+                    />
                 </div>
                 <div className={classes.flexRow}>
                     <div className={classes.flexColomn}>
@@ -164,7 +189,7 @@ class MainFormBody extends React.PureComponent {
                                 label: siteIdName.label,
                                 value: siteId,
                                 onChange: this.handleChange,
-                                style: { width: 300, marginLeft: 0}
+                                style: { width: 300, marginLeft: 0 }
                             }}
                             items={
                                 sits &&
@@ -174,41 +199,43 @@ class MainFormBody extends React.PureComponent {
                                 }))
                             }
                         />
-                            <TextFieldPlaceholder
-                                muProps={{
-                                    name: "",
-                                    label: "Ответственный в сите",
-                                    value: "",
-                                    onChange: this.handleChange,
-                                    disabled: true,
-                                    style:{ width: 300}
-                                }}
-                            />
+                        <TextFieldPlaceholder
+                            muProps={{
+                                name: "",
+                                label: "Ответственный в сите",
+                                value: "",
+                                onChange: this.handleChange,
+                                disabled: true,
+                                style: { width: 300 }
+                            }}
+                        />
                     </div>
                     <div className={classes.flexColomn}>
-                            <TextFieldSelect
-                                muProps={{
-                                    name: resultCentreIdName.propName,
-                                    label: resultCentreIdName.label,
-                                    value: resultCentreId,
-                                    onChange: this.handleChange,
-                                    style: { width: 300, marginLeft: 0}
-                                }}
-                                items={
-                                    resultCentres &&
-                                    resultCentres.map(elem => ({
-                                        value: elem.id,
-                                        text: elem.title
-                                    }))
-                                }
-                            />
-                            <DatePicker
-                                name={deliveryTimeName.propName}
-                                label={deliveryTimeName.label}
-                                value={deliveryTime ? deliveryTime : null}
-                                onChange={this.handleChange}
-                                style={{ width: 300, marginTop: '16px' }}
-                            />
+                        <TextFieldSelect
+                            muProps={{
+                                name: resultCentreIdName.propName,
+                                label: resultCentreIdName.label,
+                                value: resultCentreId,
+                                onChange: this.handleChange,
+                                style: { width: 300, marginLeft: 0 }
+                            }}
+                            items={
+                                resultCentres &&
+                                resultCentres.map(elem => ({
+                                    value: elem.id,
+                                    text: elem.title
+                                }))
+                            }
+                        />
+                        <DatePicker
+                            name={deliveryTimeName.propName}
+                            label={deliveryTimeName.label}
+                            value={deliveryTime ? deliveryTime : null}
+                            onChange={this.handleDateChange(
+                                deliveryTimeName.propName
+                            )}
+                            style={{ width: 300, marginTop: "16px" }}
+                        />
                     </div>
                     <div className={classes.dialogBodyColumn}>
                         <Radio
@@ -259,7 +286,7 @@ class MainFormBody extends React.PureComponent {
 
                 {/*TODO: VALIDATION */}
                 {errors && <span style={{ color: "red" }}>{errors}</span>}
-                <br/>
+                <br />
             </>
         );
     }

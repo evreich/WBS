@@ -11,6 +11,9 @@ import Button from "material-ui/Button";
 import AddCircleOutlineIcon from "material-ui-icons/AddCircleOutline";
 import IconButton from "material-ui/IconButton";
 import DeleteIcon from "material-ui-icons/Delete";
+import { withStyles } from "material-ui/styles";
+
+import styles from '../../../../../Commons/Table/TableStyles.css';
 
 const Providers = ({ classes, providers, onDelete, onAddNew }) => (
     <Table className={classes.table}>
@@ -57,4 +60,4 @@ Providers.propTypes = {
     onDelete: PropTypes.func.isRequired,
     onAddNew: PropTypes.func.isRequired
 };
-export default Providers;
+export default withStyles(styles)(Providers);

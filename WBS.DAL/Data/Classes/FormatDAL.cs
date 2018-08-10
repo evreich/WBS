@@ -11,7 +11,7 @@ namespace WBS.DAL
     {
         public FormatDAL(WBSContext context, ICache cache) : base(context, cache) { }
 
-        protected override IEnumerable<Format> GetItems()
+        protected override List<Format> GetItems()
         {
             return _context.Formats
                 .Include(f => f.DirectorOfFormat)

@@ -13,12 +13,15 @@ import {
     getPayback,
     getSmile
 } from "../../../../../../helpers/efficiencyCalcHelper";
+import transformFieldsToState from '../../../../../../helpers/transformFieldsToState';
 
 class InvestmentEfficiency extends React.PureComponent {
-    constructor(props, context) {
-        super(props, context);
+    constructor(props) {
+        super(props);
+        this.fields = transformFieldsToState(Object.values(props.formFields));
         this.state = {
-            paybackSmile: {}
+            paybackSmile: {},
+            ...this.fields
         };
     }
 

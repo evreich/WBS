@@ -81,7 +81,7 @@ const ApplicationForInvestmentForm = props => {
     } = formFields;
 
     return (
-        <Dialog open={open} onClose={cancel} maxWidth={false}>
+        <Dialog open={open} onClose={cancel} maxWidth={false} disableEnforceFocus={true}>
             <DialogTitle className={classes.dialogTitle}>
                 <div>
                     <div>Заявка на получение инвестиции</div>

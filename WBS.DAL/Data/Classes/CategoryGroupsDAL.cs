@@ -14,7 +14,7 @@ namespace WBS.DAL
         public CategoryGroupsDAL(WBSContext context, ICache cache) : base(context, cache)
         { }
 
-        protected override IEnumerable<CategoryGroup> GetItems()
+        protected override List<CategoryGroup> GetItems()
         {
             return _context.CategoryGroups.ToList();
         }

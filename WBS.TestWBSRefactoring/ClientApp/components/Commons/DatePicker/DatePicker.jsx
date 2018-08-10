@@ -35,7 +35,7 @@ class CustomDatePicker extends Component {
 
 CustomDatePicker.propTypes = {
   disabled: PropTypes.bool,
-  value: PropTypes.string,
+  value: PropTypes.object,
   placeholder: PropTypes.string,
   label: PropTypes.string,
   onChange: PropTypes.func

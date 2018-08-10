@@ -34,6 +34,8 @@ class InvestmentTabs extends React.PureComponent {
         onRef(this);
     }
 
+    getDataToSave = () => this.state;
+    
     //handlers
     handleChange = e => {
         const { name, value } = e.target;
@@ -116,15 +118,14 @@ class InvestmentTabs extends React.PureComponent {
                                     name: "",
                                     label: "Вне бюджета",
                                     value: "",
-                                    onChange: this.handleChange
+                                    onChange: (() => {})
                                 }}
                                 items={[
-                                    { id: "1", text: "Новый" },
-                                    { id: "2", text: "Замена" }
+                                    { id: "1", text: "Новый", key:"1" },
+                                    { id: "2", text: "Замена", key:"2" }
                                 ]}
                             />
                         </div>
-                        />
                         <Paper>
                             <OutBudget outBudgetData={{ sum: 1000 }} />
                         </Paper>
@@ -132,7 +133,7 @@ class InvestmentTabs extends React.PureComponent {
                 )}
                 {tab === 2 && (
                     <TabContainer>
-                        <Paper>
+                        <Paper style={{overflowX: 'auto'}} >
                             <Investment />
                         </Paper>
                     </TabContainer>

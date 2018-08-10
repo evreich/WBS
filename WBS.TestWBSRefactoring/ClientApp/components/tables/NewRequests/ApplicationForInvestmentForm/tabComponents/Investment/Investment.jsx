@@ -111,7 +111,7 @@ const Investment = ({ classes }) => (
             <TableRow className={classes.row} key={1}>
                 <TableCell
                     className={classes.cell}
-                    style={{ borderLeft: "20px solid rgba(0, 0, 0, 0.08)" }}
+                    //style={{ borderLeft: "20px solid rgba(0, 0, 0, 0.08)" }}
                 >
                     <TextField style={{ width: 200 }} defaultValue="" />
                 </TableCell>
@@ -152,7 +152,7 @@ const Investment = ({ classes }) => (
             <TableRow className={classes.row} key={2}>
                 <TableCell
                     className={classes.cell}
-                    style={{ borderLeft: "20px solid rgba(0, 0, 0, 0.08)" }}
+                    //style={{ borderLeft: "20px solid rgba(0, 0, 0, 0.08)" }}
                 >
                     <TextField style={{ width: 200 }} defaultValue="" />
                 </TableCell>

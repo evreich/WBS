@@ -12,7 +12,7 @@ import { getAttachment } from "./helpersAPI";
 const uploader = new FineUploaderTraditional({
     options: {
         chunking: {
-            enabled: true
+            //enabled: true
         },
         deleteFile: {
             enabled: true
@@ -38,7 +38,7 @@ class Attachments extends React.PureComponent {
     static propTypes = {
         classes: PropTypes.object.isRequired,
     };
-    
+
     componentDidMount() {
         //set attachemnts
         const { attachments } = this.state;

@@ -12,7 +12,7 @@ namespace WBS.DAL
     {
         public TypesOfInvestmentDAL(WBSContext context, ICache cache) : base(context, cache) { }
 
-        protected override IEnumerable<TypeOfInvestment> GetItems()
+        protected override List<TypeOfInvestment> GetItems()
         {
             return _context.TypesOfInvestment.ToList();
         }

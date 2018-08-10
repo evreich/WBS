@@ -75,6 +75,6 @@ namespace WBS.DAL
         public DbSet<DAIRequestsProvider> DaiRequestProvider { get; set; }
         public DbSet<ProvidersTechnicalService> ProvidersTechnicalServices { get; set; }
         public DbSet<RationaleForInvestment> RationaleForInvestments { get; set; }
-
+        public DbSet<Attachment> Attachments { get; set; }
     }
 }

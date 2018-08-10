@@ -6,10 +6,8 @@ import Dialog, {
     DialogContent,
     DialogTitle
 } from "material-ui/Dialog";
-import { withStyles } from "material-ui/styles";
 import TextField from "material-ui/TextField";
 import { MenuItem } from "material-ui/Menu";
-import Zoom from "material-ui/transitions/Zoom";
 import Button from "material-ui/Button";
 
 import DateRangePicker from "../../Commons/DateRangePicker";
@@ -27,10 +25,6 @@ const styles = {
     }
 }
 
-function Transition(props) {
-    return <Zoom timeout={{ enter: 10, exit: 300 }} {...props} />;
-}
-
 class Filters extends React.PureComponent {
     static propTypes = {
         open: PropTypes.bool,
@@ -44,7 +38,7 @@ class Filters extends React.PureComponent {
             <Dialog
                 open={open}
                 onClose={handleClose}
-                transition={Transition}
+                
                 aria-labelledby="form-dialog-title"
                 maxWidth={false}
             >
@@ -127,4 +121,4 @@ class Filters extends React.PureComponent {
     }
 }
 
-export default withStyles(styles)(Filters);
+export default Filters;
