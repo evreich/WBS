@@ -1,4 +1,5 @@
-import { SortingActions, TypesOfColumnData } from "../constants";
+import SortingActions from "../constants/sortingActions";
+import TypesOfColumnData from "../constants/typesOfColumnData";
 
 export const sortOn = (sortingDataProp, type, sortOrder) => (
     currItem,

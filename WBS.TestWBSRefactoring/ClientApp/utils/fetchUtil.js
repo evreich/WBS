@@ -6,19 +6,32 @@ const defaultConfig = {
     contentType: DATA_TYPE.JSON_DATA
 };
 
-function ConvertData(contentType, data){
+function ConvertDataToRequest(contentType, data){
     if(!data) return null;
 
     switch(contentType){
         case DATA_TYPE.JSON_DATA: 
             return JSON.stringify(data);
+        case DATA_TYPE.TEXT_HTML_DATA:
+            return data;
+        default:
+            return null;
+    }
+}
+
+function ConvertDataFromResponse(contentType, response){
+    switch(contentType){
+        case DATA_TYPE.JSON_DATA: 
+            return response.json();
+        case DATA_TYPE.TEXT_HTML_DATA:
+            return response.body.getReader();
         default:
             return null;
     }
 }
 
 function checkStatus(response) { 
-    if (response.ok) return Promise.resolve(response.json());
+    if (response.ok) return Promise.resolve(response);
 
     return response.json()
         .then(json => {
@@ -75,7 +88,7 @@ export default function request(config, onSuccess, onError) {
     },
     token = getItem(SETTINGS.AUTH_KEY),
     auth = null,
-    data = ConvertData(config.contentType, config.data);
+    data = ConvertDataToRequest(config.contentType, config.data);
 
     if (token)
         auth = { Authorization: `Bearer ${token.access_token}` };
@@ -88,6 +101,7 @@ export default function request(config, onSuccess, onError) {
 
     fetch(config.route, headers)
         .then((response) => checkStatus(response))
+        .then((response) => ConvertDataFromResponse(config.contentType, response))
         .then((data) => {
             onSuccess && onSuccess(data);
         }).catch((error) => {

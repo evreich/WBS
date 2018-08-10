@@ -6,11 +6,11 @@ import Tab from "@material-ui/core/Tab";
 import Paper from "material-ui/Paper";
 import { withStyles } from "material-ui/styles";
 
-import TabContainer from "../../Commons/TabContainer";
-import DetalizationOfSite from "../DetalizationOfSite";
-import TextFieldSelect from "../../Commons/TextFields/TextFieldSelect";
+import TabContainer from "../../../Commons/TabContainer";
+import DetalizationOfSite from "../../DetalizationOfSite";
+import TextFieldSelect from "../../../Commons/TextFields/TextFieldSelect";
 import { styles } from "./DetalizationOfBudgetPlan.css";
-import { getSites } from "../helpersAPI";
+import { getSites } from "../../helpersAPI";
 
 const fieldNames = {
     selectedSite: {

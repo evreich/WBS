@@ -24,12 +24,12 @@ class ChangeItemModalWindow extends React.Component {
         error: PropTypes.object,
         open: PropTypes.bool.isRequired,
         data: PropTypes.any,
-        DialogBodyComponent: PropTypes.func.isRequired,
-        classes: PropTypes.object,
         currentPage: PropTypes.number,
         elementsPerPage: PropTypes.number,
+        classes: PropTypes.object,
         formFields: PropTypes.object,
-        header: PropTypes.string 
+        header: PropTypes.string,
+        children: PropTypes.object
     };
 
     onSaveButtonClick = () => {
@@ -45,17 +45,21 @@ class ChangeItemModalWindow extends React.Component {
     };
 
     render() {
-        const { open, cancel, data, DialogBodyComponent, classes, formFields, header } = this.props;
+        const { open, cancel, data, formFields, classes, header, children } = this.props;
+
+        const dialogBodyComponent = React.Children.map(children, child => React.cloneElement(child, { 
+            onRef: instance => { this.dialogContent = instance },                         
+            data,
+            formFields
+        }));
+
         return (
-            <Dialog open={open} onClose={this.cancel} maxWidth={false} classes={{paper: classes.container}}>
+            <Dialog open={open} onClose={cancel} maxWidth={false} classes={{paper: classes.container}}>
                 <DialogTitle id="form-dialog-title" className={classes.dialogTitle}>
                     <div>{header}</div>
                 </DialogTitle>
                 <DialogContent>
-                    <DialogBodyComponent
-                        onRef={instance => { this.dialogContent = instance }}
-                        data={data}
-                        formFields={formFields} />
+                    { dialogBodyComponent }
                 </DialogContent>
                 <DialogActions>
                     <Button

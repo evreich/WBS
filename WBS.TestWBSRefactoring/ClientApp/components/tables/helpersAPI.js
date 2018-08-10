@@ -56,3 +56,10 @@ export function getRolesForSelect(onSuccess, onError) {
 
     rootRequest(currRoute, onSuccess, onError);
 }
+
+export function getInvestmentRational(onSuccess, onError) {
+    const currRoute = ROUTE.investmentRationaleSelection;
+
+    rootRequest(currRoute, onSuccess, onError);
+}
+

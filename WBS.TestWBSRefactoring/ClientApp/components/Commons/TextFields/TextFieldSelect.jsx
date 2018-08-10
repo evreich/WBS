@@ -26,7 +26,7 @@ const TextFieldSelect = (props) => {
                     },
                 }}
                 select 
-                style={{ display: "flex"}}          
+                style={{...muProps.style, display: "flex"}}          
             >
                 {items && items.map((item) =>
                     <MenuItem key={item.value} value={item.value}>

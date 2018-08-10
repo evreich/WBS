@@ -5,8 +5,11 @@ using WBS.DAL.Cache;
 
 namespace WBS.DAL.Authorization.Models
 {
-    public class RefreshToken
+    public class RefreshToken : IBaseEntity
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
+
         [Key, Column("token")]
         public string Token { get; set; }
 

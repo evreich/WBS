@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import TextFieldPlaceholder from "../../Commons/TextFields/TextFieldPlaceholder";
+import TextFieldPlaceholder from "../../../Commons/TextFields/TextFieldPlaceholder";
 import { commonFields } from "./DataFieldsInfo";
  
 //validation information
@@ -22,7 +22,7 @@ class BudgetPlanDialogBody extends React.PureComponent {
  
     static propTypes = {
         errors: PropTypes.object,
-        onRef: PropTypes.func.isRequired
+        onRef: PropTypes.func
     };
  
     componentDidMount() {

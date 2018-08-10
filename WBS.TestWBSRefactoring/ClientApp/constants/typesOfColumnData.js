@@ -1,6 +1,15 @@
-export const NUMBER = 'NUMBER';
-export const STRING = 'STRING';
-export const DATE = 'DATE';
-export const NONE = 'NONE';
-export const ARRAY = 'ARRAY';
-export const BOOLEAN = 'BOOLEAN'; 
+const NUMBER = "NUMBER";
+const STRING = "STRING";
+const DATE = "DATE";
+const NONE = "NONE";
+const ARRAY = "ARRAY";
+const BOOLEAN = "BOOLEAN";
+
+export default {
+    NUMBER,
+    STRING,
+    DATE,
+    NONE,
+    ARRAY,
+    BOOLEAN
+};

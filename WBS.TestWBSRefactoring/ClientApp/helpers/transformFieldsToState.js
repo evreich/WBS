@@ -1,4 +1,4 @@
-import { TypesOfColumnData } from "../constants";
+import TypesOfColumnData from "../constants/typesOfColumnData";
 
 const transformFieldsToState = fields =>
     fields.reduce(

@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using WBS.API.Helpers;
 using WBS.DAL;
-using WBS.DAL.Data.Helpers;
 using WBS.DAL.Data.Models;
 using WBS.DAL.Data.Models.ViewModels;
 
@@ -89,8 +85,5 @@ namespace WBS.API.Controllers
             _logger.LogInformation("Update is successful");
             return Ok(new DAIRequestViewModel(updatedData));
         }
-
-
-
     }
 }

@@ -31,6 +31,9 @@ namespace WBS.DAL.Migrations
                     b.Property<DateTime>("Expire")
                         .HasColumnName("expire");
 
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
                     b.HasKey("Token");
 
                     b.ToTable("RefreshTokens");

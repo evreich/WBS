@@ -10,7 +10,7 @@ import {
 import Tooltip from "@material-ui/core/Tooltip";
 
 import { styles as classes } from "./SortedTableHead.css";
-import { TypesOfColumnData } from "../../../../constants";
+import TypesOfColumnData from "../../../../constants/typesOfColumnData";
 
 const SortedTableHead = props => {
     const { columnHeaders, order, orderBy } = props;

@@ -14,15 +14,16 @@ import Paper from "material-ui/Paper";
 import TablePaginationActionsWrapped from "../Pagination";
 import SortedTableHead from "./SortedTableHead";
 import { styles } from "./TableStyles.css";
-import { SortingActions } from "../../../constants";
+import SortingActions from "../../../constants/sortingActions";
 import { sortOn } from "../../../helpers/sortinngFunctions";
 import TableToolbar from "./Toolbar";
 import CommonChangeItemModalWindow from "../ModalWindows/ChangeItemModalWindow";
 import CommonInformationModalWindow from "../ModalWindows/InformationModalWindow";
 import CommonTableRow from "./TableRow";
 
+//закголовки диалоговых окон
 const createTitleModalWindow = "Создание";
-const editTitleModalWindow = "Редактироваие";
+const editTitleModalWindow = "Редактирование";
 
 const СreateTable = ({
     dataFiledsInfo,
@@ -242,6 +243,10 @@ const СreateTable = ({
                     titleTable
                 } = dataFiledsInfo;
 
+                const isExistsDialogBodies =
+                    AddItemDialogBodyComponent && ChangeItemDialogBodyComponent
+                        ? true
+                        : false;
                 return (
                     <>
                         <Paper className={classes.root}>
@@ -308,15 +313,19 @@ const СreateTable = ({
                             }
                             data={updatingDataItem}
                             cancel={this.handleCloseChangeModalWindow}
-                            DialogBodyComponent={
-                                updatingDataItem
-                                    ? ChangeItemDialogBodyComponent
-                                    : AddItemDialogBodyComponent
-                            }
                             currentPage={currentPage}
                             elementsPerPage={elementsPerPage}
                             header={changeModalWindowTitle}
-                        />
+                        >
+                            {/*отправляем тело диалогового окна в качестве children */}
+                            {isExistsDialogBodies ? (
+                                updatingDataItem ? (
+                                    <ChangeItemDialogBodyComponent />
+                                ) : (
+                                    <AddItemDialogBodyComponent />
+                                )
+                            ) : null}
+                        </ChangeItemModalWindow>
                     </>
                 );
             }

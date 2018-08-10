@@ -19,7 +19,7 @@ class TypeOfInvestmentDialogBody extends React.PureComponent {
     static propTypes = {
         errors: PropTypes.object,
         data: PropTypes.object,
-        onRef: PropTypes.func.isRequired,
+        onRef: PropTypes.func,
         formFields: PropTypes.object
     };
 

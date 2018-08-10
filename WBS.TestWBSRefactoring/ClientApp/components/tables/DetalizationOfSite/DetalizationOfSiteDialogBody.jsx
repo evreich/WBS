@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 import TextFieldSelect from "../../Commons/TextFields/TextFieldSelect";
 import TextFieldPlaceholder from "../../Commons/TextFields/TextFieldPlaceholder";
-import { QueryParamsContext } from "../DetalizationOfBudgetPlan/DetalizationOfBudgetPlan";
+import { QueryParamsContext } from "../BudgetPlans/DetalizationOfBudgetPlan/DetalizationOfBudgetPlan";
 import transformFieldsToState from "../../../helpers/transformFieldsToState";
 import {
     getResultCentres,
@@ -33,7 +33,7 @@ class DetalizationOfSiteDialogBody extends React.PureComponent {
     static propTypes = {
         errors: PropTypes.object,
         data: PropTypes.object,
-        onRef: PropTypes.func.isRequired,
+        onRef: PropTypes.func,
         formFields: PropTypes.object
     };
 

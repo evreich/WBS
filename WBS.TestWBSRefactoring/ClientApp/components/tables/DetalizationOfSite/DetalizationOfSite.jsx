@@ -5,10 +5,9 @@ import DetalizationOfSiteContainer from '../../../containers/tables/Detalization
 import DialogBody from './DetalizationOfSiteDialogBody';
 import SearchDataForTable from './SearchDataForTable';
 import { tableStyles } from "../../../components/tables/DetalizationOfSite/DetalizationOfSite.css";
-import { QueryParamsContext } from '../DetalizationOfBudgetPlan/DetalizationOfBudgetPlan'
+import { QueryParamsContext } from '../BudgetPlans/DetalizationOfBudgetPlan/DetalizationOfBudgetPlan'
  
 const DetalizationOfSite = () => {
-
     const DetalizationOfSite = DetalizationOfSiteContainer(DataFieldsInfo, DialogBody, tableStyles);
     return (
         <>

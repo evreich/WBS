@@ -13,7 +13,7 @@ import Button from "material-ui/Button";
 import { withStyles } from "material-ui/styles";
 
 import styles from "./InformationModalWindow.css";
-import { TypesOfColumnData } from "../../../../constants";
+import TypesOfColumnData from "../../../../constants/typesOfColumnData";
 
 class InformationModalWindow extends React.PureComponent {
     static propTypes = {

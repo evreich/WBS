@@ -21,7 +21,7 @@ const TextFieldMultiSelect = props => {
             <Select
                 {...muProps}
                 multiple
-                style={{ display: "flex" }}
+                style={{ ...muProps.style, display: "flex" }}
                 renderValue={selected => selected.join(', ')}
                 className={classes.textField}
                 MenuProps={{

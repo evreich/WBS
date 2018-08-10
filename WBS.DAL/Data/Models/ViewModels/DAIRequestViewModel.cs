@@ -24,8 +24,8 @@ namespace WBS.DAL.Data.Models.ViewModels
 
         public string Subject { get; set; }
 
-        public int? SitId { get; set; }
-        public string SitName { get; set; }
+        public int? SiteId { get; set; }
+        public string SiteName { get; set; }
 
         public int? ResultCentreId { get; set; }
         public string ResultCentreTitle { get; set; }
@@ -48,7 +48,6 @@ namespace WBS.DAL.Data.Models.ViewModels
         public double NetPresentValue { get; set; }
         public double SavingsPerYear { get; set; }
 
-
         public string ReasonForDAI { get; set; }
 
         public List<ProviderViewModel> Providers { get; set; }
@@ -64,12 +63,12 @@ namespace WBS.DAL.Data.Models.ViewModels
             Number = request.Number;
             DeliveryTime = request.DeliveryTime;
             Subject = request.Subject;
-            SitId = request.SitId;
+            SiteId = request.SitId;
             CommentForDirectorGeneral = request.CommentForDirectorGeneral;
 
             ApprovalOfTechExpertIsRequired = request.ApprovalOfTechExpertIsRequired;
 
-            if (request.Sit != null) SitName = request.Sit.Title;
+            if (request.Sit != null) SiteName = request.Sit.Title;
 
             ResultCentreId = request.ResultCentreId;
             if (request.ResultCentre != null) ResultCentreTitle = request.ResultCentre.Title;
@@ -123,7 +122,7 @@ namespace WBS.DAL.Data.Models.ViewModels
             {
                 Id = Id,
                 CreationData = CreationData,
-                SitId = SitId,
+                SitId = SiteId,
                 ResultCentreId = ResultCentreId,
                 ApprovalOfTechExpertIsRequired = ApprovalOfTechExpertIsRequired,
                 RationaleForInvestmentId = RationaleForInvestmentId,

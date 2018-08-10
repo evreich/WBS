@@ -13,6 +13,7 @@ import Providers from './components/tables/Providers';
 import Sits from './components/tables/Sits';
 import Formats from './components/tables/Format';
 import Profiles from './components/tables/Profiles';
+import DAIRequests from './components/tables/DAIRequests'
 
 const routes = ( 
     <Layout>
@@ -26,6 +27,7 @@ const routes = (
         <Route path="/Sits" component={Sits} />
         <Route path="/Formats" component={Formats} />
         <Route path="/Profiles" component={Profiles} />
+        <Route path="/DAIRequests" component={DAIRequests} />
         <Route path="/Home" component={Home} />
     </Layout>
 );
