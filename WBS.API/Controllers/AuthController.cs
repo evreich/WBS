@@ -22,6 +22,7 @@ namespace WBS.API.Controllers
         private readonly IServiceProvider _provider;
         private readonly ProfilesDAL _dal;
         private readonly ILogger<AuthController> _logger;
+        //private readonly RefreshTokenDAL _refreshTokenDAL;
 
         public AuthController(WBSContext context, IServiceProvider provider, ProfilesDAL dal, ILogger<AuthController> logger)
         {
@@ -30,6 +31,41 @@ namespace WBS.API.Controllers
             _dal = dal;
             _logger = logger;
         }
+
+        //TODO: переделать текущую авторизауию под то, что закоментировано
+        //Возможно (крайне вероятно) нужно поменять GET на POST для увеличения уровня безопасности передаваемых персональных данных
+
+        //[HttpGet("login")]
+        //public IActionResult Login([FromQuery]string login, string password)
+        //{
+        //    if (string.IsNullOrEmpty(login) || string.IsNullOrEmpty(password))
+        //    {
+        //        var error = "Arguments of authRequest is null";
+        //        _logger.LogInformation(error);
+        //        return BadRequest(new ResponseError(error));
+        //    }
+
+        //    _logger.LogInformation("Start login for user: '{login}'", login);
+        //    var tokenData = new AuthUtils(_profileDAL, _refreshTokenDAL, _provider).CreateToken(login, password);
+        //    _logger.LogInformation("User login is successful");
+        //    return Ok(tokenData);
+        //}
+
+        //[HttpGet("token")]
+        //public IActionResult UpdateAccessToken([FromQuery]string refreshToken)
+        //{
+        //    if (string.IsNullOrEmpty(refreshToken))
+        //    {
+        //        var error = "RefreshToken argument is null or empty. Can not update access token.";
+        //        _logger.LogInformation(error);
+        //        return BadRequest(new ResponseError(error));
+        //    }
+
+        //    _logger.LogInformation("Update Access Token start");
+        //    var tokenData = new AuthUtils(_profileDAL, _refreshTokenDAL, _provider).UpdateAccessToken(refreshToken);
+        //    _logger.LogInformation("Update Access Token is successful");
+        //    return Ok(tokenData);
+        //}
 
         [HttpPost("login")]
         public IActionResult Login([FromBody]AuthRequest data)
