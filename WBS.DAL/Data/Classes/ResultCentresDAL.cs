@@ -12,7 +12,7 @@ namespace WBS.DAL
     {
         public ResultCentresDAL(WBSContext context, ICache cache) : base(context, cache) { }
 
-        protected override List<ResultCenter> GetItems()
+        protected override IEnumerable<ResultCenter> GetItems()
         {
             return _context.ResultCentres.ToList();
         }

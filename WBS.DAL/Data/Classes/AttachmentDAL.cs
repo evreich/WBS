@@ -20,7 +20,7 @@ namespace WBS.DAL.Data.Classes
                 .FirstOrDefault(item => item.Id == (int)id);
         }
 
-        protected override List<Attachment> GetItems()
+        protected override IEnumerable<Attachment> GetItems()
         {
             return _context.Attachments
                 .Include(item => item.DAI)
