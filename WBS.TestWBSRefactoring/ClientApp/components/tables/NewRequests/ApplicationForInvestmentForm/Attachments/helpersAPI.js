@@ -3,13 +3,15 @@ import download from "downloadjs";
 import request from "../../../../../utils/fetchUtil";
 import REQUEST_METHOD from "../../../../../settings/httpMethods";
 
-export function getAttachment(currRoute, onSuccess, onError, id, filename) {
-    if (!currRoute) throw new Error("Can't resolve URI");
+const ROUTE = document.appendChild.ATTACHMENT_CONTROLLER_URL
+
+export function getAttachment(id, filename) {
+    if (!ROUTE) throw new Error("Can't resolve URI");
 
     request(
         {
             method: REQUEST_METHOD.HTTP_GET,
-            route: currRoute + `${id}/`
+            route: ROUTE + `${id}/`
         },
         reader => {
             const readableStream = new ReadableStream({
