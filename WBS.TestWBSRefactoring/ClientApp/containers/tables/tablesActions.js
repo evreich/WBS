@@ -32,7 +32,7 @@ export function errorsReceive(err) {
         errors: err
     }
 }
-
+//TODO
 export function getTable(currentPage = 0, elementsPerPage = 5, route, title, queryParams) {
     return (dispatch) => {
         if (!route) throw new Error("Can't resolve URI");

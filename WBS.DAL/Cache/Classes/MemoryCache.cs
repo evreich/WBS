@@ -10,6 +10,10 @@ namespace WBS.DAL.Cache
         private readonly IMemoryCache _cache;
         private readonly TimeSpan _expiration;
 
+        //TODO: Проблема с изменением и удалением записей в кеше связана с идентификатором данных в кеше.
+        //Кеш либо не находит данные в своем хранилище, либо его логика в принципе не верна
+        //Скорее всего, требуется убедится в том, что ИД изменяемых данных и соотв хранимых в кеше данных совпадает
+
         public string AllIdentifier { get => "all"; }
         public string GenerateKey<T>(string id)
         {
