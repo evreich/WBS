@@ -16,7 +16,7 @@ namespace WBS.DAL.Authorization
         {
             _options = provider.GetService(typeof(AuthOptions)) as AuthOptions;
         }
-        public string Create(User user)
+        public AccessTokenData CreateJwt(User user, string refresh_token)
         {
             var now = DateTime.UtcNow;
 
@@ -33,27 +33,25 @@ namespace WBS.DAL.Authorization
                 claims.Add(new Claim(ClaimsIdentity.DefaultRoleClaimType, role.Title));
             }
 
+            var expires = now.Add(_options.ACCESS_LIFETIME);
             // создаем JWT-токен
-            var token = new JwtSecurityToken(
+            var jwt = new JwtSecurityToken(
                     issuer: _options.ISSUER,
                     audience: _options.AUDIENCE,
                     notBefore: now,
                     claims: claims,
-                    expires: now.Add(_options.ACCESS_LIFETIME),                
+                    expires: expires,
                     signingCredentials: new SigningCredentials(_options.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
 
-            return new JwtSecurityTokenHandler().WriteToken(token);
+            var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
+            return new AccessTokenData
+            {
+                AccessToken = encodedJwt,
+                ExpiresIn = expires.Subtract(DateTime.MinValue.AddYears(1969)).TotalMilliseconds,
+            };
+
         }
 
-        public static bool Validate(string tokenString)
-        {
-            var handler = new JwtSecurityTokenHandler();
-            if (handler.CanReadToken(tokenString))
-            {
-                var token = handler.ReadJwtToken(tokenString);
-                return token.ValidTo > DateTime.UtcNow;
-            }
-            return false;
-        }
+
     }
 }

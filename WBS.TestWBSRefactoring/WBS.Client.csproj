@@ -11,6 +11,7 @@
   <ItemGroup>
     <Folder Include="ClientApp\containers\home\" />
     <Folder Include="wwwroot\" />
+    <Folder Include="wwwroot\dist\" />
   </ItemGroup>
 
 </Project>

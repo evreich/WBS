@@ -15,7 +15,7 @@ import SideMenuContainer from '../../../containers/SideMenuContainer/SideMenuCon
 const Layout = ({ pushToHome, children, routing, auth }) => {
     let targetRoute = routing.location.pathname;
     const customPush = route => (route !== targetRoute ? push(route) : null);
-    if (!auth.access_token || !auth.refresh_token) {
+    if (!auth.accessToken || !auth.refreshToken) {
         localStorage.removeItem("drawerOpen") // для управления выезжающим меню, чтобы его небыло видно при logout-е
         targetRoute !== '/' ? pushToHome() : null;
     } else if (auth.privateRoutes) {

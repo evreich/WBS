@@ -1,158 +1,59 @@
 ﻿using System;
 using System.Linq;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using Microsoft.IdentityModel.Tokens;
-using Newtonsoft.Json;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
-using System.Threading.Tasks;
 using WBS.DAL.Cache;
 using WBS.DAL.Authorization.Models;
 using WBS.DAL.Exceptions;
+using WBS.DAL.Authorization.Models.ViewModels;
+using WBS.DAL.Authorization.Classes;
 
 namespace WBS.DAL.Authorization
 {
     public class AuthUtils
     {
-        private readonly WBSContext _context;
+        private readonly ProfilesDAL _profilesDal;
+        private readonly RefreshTokenDAL _refreshTokenDal;
         private readonly AuthOptions _options;
         private readonly ICache _cache;
         private readonly IServiceProvider _provider;
 
-        //TODO: Переделать текущую авторизацию
-
-        //public AuthUtils(ProfilesDAL profilesDal, RefreshTokenDAL refreshTokenDal, IServiceProvider provider)
-        //{
-        //    _profilesDal = profilesDal;
-        //    _refreshTokenDal = refreshTokenDal;
-        //    _options = provider.GetService(typeof(AuthOptions)) as AuthOptions;
-        //    _cache = provider.GetService(typeof(ICache)) as ICache;
-        //    _provider = provider;
-        //}
-
-        //public TokenViewModel CreateToken(string login, string password)
-        //{
-        //    var hasher = new PasswordHasher<User>();
-        //    var user = _profilesDal.Get(login, password);
-        //    if (user == null)
-        //    {
-        //        throw new UserNotFoundException("Invalid username or password  ");
-        //    }
-        //    return CreateResponse(_refreshTokenDal, user);
-        //}
-
-        //public TokenViewModel CreateResponse(RefreshTokenDAL tokenDAL, User user)
-        //{
-        //    var refreshTokenString = new RefreshTokenHelper(tokenDAL, _provider).Create(user.Login);
-        //    var accessToken = new AccessTokenHelper(_provider).CreateJwt(user, refreshTokenString);
-        //    return new TokenViewModel
-        //    {
-        //        AccessToken = accessToken.AccessToken,
-        //        ExpiresIn = accessToken.ExpiresIn,
-        //        RefreshTokenString = refreshTokenString,
-        //        Username = user.Login,
-        //        Roles = String.Join(", ", user.UserRoles.Select(u => u.Role.Title).ToArray())
-        //    };
-        //}
-
-        //public TokenViewModel UpdateAccessToken(string refreshTokenString)
-        //{
-        //    var handler = new JwtSecurityTokenHandler();
-        //    if (!handler.CanReadToken(refreshTokenString))
-        //    {
-        //        throw new RefreshTokenExpiredException("Refresh token is not correct");
-        //    }
-
-        //    var refreshToken = handler.ReadJwtToken(refreshTokenString);
-        //    var audience = refreshToken.Audiences.FirstOrDefault();
-        //    var savedRefreshToken = _refreshTokenDal.GetByAudience(audience);
-
-        //    if (savedRefreshToken == null)
-        //    {
-        //        throw new RefreshTokenExpiredException("Refresh token cant find in database");
-        //    }
-        //    _refreshTokenDal.Remove(savedRefreshToken);
-
-        //    if (RefreshTokenHelper.IsExpired(savedRefreshToken))
-        //    {
-        //        throw new RefreshTokenExpiredException("Refresh token is expired");
-        //    }
-
-        //    var login = audience.Split("_", StringSplitOptions.RemoveEmptyEntries)[1];
-        //    var user = _profilesDal.GetByLogin(login);
-        //    return CreateResponse(_refreshTokenDal, user);
-        //}
-
-        public AuthUtils(WBSContext context, IServiceProvider provider)
+        public AuthUtils(ProfilesDAL profilesDal, RefreshTokenDAL refreshTokenDal, IServiceProvider provider)
         {
-            _context = context;
+            _profilesDal = profilesDal;
+            _refreshTokenDal = refreshTokenDal;
             _options = provider.GetService(typeof(AuthOptions)) as AuthOptions;
             _cache = provider.GetService(typeof(ICache)) as ICache;
             _provider = provider;
-
-            // TODO remove later
-            if ((_context.Profiles.Count() == 0 ) && (context.Roles.Count() == 0) && (context.UserRoles.Count() == 0))
-            {
-                var hasher = new PasswordHasher<User>();
-                var u1 = new User
-                {
-                    Login = "admin"                
-                };
-                u1.Password = hasher.HashPassword(u1, "12345");
-                var u2 = new User
-                {
-                    Login = "user"                  
-                };
-                u2.Password = hasher.HashPassword(u2, "123");
-                _context.Profiles.AddRange(u1, u2);
-                _context.SaveChanges();
-
-
-                var r1 = new Role
-                {
-                    Title = "admin"
-                };
-
-                var r2 = new Role
-                {
-                    Title = "user",
-                    Routes = "/signup"
-                };
-
-                _context.Roles.AddRange(r1, r2);
-                _context.SaveChanges();
-
-                _context.UserRoles.Add(new UserRoles { UserId = u1.Id, RoleId = r1.Id });
-                _context.UserRoles.Add(new UserRoles { UserId = u1.Id, RoleId = r2.Id });
-                _context.UserRoles.Add(new UserRoles { UserId = u2.Id, RoleId = r2.Id });
-
-                _context.SaveChanges();
-            }
         }
 
-        public object CreateToken(string login, string password)
-        {          
+        public TokenViewModel CreateToken(string login, string password)
+        {
             var hasher = new PasswordHasher<User>();
-            var user = _cache.Get(login, param => _context.Profiles
-                    .Include(_p => _p.UserRoles)
-                        .ThenInclude(ur => ur.Role)
-                    .FirstOrDefault(p => p.Login.Equals(login, StringComparison.InvariantCultureIgnoreCase)
-                        && hasher.VerifyHashedPassword(p, p.Password, password) == PasswordVerificationResult.Success));
-
+            var user = _profilesDal.Get(login, password);
             if (user == null)
             {
-                throw new UserNotFoundException("Invalid username or password");
+                throw new UserNotFoundException("Invalid username or password  ");
             }
-
-            var refreshTokenString = new RefreshTokenHelper(_context, _provider).Create(login);
-            return CreateTokenData(user, refreshTokenString);            
+            return CreateResponse(_refreshTokenDal, user);
         }
 
-        public object UpdateAccessToken(string refreshTokenString)
-        { 
+        public TokenViewModel CreateResponse(RefreshTokenDAL tokenDAL, User user)
+        {
+            var refreshToken = new RefreshTokenHelper(tokenDAL, _provider).Create(user.Login);
+            var accessToken = new AccessTokenHelper(_provider).CreateJwt(user, refreshToken);
+            return new TokenViewModel
+            {
+                AccessToken = accessToken.AccessToken,
+                ExpiresIn = accessToken.ExpiresIn,
+                RefreshToken = refreshToken,
+                Username = user.Login,
+                Roles = String.Join(", ", user.UserRoles.Select(u => u.Role.Title).ToArray())
+            };
+        }
+
+        public TokenViewModel UpdateAccessToken(string refreshTokenString)
+        {
             var handler = new JwtSecurityTokenHandler();
             if (!handler.CanReadToken(refreshTokenString))
             {
@@ -161,40 +62,23 @@ namespace WBS.DAL.Authorization
 
             var refreshToken = handler.ReadJwtToken(refreshTokenString);
             var audience = refreshToken.Audiences.FirstOrDefault();
-            var savedRefreshToken = _context.RefreshTokens.FirstOrDefault(_t => _t.Audience.Equals(audience, StringComparison.InvariantCultureIgnoreCase));
+            var savedRefreshToken = _refreshTokenDal.GetByAudience(audience);
 
             if (savedRefreshToken == null)
             {
                 throw new RefreshTokenExpiredException("Refresh token cant find in database");
             }
+            _refreshTokenDal.Remove(savedRefreshToken);
 
-            var refreshTokenHelper = new RefreshTokenHelper(_context, _provider);
-            var isValid = refreshTokenHelper.Validate(refreshToken);
-
-            if (!isValid)
+            if (RefreshTokenHelper.IsExpired(savedRefreshToken))
             {
                 throw new RefreshTokenExpiredException("Refresh token is expired");
             }
 
             var login = audience.Split("_", StringSplitOptions.RemoveEmptyEntries)[1];
-            var user = _context.Profiles.Include(_p => _p.UserRoles).ThenInclude(u=> u.Role).FirstOrDefault(_p => _p.Login.Equals(login, StringComparison.InvariantCultureIgnoreCase));
-            var newRefreshToken = refreshTokenHelper.Create(login);
-            return CreateTokenData(user, newRefreshToken);
+            var user = _profilesDal.GetByLogin(login);
+            return CreateResponse(_refreshTokenDal, user);
         }
 
-        private object CreateTokenData(User user, string refreshTokenString)
-        {
-            var tokenString = new AccessTokenHelper(_provider).Create(user);
-
-            var response = new
-            {
-                access_token = tokenString,
-                refresh_token = refreshTokenString,
-                username = user.Login,
-                role = String.Join(", ", user.UserRoles.Select(u=> u.Role.Title).ToArray())             
-            };
-
-            return response;
-        }
     }
 }

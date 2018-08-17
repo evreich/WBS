@@ -23,8 +23,8 @@ class AuthorizationFormComponent extends Component {
 
     static getDerivedStateFromProps(nextProps) {
         return {
-            access_token: nextProps.auth && nextProps.auth.access_token,
-            refresh_token: nextProps.auth && nextProps.auth.refresh_token
+            accessToken: nextProps.auth && nextProps.auth.accessToken,
+            refreshToken: nextProps.auth && nextProps.auth.refreshToken
         };
     }
 
@@ -33,75 +33,74 @@ class AuthorizationFormComponent extends Component {
         this.setState({ [name]: value });
     };
 
-    submmit = event => {
+    submmit = (event) => {
         event.preventDefault();
-        const { getToken } = this.props;
+        const { authorization } = this.props;
         const { login, password } = this.state;
-        const values = { login, password };
-        getToken(values);
-    };
+        authorization(login, password);
+    }
 
     render() {
         const { classes, error } = this.props;
-        const { access_token, refresh_token } = this.state;
-        return access_token && refresh_token ? (
+        const { accessToken, refreshToken } = this.state;
+        return accessToken && refreshToken ? (
             <Redirect to={"/Home"} />
         ) : (
-            <div>
-                <Paper className={classes.root} elevation={4}>
-                    <div className={classes.appFrame}>
-                        <div className={classes.auth}>
-                            <Typography
-                                variant="headline"
-                                component="h3"
-                                style={{ textAlign: "center" }}
-                            >
-                                Авторизация
+                <div>
+                    <Paper className={classes.root} elevation={4}>
+                        <div className={classes.appFrame}>
+                            <div className={classes.auth}>
+                                <Typography
+                                    variant="headline"
+                                    component="h3"
+                                    style={{ textAlign: "center" }}
+                                >
+                                    Авторизация
                             </Typography>
-                            <Typography variant="subheading">
-                                <form onSubmit={this.submmit}>
-                                    <TextFieldPlaceholder
-                                        muProps={{
-                                            name: "login",
-                                            type: "text",
-                                            placeholder: "Введите логин",
-                                            label: "Логин",
-                                            onChange: this.handleChange,
-                                            fullWidth: true
-                                        }}
-                                    />
-                                    <TextFieldPlaceholder
-                                        muProps={{
-                                            name: "password",
-                                            type: "password",
-                                            placeholder: "Введите пароль",
-                                            label: "Пароль",
-                                            onChange: this.handleChange,
-                                            fullWidth: true
-                                        }}
-                                    />
-                                    {error && (
-                                        <>
-                                            <span style={{ color: "red" }}>
-                                                {error}
-                                            </span>
-                                            <br />
-                                        </>
-                                    )}
-                                    <ButtonPrimary text="Войти" type="submit" />
-                                </form>
-                            </Typography>
+                                <Typography variant="subheading">
+                                    <form onSubmit={this.submmit}>
+                                        <TextFieldPlaceholder
+                                            muProps={{
+                                                name: "login",
+                                                type: "text",
+                                                placeholder: "Введите логин",
+                                                label: "Логин",
+                                                onChange: this.handleChange,
+                                                fullWidth: true
+                                            }}
+                                        />
+                                        <TextFieldPlaceholder
+                                            muProps={{
+                                                name: "password",
+                                                type: "password",
+                                                placeholder: "Введите пароль",
+                                                label: "Пароль",
+                                                onChange: this.handleChange,
+                                                fullWidth: true
+                                            }}
+                                        />
+                                        {error && (
+                                            <>
+                                                <span style={{ color: "red" }}>
+                                                    {error}
+                                                </span>
+                                                <br />
+                                            </>
+                                        )}
+                                        <ButtonPrimary text="Войти" type="submit" />
+                                    </form>
+                                </Typography>
+                            </div>
                         </div>
-                    </div>
-                </Paper>
-            </div>
-        );
+                    </Paper>
+                </div>
+            );
     }
 }
 
 AuthorizationFormComponent.propTypes = {
     classes: PropTypes.object.isRequired,
-    getToken: PropTypes.func,
+    authorization: PropTypes.func,
     error: PropTypes.string
 };
 

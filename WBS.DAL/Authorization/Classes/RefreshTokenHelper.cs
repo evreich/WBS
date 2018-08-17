@@ -2,26 +2,23 @@
 using System.Linq;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.IdentityModel.Tokens;
-using System.Threading.Tasks;
 using WBS.DAL.Authorization.Models;
-using WBS.DAL.Exceptions;
+using WBS.DAL.Authorization.Classes;
 
 namespace WBS.DAL.Authorization
 {
     class RefreshTokenHelper
     {
-        private readonly WBSContext _context;
+        private readonly RefreshTokenDAL _refreshTokenDAL;
         private readonly AuthOptions _options;
-        public RefreshTokenHelper(WBSContext context, IServiceProvider provider)
+        public RefreshTokenHelper(RefreshTokenDAL dal, IServiceProvider provider)
         {
-            _context = context;
+            _refreshTokenDAL = dal;
             _options = provider.GetService(typeof(AuthOptions)) as AuthOptions;
         }
 
-        public  string Create(string login)
+        public string Create(string login)
         {
-            FindAndRemoveInvalidOnes();
-
             var now = DateTime.UtcNow;
             var expire = now.Add(_options.REFRESH_LIFETIME);
             var tokenId = $"{Guid.NewGuid()}_{login}";
@@ -32,45 +29,28 @@ namespace WBS.DAL.Authorization
                 expires: expire,
                 signingCredentials: new SigningCredentials(_options.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
             var tokenString = new JwtSecurityTokenHandler().WriteToken(token);
-            try
-            {             
-                _context.RefreshTokens.Add(new RefreshToken
-                {
-                    Audience = tokenId,
-                    Expire = expire,
-                    Token = tokenString,
-                });
-                _context.SaveChanges();
-            }
-            catch(Exception)
+
+            _refreshTokenDAL.Add(new RefreshToken
             {
-                throw new RefreshTokenExpiredException("Database is not responding");
-            }
+                Audience = tokenId,
+                Expire = expire,
+                Token = tokenString,
+            });
+
             return tokenString;
         }
+
         public bool Validate(JwtSecurityToken token)
         {
             var audience = token.Audiences.FirstOrDefault();
-            var savedToken = _context.RefreshTokens
-                .FirstOrDefault(_t => _t.Audience.Equals(audience, StringComparison.InvariantCultureIgnoreCase));
+            var savedToken = _refreshTokenDAL.GetByAudience(audience);
             return token == null ? false : savedToken.Expire > DateTime.UtcNow;
         }
-        public void FindAndRemoveInvalidOnes()
-        {          
-            try
-            {
-                var now = DateTime.UtcNow;
-                var invalidTokens = _context.RefreshTokens.Where(t => t.Expire <= now).ToList();
-                if (invalidTokens.Count() > 0)
-                {
-                    _context.RefreshTokens.RemoveRange(invalidTokens);
-                    _context.SaveChanges();
-                }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+
+        public static bool IsExpired(RefreshToken token)
+        {
+            return token.Expire > DateTime.UtcNow ? false : true;
         }
+
     }
 }
