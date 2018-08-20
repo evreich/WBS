@@ -239,7 +239,7 @@ class SideMenuComponent extends Component {
           >
             <Toolbar>
               {
-                auth.access_token &&
+                auth.accessToken &&
                 (<>
                   <IconButton
                     color="inherit"

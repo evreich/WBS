@@ -6,11 +6,11 @@ const defaultConfig = {
     contentType: DATA_TYPE.JSON_DATA
 };
 
-function ConvertDataToRequest(contentType, data){
-    if(!data) return null;
+function ConvertDataToRequest(contentType, data) {
+    if (!data) return null;
 
-    switch(contentType){
-        case DATA_TYPE.JSON_DATA: 
+    switch (contentType) {
+        case DATA_TYPE.JSON_DATA:
             return JSON.stringify(data);
         case DATA_TYPE.TEXT_HTML_DATA:
             return data;
@@ -19,9 +19,9 @@ function ConvertDataToRequest(contentType, data){
     }
 }
 
-function ConvertDataFromResponse(contentType, response){
-    switch(contentType){
-        case DATA_TYPE.JSON_DATA: 
+function ConvertDataFromResponse(contentType, response) {
+    switch (contentType) {
+        case DATA_TYPE.JSON_DATA:
             return response.json();
         case DATA_TYPE.TEXT_HTML_DATA:
             return response.body.getReader();
@@ -30,7 +30,7 @@ function ConvertDataFromResponse(contentType, response){
     }
 }
 
-function checkStatus(response) { 
+function checkStatus(response) {
     if (response.ok) return Promise.resolve(response);
 
     return response.json()
@@ -41,38 +41,6 @@ function checkStatus(response) {
         });
 }
 
-/*
-const updateRefreshToken = (refreshToken, url, options, dispatch) =>
-    fetch(Constants.TOKEN_API_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ token: refreshToken })
-    }).then(response => {
-        if (response.ok) {
-            return response.json()
-                .then(auth => {
-                    // пришел новый access токен, пробуем повторить запрос
-                    dispatch({ type: AuthorizationActions.AUTHORIZATION, payload: auth });
-                    return ajaxToServer(url, options, dispatch, auth);
-                });
-        } else {
-            return response.json()
-                .then(auth => {
-                    //время действия refresh токена истекло - редирект на логин форму
-                    dispatch({ type: AuthorizationActions.AUTHORIZATION, payload: {} });
-                    alert(auth.error);
-                    return Promise.reject();
-                });
-        }
-    })
-    .catch(response => {
-        response.json().then(result => {
-            result.error && alert(result.error)
-            return Promise.reject();
-        });
-    });
-*/
-    
 export default function request(config, onSuccess, onError) {
 
     if (!config.method) throw new Error("Method of request is not defined!");
@@ -86,12 +54,12 @@ export default function request(config, onSuccess, onError) {
             'content-type': config.contentType
         },
     },
-    token = getItem(SETTINGS.AUTH_KEY),
-    auth = null,
-    data = ConvertDataToRequest(config.contentType, config.data);
+        token = getItem(SETTINGS.AUTH_KEY),
+        auth = null,
+        data = ConvertDataToRequest(config.contentType, config.data);
 
     if (token)
-        auth = { Authorization: `Bearer ${token.access_token}` };
+        auth = { Authorization: `Bearer ${token.accessToken}` };
 
     if (auth)
         headers.headers['Authorization'] = auth.Authorization;

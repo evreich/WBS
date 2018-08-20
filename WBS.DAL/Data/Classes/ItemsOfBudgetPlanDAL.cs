@@ -25,7 +25,7 @@ namespace WBS.DAL.Data.Classes
                 .FirstOrDefault(item => item.Id == (int)id);
         }
 
-        protected override List<ItemOfBudgetPlan> GetItems()
+        protected override IEnumerable<ItemOfBudgetPlan> GetItems()
         {
             return _context.ItemOfBudgetPlans
                 .Include(item => item.BudgetPlan)

@@ -6,7 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using WBS.DAL;
 using WBS.DAL.Authorization;
-
+using WBS.DAL.Authorization.Classes;
 
 namespace WBS.API.Extensions
 {
@@ -42,6 +42,7 @@ namespace WBS.API.Extensions
                         };
                     });           
             services.AddScoped<ProfilesDAL>();
+            services.AddScoped<RefreshTokenDAL>();
         }
     }
 }

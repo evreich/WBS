@@ -261,3 +261,7 @@ __pycache__/
 *.pyc
 /WBS.DAL/Migrations/20180813142350_InitialCreate.cs
 /WBS.DAL/Migrations/20180813142350_InitialCreate.Designer.cs
+*.pyc
+/WBS.DAL/Migrations/*
+/WBS.Client/wwwroot/dist/bundle.js
+/WBS.TestWBSRefactoring/wwwroot/dist/bundle.js

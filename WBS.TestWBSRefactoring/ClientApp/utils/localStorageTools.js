@@ -13,9 +13,7 @@ export function getItem(key) {
     let jsonValue = localStorage.getItem(key);
   
     if (jsonValue)
-        jsonValue = JSON.parse(jsonValue);
+        return JSON.parse(jsonValue);
     else
         return null;
-
-    return jsonValue;
 }

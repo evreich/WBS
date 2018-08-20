@@ -44,7 +44,8 @@ const СreateTable = ({
                     modalWindowInfoIsOpening: false,
                     modalWindowChangingIsOpening: false,
                     updatingDataItem: null,
-                    changeModalWindowTitle: createTitleModalWindow
+                    changeModalWindowTitle: createTitleModalWindow,
+                    dataFiledsCount: Object.keys(dataFiledsInfo.tableHeaders).length
                 };
 
                 this.sortingData = {
@@ -182,7 +183,7 @@ const СreateTable = ({
             fillingEmptyRows = emptyRows =>
                 emptyRows > 0 && (
                     <TableRow style={{ height: 48 * emptyRows }}>
-                        <TableCell colSpan={2} />
+                        <TableCell colSpan={this.state.dataFiledsCount} />
                     </TableRow>
                 );
 
@@ -192,7 +193,8 @@ const СreateTable = ({
                     modalWindowInfoIsOpening,
                     modalWindowChangingIsOpening,
                     updatingDataItem,
-                    changeModalWindowTitle
+                    changeModalWindowTitle,
+                    dataFiledsCount
                 } = this.state;
                 const {
                     currentPage,
@@ -203,10 +205,10 @@ const СreateTable = ({
                 //Вычисление пустых строк для заполнения таблицы
                 const emptyRows = isNeedFillEmptyRow
                     ? elementsPerPage -
-                      Math.min(
-                          elementsPerPage,
-                          elementsCount - currentPage * elementsPerPage
-                      )
+                    Math.min(
+                        elementsPerPage,
+                        elementsCount - currentPage * elementsPerPage
+                    )
                     : 0;
 
                 //отрисовка футера таблицы
@@ -214,7 +216,7 @@ const СreateTable = ({
                     <TableRow>
                         <TablePagination
                             className={classes.footer}
-                            colSpan={4}
+                            colSpan={dataFiledsCount}
                             count={elementsCount}
                             rowsPerPage={elementsPerPage}
                             page={currentPage}
@@ -322,8 +324,8 @@ const СreateTable = ({
                                 updatingDataItem ? (
                                     <ChangeItemDialogBodyComponent />
                                 ) : (
-                                    <AddItemDialogBodyComponent />
-                                )
+                                        <AddItemDialogBodyComponent />
+                                    )
                             ) : null}
                         </ChangeItemModalWindow>
                     </>

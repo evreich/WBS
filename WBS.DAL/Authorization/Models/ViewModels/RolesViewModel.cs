@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using WBS.DAL.Cache;
 
-namespace WBS.DAL.Authorization.Models
+namespace WBS.DAL.Authorization.Models.ViewModels
 {
  
     public class RolesViewModel: IViewModel<Role>

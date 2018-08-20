@@ -22,7 +22,8 @@ export const reducer = (state = initialState, action) => {
             };
         }
         case TYPE.UPDATE_TABLE: {
-            let newState = Object.assign({}, state);
+            //TODO: spread operator
+            let newState = { ...state };
             newState[action.title].data = action.data;
             return newState;
         }

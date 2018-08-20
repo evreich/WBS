@@ -2,10 +2,10 @@
 using System.Linq;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
 using System.Collections.Generic;
 using WBS.DAL.Authorization.Models;
 using WBS.DAL.Cache;
+using WBS.DAL.Authorization.Models.ViewModels;
 
 namespace WBS.DAL.Authorization
 {
@@ -13,46 +13,60 @@ namespace WBS.DAL.Authorization
     {
         readonly WBSContext _context;
         readonly ICache _cache;
+
         public ProfilesDAL(WBSContext context, ICache cache)
         {
             _cache = cache;
             _context = context;
         }
-        public User Get(string login, string password)
+
+        public virtual User Get(string login, string password)
         {
             return _cache.Get(login, param =>
             {
                 var hasher = new PasswordHasher<User>();
                 return _context.Profiles
-                .Include(_p => _p.UserRoles)
+                .Include(p => p.UserRoles)
                     .ThenInclude(ur => ur.Role)
                 .FirstOrDefault(p => p.Login.Equals(login, StringComparison.InvariantCultureIgnoreCase)
                     && hasher.VerifyHashedPassword(p, p.Password, password) == PasswordVerificationResult.Success);
             });
         }
 
-        public User GetById(int id)
+        public virtual User GetById(int id)
         {
             return _cache.Get(id, param =>
             {
                 return _context.Profiles
                 .Where(p => p.Id == id)
-                .Include(_p => _p.UserRoles)
+                .Include(p => p.UserRoles)
                     .ThenInclude(ur => ur.Role)
-                .FirstOrDefault();         
+                .FirstOrDefault();
             });
         }
 
-        public IEnumerable<User> GetUsers()
+        public virtual User GetByLogin(string login)
+        {
+            return _cache.Get(login, param =>
+            {
+                return _context.Profiles
+                .Where(p => p.Login.Equals(login, StringComparison.InvariantCultureIgnoreCase))
+                .Include(p => p.UserRoles)
+                    .ThenInclude(ur => ur.Role)
+                .FirstOrDefault();
+            });
+        }
+
+        public virtual IEnumerable<User> GetUsers()
         {
             return _cache.Get<IEnumerable<User>>(_cache.AllIdentifier,
             param => _context.Profiles
-                                .Include(_p => _p.UserRoles)
+                                .Include(p => p.UserRoles)
                                    .ThenInclude(ur => ur.Role)
                                 .OrderBy(item => item.Id).ToList());
         }
 
-        public User Add(UserRegisterViewModel userViewModel)
+        public virtual User Add(UserRegisterViewModel userViewModel)
         {
             var user = InitFromRegisterViewModel(userViewModel, new User());
             var passwordHash = new PasswordHasher<User>().HashPassword(user, user.Password);
@@ -65,7 +79,7 @@ namespace WBS.DAL.Authorization
             return userEntityEntry.Entity;
         }
 
-        public User Remove(int id)
+        public virtual User Remove(int id)
         {
             var result = _context.Profiles.Where(p => p.Id == id).FirstOrDefault();
             if (result != null)
@@ -77,19 +91,19 @@ namespace WBS.DAL.Authorization
             return result;
         }
 
-        public User MarkForDeletion(ProfileViewModel profile)
+        public virtual User MarkForDeletion(ProfileViewModel profile)
         {
             profile.DeletionMark = true;
             return UpdateUser(profile);
         }
 
-        public User Update(ProfileViewModel profileVM)
+        public virtual User Update(ProfileViewModel profileVM)
         {
             UpdateUserRoles(profileVM.Id, profileVM.Roles);
             return UpdateUser(profileVM);
         }
 
-        public User UpdateUser(ProfileViewModel profile)
+        public virtual User UpdateUser(ProfileViewModel profile)
         {
             //поскольку пришла вьюмодель, делаем замену на Пользователя перед добавлением в бд
             var user = _context.Profiles.Where(p => p.Id == profile.Id).FirstOrDefault();
@@ -106,7 +120,7 @@ namespace WBS.DAL.Authorization
             return updated;
         }
 
-        public void UpdateUserRoles(int userId, List<RolesViewModel> roles)
+        public virtual void UpdateUserRoles(int userId, List<RolesViewModel> roles)
         {
             //т.к связь мноие ко многим между Пользователем и Ролями реализована через вспомогательную сущность,
             //редактироване ролей пользователей осуществляется след. образом:
@@ -116,7 +130,7 @@ namespace WBS.DAL.Authorization
             AddUsersRoles(userId, roles);
         }
 
-        public void DeleteUsersRoles(int userId)
+        public virtual void DeleteUsersRoles(int userId)
         {
             var userRoles = _context.UserRoles.Where(u => u.UserId == userId).ToList();
             if (userRoles.Count() != 0)
@@ -126,7 +140,7 @@ namespace WBS.DAL.Authorization
             }
         }
 
-        public void AddUsersRoles(int userId, List<RolesViewModel> roles)
+        public virtual void AddUsersRoles(int userId, List<RolesViewModel> roles)
         {
             var userRoles = new List<UserRoles>();
             foreach (var role in roles)
@@ -137,13 +151,13 @@ namespace WBS.DAL.Authorization
             _context.SaveChanges();
         }
 
-        public IEnumerable<Role> GetRoles()
+        public virtual IEnumerable<Role> GetRoles()
         {
             return _cache.Get<IEnumerable<Role>>(_cache.AllIdentifier,
                 param => _context.Roles.OrderBy(item => item.Id).ToList());
         }
 
-        public User InitFromViewModel(ProfileViewModel viewModel, User user)
+        public virtual User InitFromViewModel(ProfileViewModel viewModel, User user)
         {
             user.Fio = viewModel.Fio;
             user.JobPosition = viewModel.JobPosition;
@@ -152,7 +166,7 @@ namespace WBS.DAL.Authorization
             return user;
         }
 
-        public User InitFromRegisterViewModel(UserRegisterViewModel viewModel, User user)
+        public virtual User InitFromRegisterViewModel(UserRegisterViewModel viewModel, User user)
         {
             user.Login = viewModel.Login;
             user.Password = viewModel.Password;
@@ -163,7 +177,7 @@ namespace WBS.DAL.Authorization
             return user;
         }
 
-        public bool IsAlreadyExistLogin (string login)
+        public virtual bool IsAlreadyExistLogin(string login)
         {
             var user = _context.Profiles.Where(p => p.Login.Equals(login)).FirstOrDefault();
             return user != null;

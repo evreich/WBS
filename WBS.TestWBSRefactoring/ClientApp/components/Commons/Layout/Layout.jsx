@@ -15,12 +15,12 @@ import SideMenuContainer from '../../../containers/SideMenuContainer/SideMenuCon
 const Layout = ({ pushToHome, children, routing, auth }) => {
     let targetRoute = routing.location.pathname;
     const customPush = route => (route !== targetRoute ? push(route) : null);
-    if (!auth.access_token || !auth.refresh_token) {
-        localStorage.removeItem("drawerOpen") // для управления выезжающим меню, чтобы его небыло видно при logout-е
+    if (!auth.accessToken || !auth.refreshToken) {
+        localStorage.removeItem("drawerOpen") // для управления выезжающим меню, чтобы его не было видно при logout-е
         targetRoute !== '/' ? pushToHome() : null;
     } else if (auth.privateRoutes) {
         if (auth.privateRoutes.indexOf(targetRoute) !== -1) {
-            localStorage.removeItem("drawerOpen")// для управления выезжающим меню, чтобы его небыло видно при logout-е
+            localStorage.removeItem("drawerOpen")// для управления выезжающим меню, чтобы его не было видно при logout-е
             customPush('/');
         }
     }

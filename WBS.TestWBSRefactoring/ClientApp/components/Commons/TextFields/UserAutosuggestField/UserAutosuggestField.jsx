@@ -114,7 +114,7 @@ class AutosuggestField extends React.Component {
             suggestions: data
         });
 
-    showError = () => {};
+    showError = () => { };
 
     onSuggestionSelected = (event, { suggestion }) => {
         this.setState({

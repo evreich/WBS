@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import Tabs, { Tab } from "material-ui/Tabs";
 import Paper from "material-ui/Paper";
 
-import ChooseVendorModalForm from "./Providers/ChooseVendorModalForm";
+import ChooseProviderModalForm from "./Providers/ChooseProviderModalForm";
 import TextFieldSelect from "../../../../Commons/TextFields/TextFieldSelect";
 import TabContainer from "../../../../Commons/TabContainer";
 import OutBudget from "./OutBudget";
@@ -147,7 +147,7 @@ class InvestmentTabs extends React.PureComponent {
                                 onAddNew={this.handleOpenProvidersWindow}
                             />
                             {isProvidersModalWindowOpen && (
-                                <ChooseVendorModalForm
+                                <ChooseProviderModalForm
                                     onAdd={this.handleAddProvider}
                                     onClose={this.handleCloseProvidersWindow}
                                     technicalServs={[]}

@@ -29,7 +29,7 @@ namespace WBS.DAL
                 .FirstOrDefault(d => d.Id == (int)id);
         }
 
-        protected override List<DAIRequest> GetItems()
+        protected override IEnumerable<DAIRequest> GetItems()
         {
             return _context.DaiRequests
                  .Include(s => s.Sit)

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace WBS.DAL.Authorization.Models
+namespace WBS.DAL.Authorization.Models.ViewModels
 {
     //вьюмодель для таблицы Пользователи с ролями, без паролей
     public class ProfileViewModel: IViewModel<User>

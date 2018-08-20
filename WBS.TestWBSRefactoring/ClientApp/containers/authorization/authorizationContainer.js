@@ -1,11 +1,11 @@
 import { connect } from "react-redux";
 
 import AuthorizationFormComponent from '../../components/AuthorizationForm/AuthorizationForm';
-import { getToken } from './authorizationActions';
+import { authorization } from './authorizationActions';
 
 
 const mapStateToProps = state => ({ auth: state.auth });
-const mapDispatchToProps = (dispatch) => ({ getToken: (data) => dispatch(getToken(data)) });
+const mapDispatchToProps = (dispatch) => ({ authorization: (login, password) => dispatch(authorization(login, password)) });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AuthorizationFormComponent);
 
