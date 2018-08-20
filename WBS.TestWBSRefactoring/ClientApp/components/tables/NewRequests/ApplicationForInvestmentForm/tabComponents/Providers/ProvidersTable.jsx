@@ -14,7 +14,7 @@ import TablePaginationActionsWrapped from "../../../../../Commons/Pagination";
 import SortedTableHead from "../../../../../Commons/Table/SortedTableHead";
 import fieldsInfo from "../../../../Providers/DataFieldsInfo";
 
-const columns = {...fieldsInfo.tableHeaders, act: ""}
+const columns = { ...fieldsInfo.tableHeaders, act: "" }
 
 const ProvidersTable = ({
     classes,

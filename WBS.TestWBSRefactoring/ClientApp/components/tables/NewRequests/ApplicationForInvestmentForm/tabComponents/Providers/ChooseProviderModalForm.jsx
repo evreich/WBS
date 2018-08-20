@@ -11,7 +11,7 @@ import { sortOn } from "../../../../../../helpers/sortinngFunctions";
 import ProvidersTable from "./ProvidersTable";
 import Filters from "./Filters";
 
-class ChooseVendorModalForm extends React.Component {
+class ChooseProviderModalForm extends React.Component {
     componentDidMount() {
         const { getDataTable } = this.props;
         getDataTable();
@@ -20,20 +20,20 @@ class ChooseVendorModalForm extends React.Component {
     handleChangePage = (event, page) => {
         const {
             getDataTable,
-            changeVendorsPagination,
+            changeProvidersPagination,
             paginationData
         } = this.props;
-        changeVendorsPagination({ ...paginationData, currentPage: page });
+        changeProvidersPagination({ ...paginationData, currentPage: page });
         getDataTable();
     };
 
     handleChangeRowsPerPage = event => {
         const {
             getDataTable,
-            changeVendorsPagination,
+            changeProvidersPagination,
             paginationData
         } = this.props;
-        changeVendorsPagination({
+        changeProvidersPagination({
             ...paginationData,
             elementsPerPage: event.target.value
         });
@@ -41,7 +41,7 @@ class ChooseVendorModalForm extends React.Component {
     };
 
     handleRequestSort = (event, property) => {
-        const { sortingData, changeVendorsSorting } = this.props;
+        const { sortingData, changeProvidersSorting } = this.props;
         let newOrder = SortingActions.SORT_DESC;
 
         if (
@@ -52,7 +52,7 @@ class ChooseVendorModalForm extends React.Component {
         }
 
         const newData = this.sortData(property, newOrder);
-        changeVendorsSorting({ sort: newOrder, sortBy: property }, newData);
+        changeProvidersSorting({ sort: newOrder, sortBy: property }, newData);
     };
 
     sortData = (property, order) => {
@@ -135,19 +135,19 @@ class ChooseVendorModalForm extends React.Component {
     }
 }
 
-ChooseVendorModalForm.propTypes = {
+ChooseProviderModalForm.propTypes = {
     onAdd: PropTypes.func.isRequired,
     onClose: PropTypes.func.isRequired,
     handleDeleteButtonClick: PropTypes.func,
     handleUpdateButtonClick: PropTypes.func,
-    changeVendorsSorting: PropTypes.func.isRequired,
+    changeProvidersSorting: PropTypes.func.isRequired,
     sortingData: PropTypes.object.isRequired,
     data: PropTypes.array.isRequired,
     paginationData: PropTypes.object.isRequired,
     getDataTable: PropTypes.func.isRequired,
-    changeVendorsPagination: PropTypes.func.isRequired,
+    changeProvidersPagination: PropTypes.func.isRequired,
     getFilteredDataTable: PropTypes.func.isRequired,
     technicalServs: PropTypes.array
 };
 
-export default ChooseVendorModalForm;
+export default ChooseProviderModalForm;
