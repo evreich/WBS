@@ -9,7 +9,7 @@
         }
     },
     "rules": {
-        "no-console": 1,
+        "no-console": "off",
         "dot-location": [2, "property"],
         "eqeqeq": [2, "always"],
         "arrow-body-style": [2, "as-needed"],
