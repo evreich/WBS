@@ -259,5 +259,8 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
+/WBS.DAL/Migrations/20180815130549_init.cs
+/WBS.DAL/Migrations/20180815130549_init.Designer.cs
+*.pyc
 /WBS.DAL/Migrations/20180816094029_init.cs
 /WBS.DAL/Migrations/20180816094029_init.Designer.cs

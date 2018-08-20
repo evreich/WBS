@@ -1,4 +1,4 @@
-import TYPE from './authorizationActionsTypes';
+import TYPE from '../../constants/authorizationActionsTypes';
 import { getItem, setItem } from '../../utils/localStorageTools';
 import SETTINGS from '../../settings/settings';
 
@@ -6,19 +6,21 @@ const initialState = getItem(SETTINGS.AUTH_KEY) || {};
 
 export const reducer = (state = initialState, action) => {
     switch (action.type) {
-        case TYPE.GET_AUTH_TOKEN_SUCCESS:
+        case TYPE.AUTHORIZATION:
             setItem(SETTINGS.AUTH_KEY, action.payload);
             return {
                 ...action.payload,
+                privateRoutes: action.privateRoutes && action.privateRoutes.split(';#'),
+                freshTokenPromise: null,
             };
-        case TYPE.GET_AUTH_TOKEN_ERROR:
+        case TYPE.REFRESHING_TOKEN:
             return {
-                ...action,
+                ...state,
+                freshTokenPromise: action.freshTokenPromise,
             };
-        case TYPE.CLEAR_AUTH_TOKEN:
-            setItem(SETTINGS.AUTH_KEY, {});
+        case TYPE.LOGOUT:
             return {};
         default:
-            return state;
+            return state || {};
     }
 };

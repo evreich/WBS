@@ -8,6 +8,7 @@ import thunk from 'redux-thunk';
 import { routerMiddleware } from 'react-router-redux';
 
 import * as reducers from './reducers';
+import { jwt } from './middlewares/jwt/jwt';
 
 
 export default (history) => {
@@ -15,7 +16,7 @@ export default (history) => {
         window.__REDUX_DEVTOOLS_EXTENSION__ : compose;
 
     const createStoreWithMiddleware = compose(
-        applyMiddleware(thunk, routerMiddleware(history)),
+        applyMiddleware(jwt, thunk, routerMiddleware(history)),
         devTool ? devTool() : next => next
     )(createStore);
 
