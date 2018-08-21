@@ -43,7 +43,7 @@ namespace WBS.Tests.Tests
             budgetPlanController = new BudgetPlanController(budgetPlansDalMock.Object, loggerMock.Object);
             budgetPlanController.ControllerContext = new ControllerContext();
             budgetPlanController.ControllerContext.HttpContext = new DefaultHttpContext();
-            budgetPlanController.ControllerContext.HttpContext.Request.Host = new HostString("localhost:50120");
+            budgetPlanController.ControllerContext.HttpContext.Request.Host = new HostString("localhost:50122");
             budgetPlanController.ControllerContext.HttpContext.Request.Path = new PathString("/api/budgetPlan");
         }
 
