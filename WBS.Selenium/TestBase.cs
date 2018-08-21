@@ -62,6 +62,8 @@ namespace WBS.Selenium
             IWebElement logoutButton = _driver.FindElement(By.CssSelector(".SideMenuComponent-drawerHeader-9 > button"));
             logoutButton.Click();
         }
+
     }
 }
+
 

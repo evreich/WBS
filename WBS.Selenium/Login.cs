@@ -48,5 +48,8 @@ namespace WBS.Selenium
                 Thread.Sleep(1000);
             });
         }
+       
+       
+        }
     }
-}
+
