@@ -2,13 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
+using WBS.Selenium.Interfaces;
 
 namespace WBS.Selenium.Controllers.UIControllers
 {
-    public abstract class UIController
+    public abstract class UIController: IUIController
     {
         protected By locator;
         protected Context context;
@@ -26,6 +28,33 @@ namespace WBS.Selenium.Controllers.UIControllers
             else
                 waitPageChanged = true;
         }
+
+        public virtual void Click()
+        {
+            try
+            {
+                IWebElement e = context.Wait.Until(ExpectedConditions.ElementToBeClickable(locator));
+                e.Click();
+            }
+            catch
+            {
+                Thread.Sleep(3000);
+                IWebElement e = context.Wait.Until(ExpectedConditions.ElementToBeClickable(locator));
+                e.Click();
+            }
+        }
+
+        public void Focus()
+        {
+            throw new NotImplementedException();
+        }
+
+        public string GetValue()
+        {
+            throw new NotImplementedException();
+        }
+
+        
         public bool IsVisible()
         {
             try
@@ -37,6 +66,16 @@ namespace WBS.Selenium.Controllers.UIControllers
             {
                 return false;
             }
+        }
+
+        public void SetValue(string value)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void WaitVisible()
+        {
+            context.Wait.Until(ExpectedConditions.ElementIsVisible(locator));
         }
     }
 }

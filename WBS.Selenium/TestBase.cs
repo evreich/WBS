@@ -11,7 +11,8 @@ using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
 using System.Threading;
 using WBS.Selenium.Controllers;
-
+using WBS.Selenium.Controllers.FormControllers;
+using WBS.Selenium.Interfaces;
 
 namespace WBS.Selenium
 {
@@ -21,6 +22,10 @@ namespace WBS.Selenium
         public Context Context;
         public NavigationMenuController NavigationMenu;
         //public PageController PageController;
+
+        private Lazy<ListViewController> listView = new Lazy<ListViewController>(() => new ListViewController());
+
+        public ListViewController ListView => InitializeController(listView);
 
         [OneTimeSetUp] // вызывается перед началом запуска всех тестов
         public void Start()
@@ -65,6 +70,20 @@ namespace WBS.Selenium
             logoutButton.Click();
         }
 
+        private T InitializeController<T>(Lazy<T> controller) where T : IFormController
+        {
+            T value;
+            if (controller.IsValueCreated)
+            {
+                value = controller.Value;
+            }
+            else
+            {
+                value = controller.Value;
+                value.Initialize(Context);
+            }
+            return value;
+        }
     }
 }
 

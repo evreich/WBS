@@ -16,10 +16,10 @@ namespace WBS.Selenium.Controllers.UIControllers
             locator = By.XPath($"//h3[contains(@class,'MuiListItemText') and text()='{id}']");
         }
 
-        public void Click()
-        {
-            IWebElement node = context.Wait.Until(ExpectedConditions.ElementToBeClickable(locator));
-            node.Click();
-        }
+        //public  void Click()
+        //{
+        //    IWebElement node = context.Wait.Until(ExpectedConditions.ElementToBeClickable(locator));
+        //    node.Click();
+        //}
     }
 }

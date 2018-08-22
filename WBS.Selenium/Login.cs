@@ -57,6 +57,9 @@ namespace WBS.Selenium
         {
             NavigationMenu.OpenPage("Заявки на инвестиции");
             Thread.Sleep(10000);
+
+            ListView.ClickElement("Создать");
+            Thread.Sleep(10000);
         }
        
        
