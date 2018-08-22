@@ -29,16 +29,20 @@ namespace WBS.Selenium
             Login(user);
             Context.Driver.Navigate().GoToUrl("http://localhost:55443/DAIRequests");
             Thread.Sleep(2000);
-            IWebElement create = Context.Driver.FindElement(By.CssSelector(".MuiButton-sizeSmall-185"));
-            create.Click();
+            //IWebElement create = Context.Driver.FindElement(By.CssSelector(".MuiButton-sizeSmall-185"));
+            //create.Click();
+            ListView.ClickElement("Создать");
             Thread.Sleep(2000);
             IWebElement siteId = Context.Driver.FindElement(By.XPath("//input[@name='siteId']/..//div"));
             siteId.Click();
+            ComboBoxController controller = new ComboBoxController();
+            controller.Initialize(Context, "siteId",false,new Dictionary<string, string>());
+            controller.SetValue("sit1");
             Thread.Sleep(2000);
             // Селектор для выбора элемента в выпадающем списке любо, открытом на форме
-            IWebElement ddlItem = Context.Driver.FindElement(By.XPath("//ul[@role='listbox']//li"));
-            ddlItem.Click();
-            Thread.Sleep(2000);
+            //IWebElement ddlItem = Context.Driver.FindElement(By.XPath("//ul[@role='listbox']//li"));
+            //ddlItem.Click();
+            //Thread.Sleep(2000);
             IWebElement resultCentre = Context.Driver.FindElement(By.XPath("//input[@name='resultCentreId']/..//div"));
             resultCentre.Click();
             Thread.Sleep(2000);

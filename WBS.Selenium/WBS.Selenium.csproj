@@ -61,6 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Context.cs" />
+    <Compile Include="Controllers\UIControllers\ComboBoxController.cs" />
     <Compile Include="Controllers\FormControllers\FormController.cs" />
     <Compile Include="Controllers\FormControllers\ListViewController.cs" />
     <Compile Include="Controllers\NavigationMenuController.cs" />
