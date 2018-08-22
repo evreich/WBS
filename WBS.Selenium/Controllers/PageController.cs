@@ -8,12 +8,13 @@ using OpenQA.Selenium.Support.UI;
 
 namespace WBS.Selenium.Controllers
 {
-    public class PageController
+    public static class PageController
     {
         public static void ScrollBottom(Context context, string id)
         {
             IJavaScriptExecutor js = ((IJavaScriptExecutor)context.Driver);
-            js.ExecuteScript($"$('#{id}').scrollTop($('#{id}').prop('scrollHeight'));");
+            //js.ExecuteScript($"$('#{id}').scrollTop($('#{id}').prop('scrollHeight'));");
+            js.ExecuteScript("window.scrollTo(0, document.body.scrollHeight)");
         }
 
         public static void ScrollTop(Context context, string id)

@@ -60,7 +60,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Context.cs" />
+    <Compile Include="Models\Context.cs" />
     <Compile Include="Controllers\FormControllers\FormController.cs" />
     <Compile Include="Controllers\FormControllers\ListViewController.cs" />
     <Compile Include="Controllers\NavigationMenuController.cs" />
@@ -71,11 +71,11 @@
     <Compile Include="Interfaces\IFormController.cs" />
     <Compile Include="Interfaces\IFormValidationController.cs" />
     <Compile Include="Interfaces\IUIController.cs" />
-    <Compile Include="Login.cs" />
+    <Compile Include="TestScripts\Login.cs" />
     <Compile Include="Models\MenuNode.cs" />
     <Compile Include="Models\UIMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestBase.cs" />
+    <Compile Include="Models\TestBase.cs" />
     <Compile Include="Models\User.cs" />
   </ItemGroup>
   <ItemGroup>

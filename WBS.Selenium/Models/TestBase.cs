@@ -21,7 +21,6 @@ namespace WBS.Selenium
     {
         public Context Context;
         public NavigationMenuController NavigationMenu;
-        public PageController PageController;
 
         private Lazy<ListViewController> listView = new Lazy<ListViewController>(() => new ListViewController());
 
@@ -33,7 +32,6 @@ namespace WBS.Selenium
             Context = new Context();
             NavigationMenu = new NavigationMenuController();
             NavigationMenu.Initialize(Context);
-            PageController = new PageController();
         }
         [OneTimeTearDown] //вызывается после завершения всех тестов
         public void Stop()
