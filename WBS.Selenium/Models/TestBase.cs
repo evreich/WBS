@@ -23,7 +23,9 @@ namespace WBS.Selenium
 
         private Lazy<NavigationMenuController> navigationMenu = new Lazy<NavigationMenuController>(() => new NavigationMenuController());
         private Lazy<ListViewController> listView = new Lazy<ListViewController>(() => new ListViewController());
+        private Lazy<CreateUserDetailViewController> createUserDetailView = new Lazy<CreateUserDetailViewController>(() => new CreateUserDetailViewController());
 
+        public CreateUserDetailViewController CreateUserDetailView => InitializeController(createUserDetailView);
         public ListViewController ListView => InitializeController(listView);
         public NavigationMenuController NavigationMenu => InitializeController(navigationMenu);
 

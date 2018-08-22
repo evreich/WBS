@@ -14,7 +14,5 @@ namespace WBS.Selenium.Controllers.FormControllers
         {
              new UIMapper("Создать", typeof(MuiButtonController), "Создать"),
         };
-
-
     }
 }
