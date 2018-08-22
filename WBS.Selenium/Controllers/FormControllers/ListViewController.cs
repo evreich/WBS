@@ -12,7 +12,7 @@ namespace WBS.Selenium.Controllers.FormControllers
     {
         public override List<UIMapper> Map => new List<UIMapper>
         {
-             new UIMapper("Создать", typeof(MuiButton), "Создать"),
+             new UIMapper("Создать", typeof(MuiButtonController), "Создать"),
         };
 
 

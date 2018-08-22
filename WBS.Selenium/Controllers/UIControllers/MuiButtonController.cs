@@ -7,7 +7,7 @@ using OpenQA.Selenium;
 
 namespace WBS.Selenium.Controllers.UIControllers
 {
-    public class MuiButton:UIController
+    public class MuiButtonController:UIController
     {
         public override void Initialize(Context context, string id, bool waitPostback = false, Dictionary<string, string> parameters = null)
         {

@@ -10,6 +10,7 @@ using OpenQA.Selenium.Support.PageObjects;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
 using System.Threading;
+using WBS.Selenium.Controllers;
 
 namespace WBS.Selenium
 {
@@ -56,9 +57,12 @@ namespace WBS.Selenium
         public void OpenNavigation()
         {
             NavigationMenu.OpenPage("Заявки на инвестиции");
-            Thread.Sleep(10000);
+            Thread.Sleep(2000);
 
             ListView.ClickElement("Создать");
+            Thread.Sleep(2000);
+
+            PageController.ScrollBottom(Context);
             Thread.Sleep(10000);
         }
        
