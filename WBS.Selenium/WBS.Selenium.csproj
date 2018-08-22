@@ -60,18 +60,21 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\PageValidationController.cs" />
+    <Compile Include="Controllers\UIControllers\TextBoxController.cs" />
     <Compile Include="Models\Context.cs" />
     <Compile Include="Controllers\FormControllers\FormController.cs" />
     <Compile Include="Controllers\FormControllers\ListViewController.cs" />
     <Compile Include="Controllers\NavigationMenuController.cs" />
     <Compile Include="Controllers\PageController.cs" />
     <Compile Include="Controllers\UIControllers\MenuNodeController.cs" />
-    <Compile Include="Controllers\UIControllers\MuiButton.cs" />
+    <Compile Include="Controllers\UIControllers\MuiButtonController.cs" />
     <Compile Include="Controllers\UIControllers\UIController.cs" />
     <Compile Include="CreateRequest.cs" />
     <Compile Include="Interfaces\IFormController.cs" />
     <Compile Include="Interfaces\IFormValidationController.cs" />
     <Compile Include="Interfaces\IUIController.cs" />
+    <Compile Include="TestScripts\CreateUser.cs" />
     <Compile Include="TestScripts\Login.cs" />
     <Compile Include="Models\MenuNode.cs" />
     <Compile Include="Models\UIMapper.cs" />

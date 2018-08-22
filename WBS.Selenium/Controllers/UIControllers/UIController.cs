@@ -68,9 +68,9 @@ namespace WBS.Selenium.Controllers.UIControllers
             }
         }
 
-        public void SetValue(string value)
+        public virtual void SetValue(string value)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
 
         public void WaitVisible()

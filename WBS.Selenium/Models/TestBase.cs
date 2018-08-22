@@ -20,19 +20,20 @@ namespace WBS.Selenium
     public class TestBase
     {
         public Context Context;
-        public NavigationMenuController NavigationMenu;
 
+        private Lazy<NavigationMenuController> navigationMenu = new Lazy<NavigationMenuController>(() => new NavigationMenuController());
         private Lazy<ListViewController> listView = new Lazy<ListViewController>(() => new ListViewController());
 
         public ListViewController ListView => InitializeController(listView);
+        public NavigationMenuController NavigationMenu => InitializeController(navigationMenu);
+
+        public PageValidationController PageValidation { get; private set; }
 
         [OneTimeSetUp] // вызывается перед началом запуска всех тестов
         public void Start()
         {
             Context = new Context();
-            NavigationMenu = new NavigationMenuController();
-            NavigationMenu.Initialize(Context);
-            //PageController = new PageController();
+            PageValidation = new PageValidationController();
         }
         [OneTimeTearDown] //вызывается после завершения всех тестов
         public void Stop()

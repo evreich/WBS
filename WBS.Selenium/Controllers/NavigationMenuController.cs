@@ -9,14 +9,25 @@ using System.Xml.Serialization;
 using System.IO;
 using WBS.Selenium.Models;
 using WBS.Selenium.Controllers.UIControllers;
+using WBS.Selenium.Interfaces;
 
 namespace WBS.Selenium.Controllers
 {
-    public class NavigationMenuController
+    public class NavigationMenuController: IFormController
     {
         private MenuNode menu;
         private Context context;
         private Stack<string> path;
+
+        public void ClickElement(string element)
+        {
+            throw new NotImplementedException();
+        }
+
+        public string GetElementValue(string element)
+        {
+            throw new NotImplementedException();
+        }
 
         public void Initialize(Context context)
         {
@@ -30,6 +41,11 @@ namespace WBS.Selenium.Controllers
             {
                 menu.Children = (List<MenuNode>)serializer.Deserialize(stream);
             }
+        }
+
+        public void MoveToElement(string element)
+        {
+            throw new NotImplementedException();
         }
 
         public void OpenPage(string title)
@@ -61,7 +77,15 @@ namespace WBS.Selenium.Controllers
             //закрыть меню
             IWebElement closeMenu=context.Driver.FindElement(By.CssSelector("path[d*='M15.41 7.41L14']"));
             closeMenu.Click();
+
+            PageController.WaitJsLoaded(context);
         }
+
+        public void SetElementValue(string element, string value)
+        {
+            throw new NotImplementedException();
+        }
+
         private void FindNode(MenuNode node, string title, ref bool found)
         {
             if (node.Title == title)
