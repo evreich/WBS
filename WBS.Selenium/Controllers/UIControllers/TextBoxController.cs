@@ -20,7 +20,7 @@ namespace WBS.Selenium.Controllers.UIControllers
             {
                 type = parameters["type"];
             }
-            if(string.IsNullOrEmpty(type))
+            if(!string.IsNullOrEmpty(type))
             {
                 locator = By.XPath($"//div[contains(@class,'MuiInput')]//{type}[@name='{id}']");
             }
