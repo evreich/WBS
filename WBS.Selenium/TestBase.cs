@@ -20,7 +20,7 @@ namespace WBS.Selenium
     {
         public Context Context;
         public NavigationMenuController NavigationMenu;
-        public PageController PageController;
+        //public PageController PageController;
 
         [OneTimeSetUp] // вызывается перед началом запуска всех тестов
         public void Start()
@@ -28,7 +28,7 @@ namespace WBS.Selenium
             Context = new Context();
             NavigationMenu = new NavigationMenuController();
             NavigationMenu.Initialize(Context);
-            PageController = new PageController();
+            //PageController = new PageController();
         }
         [OneTimeTearDown] //вызывается после завершения всех тестов
         public void Stop()

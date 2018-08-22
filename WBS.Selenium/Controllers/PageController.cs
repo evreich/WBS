@@ -8,7 +8,7 @@ using OpenQA.Selenium.Support.UI;
 
 namespace WBS.Selenium.Controllers
 {
-    public class PageController
+    public static class PageController
     {
         public static void ScrollBottom(Context context, string id)
         {
