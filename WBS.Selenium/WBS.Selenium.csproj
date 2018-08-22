@@ -61,6 +61,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\FormControllers\CreateUserDetailViewController.cs" />
+    <Compile Include="Context.cs" />
+    <Compile Include="Controllers\UIControllers\ComboBoxController.cs" />
     <Compile Include="Controllers\PageValidationController.cs" />
     <Compile Include="Controllers\UIControllers\TextBoxController.cs" />
     <Compile Include="Models\Context.cs" />
