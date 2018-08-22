@@ -46,7 +46,11 @@ namespace WBS.Selenium.TestScripts
         {
             ListView.ClickElement("Создать");
             Thread.Sleep(2000);
-
+            CreateUserDetailView.SetElementValue("ФИО", "Иванов Иван Иванович");
+            CreateUserDetailView.SetElementValue("Логин", "ivanov");
+            CreateUserDetailView.SetElementValue("Должность", "Рабочий");
+            CreateUserDetailView.SetElementValue("Подразделение", "Главное");
+            CreateUserDetailView.SetElementValue("Пароль", "12345");
             Thread.Sleep(10000);
         }
     }

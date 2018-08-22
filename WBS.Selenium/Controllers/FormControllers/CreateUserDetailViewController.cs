@@ -17,6 +17,10 @@ namespace WBS.Selenium.Controllers.FormControllers
              new UIMapper("Должность", typeof(TextBoxController), "jobPosition",false,new Dictionary<string, string> { { "type", "textarea" } }),
              new UIMapper("Подразделение", typeof(TextBoxController), "department",false,new Dictionary<string, string> { { "type", "textarea" } }),
              new UIMapper("Пароль", typeof(TextBoxController), "password",false,new Dictionary<string, string> { { "type", "input" } }),
+             new UIMapper("",typeof(ComboBoxController),""),
+             //buttons
+             new UIMapper("Сохранить",typeof(MuiButtonController),"Сохранить"),
+             new UIMapper("Отменить",typeof(MuiButtonController),"Отменить"),
         };
     }
 }
