@@ -32,6 +32,7 @@ namespace WBS.Selenium
             Context = new Context();
             NavigationMenu = new NavigationMenuController();
             NavigationMenu.Initialize(Context);
+            //PageController = new PageController();
         }
         [OneTimeTearDown] //вызывается после завершения всех тестов
         public void Stop()
@@ -84,4 +85,5 @@ namespace WBS.Selenium
         }
     }
 }
+
 

@@ -65,5 +65,8 @@ namespace WBS.Selenium
             PageController.ScrollBottom(Context, "react-app");
             Thread.Sleep(10000);
         }
+       
+       
+        }
     }
-}
+

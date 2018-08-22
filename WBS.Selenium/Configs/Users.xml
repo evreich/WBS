@@ -1,11 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <users>
   <user>
-    <name>TestUser</name>
-    <login>Testuser</login>
-    <password>12345</password>
-  </user>
-  <user>
     <name>Admin</name>
     <login>admin</login>
     <password>12345</password>
@@ -18,6 +13,11 @@
   <user>
     <name>User1</name>
     <login>user1</login>
+    <password>12345</password>
+  </user>
+  <user>
+    <name>TestUser</name>
+    <login>Testuser</login>
     <password>12345</password>
   </user>
 </users>
