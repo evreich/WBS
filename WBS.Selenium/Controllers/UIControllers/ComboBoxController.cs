@@ -20,6 +20,8 @@ namespace WBS.Selenium.Controllers
 
         public override void SetValue(string value)
         {
+            IWebElement resultCentre = context.Driver.FindElement(By.XPath($"//input[@name='{value}']/..//div"));
+            resultCentre.Click();
             IWebElement SiteID=context.Driver.FindElement(By.XPath($"//ul[@role='listbox']//li[contains(text(),'{value}')]"));
             SiteID.Click();
         }

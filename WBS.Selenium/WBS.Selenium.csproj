@@ -73,7 +73,7 @@
     <Compile Include="Controllers\UIControllers\MenuNodeController.cs" />
     <Compile Include="Controllers\UIControllers\MuiButtonController.cs" />
     <Compile Include="Controllers\UIControllers\UIController.cs" />
-    <Compile Include="CreateRequest.cs" />
+    <Compile Include="TestScripts\CreateRequest.cs" />
     <Compile Include="Interfaces\IFormController.cs" />
     <Compile Include="Interfaces\IFormValidationController.cs" />
     <Compile Include="Interfaces\IUIController.cs" />
