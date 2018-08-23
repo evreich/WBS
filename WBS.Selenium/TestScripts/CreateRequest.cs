@@ -23,62 +23,32 @@ namespace WBS.Selenium
 
         }
         [Test, Order(2)]
-        public void CreateApplication()
+        public void AvtorizationOnUser()
         {
             //открытие формы редактирования заявки
             User user = Context.Users.FirstOrDefault(u => u.Name == "Admin");
             Login(user);
-            //Context.Driver.Navigate().GoToUrl("http://localhost:55443/DAIRequests");
+
             NavigationMenu.OpenPage("Заявки на инвестиции");
-            Thread.Sleep(2000);
-            //IWebElement create = Context.Driver.FindElement(By.CssSelector(".MuiButton-sizeSmall-185"));
-            //create.Click();
+
+            PageValidation.CheckPageCaption("/DAIRequests");
+        }
+        [Test, Order(3)]
+        public void CreateOnOrder()
+        {
             ListView.ClickElement("Создать");
             Thread.Sleep(2000);
-            //IWebElement siteId = Context.Driver.FindElement(By.XPath("//input[@name='siteId']/..//div"));
-            //siteId.Click();
-            //ComboBoxController controller1 = new ComboBoxController();
-            //controller1.Initialize(Context, "siteID", false, new Dictionary<string, string>());
-            //controller1.SetValue("siteID");
-            //Thread.Sleep(2000);
             CreateRequestDetailView.SetElementValue("Название сита", "sit1");
-            //ComboBoxController controller = new ComboBoxController();
-            //controller.Initialize(Context, "siteId",false,new Dictionary<string, string>());
-            //controller.SetValue("sit1");
-            //Thread.Sleep(2000);
-            // Селектор для выбора элемента в выпадающем списке любо, открытом на форме
-            //IWebElement ddlItem = Context.Driver.FindElement(By.XPath("//ul[@role='listbox']//li"));
-            //ddlItem.Click();
-            //Thread.Sleep(2000);
-            //ComboBoxController controller11 = new ComboBoxController();
-            //controller11.Initialize(Context, "resultCentreId", false, new Dictionary<string, string>());
-            //controller11.SetValue("resultCentreId");
-            //IWebElement resultCentre = Context.Driver.FindElement(By.XPath("//input[@name='resultCentreId']/..//div"));
-            //resultCentre.Click();
             Thread.Sleep(2000);
             CreateRequestDetailView.SetElementValue("Центр результата", "ggnbvc");
             CreateRequestDetailView.ClickElement("Выбор технической службы");
             CreateRequestDetailView.ClickElement("Поставщик");
-            //ComboBoxController controller2 = new ComboBoxController();
-            //controller2.Initialize(Context, "resultCentreId", false, new Dictionary<string, string>());
-            //controller2.SetValue("ggnbvc");
-            //Thread.Sleep(2000);
-            //IWebElement ddlItemResult = Context.Driver.FindElement(By.XPath("//ul[@role='listbox']//li"));
-            //ddlItemResult.Click();
-            //Thread.Sleep(2000);
-            //PageController.ScrollBottom("document.querySelector(\"[type=\'submit\']\")
-            IJavaScriptExecutor js = ((IJavaScriptExecutor)Context.Driver);
-            js.ExecuteScript("document.querySelector(\"[type=\'submit\']\").scrollIntoView();");
+            PageController.ScrollBottom(Context);
             Thread.Sleep(2000);
             CreateRequestDetailView.ClickElement("Сохранить");
-            //MuiButtonController controller3 = new MuiButtonController();
-            //controller3.Initialize(Context, "submit", false, new Dictionary<string, string>());
-            //controller3.Click();
 
-            //IWebElement buttonSave = Context.Driver.FindElement(By.XPath("//button[@type='submit']"));
-            //buttonSave.Click();
-            Thread.Sleep(2000);
-            Assert.IsTrue(Context.Driver.Url.Equals("http://localhost:55443/DAIRequests"), ("Переход на страницу со списком заявок не был осуществлен"));
+            //проверка
+            ListView.CheckTableContains("sit1");
         }
     }
 }
