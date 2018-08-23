@@ -66,6 +66,7 @@
     <Compile Include="Controllers\PageValidationController.cs" />
     <Compile Include="Controllers\UIControllers\TableController.cs" />
     <Compile Include="Controllers\UIControllers\TextBoxController.cs" />
+    <Compile Include="Factories\TestSettingsFactory.cs" />
     <Compile Include="Models\Context.cs" />
     <Compile Include="Controllers\FormControllers\FormController.cs" />
     <Compile Include="Controllers\FormControllers\ListViewController.cs" />
@@ -90,6 +91,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Configs\Tests\CreateUser.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Configs\NavigationMenu.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

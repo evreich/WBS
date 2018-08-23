@@ -17,9 +17,10 @@ using WBS.Selenium.Interfaces;
 namespace WBS.Selenium
 {
     [TestFixture]
-    public class TestBase
+    public abstract class TestBase
     {
         public Context Context;
+        public abstract string Id { get; }
 
         private Lazy<NavigationMenuController> navigationMenu = new Lazy<NavigationMenuController>(() => new NavigationMenuController());
         private Lazy<ListViewController> listView = new Lazy<ListViewController>(() => new ListViewController());
@@ -34,7 +35,7 @@ namespace WBS.Selenium
         [OneTimeSetUp] // вызывается перед началом запуска всех тестов
         public void Start()
         {
-            Context = new Context();
+            Context = new Context(Id);
             PageValidation = new PageValidationController();
         }
         [OneTimeTearDown] //вызывается после завершения всех тестов

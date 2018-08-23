@@ -14,6 +14,8 @@ namespace WBS.Selenium
 {
     class CreateRequest : TestBase
     {
+        public override string Id => throw new NotImplementedException();
+
         [Test, Order(1)]
         public void OpenaBrowser()
         {
