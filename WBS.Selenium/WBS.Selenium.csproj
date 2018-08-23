@@ -60,11 +60,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\UIControllers\CheckBoxController.cs" />
+    <Compile Include="Controllers\FormControllers\CreateRequestDetailViewController.cs" />
     <Compile Include="Controllers\FormControllers\CreateUserDetailViewController.cs" />
     <Compile Include="Controllers\UIControllers\CheckComboBoxController.cs" />
     <Compile Include="Controllers\UIControllers\ComboBoxController.cs" />
     <Compile Include="Controllers\PageValidationController.cs" />
     <Compile Include="Controllers\UIControllers\TableController.cs" />
+    <Compile Include="Controllers\UIControllers\TabPanelController.cs" />
     <Compile Include="Controllers\UIControllers\TextBoxController.cs" />
     <Compile Include="Factories\TestSettingsFactory.cs" />
     <Compile Include="Models\Context.cs" />

@@ -6,27 +6,32 @@ using System.Threading;
 using System.Threading.Tasks;
 using OpenQA.Selenium;
 using WBS.Selenium.Controllers.UIControllers;
-using WBS.Selenium.Interfaces;
 
-namespace WBS.Selenium.Controllers
+namespace WBS.Selenium.Controllers.FormControllers
 {
-    public class ComboBoxController :UIController
+    public class CheckBoxController : UIController
     {
+
 
         public override void Initialize(Context context, string id, bool waitPostback, Dictionary<string, string> parameters)
         {
-            base.Initialize(context, id, waitPostback, parameters);
-            locator = By.XPath($"//input[@name='{id}']/..//div");
-        }
 
-        public override void SetValue(string value)
+            base.Initialize(context, id, waitPostback, parameters);
+            if (parameters != null && parameters.ContainsValue("span"))
+            {
+                locator = By.XPath($"//span[contains(@class,'MuiFormControlLabel')]//span[contains(text(),'{id}')]");
+            }
+            else
+            {
+                locator = By.XPath($"//span[contains(@class,'MuiFormControlLabel') and contains(text(),'{id}')]");
+            }
+
+        }
+        public override void Click()
         {
             IWebElement cb = context.Driver.FindElement(locator);
-            cb.Click();
             Thread.Sleep(2000);
-            IWebElement cbItem = context.Driver.FindElement(By.XPath($"//ul[@role='listbox']//li[contains(text(),'{value}')]"));
-            cbItem.Click();
+            cb.Click();
         }
     }
 }
-
