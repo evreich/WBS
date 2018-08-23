@@ -16,6 +16,8 @@ namespace WBS.Selenium.TestScripts
 {
     class CreateUser:TestBase
     {
+        public override string Id => "CreateUser";
+
         [Test, Order(1)]
         public void OpenaBrowser()
         {
@@ -44,20 +46,27 @@ namespace WBS.Selenium.TestScripts
         [Test, Order(4)]
         public void CreateNewUser()
         {
+            string fio = Context.TestSettings.GetValue("fio");
+            string login = Context.TestSettings.GetValue("login");
+            string jobPosition = Context.TestSettings.GetValue("jobPosition");
+            string department = Context.TestSettings.GetValue("department");
+            string password = Context.TestSettings.GetValue("password");
+            string roles = Context.TestSettings.GetValue("roles");
+
             ListView.ClickElement("Создать");
             Thread.Sleep(2000);
-            CreateUserDetailView.SetElementValue("ФИО", "Ivanov Ivan Ivanovich");
-            CreateUserDetailView.SetElementValue("Логин", "ivanov2");
-            CreateUserDetailView.SetElementValue("Должность", "Рабочий");
-            CreateUserDetailView.SetElementValue("Подразделение", "Главное");
-            CreateUserDetailView.SetListValues("Полномочия", "user");
-            CreateUserDetailView.SetElementValue("Пароль", "12345");
+            CreateUserDetailView.SetElementValue("ФИО", fio);
+            CreateUserDetailView.SetElementValue("Логин", login);
+            CreateUserDetailView.SetElementValue("Должность", jobPosition);
+            CreateUserDetailView.SetElementValue("Подразделение", department);
+            CreateUserDetailView.SetListValues("Полномочия", roles);
+            CreateUserDetailView.SetElementValue("Пароль", password);
 
             Thread.Sleep(2000);
             CreateUserDetailView.ClickElement("Сохранить");
 
             //проверка
-            ListView.CheckTableContains("Ivanov Ivan Ivanovich");
+            ListView.CheckTableContains(fio);
         }
     }
 }
