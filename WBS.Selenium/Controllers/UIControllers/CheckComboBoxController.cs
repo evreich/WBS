@@ -17,10 +17,21 @@ namespace WBS.Selenium.Controllers.UIControllers
             locator = By.XPath($"//input[@name='{id}']/..//div");
         }
 
-        public override void SetValue(string value)
+        public void SetListValues(params string[] values)
         {
-            IWebElement SiteID = context.Driver.FindElement(By.XPath($"//ul[@role='listbox']//li[contains(text(),'{value}')]"));
-            SiteID.Click();
+            IWebElement resultCentre = context.Driver.FindElement(locator);
+            resultCentre.Click();
+            foreach (var item in values)
+            {
+                IWebElement li = context.Driver.FindElement(By.XPath($"//ul[@role='listbox']//span[contains(text(),'{item}')]"));
+                li.Click();
+            }
+            //IWebElement form = context.Driver.FindElement(By.XPath("//div[contains(@class,'MuiBackdrop')]"));
+            //form.
+            IJavaScriptExecutor js = ((IJavaScriptExecutor)context.Driver);
+            js.ExecuteScript("document.querySelector(\"div[class*='MuiBackdrop-invisible'\").style.display = 'none'");
+            js.ExecuteScript("document.querySelector(\"div[class*='MuiMenu-paper'\").style.display = 'none'");
+            js.ExecuteScript("document.querySelector(\"div[id*='menu-roles'\").style.display = 'none'");
         }
     }
 }

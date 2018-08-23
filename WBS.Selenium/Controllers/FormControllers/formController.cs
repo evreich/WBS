@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WBS.Selenium.Interfaces;
 using WBS.Selenium.Models;
+using WBS.Selenium.Controllers.UIControllers;
 
 namespace WBS.Selenium.Controllers.FormControllers
 {
@@ -70,6 +71,20 @@ namespace WBS.Selenium.Controllers.FormControllers
         public void WaitElementIsVisible(string element)
         {
             throw new NotImplementedException();
+        }
+        #endregion
+
+        #region Tables
+        public void ClickRowTable(string tableName,string value)
+        {
+            TableController table = mapping[tableName] as TableController;
+            table?.Click(value);
+        }
+
+        public void CheckTableContains(string tableName,string value)
+        {
+            TableController table = mapping[tableName] as TableController;
+            table?.CheckTableContains(value);
         }
         #endregion
     }
