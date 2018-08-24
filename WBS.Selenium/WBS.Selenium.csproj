@@ -60,21 +60,52 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Context.cs" />
-    <Compile Include="Login.cs" />
+    <Compile Include="Controllers\UIControllers\CheckBoxController.cs" />
+    <Compile Include="Controllers\FormControllers\CreateRequestDetailViewController.cs" />
+    <Compile Include="Controllers\FormControllers\CreateUserDetailViewController.cs" />
+    <Compile Include="Controllers\UIControllers\CheckComboBoxController.cs" />
+    <Compile Include="Controllers\UIControllers\ComboBoxController.cs" />
+    <Compile Include="Controllers\PageValidationController.cs" />
+    <Compile Include="Controllers\UIControllers\TableController.cs" />
+    <Compile Include="Controllers\UIControllers\TabPanelController.cs" />
+    <Compile Include="Controllers\UIControllers\TextBoxController.cs" />
+    <Compile Include="Factories\TestSettingsFactory.cs" />
+    <Compile Include="Models\Context.cs" />
+    <Compile Include="Controllers\FormControllers\FormController.cs" />
+    <Compile Include="Controllers\FormControllers\ListViewController.cs" />
+    <Compile Include="Controllers\NavigationMenuController.cs" />
+    <Compile Include="Controllers\PageController.cs" />
+    <Compile Include="Controllers\UIControllers\MenuNodeController.cs" />
+    <Compile Include="Controllers\UIControllers\MuiButtonController.cs" />
+    <Compile Include="Controllers\UIControllers\UIController.cs" />
+    <Compile Include="TestScripts\CreateRequest.cs" />
+    <Compile Include="Interfaces\IFormController.cs" />
+    <Compile Include="Interfaces\IFormValidationController.cs" />
+    <Compile Include="Interfaces\IUIController.cs" />
+    <Compile Include="TestScripts\CreateUser.cs" />
+    <Compile Include="TestScripts\Login.cs" />
+    <Compile Include="Models\MenuNode.cs" />
+    <Compile Include="Models\UIMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestBase.cs" />
-    <Compile Include="User.cs" />
+    <Compile Include="Models\TestBase.cs" />
+    <Compile Include="Models\User.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Configs\Tests\CreateUser.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Configs\NavigationMenu.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Configs\Users.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

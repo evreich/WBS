@@ -10,16 +10,19 @@ using OpenQA.Selenium.Support.PageObjects;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
 using System.Threading;
+using WBS.Selenium.Controllers;
 
 namespace WBS.Selenium
 {
     class Login : TestBase
     {
+        public override string Id => throw new NotImplementedException();
+
         [Test, Order(1)]
         public void OpenaBrowser()
         {
-            _driver.Navigate().GoToUrl("http://localhost:55443");
-            _driver.Manage().Window.Maximize();
+            Context.Driver.Navigate().GoToUrl("http://localhost:55443");
+            Context.Driver.Manage().Window.Maximize();
             Thread.Sleep(2000);
 
         }
@@ -39,14 +42,33 @@ namespace WBS.Selenium
         [Test, Order(2)]
         public void AvtorizationOnAllUsers()
         {
-            Context.Users.ForEach(user =>
-            {
-                Login(user);
-                // Делаем logout
-                Thread.Sleep(1000);
-                Logout();
-                Thread.Sleep(1000);
-            });
+            User user = Context.Users.FirstOrDefault(u => u.Name == "Admin");
+            Login(user);
+            Thread.Sleep(1000);
+            //Context.Users.ForEach(user =>
+            //{
+            //    Login(user);
+            //    // Делаем logout
+            //    Thread.Sleep(1000);
+            //    Logout();
+            //    Thread.Sleep(1000);
+            //});
+        }
+
+        [Test, Order(3)]
+        public void OpenNavigation()
+        {
+            NavigationMenu.OpenPage("Заявки на инвестиции");
+            Thread.Sleep(2000);
+
+            ListView.ClickElement("Создать");
+            Thread.Sleep(2000);
+
+            PageController.ScrollBottom(Context);
+            Thread.Sleep(10000);
+        }
+       
+       
         }
     }
-}
+
