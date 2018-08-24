@@ -11,7 +11,7 @@ import Divider from "material-ui/Divider";
 import { withStyles } from "material-ui/styles";
 
 import styles from "./ApplicationForInvestmentForm.css";
-import HTTP_METHOD from "../../../../settings/httpMethods";
+import HTTP_METHOD from "settings/httpMethods";
 import MainFormBody from "./MainFormBody/MainFormBody";
 import InvestmentTabs from "./tabComponents/InvestmentTabs";
 import Attachments from "./Attachments";
@@ -51,6 +51,7 @@ const ApplicationForInvestmentForm = props => {
     const onSaveButtonClick = () => {
         const { save, cancel, data, currentPage, elementsPerPage } = props;
 
+        //TODO: rename
         //берем данные с связанных частей формы
         const values1 = mainFormBodyRef.getDataToSave();
         const values2 = investmentTabsRef.getDataToSave();
@@ -153,7 +154,7 @@ const ApplicationForInvestmentForm = props => {
 ApplicationForInvestmentForm.propTypes = {
     cancel: PropTypes.func,
     classes: PropTypes.object.isRequired,
-    save: PropTypes.func,
+    save: PropTypes.func.isRequired,
     data: PropTypes.any,
     currentPage: PropTypes.number,
     elementsPerPage: PropTypes.number,

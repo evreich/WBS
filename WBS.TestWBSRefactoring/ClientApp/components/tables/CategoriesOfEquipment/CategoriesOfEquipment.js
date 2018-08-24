@@ -1,7 +1,7 @@
 import React from "react";
 
 import DataFieldsInfo from './DataFieldsInfo';
-import CategoriesOfEquipmentContainer from '../../../containers/tables/CategoriesOfEquipment/CategoriesOfEquipment';
+import CategoriesOfEquipmentContainer from 'containers/tables/CategoriesOfEquipment/CategoriesOfEquipment';
 import DialogBody from './CategoriesOfEquipmentDialogBody';
 
 

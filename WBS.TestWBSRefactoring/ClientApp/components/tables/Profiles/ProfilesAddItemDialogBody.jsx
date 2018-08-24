@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import TextFieldMultiline from "../../Commons/TextFields/TextFieldMultiline";
 import TextFieldMultiSelect from "../../Commons/TextFields/TextFieldMultiSelect";
 import TextFieldPlaceholder from "../../Commons/TextFields/TextFieldPlaceholder";
-import transformFieldsToState from "../../../helpers/transformFieldsToState";
+import transformFieldsToState from "helpers/transformFieldsToState";
 import { getRolesForSelect } from "../helpersAPI";
 
 class ProfilesAddItemDialogBody extends React.PureComponent {

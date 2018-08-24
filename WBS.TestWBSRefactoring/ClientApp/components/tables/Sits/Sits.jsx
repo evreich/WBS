@@ -1,7 +1,7 @@
 import React from "react";
 
 import DataFieldsInfo from './DataFieldsInfo';
-import SitsContainer from '../../../containers/tables/Sits/Sits';
+import SitsContainer from 'containers/tables/Sits/Sits';
 import DialogBody from './SitsDialogBody';
 
 

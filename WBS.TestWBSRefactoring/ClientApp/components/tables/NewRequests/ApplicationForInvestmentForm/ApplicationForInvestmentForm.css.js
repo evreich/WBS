@@ -45,7 +45,7 @@
         overflowX: "auto"
     },
     header: {
-        background: "linear-gradient(0deg, #f1f8e9, #fff);"
+        background: "linear-gradient(0deg, #f1f8e9, #fff)"
     },
 
     dialogTitle: {

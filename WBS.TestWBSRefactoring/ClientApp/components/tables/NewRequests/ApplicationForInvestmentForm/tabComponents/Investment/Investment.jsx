@@ -17,7 +17,7 @@ import Tooltip from "material-ui/Tooltip";
 import IconButton from "material-ui/IconButton";
 import { withStyles } from "material-ui/styles";
 
-import styles from '../../../../../Commons/Table/TableStyles.css';
+import styles from 'components/Commons/Table/TableStyles.css';
 
 // таблица инвестиции - шаблон! не адаптирован
 const Investment = ({ classes }) => (

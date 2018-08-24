@@ -1,4 +1,4 @@
-import { rootRequest } from '../../../../helpers/helperAPIRequest';
+import { rootRequest } from 'helpers/helperAPIRequest';
 
 const ROUTE = document.api;
 

@@ -5,15 +5,15 @@ import { InputAdornment } from "material-ui/Input";
 import SentimentDissatisfiedIcon from "material-ui-icons/SentimentDissatisfied";
 import SentimentSatisfiedIcon from "material-ui-icons/SentimentSatisfied";
 
-import TextFieldPlaceholder from "../../../../../Commons/TextFields/TextFieldPlaceholder";
-import { convertToDouble } from "../../../../../../helpers/formatHelper";
+import TextFieldPlaceholder from "components/Commons/TextFields/TextFieldPlaceholder";
+import { convertToDouble } from "helpers/formatHelper";
 import {
     getDoh,
     getNVP,
     getPayback,
     getSmile
-} from "../../../../../../helpers/efficiencyCalcHelper";
-import transformFieldsToState from '../../../../../../helpers/transformFieldsToState';
+} from "helpers/efficiencyCalcHelper";
+import transformFieldsToState from 'helpers/transformFieldsToState';
 
 class InvestmentEfficiency extends React.PureComponent {
     constructor(props) {

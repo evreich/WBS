@@ -1,7 +1,7 @@
 import download from "downloadjs";
 
-import request from "../../../../../utils/fetchUtil";
-import REQUEST_METHOD from "../../../../../settings/httpMethods";
+import request from "utils/fetchUtil";
+import REQUEST_METHOD from "settings/httpMethods";
 
 const ROUTE = document.appendChild.ATTACHMENT_CONTROLLER_URL
 

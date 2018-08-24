@@ -34,240 +34,240 @@ import styles from './SideMenuComponent.css.js';
 
 
 class SideMenuComponent extends Component {
-  state = {
-    open: !!localStorage.getItem("drawerOpen"),
-    auth: {}
-  };
-
-  logoutClick = () => {
-    const { logout } = this.props
-    sessionStorage.removeItem('auth')
-    localStorage.removeItem("drawerOpen");
-    this.setState({ open: false });
-    logout()
-  }
-  
-  static getDerivedStateFromProps(nextProps) {
-    return {
-      auth: nextProps.auth,
+    state = {
+        open: !!localStorage.getItem("drawerOpen"),
+        auth: {}
     };
-  }
 
-  handleDrawerOpen = () => {
-    this.setState({ open: true });
-    localStorage.setItem("drawerOpen", "true");
-  };
+    logoutClick = () => {
+        const { logout } = this.props
+        sessionStorage.removeItem('auth')
+        localStorage.removeItem("drawerOpen");
+        this.setState({ open: false });
+        logout()
+    }
 
-  handleDrawerClose = () => {
-    this.setState({ open: false });
-    localStorage.removeItem("drawerOpen");
-  };
+    static getDerivedStateFromProps(nextProps) {
+        return {
+            auth: nextProps.auth,
+        };
+    }
 
-  render() {
-    const { classes } = this.props;
-    const { open, auth = {} } = this.state;
+    handleDrawerOpen = () => {
+        this.setState({ open: true });
+        localStorage.setItem("drawerOpen", "true");
+    };
 
-    const drawer = (
-      <Drawer
-        variant="persistent"
-        open={open}
-        onClose={this.handleDrawerClose}
-        style={{ position: 'fixed', display: open ? 'block': 'none', marginTop: -10 }}
-        classes={{
-          paper: classes.drawerPaper,
-        }}
-      >
-        <div className={classes.drawerHeader}>
-          <CardHeader
-            avatar={
-              <Avatar aria-label="User" className={classes.avatar}>
-                N
-              </Avatar>
-            }
-            title={<strong>{auth.username}</strong>}
-            subheader={<strong>{auth.role}</strong>}
-          />
-          <IconButton onClick={this.logoutClick}>
-            <ExitToAppIcon />
-          </IconButton>
-          <IconButton onClick={this.handleDrawerClose}>
-            <ChevronLeftIcon />
-          </IconButton>
-        </div>
-        <Divider />
-        <List component="nav">
-          <NavListItem
-            text="Документы"
-            icon={<FolderIcon />}
-          >
-            <NavListItem
-              className={classes.nested}
-              text="Таблица разработки"
-              icon={<InsertDriveFileIcon />}
-              to="/table"
-            />
-            <NavListItem
-              className={classes.nested}
-              text="Макет"
-              icon={<InsertDriveFileIcon />}
-              to="/DateRangePicker"
-            />
-            <NavListItem
-              className={classes.nested}
-              text="Заявки на инвестиции"
-              icon={<InsertDriveFileIcon />}
-              to="/DAIRequests"
-            />
-            <NavListItem
-              className={classes.nested}
-              text="Бюджетные планы"
-              icon={<DescriptionIcon />}
-              to="/BudgetPlans"
-            />
-            <NavListItem
-              className={classes.nested}
-              text="Статистика"
-              icon={<TrendingUpIcon />}
-              to="/Statistics"
-            />
-            <NavListItem
-              className={classes.nested}
-              text="Все обработанные мной заявки"
-              icon={<RestorePageIcon />}
-              to="/DAIProcessedRequests"
-            />
-            <NavListItem
-              className={classes.nested}
-              text="Инструкции"
-              icon={<InfoOutlineIcon />}
-              to="/DocLib"
-            />
-          </NavListItem>
-          {
-            auth.role === 'admin' &&
-            <NavListItem
-              text="Администрирование"
-              icon={<AccountBoxIcon />}
+    handleDrawerClose = () => {
+        this.setState({ open: false });
+        localStorage.removeItem("drawerOpen");
+    };
+
+    render() {
+        const { classes } = this.props;
+        const { open, auth = {} } = this.state;
+
+        const drawer = (
+            <Drawer
+                variant="persistent"
+                open={open}
+                onClose={this.handleDrawerClose}
+                style={{ position: 'fixed', display: open ? 'block' : 'none', marginTop: -10 }}
+                classes={{
+                    paper: classes.drawerPaper,
+                }}
             >
-              <NavListItem
-                className={classes.nested}
-                text="Добавить пользователя"
-                icon={<ChromeReaderMode />}
-                to="/signup"
-              />
-              <NavListItem
-                className={classes.nested}
-                text="Журнал изменений"
-                icon={<ChromeReaderMode />}
-                to="/EventsHistory"
-              />
-              <NavListItem
-                className={classes.nested}
-                text="Проверка мониторинга системы"
-                icon={<AssessmentIcon />}
-                to="/CheckDAIMonitoringSystem"
-              />
-            </NavListItem>
-          }
-          <NavListItem
-            text="Справочники"
-            icon={<LibraryBooksIcon />}
-          >
-            <NavListItem
-              className={classes.nested}
-              text="Ситы"
-              icon={<HomeIcon />}
-              to="/Sits"
-            />
-            <NavListItem
-              className={classes.nested}
-              text="Пользователи"
-              icon={<AccountCircleIcon />}
-              to="/Profiles"
-            />
-            <NavListItem
-              className={classes.nested}
-              text="Поставщики"
-              icon={<SupervisorAccountIcon />}
-              to="/Providers"
-            />
-            <NavListItem
-              className={classes.nested}
-              text="Формат ситов"
-              icon={<DescriptionIcon />}
-              to="/Formats"
-            />
-            <NavListItem
-              className={classes.nested}
-              text="Типы инвестиций"
-              icon={<TrendingUpIcon />}
-              to="/TypeOfInvestments"
-            />
-            <NavListItem
-              className={classes.nested}
-              text="Центры результатов"
-              icon={<InsertDriveFileIcon />}
-              to="/ResultCentres"
-            />
-            <NavListItem
-              className={classes.nested}
-              text="Группы категорий"
-              icon={<InsertDriveFileIcon />}
-              to="/CategoryGroups"
-            />
-            <NavListItem
-              className={classes.nested}
-              text="Категории оборудования"
-              icon={<InsertDriveFileIcon />}
-              to="/CategoriesOfEquipment"
-            />
+                <div className={classes.drawerHeader}>
+                    <CardHeader
+                        avatar={
+                            <Avatar aria-label="User" className={classes.avatar}>
+                                N
+              </Avatar>
+                        }
+                        title={<strong>{auth.username}</strong>}
+                        subheader={<strong>{auth.role}</strong>}
+                    />
+                    <IconButton onClick={this.logoutClick}>
+                        <ExitToAppIcon />
+                    </IconButton>
+                    <IconButton onClick={this.handleDrawerClose}>
+                        <ChevronLeftIcon />
+                    </IconButton>
+                </div>
+                <Divider />
+                <List component="nav">
+                    <NavListItem
+                        text="Документы"
+                        icon={<FolderIcon />}
+                    >
+                        <NavListItem
+                            className={classes.nested}
+                            text="Таблица разработки"
+                            icon={<InsertDriveFileIcon />}
+                            to="/table"
+                        />
+                        <NavListItem
+                            className={classes.nested}
+                            text="Макет"
+                            icon={<InsertDriveFileIcon />}
+                            to="/DateRangePicker"
+                        />
+                        <NavListItem
+                            className={classes.nested}
+                            text="Заявки на инвестиции"
+                            icon={<InsertDriveFileIcon />}
+                            to="/DAIRequests"
+                        />
+                        <NavListItem
+                            className={classes.nested}
+                            text="Бюджетные планы"
+                            icon={<DescriptionIcon />}
+                            to="/BudgetPlans"
+                        />
+                        <NavListItem
+                            className={classes.nested}
+                            text="Статистика"
+                            icon={<TrendingUpIcon />}
+                            to="/Statistics"
+                        />
+                        <NavListItem
+                            className={classes.nested}
+                            text="Все обработанные мной заявки"
+                            icon={<RestorePageIcon />}
+                            to="/DAIProcessedRequests"
+                        />
+                        <NavListItem
+                            className={classes.nested}
+                            text="Инструкции"
+                            icon={<InfoOutlineIcon />}
+                            to="/DocLib"
+                        />
+                    </NavListItem>
+                    {
+                        auth.role === 'admin' &&
+                        <NavListItem
+                            text="Администрирование"
+                            icon={<AccountBoxIcon />}
+                        >
+                            <NavListItem
+                                className={classes.nested}
+                                text="Добавить пользователя"
+                                icon={<ChromeReaderMode />}
+                                to="/signup"
+                            />
+                            <NavListItem
+                                className={classes.nested}
+                                text="Журнал изменений"
+                                icon={<ChromeReaderMode />}
+                                to="/EventsHistory"
+                            />
+                            <NavListItem
+                                className={classes.nested}
+                                text="Проверка мониторинга системы"
+                                icon={<AssessmentIcon />}
+                                to="/CheckDAIMonitoringSystem"
+                            />
+                        </NavListItem>
+                    }
+                    <NavListItem
+                        text="Справочники"
+                        icon={<LibraryBooksIcon />}
+                    >
+                        <NavListItem
+                            className={classes.nested}
+                            text="Ситы"
+                            icon={<HomeIcon />}
+                            to="/Sits"
+                        />
+                        <NavListItem
+                            className={classes.nested}
+                            text="Пользователи"
+                            icon={<AccountCircleIcon />}
+                            to="/Profiles"
+                        />
+                        <NavListItem
+                            className={classes.nested}
+                            text="Поставщики"
+                            icon={<SupervisorAccountIcon />}
+                            to="/Providers"
+                        />
+                        <NavListItem
+                            className={classes.nested}
+                            text="Формат ситов"
+                            icon={<DescriptionIcon />}
+                            to="/Formats"
+                        />
+                        <NavListItem
+                            className={classes.nested}
+                            text="Типы инвестиций"
+                            icon={<TrendingUpIcon />}
+                            to="/TypeOfInvestments"
+                        />
+                        <NavListItem
+                            className={classes.nested}
+                            text="Центры результатов"
+                            icon={<InsertDriveFileIcon />}
+                            to="/ResultCentres"
+                        />
+                        <NavListItem
+                            className={classes.nested}
+                            text="Группы категорий"
+                            icon={<InsertDriveFileIcon />}
+                            to="/CategoryGroups"
+                        />
+                        <NavListItem
+                            className={classes.nested}
+                            text="Категории оборудования"
+                            icon={<InsertDriveFileIcon />}
+                            to="/CategoriesOfEquipment"
+                        />
 
-          </NavListItem>
-        </List>
-      </Drawer>
-    );
+                    </NavListItem>
+                </List>
+            </Drawer>
+        );
 
-    return (
-      <div className={classes.root}>
-        <div className={classes.appFrame}>
-          <AppBar
-            position="fixed"
-            style={{ position: 'fixed' }}
-            className={classNames(classes.appBar, {
-              [classes.appBarShift]: open,
-            })}
-          >
-            <Toolbar>
-              {
-                auth.accessToken &&
-                (<>
-                  <IconButton
-                    color="inherit"
-                    aria-label="open drawer"
-                    onClick={this.handleDrawerOpen}
-                    className={classNames(classes.menuButton, open && classes.hide)}
-                  >
-                    <MenuIcon />
-                  </IconButton>
-                  <Typography variant="title" color="inherit" noWrap style={{ flex: 1 }} />
+        return (
+            <div className={classes.root}>
+                <div className={classes.appFrame}>
+                    <AppBar
+                        position="fixed"
+                        style={{ position: 'fixed' }}
+                        className={classNames(classes.appBar, {
+                            [classes.appBarShift]: open,
+                        })}
+                    >
+                        <Toolbar>
+                            {
+                                auth.accessToken &&
+                                (<>
+                                    <IconButton
+                                        color="inherit"
+                                        aria-label="open drawer"
+                                        onClick={this.handleDrawerOpen}
+                                        className={classNames(classes.menuButton, open && classes.hide)}
+                                    >
+                                        <MenuIcon />
+                                    </IconButton>
+                                    <Typography variant="title" color="inherit" noWrap style={{ flex: 1 }} />
 
-                </>)
-              }
-            </Toolbar>
-          </AppBar>
-          {drawer}
-          <div className={classNames(classes.content, { [classes.contentShift]: open, })}
-          />
-        </div>
-      </div>
-    );
-  }
+                                </>)
+                            }
+                        </Toolbar>
+                    </AppBar>
+                    {drawer}
+                    <div className={classNames(classes.content, { [classes.contentShift]: open, })}
+                    />
+                </div>
+            </div>
+        );
+    }
 }
 
 SideMenuComponent.propTypes = {
-  classes: PropTypes.object.isRequired,
-  theme: PropTypes.object.isRequired,
-  logout: PropTypes.func,
+    classes: PropTypes.object.isRequired,
+    theme: PropTypes.object.isRequired,
+    logout: PropTypes.func,
 };
 
 export default withStyles(styles, { withTheme: true })(SideMenuComponent);
