@@ -17,13 +17,17 @@ using WBS.Selenium.Interfaces;
 using WBS.Selenium.Models;
 using AventStack.ExtentReports;
 using System.Configuration;
+using WBS.Selenium.Factories;
+using System.IO;
 
-namespace WBS.Selenium
+namespace WBS.Selenium.Models
 {
     public abstract class TestBase
     {
         public Context Context;
         public abstract string Id { get; }
+        private VideoRecorder _recording;
+        private bool _saveFailedOnly = false; //хранить видео только падений
 
         private Lazy<NavigationMenuController> navigationMenu = new Lazy<NavigationMenuController>(() => new NavigationMenuController());
         private Lazy<ListViewController> listView = new Lazy<ListViewController>(() => new ListViewController());
@@ -47,7 +51,7 @@ namespace WBS.Selenium
                 reportTitle = TestContext.CurrentContext.Test.Properties["Description"].ToList()[0].ToString();
             else
                 reportTitle = TestContext.CurrentContext.Test.Name;
-            
+
 
             Reporter.FileName = ConfigurationManager.AppSettings.Get("reportFileName");
             Reporter.TitleName = ConfigurationManager.AppSettings.Get("titleFileName");
@@ -64,6 +68,7 @@ namespace WBS.Selenium
             else
                 testTitle = NUnit.Framework.TestContext.CurrentContext.Test.MethodName;
             Reporter.Instance.CreateNode(testTitle);
+
         }
 
         [TearDown]
@@ -81,23 +86,9 @@ namespace WBS.Selenium
             {
                 case TestStatus.Failed:
                     logstatus = Status.Fail;
-                    //костылище, который определяет упал ли подготовительный тест
-                    //if (NUnit.Framework.TestContext.CurrentContext.Test.ClassName.EndsWith("PreparatoryTest"))
-                    //    TemporaryStorage.Add("PreparatoryTest", "Fail");
-                    //Если выпадает Alert с ошибкой, то браузер закрывается
-                    //Браузера нет => падает на скриншоте
-                    //Текущий шаг и все последующие не попадают в отчет
-                    //Поэтому нужен try-catch
-                    try
-                    {
-                        string screen = GetExtendError();
-                        if (!string.IsNullOrEmpty(screen))
-                            screenHtml = string.IsNullOrEmpty(screen) ? "" : $"<img src='data:image/gif;base64,{screen}' width='100%' />";
-                    }
-                    catch { }
                     break;
                 case TestStatus.Inconclusive:
-                    logstatus = Status.Fail;// Status.Warning;                 
+                    logstatus = Status.Warning;
                     break;
                 case TestStatus.Skipped:
                     logstatus = Status.Skip;
@@ -110,9 +101,6 @@ namespace WBS.Selenium
             Reporter.Instance.CurrentNode.Log(logstatus, "Тест завершен со статусом \"" + logstatus + "\"");
             if (!string.IsNullOrEmpty(result))
                 Reporter.Instance.CurrentNode.Info($"<textarea style=\"height: 100%\" rows=\"15\" readonly >{result}{stacktrace}</textarea>{screenHtml}");
-            //if (checkingNotificationsResult != null && checkingNotificationsResult.Length > 0)
-            //    Reporter.Instance.CurrentNode.Info($"<textarea style=\"height: 100%\" rows=\"15\" readonly >{checkingNotificationsResult}</textarea>");
-
             Reporter.Instance.Report.Flush();
         }
 
@@ -132,12 +120,19 @@ namespace WBS.Selenium
             //Reporter.Instance.CreateTest()
             Context = new Context(Id);
             PageValidation = new PageValidationController();
+            _recording = RecorderFactory.Instance.Create(testTitle);
+            _recording.Start();
         }
         [OneTimeTearDown] //вызывается после завершения всех тестов
         public void Stop()
         {
+            _recording?.Stop();
+
+            if (_saveFailedOnly && Equals(TestContext.CurrentContext.Result.Outcome, ResultState.Success))
+            {
+                DeleteRelatedVideo();
+            }
             Context.Driver.Quit();
-            //driver = null;
         }
 
         // Вход в приложение под пользователем
@@ -181,6 +176,18 @@ namespace WBS.Selenium
                 value.Initialize(Context);
             }
             return value;
+        }
+
+        private void DeleteRelatedVideo()
+        {
+            try
+            {
+                File.Delete(_recording.OutputFilePath);
+            }
+            catch (IOException iox)
+            {
+                Console.WriteLine(iox.Message);
+            }
         }
     }
 }

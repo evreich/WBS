@@ -11,11 +11,14 @@ using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
 using System.Threading;
 using WBS.Selenium.Controllers;
+using System.IO;
+using Microsoft.Expression.Encoder.ScreenCapture;
+using WBS.Selenium.Models;
 
 namespace WBS.Selenium.TestScripts
 {
-    [TestFixture(TestName = "1.Создание нового пользователя")]
-    [Description("1.Создание нового пользователя")]
+    
+    [TestFixture(Description = "1.Создание нового пользователя"),Order(2)]/*(TestName = "1.Создание нового пользователя")]*/
     public class CreateUser:TestBase
     {
         public override string Id => "CreateUser";
@@ -25,8 +28,7 @@ namespace WBS.Selenium.TestScripts
         {
             Context.Driver.Navigate().GoToUrl("http://localhost:55443");
             Context.Driver.Manage().Window.Maximize();
-            Thread.Sleep(2000);
-
+            Thread.Sleep(2000);      
         }
 
         [Test(Description = "2. Зарегистрироваться в системе"), Order(2)]
@@ -63,10 +65,9 @@ namespace WBS.Selenium.TestScripts
             CreateUserDetailView.SetElementValue("Подразделение", department);
             CreateUserDetailView.SetListValues("Полномочия", roles);
             CreateUserDetailView.SetElementValue("Пароль", password);
-
             Thread.Sleep(2000);
             CreateUserDetailView.ClickElement("Сохранить");
-
+            Thread.Sleep(2000);
             //проверка
             ListView.CheckTableContains(fio);
         }

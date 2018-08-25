@@ -11,6 +11,7 @@ using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
 using System.Threading;
 using WBS.Selenium.Controllers;
+using WBS.Selenium.Models;
 
 namespace WBS.Selenium
 {
