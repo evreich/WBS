@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 
-import CreateTable from "../../../components/Commons/Table";
+import CreateTable from "components/Commons/Table";
 import { getTable, clearTable, updateTable, changeData, deleteData } from '../tablesActions';
 
 const TABLE = "providers";
@@ -15,7 +15,7 @@ const mapStateToProps = state =>
         } : {});
 
 const mapDispatchToProps = (dispatch) => ({
-    getDataTable: (pageIndex, pageSize) => dispatch(getTable(pageIndex, pageSize, ROUTE, TABLE)),
+    getDataTable: (pageIndex, pageSize, queryParams) => dispatch(getTable(pageIndex, pageSize, ROUTE, TABLE, queryParams)),
     clearTable: () => dispatch(clearTable(TABLE)),
     updateTable: (data) => dispatch(updateTable(data, TABLE)),
     changeData: (pageIndex, pageSize, method, data) => dispatch(changeData(pageIndex, pageSize, method, data, ROUTE, TABLE)),

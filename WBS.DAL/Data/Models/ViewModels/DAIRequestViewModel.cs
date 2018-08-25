@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using WBS.DAL.Cache;
 
 namespace WBS.DAL.Data.Models.ViewModels
@@ -118,6 +117,13 @@ namespace WBS.DAL.Data.Models.ViewModels
 
         public DAIRequest CreateModel()
         {
+            List<DAIRequestsProvider> providers = new List<DAIRequestsProvider>();
+
+            if (Providers != null)
+            {
+                providers = Providers.Select(p => new DAIRequestsProvider() { DaiId = Id, ProviderId = p.Id }).ToList();
+            }
+
             return new DAIRequest()
             {
                 Id = Id,
@@ -143,6 +149,8 @@ namespace WBS.DAL.Data.Models.ViewModels
                 ReasonForDAI = ReasonForDAI,
 
                 CommentForDirectorGeneral = CommentForDirectorGeneral,
+                DAIRequestsProviders = providers
+
             };
         }
 

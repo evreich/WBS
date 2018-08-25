@@ -7,7 +7,7 @@ import Table, {
     TableRow
 } from "material-ui/Table";
 import { withStyles } from "material-ui/styles";
-import styles from "../../../../../Commons/Table/TableStyles.css";
+import styles from "components/Commons/Table/TableStyles.css";
 
 const Budget = ({ classes, budgetData: { rowBudget, totalSit } }) => (
     <Table className={classes.table}>

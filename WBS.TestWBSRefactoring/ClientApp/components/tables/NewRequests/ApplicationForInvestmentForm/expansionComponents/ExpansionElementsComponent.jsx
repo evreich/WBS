@@ -10,12 +10,12 @@ import Typography from "material-ui/Typography";
 import Grid from "material-ui/Grid";
 import Button from "material-ui/Button";
 
-import DatePicker from "../../../../Commons/DatePicker";
-import TextFieldSelect from "../../../../Commons/TextFields/TextFieldSelect";
-import TextFieldPlaceholder from "../../../../Commons/TextFields/TextFieldPlaceholder";
-import TextFieldMultiline from "../../../../Commons/TextFields/TextFieldMultiline";
+import DatePicker from "components/Commons/DatePicker";
+import TextFieldSelect from "components/Commons/TextFields/TextFieldSelect";
+import TextFieldPlaceholder from "components/Commons/TextFields/TextFieldPlaceholder";
+import TextFieldMultiline from "components/Commons/TextFields/TextFieldMultiline";
 import InvestmentEfficiency from "./InvestmentEfficiency";
-import transformFieldsToState from '../../../../../helpers/transformFieldsToState';
+import transformFieldsToState from 'helpers/transformFieldsToState';
 
 class ExpansionElementsComponent extends React.PureComponent {
     constructor(props) {

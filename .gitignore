@@ -260,5 +260,4 @@ paket-files/
 __pycache__/
 *.pyc
 /WBS.DAL/Migrations/*
-/WBS.Client/wwwroot/dist/bundle.js
 /WBS.TestWBSRefactoring/wwwroot/dist/bundle.js

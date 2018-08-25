@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import TextFieldMultiline from "../../Commons/TextFields/TextFieldMultiline";
 import TextFieldSelect from "../../Commons/TextFields/TextFieldSelect";
 import UserAutosuggestField from "../../Commons/TextFields/UserAutosuggestField";
-import transformFieldsToState from "../../../helpers/transformFieldsToState";
+import transformFieldsToState from "helpers/transformFieldsToState";
 import { getFormats } from "../helpersAPI";
 
 class SitsDialogBody extends React.PureComponent {

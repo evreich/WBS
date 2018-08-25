@@ -14,14 +14,14 @@ import Paper from "material-ui/Paper";
 import TablePaginationActionsWrapped from "../Pagination";
 import SortedTableHead from "./SortedTableHead";
 import { styles } from "./TableStyles.css";
-import SortingActions from "../../../constants/sortingActions";
-import { sortOn } from "../../../helpers/sortinngFunctions";
+import SortingActions from "constants/sortingActions";
+import { sortOn } from "helpers/sortinngFunctions";
 import TableToolbar from "./Toolbar";
 import CommonChangeItemModalWindow from "../ModalWindows/ChangeItemModalWindow";
 import CommonInformationModalWindow from "../ModalWindows/InformationModalWindow";
 import CommonTableRow from "./TableRow";
 
-//закголовки диалоговых окон
+//заголовки диалоговых окон
 const createTitleModalWindow = "Создание";
 const editTitleModalWindow = "Редактирование";
 
@@ -63,7 +63,8 @@ const СreateTable = ({
                 data: PropTypes.array.isRequired,
                 pagination: PropTypes.object.isRequired,
                 deleteData: PropTypes.func,
-                queryParams: PropTypes.object
+                queryParams: PropTypes.object,
+                showToolbar: PropTypes.bool
             };
 
             static defaultProps = {
@@ -72,7 +73,8 @@ const СreateTable = ({
                     elementsPerPage: 5,
                     elementsCount: 0
                 },
-                data: []
+                data: [],
+                showToolbar: true
             };
 
             //lifecycle hooks
@@ -188,7 +190,7 @@ const СreateTable = ({
                 );
 
             render() {
-                const { classes, pagination, data, changeData } = this.props;
+                const { classes, pagination, data, changeData, showToolbar } = this.props;
                 const {
                     modalWindowInfoIsOpening,
                     modalWindowChangingIsOpening,
@@ -253,14 +255,18 @@ const СreateTable = ({
                     <>
                         <Paper className={classes.root}>
                             {/*Таблица*/}
-                            <TableToolbar
-                                onCreate={
-                                    this.handleOpenOnCreateChangeModalWindow
-                                }
-                                title={titleTable}
-                            />
+                            {
+                                showToolbar && (
+                                    <TableToolbar
+                                        onCreate={
+                                            this.handleOpenOnCreateChangeModalWindow
+                                        }
+                                        title={titleTable}
+                                    />)
+                            }
                             <Table className={classes.table}>
                                 <SortedTableHead
+                                    classes={classes}
                                     order={this.sortingData.sort}
                                     orderBy={this.sortingData.sortBy}
                                     onRequestSort={this.handleSortByHeaderClick}
@@ -277,8 +283,7 @@ const СreateTable = ({
                                                 )}
                                                 classes={classes}
                                                 handleInfoButtonClick={
-                                                    this
-                                                        .handleOpenInformationModalWindow
+                                                    this.handleOpenInformationModalWindow
                                                 }
                                             />
                                         ))}

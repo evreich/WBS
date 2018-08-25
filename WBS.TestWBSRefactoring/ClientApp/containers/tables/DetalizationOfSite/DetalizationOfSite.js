@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 
 import { getTable, clearTable, updateTable, changeData, deleteData } from '../tablesActions';
-import CreateTable from "../../../components/Commons/Table";
+import CreateTable from "components/Commons/Table";
 
 const TABLE = "detalizationOfSite";
 const ROUTE = document.api.itemsOfBudgetPlan;
