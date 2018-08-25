@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using NUnit.Framework;
+using WBS.Selenium.Enums;
 
 namespace WBS.Selenium.Controllers.UIControllers
 {
@@ -24,7 +25,7 @@ namespace WBS.Selenium.Controllers.UIControllers
         public void Click(string value)
         {
             string xpath = $"//table[contains(@class,'{tableClass}')]//td[contains(text(),'{value}')]";
-            IWebElement td = context.Wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(xpath)));
+            IWebElement td = context.Waitings.Get(Waitings.Short).Until(ExpectedConditions.ElementToBeClickable(By.XPath(xpath)));
             td.Click();
         }
         #endregion
@@ -35,7 +36,7 @@ namespace WBS.Selenium.Controllers.UIControllers
             string xpath = $"//table[contains(@class,'{tableClass}')]//td[contains(text(),'{value}')]";
             Assert.DoesNotThrow(()=>
             {
-                context.Wait.Until(ExpectedConditions.ElementIsVisible(By.XPath(xpath)));
+                context.Waitings.Get(Waitings.Normal).Until(ExpectedConditions.ElementIsVisible(By.XPath(xpath)));
             }, "В таблице {0} ожидалось значение '{1}'", id, value);
         }
         #endregion

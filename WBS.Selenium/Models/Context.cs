@@ -19,15 +19,18 @@ namespace WBS.Selenium
 
         public IWebDriver Driver { get; set; }
 
-        public WebDriverWait Wait { get; set; }        
+        //public WebDriverWait Wait { get; set; }        
 
         public TestSettingsFactory TestSettings { get; protected set; }
+
+        public WaitingsFactory Waitings { get; }
 
         public Context(string testId)
         {
             Driver = new ChromeDriver();
-            Wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(10));
+            //Wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(10));
             TestSettings = new TestSettingsFactory(testId);
+            Waitings = new WaitingsFactory(Driver);
             string path = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDi‌​rectory, "Configs\\Users.xml"));
             using (FileStream fs = new FileStream(path, FileMode.OpenOrCreate))
             {

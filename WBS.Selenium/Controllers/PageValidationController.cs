@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
+using WBS.Selenium.Enums;
 
 namespace WBS.Selenium.Controllers
 {
@@ -20,7 +21,7 @@ namespace WBS.Selenium.Controllers
 
         public void CheckUrl(string expectedUrl)
         {
-            Assert.DoesNotThrow(() => { context.Wait.Until(ExpectedConditions.UrlContains(expectedUrl)); },
+            Assert.DoesNotThrow(() => { context.Waitings.Get(Waitings.Short).Until(ExpectedConditions.UrlContains(expectedUrl)); },
                 "Ожидалось, что url будет содержать '{0}', получено - '{1}'", expectedUrl, context.Driver.Url);
         }
 

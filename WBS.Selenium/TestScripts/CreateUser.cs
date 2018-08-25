@@ -14,11 +14,13 @@ using WBS.Selenium.Controllers;
 
 namespace WBS.Selenium.TestScripts
 {
-    class CreateUser:TestBase
+    [TestFixture(TestName = "1.Создание нового пользователя")]
+    [Description("1.Создание нового пользователя")]
+    public class CreateUser:TestBase
     {
         public override string Id => "CreateUser";
 
-        [Test, Order(1)]
+        [Test(Description = "1. Открыть браузер"), Order(1)]
         public void OpenaBrowser()
         {
             Context.Driver.Navigate().GoToUrl("http://localhost:55443");
@@ -27,7 +29,7 @@ namespace WBS.Selenium.TestScripts
 
         }
 
-        [Test, Order(2)]
+        [Test(Description = "2. Зарегистрироваться в системе"), Order(2)]
         public void AvtorizationOnAllUsers()
         {
             User user = Context.Users.FirstOrDefault(u => u.Name == "Admin");
@@ -35,7 +37,7 @@ namespace WBS.Selenium.TestScripts
             Thread.Sleep(1000);
         }
 
-        [Test, Order(3)]
+        [Test(Description = "3. Открыть вкладку \"Пользователи\""), Order(3)]
         public void OpenNavigation()
         {
             NavigationMenu.OpenPage("Пользователи");
@@ -43,7 +45,7 @@ namespace WBS.Selenium.TestScripts
             PageValidation.CheckPageCaption("/Profiles");            
         }
 
-        [Test, Order(4)]
+        [Test(Description = "4. Создать пользователя"), Order(4)]
         public void CreateNewUser()
         {
             string fio = Context.TestSettings.GetValue("fio");
