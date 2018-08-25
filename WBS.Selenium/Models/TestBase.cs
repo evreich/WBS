@@ -27,13 +27,15 @@ namespace WBS.Selenium.Models
         public Context Context;
         public abstract string Id { get; }
         private VideoRecorder _recording;
-        private bool _saveFailedOnly = false; //хранить видео только падений
+        private bool _saveFailedOnly = true; //хранить видео только падений
 
         private Lazy<NavigationMenuController> navigationMenu = new Lazy<NavigationMenuController>(() => new NavigationMenuController());
         private Lazy<ListViewController> listView = new Lazy<ListViewController>(() => new ListViewController());
         private Lazy<CreateUserDetailViewController> createUserDetailView = new Lazy<CreateUserDetailViewController>(() => new CreateUserDetailViewController());
         private Lazy<CreateRequestDetailViewController> createRequestDetailView = new Lazy<CreateRequestDetailViewController>(() => new CreateRequestDetailViewController());
+        private Lazy<InformationUserDetailViewController> informationUserDetailView = new Lazy<InformationUserDetailViewController>(() => new InformationUserDetailViewController());
 
+        public InformationUserDetailViewController InformationUserDetailView => InitializeController(informationUserDetailView);
         public CreateUserDetailViewController CreateUserDetailView => InitializeController(createUserDetailView);
         public ListViewController ListView => InitializeController(listView);
         public NavigationMenuController NavigationMenu => InitializeController(navigationMenu);

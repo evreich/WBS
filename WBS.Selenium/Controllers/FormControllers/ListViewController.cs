@@ -22,5 +22,11 @@ namespace WBS.Selenium.Controllers.FormControllers
             TableController table = mapping["Таблица"] as TableController;
             table?.CheckTableContains(value);
         }
+
+        public void ClickRowTable(string value)
+        {
+            TableController table = mapping["Таблица"] as TableController;
+            table?.Click(value);
+        }
     }
 }

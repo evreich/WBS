@@ -18,10 +18,10 @@ using WBS.Selenium.Models;
 namespace WBS.Selenium.TestScripts
 {
     
-    [TestFixture(Description = "1.Создание нового пользователя"),Order(2)]/*(TestName = "1.Создание нового пользователя")]*/
-    public class CreateUser:TestBase
+    [TestFixture(Description = "1.Создание и редактирование нового пользователя"),Order(2)]/*(TestName = "1.Создание нового пользователя")]*/
+    public class CreateAndEditUser:TestBase
     {
-        public override string Id => "CreateUser";
+        public override string Id => "CreateAndEditUser";
 
         [Test(Description = "1. Открыть браузер"), Order(1)]
         public void OpenaBrowser()
@@ -70,6 +70,60 @@ namespace WBS.Selenium.TestScripts
             Thread.Sleep(2000);
             //проверка
             ListView.CheckTableContains(fio);
+        }
+
+        [Test(Description ="Проверка полей"), Order(5)]
+        public void OpenEditAndCekFields()
+        {
+            string fio = Context.TestSettings.GetValue("fio");
+            string jobPosition = Context.TestSettings.GetValue("jobPosition");
+            string department = Context.TestSettings.GetValue("department");
+            string roles = Context.TestSettings.GetValue("roles");
+
+            ListView.ClickRowTable(fio);
+            Thread.Sleep(2000);
+
+            //проверка
+            PageValidation.CheckFieldValue(InformationUserDetailView, "ФИО", fio);
+            PageValidation.CheckFieldValue(InformationUserDetailView, "Должность", jobPosition);
+            PageValidation.CheckFieldValue(InformationUserDetailView, "Подразделение", department);
+        }
+
+        [Test(Description ="Редактирование полей"),Order(6)]
+        public void EditFields()
+        {
+            string fio = Context.TestSettings.GetValue("newFio");
+            string jobPosition = Context.TestSettings.GetValue("newJobPosition");
+            string department = Context.TestSettings.GetValue("newDepartment");
+
+            InformationUserDetailView.ClickElement("Редактировать");
+
+            Thread.Sleep(2000);
+            CreateUserDetailView.SetElementValue("ФИО", fio);
+            CreateUserDetailView.SetElementValue("Должность", jobPosition);
+            CreateUserDetailView.SetElementValue("Подразделение", department);
+
+            CreateUserDetailView.ClickElement("Сохранить");
+            Thread.Sleep(2000);
+            InformationUserDetailView.ClickElement("ОК");
+            //проверка
+            ListView.CheckTableContains(fio);
+        }
+
+        [Test(Description = "Проверка полей"), Order(7)]
+        public void CheckNewFields()
+        {
+            string fio = Context.TestSettings.GetValue("newFio");
+            string jobPosition = Context.TestSettings.GetValue("newJobPosition");
+            string department = Context.TestSettings.GetValue("newDepartment");
+
+            
+            ListView.ClickRowTable(fio);
+
+            //проверка
+            PageValidation.CheckFieldValue(InformationUserDetailView, "ФИО", fio);
+            PageValidation.CheckFieldValue(InformationUserDetailView, "Должность", jobPosition);
+            PageValidation.CheckFieldValue(InformationUserDetailView, "Подразделение", department);
         }
     }
 }

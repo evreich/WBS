@@ -50,9 +50,10 @@ namespace WBS.Selenium.Controllers.UIControllers
             throw new NotImplementedException();
         }
 
-        public string GetValue()
+        public virtual string GetValue()
         {
-            throw new NotImplementedException();
+            IWebElement e = context.Waitings.Get(Waitings.Normal).Until(ExpectedConditions.ElementIsVisible(locator));
+            return e.GetAttribute("value");
         }
 
         
