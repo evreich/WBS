@@ -106,11 +106,13 @@ const tableHeaders = {
 };
 
 const titleTable = "Детальный план сита";
+const tableId = "DetalizationOfSite";
 
 export default {
     createWindowFields,
     editWindowFields,
     infoWindowModel,
     tableHeaders,
-    titleTable
+    titleTable,
+    tableId
 };

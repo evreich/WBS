@@ -60,12 +60,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\UIControllers\ButtonCreateRowController.cs" />
+    <Compile Include="Controllers\FormControllers\CreateBudgetDetailViewController.cs" />
+    <Compile Include="Controllers\UIControllers\ButtonLinkYearController.cs" />
     <Compile Include="Controllers\UIControllers\CheckBoxController.cs" />
     <Compile Include="Controllers\FormControllers\CreateRequestDetailViewController.cs" />
     <Compile Include="Controllers\FormControllers\CreateUserDetailViewController.cs" />
     <Compile Include="Controllers\UIControllers\CheckComboBoxController.cs" />
     <Compile Include="Controllers\UIControllers\ComboBoxController.cs" />
     <Compile Include="Controllers\PageValidationController.cs" />
+    <Compile Include="Controllers\UIControllers\DatePickerController.cs" />
+    <Compile Include="Controllers\UIControllers\DetailedPlanTableController.cs" />
     <Compile Include="Controllers\UIControllers\TableController.cs" />
     <Compile Include="Controllers\UIControllers\TabPanelController.cs" />
     <Compile Include="Controllers\UIControllers\TextBoxController.cs" />
@@ -78,6 +83,8 @@
     <Compile Include="Controllers\UIControllers\MenuNodeController.cs" />
     <Compile Include="Controllers\UIControllers\MuiButtonController.cs" />
     <Compile Include="Controllers\UIControllers\UIController.cs" />
+    <Compile Include="TestScripts\CreateBudgetPlan.cs" />
+    <Compile Include="TestScripts\CreateBudgetRow.cs" />
     <Compile Include="TestScripts\CreateRequest.cs" />
     <Compile Include="Interfaces\IFormController.cs" />
     <Compile Include="Interfaces\IFormValidationController.cs" />
@@ -94,10 +101,16 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Configs\Tests\CreateBudgetPlan.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Configs\Tests\CreateUser.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Configs\NavigationMenu.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Configs\Tests\CreateRequest.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Configs\Users.xml">

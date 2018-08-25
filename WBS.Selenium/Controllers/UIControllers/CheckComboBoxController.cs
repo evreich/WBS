@@ -19,8 +19,8 @@ namespace WBS.Selenium.Controllers.UIControllers
 
         public void SetListValues(params string[] values)
         {
-            IWebElement resultCentre = context.Driver.FindElement(locator);
-            resultCentre.Click();
+            IWebElement ddl = context.Driver.FindElement(locator);
+            ddl.Click();
             foreach (var item in values)
             {
                 IWebElement li = context.Driver.FindElement(By.XPath($"//ul[@role='listbox']//span[contains(text(),'{item}')]"));

@@ -14,7 +14,7 @@ namespace WBS.Selenium
 {
     class CreateRequest : TestBase
     {
-        public override string Id => throw new NotImplementedException();
+        public override string Id => "CreateRequest";
 
         [Test, Order(1)]
         public void OpenaBrowser()
@@ -38,11 +38,13 @@ namespace WBS.Selenium
         [Test, Order(3)]
         public void CreateOnOrder()
         {
+            string sit = Context.TestSettings.GetValue("sit");
+            string result = Context.TestSettings.GetValue("result");
             ListView.ClickElement("Создать");
             Thread.Sleep(2000);
-            CreateRequestDetailView.SetElementValue("Название сита", "sit1");
+            CreateRequestDetailView.SetElementValue("Название сита", sit);
             Thread.Sleep(2000);
-            CreateRequestDetailView.SetElementValue("Центр результата", "ggnbvc");
+            CreateRequestDetailView.SetElementValue("Центр результата", result);
             CreateRequestDetailView.ClickElement("Выбор технической службы");
             CreateRequestDetailView.ClickElement("Поставщик");
             PageController.ScrollBottom(Context);

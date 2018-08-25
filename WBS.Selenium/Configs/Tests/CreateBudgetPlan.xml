@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<data>
+  <year>2018</year>
+  <invalidyear>20000123</invalidyear>
+  <sit>sit1</sit>
+  <date>2018-10-24</date>
+  <result>ggnbvc</result>
+  <typeinvest>Тип инвестиций</typeinvest>
+  <category>К1</category>
+  <objectinvest>Предмет инвестиций</objectinvest>
+  <quantity>500</quantity>
+  <price>200</price>
+</data>

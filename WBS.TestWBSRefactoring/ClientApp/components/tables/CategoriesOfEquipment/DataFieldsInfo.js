@@ -56,11 +56,13 @@ const tableHeaders = {
 };
 
 const titleTable = "Категории оборудования";
+const tableId = "CategoriesOfEquipment";
 
 export default { 
     createWindowFields, 
     editWindowFields, 
     infoWindowModel, 
     tableHeaders, 
-    titleTable 
+    titleTable,
+    tableId
 };

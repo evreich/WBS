@@ -190,11 +190,13 @@ const tableHeaders = {
 };
 
 const titleTable = "Новые заявки на инвестицию";
+const tableId = "NewRequests";
 
 export default {
     createWindowFields,
     editWindowFields,
     infoWindowModel,
     tableHeaders,
-    titleTable
+    titleTable,
+    tableId
 };

@@ -29,5 +29,12 @@ namespace WBS.Selenium.Controllers
             //string actualCaption = WaitingHelper.WaitElementIsVisible(context, By.CssSelector(".MainMenuTruncateCaption")).Text;
             //Assert.AreEqual(expectedCaption, actualCaption, "Ожидался заголовок страницы '{0}', получен - '{1}'", expectedCaption, actualCaption);
         }
+        public void CheckError(string errorMessage)
+        {
+            string a = $"//div//span[contains(text(),'{errorMessage}')]";
+            Assert.DoesNotThrow(
+                () => { context.Wait.Until(ExpectedConditions.ElementIsVisible(By.XPath(a))); },
+                "Ожидалось, что появится предупреждение '{0}'", errorMessage);
+        }
     }
 }

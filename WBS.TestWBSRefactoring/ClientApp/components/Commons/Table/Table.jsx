@@ -242,7 +242,8 @@ const СreateTable = ({
                     createWindowFields,
                     editWindowFields,
                     tableHeaders,
-                    titleTable
+                    titleTable,
+                    tableId
                 } = dataFiledsInfo;
 
                 const isExistsDialogBodies =
@@ -251,83 +252,83 @@ const СreateTable = ({
                         : false;
                 return (
                     <>
-                        <Paper className={classes.root}>
-                            {/*Таблица*/}
-                            <TableToolbar
-                                onCreate={
-                                    this.handleOpenOnCreateChangeModalWindow
-                                }
-                                title={titleTable}
-                            />
-                            <Table className={classes.table}>
-                                <SortedTableHead
-                                    order={this.sortingData.sort}
-                                    orderBy={this.sortingData.sortBy}
-                                    onRequestSort={this.handleSortByHeaderClick}
-                                    columnHeaders={Object.values(tableHeaders)}
-                                />
-                                <TableBody>
-                                    {data &&
-                                        data.map(row => (
-                                            <RowComponent
-                                                key={row.id}
-                                                row={row}
-                                                displayedColumns={Object.values(
-                                                    tableHeaders
-                                                )}
-                                                classes={classes}
-                                                handleInfoButtonClick={
-                                                    this
-                                                        .handleOpenInformationModalWindow
-                                                }
-                                            />
-                                        ))}
-                                    {this.fillingEmptyRows(emptyRows)}
-                                </TableBody>
-
-                                {/*Футер*/}
-                                <TableFooter>{tableFooter}</TableFooter>
-                            </Table>
-                        </Paper>
-
-                        {/* Модальные окна */}
-                        <InformationModalWindow
-                            open={modalWindowInfoIsOpening}
-                            onExited={this.handleExitInformationModalWindow}
-                            formData={updatingDataItem}
-                            cancel={this.handleCloseInformationModalWindow}
-                            formFieldNames={Object.values(infoWindowModel)}
-                            handleDeleteButtonClick={
-                                this.handleDeleteButtonClick
+                    <Paper className={classes.root} id={tableId}>
+                        {/*Таблица*/}
+                        <TableToolbar
+                            onCreate={
+                                this.handleOpenOnCreateChangeModalWindow
                             }
-                            handleUpdateButtonClick={
-                                this.handleOpenOnEditChangeModalWindow
-                            }
+                            title={titleTable}
                         />
+                        <Table className={classes.table}>
+                            <SortedTableHead
+                                order={this.sortingData.sort}
+                                orderBy={this.sortingData.sortBy}
+                                onRequestSort={this.handleSortByHeaderClick}
+                                columnHeaders={Object.values(tableHeaders)}
+                            />
+                            <TableBody>
+                                {data &&
+                                    data.map(row => (
+                                        <RowComponent
+                                            key={row.id}
+                                            row={row}
+                                            displayedColumns={Object.values(
+                                                tableHeaders
+                                            )}
+                                            classes={classes}
+                                            handleInfoButtonClick={
+                                                this
+                                                    .handleOpenInformationModalWindow
+                                            }
+                                        />
+                                    ))}
+                                {this.fillingEmptyRows(emptyRows)}
+                            </TableBody>
 
-                        <ChangeItemModalWindow
-                            open={modalWindowChangingIsOpening}
-                            save={changeData}
-                            formFields={
-                                updatingDataItem
-                                    ? editWindowFields
-                                    : createWindowFields
-                            }
-                            data={updatingDataItem}
-                            cancel={this.handleCloseChangeModalWindow}
-                            currentPage={currentPage}
-                            elementsPerPage={elementsPerPage}
-                            header={changeModalWindowTitle}
-                        >
-                            {/*отправляем тело диалогового окна в качестве children */}
-                            {isExistsDialogBodies ? (
-                                updatingDataItem ? (
-                                    <ChangeItemDialogBodyComponent />
-                                ) : (
-                                        <AddItemDialogBodyComponent />
-                                    )
-                            ) : null}
-                        </ChangeItemModalWindow>
+                            {/*Футер*/}
+                            <TableFooter>{tableFooter}</TableFooter>
+                        </Table>
+                    </Paper>
+
+                        {/* Модальные окна */ }
+                <InformationModalWindow
+                    open={modalWindowInfoIsOpening}
+                    onExited={this.handleExitInformationModalWindow}
+                    formData={updatingDataItem}
+                    cancel={this.handleCloseInformationModalWindow}
+                    formFieldNames={Object.values(infoWindowModel)}
+                    handleDeleteButtonClick={
+                        this.handleDeleteButtonClick
+                    }
+                    handleUpdateButtonClick={
+                        this.handleOpenOnEditChangeModalWindow
+                    }
+                />
+
+                    <ChangeItemModalWindow
+                        open={modalWindowChangingIsOpening}
+                        save={changeData}
+                        formFields={
+                            updatingDataItem
+                                ? editWindowFields
+                                : createWindowFields
+                        }
+                        data={updatingDataItem}
+                        cancel={this.handleCloseChangeModalWindow}
+                        currentPage={currentPage}
+                        elementsPerPage={elementsPerPage}
+                        header={changeModalWindowTitle}
+                    >
+                        {/*отправляем тело диалогового окна в качестве children */}
+                        {isExistsDialogBodies ? (
+                            updatingDataItem ? (
+                                <ChangeItemDialogBodyComponent />
+                            ) : (
+                                    <AddItemDialogBodyComponent />
+                                )
+                        ) : null}
+                    </ChangeItemModalWindow>
                     </>
                 );
             }

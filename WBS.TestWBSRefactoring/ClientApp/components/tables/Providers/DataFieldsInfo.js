@@ -34,11 +34,13 @@ const tableHeaders = {
 };
 
 const titleTable = "Поставщики";
+const tableId = "Providers";
 
 export default { 
     createWindowFields, 
     editWindowFields, 
     infoWindowModel, 
     tableHeaders, 
-    titleTable 
+    titleTable,
+    tableId
 };

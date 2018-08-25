@@ -26,13 +26,14 @@ namespace WBS.Selenium
         private Lazy<ListViewController> listView = new Lazy<ListViewController>(() => new ListViewController());
         private Lazy<CreateUserDetailViewController> createUserDetailView = new Lazy<CreateUserDetailViewController>(() => new CreateUserDetailViewController());
         private Lazy<CreateRequestDetailViewController> createRequestDetailView = new Lazy<CreateRequestDetailViewController>(() => new CreateRequestDetailViewController());
+        private Lazy<CreateBudgetDetailViewController> createBudgetDetailView = new Lazy<CreateBudgetDetailViewController>(() => new CreateBudgetDetailViewController());
 
         public CreateUserDetailViewController CreateUserDetailView => InitializeController(createUserDetailView);
         public ListViewController ListView => InitializeController(listView);
         public NavigationMenuController NavigationMenu => InitializeController(navigationMenu);
 
         public CreateRequestDetailViewController CreateRequestDetailView => InitializeController(createRequestDetailView);
-
+        public CreateBudgetDetailViewController CreateBudgetDetailView => InitializeController(createBudgetDetailView);
 
         public PageValidationController PageValidation { get; private set; }
 
@@ -41,6 +42,7 @@ namespace WBS.Selenium
         {
             Context = new Context(Id);
             PageValidation = new PageValidationController();
+            PageValidation.Initialize(Context);
         }
         [OneTimeTearDown] //вызывается после завершения всех тестов
         public void Stop()

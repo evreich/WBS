@@ -34,11 +34,13 @@ const tableHeaders = {
 };
 
 const titleTable = "Группы категорий";
+const tableId = "CategoryGroups";
 
 export default { 
     createWindowFields, 
     editWindowFields, 
     infoWindowModel, 
     tableHeaders, 
-    titleTable 
+    titleTable,
+    tableId
 };
