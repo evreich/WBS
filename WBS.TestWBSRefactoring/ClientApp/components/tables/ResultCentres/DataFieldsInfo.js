@@ -34,11 +34,13 @@ const tableHeaders = {
 };
 
 const titleTable = "Центры результатов";
+const tableId = "ResultCentres";
 
 export default { 
     createWindowFields, 
     editWindowFields, 
     infoWindowModel, 
     tableHeaders, 
-    titleTable
+    titleTable,
+    tableId
 };

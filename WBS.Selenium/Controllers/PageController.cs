@@ -18,6 +18,11 @@ namespace WBS.Selenium.Controllers
             //js.ExecuteScript($"$('#{id}').scrollTop($('#{id}').prop('scrollHeight'));");
             js.ExecuteScript("document.querySelector(\"[type=\'submit\']\").scrollIntoView();");
         }
+        public static void ScrollToElementById(Context context, string id)
+        {
+            IJavaScriptExecutor js = ((IJavaScriptExecutor)context.Driver);
+            js.ExecuteScript(string.Format("document.querySelector(\"div[id=\'{0}\'] button\").scrollIntoView()", id));
+        }
         //не работает, найти ид 
         public static void ScrollTop(Context context, string id)
         {

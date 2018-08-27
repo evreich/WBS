@@ -121,11 +121,13 @@ const tableHeaders = {
 };
 
 const titleTable = "Ситы";
+const tableId = "Sits";
 
 export default {
     createWindowFields,
     editWindowFields,
     infoWindowModel,
     tableHeaders,
-    titleTable
+    titleTable,
+    tableId
 };

@@ -96,6 +96,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\UIControllers\ButtonCreateRowController.cs" />
+    <Compile Include="Controllers\FormControllers\CreateBudgetDetailViewController.cs" />
+    <Compile Include="Controllers\UIControllers\ButtonLinkYearController.cs" />
     <Compile Include="Controllers\FormControllers\InformationUserDetailViewController.cs" />
     <Compile Include="Controllers\UIControllers\CheckBoxController.cs" />
     <Compile Include="Controllers\FormControllers\CreateRequestDetailViewController.cs" />
@@ -105,6 +108,8 @@
     <Compile Include="Controllers\PageValidationController.cs" />
     <Compile Include="Controllers\UIControllers\LabelController.cs" />
     <Compile Include="Controllers\UIControllers\MuiIconController.cs" />
+    <Compile Include="Controllers\UIControllers\DatePickerController.cs" />
+    <Compile Include="Controllers\UIControllers\DetailedPlanTableController.cs" />
     <Compile Include="Controllers\UIControllers\TableController.cs" />
     <Compile Include="Controllers\UIControllers\TabPanelController.cs" />
     <Compile Include="Controllers\UIControllers\TextBoxController.cs" />
@@ -123,6 +128,8 @@
     <Compile Include="Controllers\UIControllers\UIController.cs" />
     <Compile Include="Providers\EncoderProvider.cs" />
     <Compile Include="Reporter.cs" />
+    <Compile Include="TestScripts\CreateBudgetPlan.cs" />
+    <Compile Include="TestScripts\CreateBudgetRow.cs" />
     <Compile Include="TestScripts\CreateRequest.cs" />
     <Compile Include="Interfaces\IFormController.cs" />
     <Compile Include="Interfaces\IFormValidationController.cs" />
@@ -146,18 +153,26 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Configs\Tests\CreateAndEditUser.xml">
+    </Content>
+    <Content Include="Configs\Tests\CreateBudgetPlan.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Configs\Tests\CreateUser.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Configs\NavigationMenu.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Configs\Tests\CreateRequest.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Configs\Users.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="extent-config.xml" />
+    <Content Include="extent-config.xml">
+    </Content>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

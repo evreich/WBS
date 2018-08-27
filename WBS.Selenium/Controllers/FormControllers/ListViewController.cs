@@ -13,8 +13,10 @@ namespace WBS.Selenium.Controllers.FormControllers
         public override List<UIMapper> Map => new List<UIMapper>
         {
              new UIMapper("Создать", typeof(MuiButtonController), "Создать"),
+             
              //table
              new UIMapper("Таблица",typeof(TableController),"Common"),
+             new UIMapper("Детальный план сита",typeof(DetailedPlanTableController),"DetalizationOfSite"),
         };
 
         public void CheckTableContains(string value)
@@ -39,6 +41,12 @@ namespace WBS.Selenium.Controllers.FormControllers
         {
             TableController table = mapping["Таблица"] as TableController;
             table?.SortColumn(column, setUp);
+        }
+
+        public void CheckTableContainsByName(string value, string tableName)
+        {
+            TableController table = mapping[tableName] as TableController;
+            table?.CheckTableContains(value);
         }
     }
 }

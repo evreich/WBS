@@ -106,11 +106,13 @@ const tableHeaders = {
 };
 
 const titleTable = "Форматы ситов";
+const tableId = "Format";
 
 export default {
     createWindowFields,
     editWindowFields,
     infoWindowModel,
     tableHeaders,
-    titleTable
+    titleTable,
+    tableId
 };

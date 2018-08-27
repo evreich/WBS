@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using WBS.Selenium.Models;
 using WBS.Selenium.Controllers.UIControllers;
-using System.Collections.Generic;
 
 namespace WBS.Selenium.Controllers.FormControllers
 {

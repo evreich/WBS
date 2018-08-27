@@ -37,5 +37,12 @@ namespace WBS.Selenium.Controllers
             string actualValue = form.GetElementValue(field);
             Assert.AreEqual(value, actualValue, "В поле '{0}' ожидалось значение '{1}', получено - '{2}'", field, value, actualValue);
         }
+        public void CheckError(string errorMessage)
+        {
+            string a = $"//div//span[contains(text(),'{errorMessage}')]";
+            Assert.DoesNotThrow(
+                () => { context.Wait.Until(ExpectedConditions.ElementIsVisible(By.XPath(a))); },
+                "Ожидалось, что появится предупреждение '{0}'", errorMessage);
+        }
     }
 }
