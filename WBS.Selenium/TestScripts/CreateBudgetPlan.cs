@@ -9,6 +9,7 @@ using System.Drawing;
 using OpenQA.Selenium;
 using WBS.Selenium.Controllers;
 using WBS.Selenium.Controllers.UIControllers;
+using WBS.Selenium.Models;
 
 namespace WBS.Selenium.TestScripts
 {

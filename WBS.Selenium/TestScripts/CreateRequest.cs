@@ -13,11 +13,13 @@ using WBS.Selenium.Models;
 
 namespace WBS.Selenium
 {
+    [TestFixture(Description = "1.Создание заявки на инвестиции"), Order(2)]/*(TestName = "1.Создание заявки")]*/
     class CreateRequest : TestBase
     {
+
         public override string Id => "CreateRequest";
 
-        [Test, Order(1)]
+        [Test(Description = "1. Открыть браузер"), Order(1)]
         public void OpenaBrowser()
         {
             Context.Driver.Navigate().GoToUrl("http://localhost:55443");
@@ -25,7 +27,7 @@ namespace WBS.Selenium
             Thread.Sleep(2000);
 
         }
-        [Test, Order(2)]
+        [Test(Description = "2. Зарегистрироваться в системе"), Order(2)]
         public void AvtorizationOnUser()
         {
             //открытие формы редактирования заявки
@@ -36,7 +38,7 @@ namespace WBS.Selenium
 
             PageValidation.CheckPageCaption("/DAIRequests");
         }
-        [Test, Order(3)]
+        [Test(Description = "3. Заполнить поля на форме создания заявки"), Order(3)]
         public void CreateOnOrder()
         {
             string sit = Context.TestSettings.GetValue("sit");

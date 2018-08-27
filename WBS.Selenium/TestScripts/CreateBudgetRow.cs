@@ -9,21 +9,23 @@ using System.Drawing;
 using OpenQA.Selenium;
 using WBS.Selenium.Controllers;
 using WBS.Selenium.Controllers.UIControllers;
+using WBS.Selenium.Models;
 
 namespace WBS.Selenium.TestScripts
 {
+    [TestFixture(Description = "1.Создание бюджетных строк в бюджетном блане"), Order(2)]/*(TestName = "1.Создание бюджетной строки")]*/
     public class CreateBudgetRow : TestBase
     {
         public override string Id => "CreateBudgetPlan";
 
-        [Test, Order(1)]
+        [Test(Description = "1. Открыть браузер"), Order(1)]
         public void OpenaBrowser()
         {
             Context.Driver.Navigate().GoToUrl("http://localhost:55443");
             Context.Driver.Manage().Window.Maximize();
             Thread.Sleep(2000);
         }
-        [Test, Order(2)]
+        [Test(Description = "2. Зарегистрироваться в системе"), Order(2)]
         public void AvtorizationOnUser()
         {
             //открытие формы ,бюджетные планы

@@ -256,14 +256,18 @@ const СreateTable = ({
                     <>
                     <Paper className={classes.root} id={tableId}>
                         {/*Таблица*/}
-                        <TableToolbar
-                            onCreate={
-                                this.handleOpenOnCreateChangeModalWindow
-                            }
-                            title={titleTable}
-                        />
+                        {
+                            showToolbar && (
+                                <TableToolbar
+                                    onCreate={
+                                        this.handleOpenOnCreateChangeModalWindow
+                                    }
+                                    title={titleTable}
+                                />)
+                        }
                         <Table className={classes.table}>
                             <SortedTableHead
+                                classes={classes}
                                 order={this.sortingData.sort}
                                 orderBy={this.sortingData.sortBy}
                                 onRequestSort={this.handleSortByHeaderClick}
@@ -280,8 +284,7 @@ const СreateTable = ({
                                             )}
                                             classes={classes}
                                             handleInfoButtonClick={
-                                                this
-                                                    .handleOpenInformationModalWindow
+                                                this.handleOpenInformationModalWindow
                                             }
                                         />
                                     ))}
