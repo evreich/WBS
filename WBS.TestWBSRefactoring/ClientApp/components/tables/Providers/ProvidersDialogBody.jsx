@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 import TextFieldMultiline from "../../Commons/TextFields/TextFieldMultiline";
 import TextFieldMultiSelect from "../../Commons/TextFields/TextFieldMultiSelect";
-import transformFieldsToState from "../../../helpers/transformFieldsToState";
+import transformFieldsToState from "helpers/transformFieldsToState";
 import { getTechnicalServs } from "../helpersAPI";
 
 class ProvidersDialogBody extends React.PureComponent {

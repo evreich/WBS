@@ -10,6 +10,7 @@ using System.IO;
 using WBS.Selenium.Models;
 using WBS.Selenium.Controllers.UIControllers;
 using WBS.Selenium.Interfaces;
+using WBS.Selenium.Enums;
 
 namespace WBS.Selenium.Controllers
 {
@@ -56,7 +57,7 @@ namespace WBS.Selenium.Controllers
             IWebElement menuController = context.Driver.FindElement(By.XPath("//header//button[contains(@class,'MuiButtonBase')]"));
             menuController.Click();
             //ожидает появления навигационного меню
-            context.Wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//div[contains(@class,'MuiPaper') and contains(@class,'SideMenuComponent')]")));
+            context.Waitings.Get(Waitings.Short).Until(ExpectedConditions.ElementIsVisible(By.XPath("//div[contains(@class,'MuiPaper') and contains(@class,'SideMenuComponent')]")));
             MenuNodeController node = new MenuNodeController();
             node.Initialize(context, path.Pop());
             MenuNodeController nextNode = new MenuNodeController();

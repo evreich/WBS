@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using WBS.Selenium.Interfaces;
+using WBS.Selenium.Enums;
 
 namespace WBS.Selenium.Controllers.UIControllers
 {
@@ -33,13 +34,13 @@ namespace WBS.Selenium.Controllers.UIControllers
         {
             try
             {
-                IWebElement e = context.Wait.Until(ExpectedConditions.ElementToBeClickable(locator));
+                IWebElement e = context.Waitings.Get(Waitings.Short).Until(ExpectedConditions.ElementToBeClickable(locator));
                 e.Click();
             }
             catch
             {
                 Thread.Sleep(3000);
-                IWebElement e = context.Wait.Until(ExpectedConditions.ElementToBeClickable(locator));
+                IWebElement e = context.Waitings.Get(Waitings.Short).Until(ExpectedConditions.ElementToBeClickable(locator));
                 e.Click();
             }
         }
@@ -49,9 +50,10 @@ namespace WBS.Selenium.Controllers.UIControllers
             throw new NotImplementedException();
         }
 
-        public string GetValue()
+        public virtual string GetValue()
         {
-            throw new NotImplementedException();
+            IWebElement e = context.Waitings.Get(Waitings.Normal).Until(ExpectedConditions.ElementIsVisible(locator));
+            return e.GetAttribute("value");
         }
 
         
@@ -59,7 +61,7 @@ namespace WBS.Selenium.Controllers.UIControllers
         {
             try
             {
-                IWebElement e = context.Wait.Until(ExpectedConditions.ElementIsVisible(locator));
+                IWebElement e = context.Waitings.Get(Waitings.Normal).Until(ExpectedConditions.ElementIsVisible(locator));
                 return e.Displayed;
             }
             catch
@@ -75,7 +77,7 @@ namespace WBS.Selenium.Controllers.UIControllers
 
         public void WaitVisible()
         {
-            context.Wait.Until(ExpectedConditions.ElementIsVisible(locator));
+            context.Waitings.Get(Waitings.Normal).Until(ExpectedConditions.ElementIsVisible(locator));
         }
     }
 }

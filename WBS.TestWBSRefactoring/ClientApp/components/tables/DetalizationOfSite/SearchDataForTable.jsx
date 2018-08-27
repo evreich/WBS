@@ -14,7 +14,7 @@ import { withStyles } from "material-ui/styles";
 
 import TextFieldSelect from "../../Commons/TextFields/TextFieldSelect";
 import TextFieldPlaceholder from "../../Commons/TextFields/TextFieldPlaceholder";
-import monthsForSelect from "../../../constants/monthsConstants";
+import monthsForSelect from "constants/monthsConstants";
 import { styles } from "../../Commons/Table/TableStyles.css";
 import {
     getResultCentres,

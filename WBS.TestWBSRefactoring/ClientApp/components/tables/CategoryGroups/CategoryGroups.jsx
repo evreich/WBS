@@ -1,7 +1,7 @@
 import React from "react";
 
 import DataFieldsInfo from './DataFieldsInfo';
-import CategoryGroupsContainer from '../../../containers/tables/CategoryGroups/CategoryGroups';
+import CategoryGroupsContainer from 'containers/tables/CategoryGroups/CategoryGroups';
 import DialogBody from './CategoryGroupDialogBody';
 import { tableStyles } from './CategoryGroup.css';
 

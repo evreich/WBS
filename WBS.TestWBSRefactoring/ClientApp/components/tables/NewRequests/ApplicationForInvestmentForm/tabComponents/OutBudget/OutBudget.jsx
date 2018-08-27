@@ -9,7 +9,7 @@ import Table, {
 } from "material-ui/Table";
 import { withStyles } from "material-ui/styles";
 
-import styles from "../../../../../Commons/Table/TableStyles.css";
+import styles from "components/Commons/Table/TableStyles.css";
 
 const OutBudget = ({ classes, outBudgetData: { sum } }) => (
     <Table className={classes.table}>

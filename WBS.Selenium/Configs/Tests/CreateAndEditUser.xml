@@ -6,4 +6,8 @@
   <department>Главное</department>
   <password>12345</password>
   <roles>user</roles>
+
+  <newFio>Иванов Александр Алексеевич</newFio>
+  <newJobPosition>Менеджер</newJobPosition>
+  <newDepartment>Новое</newDepartment>
 </data>

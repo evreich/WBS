@@ -1,7 +1,7 @@
 import React from "react";
 
 import DataFieldsInfo from "./DataFieldsInfo";
-import ProfilesContainer from "../../../containers/tables/Profiles/Profiles";
+import ProfilesContainer from "containers/tables/Profiles/Profiles";
 import ProfilesAddItemDialogBody from "./ProfilesAddItemDialogBody";
 import ProfilesEditItemDialogBody from "./ProfilesEditItemDialogBody";
 import ProfilesInformationForm from './ProfilesInformationForm'

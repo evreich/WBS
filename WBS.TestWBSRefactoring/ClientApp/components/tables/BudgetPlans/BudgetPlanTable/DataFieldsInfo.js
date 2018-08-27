@@ -1,4 +1,4 @@
-import TypesOfColumnData from "../../../../constants/typesOfColumnData";
+import TypesOfColumnData from "constants/typesOfColumnData";
  
 //Cвойства объекта должны соответствовать свойствам данных,
 //получаемых с сервера

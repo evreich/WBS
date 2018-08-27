@@ -1,7 +1,7 @@
 import React from "react";
 
 import DataFieldsInfo from './DataFieldsInfo';
-import FormatContainer from '../../../containers/tables/Format/Format';
+import FormatContainer from 'containers/tables/Format/Format';
 import DialogBody from './FormatDialogBody';
 
 

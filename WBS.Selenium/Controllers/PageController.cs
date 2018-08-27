@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
+using WBS.Selenium.Enums;
 
 namespace WBS.Selenium.Controllers
 {
@@ -46,9 +47,14 @@ namespace WBS.Selenium.Controllers
             Thread.Sleep(3000);
         }
 
+        public static string GetScreenshot(Context context)
+        {
+            return ((ITakesScreenshot)context.Driver).GetScreenshot().AsBase64EncodedString;
+        }
+
         private static void WaitAjaxLoaded(Context context)
         {
-            context.Wait.Until(wd => (bool)((IJavaScriptExecutor)wd).ExecuteScript("return (typeof jQuery!='undefined')? $.active == 0 : true;"));
+            context.Waitings.Get(Waitings.Normal).Until(wd => (bool)((IJavaScriptExecutor)wd).ExecuteScript("return (typeof jQuery!='undefined')? $.active == 0 : true;"));
         }
     }
 }

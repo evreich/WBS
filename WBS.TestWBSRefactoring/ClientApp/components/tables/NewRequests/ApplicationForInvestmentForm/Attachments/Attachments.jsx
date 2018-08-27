@@ -6,7 +6,7 @@ import FineUploaderTraditional from "fine-uploader-wrappers";
 
 import Table, { TableBody, TableCell, TableRow } from "material-ui/Table";
 
-import AttachmentConstants from "../../../../../constants/attachment";
+import AttachmentConstants from "constants/attachment";
 import { getAttachment } from "./helpersAPI";
 
 const uploader = new FineUploaderTraditional({

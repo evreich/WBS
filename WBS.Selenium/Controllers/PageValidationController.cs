@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
+using WBS.Selenium.Enums;
+using WBS.Selenium.Interfaces;
 
 namespace WBS.Selenium.Controllers
 {
@@ -20,7 +22,7 @@ namespace WBS.Selenium.Controllers
 
         public void CheckUrl(string expectedUrl)
         {
-            Assert.DoesNotThrow(() => { context.Wait.Until(ExpectedConditions.UrlContains(expectedUrl)); },
+            Assert.DoesNotThrow(() => { context.Waitings.Get(Waitings.Short).Until(ExpectedConditions.UrlContains(expectedUrl)); },
                 "Ожидалось, что url будет содержать '{0}', получено - '{1}'", expectedUrl, context.Driver.Url);
         }
 
@@ -28,6 +30,12 @@ namespace WBS.Selenium.Controllers
         {
             //string actualCaption = WaitingHelper.WaitElementIsVisible(context, By.CssSelector(".MainMenuTruncateCaption")).Text;
             //Assert.AreEqual(expectedCaption, actualCaption, "Ожидался заголовок страницы '{0}', получен - '{1}'", expectedCaption, actualCaption);
+        }
+
+        public void CheckFieldValue(IFormController form, string field, string value)
+        {
+            string actualValue = form.GetElementValue(field);
+            Assert.AreEqual(value, actualValue, "В поле '{0}' ожидалось значение '{1}', получено - '{2}'", field, value, actualValue);
         }
         public void CheckError(string errorMessage)
         {

@@ -8,8 +8,8 @@ import MuiPickersUtilsProvider from 'material-ui-pickers/utils/MuiPickersUtilsPr
 import DateFnsUtils from 'material-ui-pickers/utils/date-fns-utils';
 import ruLocale from 'date-fns/locale/ru';
 
-import muiTheme from '../../../muiTheme';
-import SideMenuContainer from '../../../containers/SideMenuContainer/SideMenuContainer';
+import muiTheme from 'muiTheme';
+import SideMenuContainer from 'containers/SideMenuContainer/SideMenuContainer';
 
 
 const Layout = ({ pushToHome, children, routing, auth }) => {
