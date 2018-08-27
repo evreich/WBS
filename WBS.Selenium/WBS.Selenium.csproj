@@ -153,11 +153,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Configs\Tests\CreateAndEditUser.xml">
-    </Content>
-    <Content Include="Configs\Tests\CreateBudgetPlan.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Configs\Tests\CreateUser.xml">
+    <Content Include="Configs\Tests\CreateBudgetPlan.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Configs\NavigationMenu.xml">

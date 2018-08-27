@@ -13,7 +13,7 @@ using WBS.Selenium.Models;
 
 namespace WBS.Selenium.TestScripts
 {
-    [TestFixture(Description = "1.Создание бюджетных строк в бюджетном блане"), Order(2)]/*(TestName = "1.Создание бюджетной строки")]*/
+    [TestFixture(Description = "3.Создание бюджетных строк в бюджетном блане"), Order(3)]/*(TestName = "1.Создание бюджетной строки")]*/
     public class CreateBudgetRow : TestBase
     {
         public override string Id => "CreateBudgetPlan";
