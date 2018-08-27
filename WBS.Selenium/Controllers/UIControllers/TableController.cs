@@ -28,6 +28,38 @@ namespace WBS.Selenium.Controllers.UIControllers
             IWebElement td = context.Waitings.Get(Waitings.Short).Until(ExpectedConditions.ElementToBeClickable(By.XPath(xpath)));
             td.Click();
         }
+
+        public List<string> GetListFieldValues(string field,int maxPageNum)
+        {
+            List<string> values = new List<string>();
+            List<IWebElement> columns = context.Driver.FindElements(By.XPath($"//table[contains(@class,'{tableClass}')]//th//span")).ToList();
+            int numColumn = columns.FindIndex(a => a.Text.Contains(field));
+            List<IWebElement> rows= context.Driver.FindElements(By.XPath($"//table[contains(@class,'{tableClass}')]//tbody//tr[contains(@class,'{tableClass}')]")).ToList();
+            for(int i=0;i<rows.Count;i++)
+            {
+                List<IWebElement> tds = rows[i].FindElements(By.TagName("td")).ToList();
+                values.Add(tds[numColumn].Text);
+            }
+            //добавить переход на след страницы
+            return values;
+        }
+
+        public void SortColumn(string column,bool sortUp)
+        {
+            string headerXpath = $"//thead//*[contains(text(),'{column}')]";
+            string sortUpClass = "DirectionAsc";
+            string sortDownClass = "DirectionDesc";
+            IWebElement columnHead = context.Driver.FindElement(By.XPath(headerXpath));
+            if(!columnHead.GetAttribute("class").Contains("MuiTableSortLabel-active"))
+            {
+                columnHead.Click();
+            }
+            while(sortUp&& context.Driver.FindElements(By.XPath($"//thead//*[contains(@class,'{sortUpClass}')]")).Count == 0 ||
+                !sortUp && context.Driver.FindElements(By.XPath($"//thead//*[contains(@class,'{sortDownClass}')]")).Count==0)
+            {
+                columnHead.Click();
+            }
+        }
         #endregion
 
         #region Validation

@@ -28,5 +28,17 @@ namespace WBS.Selenium.Controllers.FormControllers
             TableController table = mapping["Таблица"] as TableController;
             table?.Click(value);
         }
+
+        public List<string> GetListFieldValues(string field, int maxPageNum=0)
+        {
+            TableController table = mapping["Таблица"] as TableController;
+            return table?.GetListFieldValues(field, maxPageNum);
+        }
+
+        public void SortColumn(string column, bool setUp=true)
+        {
+            TableController table = mapping["Таблица"] as TableController;
+            table?.SortColumn(column, setUp);
+        }
     }
 }
