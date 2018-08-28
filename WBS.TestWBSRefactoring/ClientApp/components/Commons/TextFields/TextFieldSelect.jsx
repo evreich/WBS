@@ -9,15 +9,22 @@ import styles from '../TextFields/TextField.css'
 
 // компонент выпадающий список TextFieldSelect
 // ожидаемый вх.параметр items должен представлять собой массив обьектов вида {value, text}
-const TextFieldSelect = (props) => {
-    const { classes, muProps, items } = props;
-    const { margin, disabled, defaultValue } = muProps;
-    return (
+class TextFieldSelect extends React.Component {
+    handleChange = (event) => {
+        const { muProps, items, textPropName } = this.props;
+        const selectedItem = items.find( item => item.value === event.target.value);
+        muProps.onChange(event, { [textPropName]: selectedItem.text});
+    };
+
+    render() {
+        const { classes, muProps, items } = this.props;
+        const { margin, disabled, defaultValue } = muProps;
+        return (
             <TextField
                 {...muProps}
                 margin={margin ? margin : "normal"}
                 disabled={disabled ? disabled : false}
-                defaultValue={defaultValue ? defaultValue : null}  
+                defaultValue={defaultValue ? defaultValue : null}
                 className={classes.textField}
                 SelectProps={{
                     MenuProps: {
@@ -25,8 +32,9 @@ const TextFieldSelect = (props) => {
                         disableEnforceFocus: true
                     },
                 }}
-                select 
-                style={{...muProps.style, display: "flex"}}          
+                onChange={this.handleChange}
+                select
+                style={{ ...muProps.style, display: "flex" }}
             >
                 {items && items.map((item) =>
                     <MenuItem key={item.value} value={item.value}>
@@ -34,13 +42,15 @@ const TextFieldSelect = (props) => {
                     </MenuItem>
                 )}
             </TextField>
-    )
+        )
+    }
 }
 
 TextFieldSelect.propTypes = {
     classes: PropTypes.object,
     muProps: PropTypes.object,
-    items: PropTypes.array.isRequired
+    items: PropTypes.array.isRequired,
+    textPropName: PropTypes.string
 }
 
 export default withStyles(styles)(TextFieldSelect);

@@ -87,11 +87,14 @@ function getSuggestionValue(suggestion) {
 }
 
 class AutosuggestField extends React.Component {
-    state = {
-        value: "",
-        fetchedValue: "",
-        suggestions: []
-    };
+    constructor(props) {
+        super(props);
+        this.state = {
+            value: props.value ? props.value.toString() : "",
+            fetchedValue: "",
+            suggestions: []
+        };
+    }
 
     handleSuggestionsFetchRequested = ({ value }) => {
         const fetchedValue = this.state.fetchedValue;
@@ -122,8 +125,8 @@ class AutosuggestField extends React.Component {
             suggestions: [],
             fetchedValue: ""
         });
-        const { onSuggestionSelected, name } = this.props;
-        onSuggestionSelected({ target: { name: name, value: suggestion.id } });
+        const { onSuggestionSelected, name, textPropName } = this.props;
+        onSuggestionSelected({ target: { name: name, value: suggestion.id } }, { [textPropName]: suggestion.fio});
     };
 
     handleSuggestionsClearRequested = () => {
@@ -179,7 +182,8 @@ AutosuggestField.propTypes = {
     name: PropTypes.string,
     label: PropTypes.string.isRequired,
     onSuggestionSelected: PropTypes.func.isRequired,
-    value: PropTypes.any
+    value: PropTypes.any,
+    textPropName: PropTypes.string
 };
 
 export default withStyles(styles)(AutosuggestField);

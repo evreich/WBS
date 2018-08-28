@@ -37,7 +37,7 @@ namespace WBS.Selenium.TestScripts
             PageValidation.CheckUrl("/BudgetPlans");
         }
         //создать бюджетный план с годом, входящим в диапазон
-        [Test(Description = "3. Создание бюджетного плана"), Order(3)]
+        [Test(Description = "3. Создать бюджетный план, выбрать год для бюджетного плана."), Order(3)]
         public void CreateYear()
         {
             string year = Context.TestSettings.GetValue("year");
@@ -50,7 +50,7 @@ namespace WBS.Selenium.TestScripts
             //проверка на наличие бюджетного плана в списке бюджетных планов
             ListView.CheckTableContains(year);
         }
-        [Test(Description = "4. Создание бюджетной строки"), Order(4)]
+        [Test(Description = "4. Создать строку в бюджетном плане."), Order(4)]
         public void CreatingBudgetRows()
         {
             string sit = Context.TestSettings.GetValue("sit");
@@ -62,8 +62,8 @@ namespace WBS.Selenium.TestScripts
             string quantity = Context.TestSettings.GetValue("quantity");
             string date = Context.TestSettings.GetValue("date");
 
-
-            CreateBudgetDetailView.ClickElement("Ссылка год");
+            ListView.ClickRowTable("2020");
+            //CreateBudgetDetailView.ClickElement("Ссылка год");
             Thread.Sleep(1000);
             CreateBudgetDetailView.SetElementValue("Название сита", sit);
             Thread.Sleep(1000);
