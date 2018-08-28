@@ -29,7 +29,7 @@ namespace WBS.DAL
                 .FirstOrDefault(d => d.Id == (int)id);
         }
 
-        protected override IEnumerable<DAIRequest> GetItems()
+        protected override IQueryable<DAIRequest> GetItems()
         {
             return _context.DaiRequests
                  .Include(s => s.Sit)
@@ -37,8 +37,7 @@ namespace WBS.DAL
                 .Include(d => d.DAIRequestsProviders)
                     .ThenInclude(p => p.Provider)
                 .Include(d => d.DAIRequestsTechnicalService)
-                    .ThenInclude(t => t.TechnicalServ)
-                .ToList();
+                    .ThenInclude(t => t.TechnicalServ);
         }
 
         public void AddTechnicalServs(int requestId, List<TechnicalServiceViewModel> servs)

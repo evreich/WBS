@@ -25,15 +25,14 @@ namespace WBS.DAL.Data.Classes
                 .FirstOrDefault(item => item.Id == (int)id);
         }
 
-        protected override IEnumerable<ItemOfBudgetPlan> GetItems()
+        protected override IQueryable<ItemOfBudgetPlan> GetItems()
         {
             return _context.ItemOfBudgetPlans
                 .Include(item => item.BudgetPlan)
                 .Include(item => item.ResultCenter)
                 .Include(item => item.CategoryOfEquipment)
                 .Include(item => item.Site)
-                .Include(item => item.TypeOfInvestment)
-                .ToList();
+                .Include(item => item.TypeOfInvestment);
         }
     }
 }

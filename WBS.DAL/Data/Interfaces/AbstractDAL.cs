@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Linq;
 using WBS.DAL.Cache;
 
 namespace WBS.DAL
@@ -15,7 +15,7 @@ namespace WBS.DAL
             _cache = cache;
         }
 
-        protected abstract IEnumerable<T> GetItems();
+        protected abstract IQueryable<T> GetItems();
         protected abstract T GetItem(object id);
 
         public virtual T Create(T item)
@@ -33,7 +33,7 @@ namespace WBS.DAL
             return _cache.Get(id, x => GetItem(id));
         }
 
-        public virtual IEnumerable<T> Get()
+        public virtual IQueryable<T> Get()
         {
             return _cache.Get(_cache.AllIdentifier, param => GetItems());
         }

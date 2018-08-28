@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import TextFieldSelect from "components/Commons/TextFields/TextFieldSelect";
 import TextFieldMultiline from "components/Commons/TextFields/TextFieldMultiline";
 import Checkbox from "components/Commons/Checkbox/Checkbox";
-import { getInvestmentRational } from "../../../helpersAPI";
+import { getInvestmentRational } from "components/tables/helpersAPI";
 import transformFieldsToState from 'helpers/transformFieldsToState';
 
 class RationaleForInvestment extends React.PureComponent {

@@ -3,22 +3,21 @@ import PropTypes from "prop-types";
 
 import Divider from "material-ui/Divider";
 
-import Radio from "../../../../Commons/Radio/Radio";
-import DatePicker from "../../../../Commons/DatePicker";
-import Checkbox from "../../../../Commons/Checkbox/Checkbox";
-import TextFieldSelect from "../../../../Commons/TextFields/TextFieldSelect";
-import TextFieldPlaceholder from "../../../../Commons/TextFields/TextFieldPlaceholder";
-import transformFieldsToState from "../../../../../helpers/transformFieldsToState";
+import Radio from "components/Commons/Radio/Radio";
+import DatePicker from "components/Commons/DatePicker";
+import Checkbox from "components/Commons/Checkbox/Checkbox";
+import TextFieldSelect from "components/Commons/TextFields/TextFieldSelect";
+import TextFieldPlaceholder from "components/Commons/TextFields/TextFieldPlaceholder";
+import transformFieldsToState from "helpers/transformFieldsToState";
 import {
     getSites,
     getResultCentres,
     getTechnicalServs
-} from "../../../helpersAPI";
+} from "components/tables/helpersAPI";
 
 class MainFormBody extends React.PureComponent {
     constructor(props) {
         super(props);
-        this.fields = transformFieldsToState(Object.values(props.formFields));
 
         this.state = {
             id: 0,
@@ -27,7 +26,7 @@ class MainFormBody extends React.PureComponent {
             resultCentres: [],
             technicalServs: [],
             selectedTechServs: [],
-            ...this.fields
+            ...transformFieldsToState(Object.values(props.formFields))
         };
     }
 

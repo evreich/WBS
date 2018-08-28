@@ -24,12 +24,11 @@ namespace WBS.DAL.Data.Classes
                 .FirstOrDefault(item => item.Id == (int)id);
         }
 
-        protected override IEnumerable<Event> GetItems()
+        protected override IQueryable<Event> GetItems()
         {
             return _context.Events
                 .Include(item => item.BudgetPlan)
-                .Include(item => item.Status) 
-                .ToList();
+                .Include(item => item.Status);
         }
     }
 }

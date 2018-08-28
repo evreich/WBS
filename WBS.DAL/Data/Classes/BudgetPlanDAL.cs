@@ -27,12 +27,11 @@ namespace WBS.DAL.Data.Classes
                 .FirstOrDefault(item => item.Id == (int)id);
         }
 
-        protected override IEnumerable<BudgetPlan> GetItems()
-        {        
+        protected override IQueryable<BudgetPlan> GetItems()
+        {
             return _context.BudgetPlans
                 .Include(item => item.Items)
-                .Include(item => item.Events)
-                .ToList();
+                .Include(item => item.Events);
         }
 
         public Status GetStatusOfPlan(int planId)
