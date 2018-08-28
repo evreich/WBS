@@ -41,7 +41,7 @@ namespace WBS.Selenium.Controllers
         {
             string a = $"//div//span[contains(text(),'{errorMessage}')]";
             Assert.DoesNotThrow(
-                () => { context.Wait.Until(ExpectedConditions.ElementIsVisible(By.XPath(a))); },
+                () => { context.Waitings.Get(Waitings.Short).Until(ExpectedConditions.ElementIsVisible(By.XPath(a))); },
                 "Ожидалось, что появится предупреждение '{0}'", errorMessage);
         }
     }

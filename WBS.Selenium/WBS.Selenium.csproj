@@ -96,10 +96,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\UIControllers\ButtonCreateRowController.cs" />
     <Compile Include="Controllers\FormControllers\CreateBudgetDetailViewController.cs" />
-    <Compile Include="Controllers\UIControllers\ButtonLinkYearController.cs" />
+    <Compile Include="Controllers\FormControllers\CreateSitFormDetailViewController.cs" />
     <Compile Include="Controllers\FormControllers\InformationUserDetailViewController.cs" />
+    <Compile Include="Controllers\FormControllers\SelectProviderDetailViewController.cs" />
     <Compile Include="Controllers\UIControllers\CheckBoxController.cs" />
     <Compile Include="Controllers\FormControllers\CreateRequestDetailViewController.cs" />
     <Compile Include="Controllers\FormControllers\CreateUserDetailViewController.cs" />

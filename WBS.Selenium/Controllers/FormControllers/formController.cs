@@ -86,6 +86,11 @@ namespace WBS.Selenium.Controllers.FormControllers
             TableController table = mapping[tableName] as TableController;
             table?.CheckTableContains(value);
         }
+        public void ClickAddInTable(string tableName)
+        {
+            TableController table = mapping[tableName] as TableController;
+            table?.ClickAdd();
+        }
         #endregion
     }
 }

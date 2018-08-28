@@ -13,6 +13,7 @@ namespace WBS.Selenium.Controllers.UIControllers
 {
     public class TableController:UIController
     {
+        MuiButtonController buttonAdd;
         string tableClass;
         public override void Initialize(Context context, string id, bool waitPostback = false, Dictionary<string, string> parameters = null)
         {
@@ -27,6 +28,19 @@ namespace WBS.Selenium.Controllers.UIControllers
             string xpath = $"//table[contains(@class,'{tableClass}')]//td[contains(text(),'{value}')]";
             IWebElement td = context.Waitings.Get(Waitings.Short).Until(ExpectedConditions.ElementToBeClickable(By.XPath(xpath)));
             td.Click();
+        }
+
+        public void ClickAdd()
+        {
+            buttonAdd = new MuiButtonController();
+            buttonAdd.Initialize(context, "Добавить");
+            buttonAdd.Click();
+        }
+        public void ClickPlus(string id)
+        {
+            string xpath = $"//button[@name='{id}']";
+            IWebElement zt = context.Waitings.Get(Waitings.Short).Until(ExpectedConditions.ElementToBeClickable(By.XPath(xpath)));
+            zt.Click();
         }
         #endregion
 

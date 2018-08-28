@@ -13,8 +13,7 @@ namespace WBS.Selenium.Controllers.FormControllers
         public override List<UIMapper> Map => new List<UIMapper>
         {
             new UIMapper("Название сита", typeof(ComboBoxController), "selectedSite"),
-            new UIMapper("Ссылка год", typeof(ButtonLinkYearController), "2018"),
-            new UIMapper("Создать", typeof(ButtonCreateRowController), "Создать"),
+            new UIMapper("Создать", typeof(MuiButtonController), "Создать",false,new Dictionary<string, string> { { "div", "DetalizationOfSite" } }),
             new UIMapper("Год", typeof(TextBoxController), "year",false,new Dictionary<string, string> { { "type", "input" } }),
             new UIMapper("Сохранить", typeof(MuiButtonController), "Сохранить"),
             new UIMapper("Отмена", typeof(MuiButtonController), "Отмена"),
@@ -25,6 +24,7 @@ namespace WBS.Selenium.Controllers.FormControllers
             new UIMapper("Дата поставки", typeof(DatePickerController), "dateOfDelivery"), // TODO: Реализовать через DatePickerController
             new UIMapper("Количество",typeof(TextBoxController), "count",false,new Dictionary<string, string> { { "type", "input" } }),
             new UIMapper("Цена",typeof(TextBoxController), "price",false,new Dictionary<string, string> { { "type", "input" } }),
+            
         };
 
         public void SetDate(Context context,string element, string value)

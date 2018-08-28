@@ -26,7 +26,7 @@ namespace WBS.Selenium.Controllers.UIControllers
         public void SetValueByJs(Context context, string value)
         {
             IJavaScriptExecutor js = ((IJavaScriptExecutor)context.Driver);
-            js.ExecuteScript(string.Format("document.querySelector(\"input[name=\'dateOfDelivery\']\").setAttribute(\"value\",\"{0}\")", value));
+            js.ExecuteScript(string.Format("document.querySelector(\"input[name=\'dateOfDelivery\']\").value=\"{0}\"", value));
         }
     }
 }
