@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import TextFieldMultiline from "../../Commons/TextFields/TextFieldMultiline";
 import TextFieldPlaceholder from "../../Commons/TextFields/TextFieldPlaceholder";
 import UserAutosuggestField from "../../Commons/TextFields/UserAutosuggestField";
-import transformFieldsToState from "../../../helpers/transformFieldsToState";
+import transformFieldsToState from "helpers/transformFieldsToState";
 
 class FormatDialogBody extends React.PureComponent {
     constructor(props) {

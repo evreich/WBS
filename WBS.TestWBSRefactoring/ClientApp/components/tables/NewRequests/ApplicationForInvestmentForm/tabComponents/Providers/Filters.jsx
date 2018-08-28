@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import TextField from 'material-ui/TextField';
 import Button from 'material-ui/Button';
 import { FormControlLabel } from 'material-ui/Form';
@@ -12,7 +13,7 @@ export default class Filters extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            searchingString: "",
+            searchingString: props.searchingString,
             techServs: []
         };
     }
@@ -27,8 +28,8 @@ export default class Filters extends React.Component {
     }
 
     setChanges = () => {
-        const { applyFilter } = this.props
-        const { searchingString, techServs } = this.state
+        const { applyFilter } = this.props;
+        const { searchingString, techServs } = this.state;
         const filterObj = {
             title: searchingString,
             techServs: techServs.join(',')
@@ -38,7 +39,7 @@ export default class Filters extends React.Component {
 
     handleSearchButtonClick = () => {
         clearTimeout(this.timer);
-        this.setChanges()
+        this.setChanges();
     }
 
     onSearchStrChange = (event) => {
@@ -46,31 +47,35 @@ export default class Filters extends React.Component {
     }
 
     onTechnicalServsChange = (event) => {
-        const { techServs } = this.state
-        const value = event.target.value
+        const { techServs } = this.state;
+        const value = event.target.value;
         if (event.target.checked)
             techServs.push(value)
         else {
-            const index = techServs.indexOf(value)
-            if (index !== -1) techServs.splice(index, 1)
+            const index = techServs.indexOf(value);
+            if (index !== -1) techServs.splice(index, 1);
         }
 
         this.setState({ techServs: techServs }, () => this.delayTask(this.setChanges));
     }
 
     reset = () => {
-        const { reset } = this.props
+        const { reset } = this.props;
         clearTimeout(this.timer);
-        reset()
+        this.setState({
+            searchingString: ""
+        });
+        reset();
     }
 
     render() {
-        const { technicalServs } = this.props
-        const { searchingString } = this.state
+        const { technicalServs } = this.props;
+        const { searchingString } = this.state;
         return (
             <div style={{ display: 'flex', flexDirection: 'row', marginBottom: 15, justifyContent: 'space-between' }}>
                 <div>
                     <TextField
+                        name="search"
                         style={{ width: 300, marginTop: 20 }}
                         value={searchingString}
                         label="Поставщик"
@@ -109,4 +114,5 @@ Filters.propTypes = {
     applyFilter: PropTypes.func.isRequired,
     technicalServs: PropTypes.array,
     reset: PropTypes.func.isRequired,
+    searchingString: PropTypes.string
 }

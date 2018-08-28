@@ -4,13 +4,20 @@ import PropTypes from "prop-types";
 import Tabs, { Tab } from "material-ui/Tabs";
 import Paper from "material-ui/Paper";
 
-import ChooseProviderModalForm from "./Providers/ChooseProviderModalForm";
-import TextFieldSelect from "../../../../Commons/TextFields/TextFieldSelect";
-import TabContainer from "../../../../Commons/TabContainer";
+import ChooseItemModalWindow from "components/Commons/ModalWindows/ChooseItemModalWindow";
+import TextFieldSelect from "components/Commons/TextFields/TextFieldSelect";
+import TabContainer from "components/Commons/TabContainer";
 import OutBudget from "./OutBudget";
 import Investment from "./Investment";
 import Providers from "./Providers";
 import Budget from "./Budget";
+import ProvidersTable from "./Providers/ProvidersTable";
+import Filters from "./Providers/Filters";
+import QueryParamsContext from "./Providers/QueryParamsContext";
+
+const defaultFilters = {
+    title: ""
+}
 
 class InvestmentTabs extends React.PureComponent {
     constructor(props) {
@@ -18,7 +25,9 @@ class InvestmentTabs extends React.PureComponent {
         this.state = {
             isProvidersModalWindowOpen: false,
             providers: [],
-            tab: 0
+            tab: 0,
+            filters: defaultFilters,
+            searchingString: ""
         };
     }
 
@@ -35,7 +44,7 @@ class InvestmentTabs extends React.PureComponent {
     }
 
     getDataToSave = () => this.state;
-    
+
     //handlers
     handleChange = e => {
         const { name, value } = e.target;
@@ -43,15 +52,15 @@ class InvestmentTabs extends React.PureComponent {
     };
 
     handleChangeTab = (e, value) => {
-        if (typeof e === "number") this.setState({ tab: e });
-        else this.setState({ tab: value });
+        if (typeof e === "number")
+            this.setState({ tab: e });
+        else
+            this.setState({ tab: value });
     };
 
     handleDeleteProviderButtonClick = id => {
         this.setState(prevState => ({
-            providers: prevState.providers.filter(p => {
-                p.id !== id;
-            })
+            providers: prevState.providers.filter(p => p.id !== id)
         }));
     };
 
@@ -67,12 +76,25 @@ class InvestmentTabs extends React.PureComponent {
         const { providers } = this.state;
         if (providers.map(p => p.id).indexOf(provider.id) === -1)
             providers.push(provider);
-        this.setState({ providers: providers });
+        this.setState({
+            providers: providers,
+            isProvidersModalWindowOpen: false,
+            searchingString: ""
+        });
     };
 
     render() {
         const { classes } = this.props;
-        const { tab, providers, isProvidersModalWindowOpen } = this.state;
+        const { tab, providers, isProvidersModalWindowOpen, searchingString, filters } = this.state;
+
+        const getFilteredDataTable = (newFilters) => {
+            this.setState({ filters: newFilters });
+        };
+
+        const getDataTable = () => {
+            this.setState({ filters: defaultFilters });
+        };
+
 
         return (
             <div className={classes.tabs}>
@@ -118,11 +140,11 @@ class InvestmentTabs extends React.PureComponent {
                                     name: "",
                                     label: "Вне бюджета",
                                     value: "",
-                                    onChange: (() => {})
+                                    onChange: (() => { })
                                 }}
                                 items={[
-                                    { id: "1", text: "Новый", key:"1" },
-                                    { id: "2", text: "Замена", key:"2" }
+                                    { id: "1", text: "Новый", key: "1" },
+                                    { id: "2", text: "Замена", key: "2" }
                                 ]}
                             />
                         </div>
@@ -133,7 +155,7 @@ class InvestmentTabs extends React.PureComponent {
                 )}
                 {tab === 2 && (
                     <TabContainer>
-                        <Paper style={{overflowX: 'auto'}} >
+                        <Paper style={{ overflowX: 'auto' }} >
                             <Investment />
                         </Paper>
                     </TabContainer>
@@ -146,13 +168,31 @@ class InvestmentTabs extends React.PureComponent {
                                 onDelete={this.handleDeleteProviderButtonClick}
                                 onAddNew={this.handleOpenProvidersWindow}
                             />
-                            {isProvidersModalWindowOpen && (
-                                <ChooseProviderModalForm
-                                    onAdd={this.handleAddProvider}
-                                    onClose={this.handleCloseProvidersWindow}
-                                    technicalServs={[]}
-                                />
-                            )}
+                            <ChooseItemModalWindow
+                                open={isProvidersModalWindowOpen}
+                                onAdd={this.handleAddProvider}
+                                cancel={this.handleCloseProvidersWindow}
+                                technicalServs={[]}
+                                header={"Выбор поставщиков"}
+                            >
+                                <>
+                                    <Filters
+                                        technicalServs={[]}
+                                        applyFilter={getFilteredDataTable}
+                                        reset={getDataTable}
+                                        searchingString={searchingString}
+                            />
+                                    <QueryParamsContext.Provider
+                                        value={{
+                                            queryParams: filters,
+                                            add: this.handleAddProvider,
+                                            showToolbar: false
+                                        }}
+                                    >
+                                        <ProvidersTable classes={classes} />
+                                    </QueryParamsContext.Provider>
+                                </>
+                            </ChooseItemModalWindow>
                         </Paper>
                     </TabContainer>
                 )}

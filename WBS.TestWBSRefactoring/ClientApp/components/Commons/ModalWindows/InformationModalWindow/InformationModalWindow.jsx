@@ -13,7 +13,7 @@ import Button from "material-ui/Button";
 import { withStyles } from "material-ui/styles";
 
 import styles from "./InformationModalWindow.css";
-import TypesOfColumnData from "../../../../constants/typesOfColumnData";
+import TypesOfColumnData from "constants/typesOfColumnData";
 
 class InformationModalWindow extends React.PureComponent {
     static propTypes = {
@@ -77,9 +77,7 @@ class InformationModalWindow extends React.PureComponent {
                                         <td>
                                             <div className={classes.cellValue}>
                                                 {
-                                                    formData[
-                                                        firstPropOfObj.propName
-                                                    ]
+                                                    formData[firstPropOfObj.propName]
                                                 }
                                             </div>
                                         </td>
@@ -112,11 +110,11 @@ class InformationModalWindow extends React.PureComponent {
                                                     }
                                                 >
                                                     {elem.type ===
-                                                    TypesOfColumnData.ARRAY
+                                                        TypesOfColumnData.ARRAY
                                                         ? formData[elem.propName].map(item => item.title).join(", ")
                                                         : formData[
-                                                              elem.propName
-                                                          ]}
+                                                        elem.propName
+                                                        ]}
                                                 </div>
                                             </td>
                                             <td />

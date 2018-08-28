@@ -11,7 +11,7 @@ import FilterListIcon from "material-ui-icons/FilterList";
 import { withStyles } from "material-ui/styles";
 import Button from "material-ui/Button";
 
-import { toolbarStyles } from "../../../Commons/Table/TableStyles.css";
+import { toolbarStyles } from "components/Commons/Table/TableStyles.css";
 
 const TableToolbar = props => {
     const { numSelected, classes, onOpen } = props;

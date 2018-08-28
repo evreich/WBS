@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using WBS.API.Helpers;
 using WBS.DAL;
 using WBS.DAL.Data.Helpers;
-using WBS.DAL.Data.Models;
 using WBS.DAL.Data.Models.ViewModels;
 
 namespace WBS.API.Controllers
@@ -30,9 +27,9 @@ namespace WBS.API.Controllers
             return Ok(_dal.Get(id));
         }
 
-        [HttpGet("FilteredProviders")]
+        [HttpGet("{title}/{currentPage}/{pageSize}")]
         [Authorize]
-        public IActionResult FilteredProviders(int currentPage = 0, int pageSize = 5, string title = "", string techServs ="")
+        public IActionResult Get(int currentPage = 0, int pageSize = 5, string title = "", string techServs ="")
         {
             _logger.LogInformation("Getting information is started");
             var data = _dal.Get();

@@ -14,14 +14,14 @@ import Paper from "material-ui/Paper";
 import TablePaginationActionsWrapped from "../Pagination";
 import SortedTableHead from "./SortedTableHead";
 import { styles } from "./TableStyles.css";
-import SortingActions from "../../../constants/sortingActions";
-import { sortOn } from "../../../helpers/sortinngFunctions";
+import SortingActions from "constants/sortingActions";
+import { sortOn } from "helpers/sortinngFunctions";
 import TableToolbar from "./Toolbar";
 import CommonChangeItemModalWindow from "../ModalWindows/ChangeItemModalWindow";
 import CommonInformationModalWindow from "../ModalWindows/InformationModalWindow";
 import CommonTableRow from "./TableRow";
 
-//закголовки диалоговых окон
+//заголовки диалоговых окон
 const createTitleModalWindow = "Создание";
 const editTitleModalWindow = "Редактирование";
 
@@ -63,7 +63,8 @@ const СreateTable = ({
                 data: PropTypes.array.isRequired,
                 pagination: PropTypes.object.isRequired,
                 deleteData: PropTypes.func,
-                queryParams: PropTypes.object
+                queryParams: PropTypes.object,
+                showToolbar: PropTypes.bool
             };
 
             static defaultProps = {
@@ -72,7 +73,8 @@ const СreateTable = ({
                     elementsPerPage: 5,
                     elementsCount: 0
                 },
-                data: []
+                data: [],
+                showToolbar: true
             };
 
             //lifecycle hooks
@@ -188,7 +190,7 @@ const СreateTable = ({
                 );
 
             render() {
-                const { classes, pagination, data, changeData } = this.props;
+                const { classes, pagination, data, changeData, showToolbar } = this.props;
                 const {
                     modalWindowInfoIsOpening,
                     modalWindowChangingIsOpening,
@@ -242,7 +244,8 @@ const СreateTable = ({
                     createWindowFields,
                     editWindowFields,
                     tableHeaders,
-                    titleTable
+                    titleTable,
+                    tableId
                 } = dataFiledsInfo;
 
                 const isExistsDialogBodies =
@@ -251,83 +254,86 @@ const СreateTable = ({
                         : false;
                 return (
                     <>
-                        <Paper className={classes.root}>
-                            {/*Таблица*/}
-                            <TableToolbar
-                                onCreate={
-                                    this.handleOpenOnCreateChangeModalWindow
-                                }
-                                title={titleTable}
+                    <Paper className={classes.root} id={tableId}>
+                        {/*Таблица*/}
+                        {
+                            showToolbar && (
+                                <TableToolbar
+                                    onCreate={
+                                        this.handleOpenOnCreateChangeModalWindow
+                                    }
+                                    title={titleTable}
+                                />)
+                        }
+                        <Table className={classes.table}>
+                            <SortedTableHead
+                                classes={classes}
+                                order={this.sortingData.sort}
+                                orderBy={this.sortingData.sortBy}
+                                onRequestSort={this.handleSortByHeaderClick}
+                                columnHeaders={Object.values(tableHeaders)}
                             />
-                            <Table className={classes.table}>
-                                <SortedTableHead
-                                    order={this.sortingData.sort}
-                                    orderBy={this.sortingData.sortBy}
-                                    onRequestSort={this.handleSortByHeaderClick}
-                                    columnHeaders={Object.values(tableHeaders)}
-                                />
-                                <TableBody>
-                                    {data &&
-                                        data.map(row => (
-                                            <RowComponent
-                                                key={row.id}
-                                                row={row}
-                                                displayedColumns={Object.values(
-                                                    tableHeaders
-                                                )}
-                                                classes={classes}
-                                                handleInfoButtonClick={
-                                                    this
-                                                        .handleOpenInformationModalWindow
-                                                }
-                                            />
-                                        ))}
-                                    {this.fillingEmptyRows(emptyRows)}
-                                </TableBody>
+                            <TableBody>
+                                {data &&
+                                    data.map(row => (
+                                        <RowComponent
+                                            key={row.id}
+                                            row={row}
+                                            displayedColumns={Object.values(
+                                                tableHeaders
+                                            )}
+                                            classes={classes}
+                                            handleInfoButtonClick={
+                                                this.handleOpenInformationModalWindow
+                                            }
+                                        />
+                                    ))}
+                                {this.fillingEmptyRows(emptyRows)}
+                            </TableBody>
 
-                                {/*Футер*/}
-                                <TableFooter>{tableFooter}</TableFooter>
-                            </Table>
-                        </Paper>
+                            {/*Футер*/}
+                            <TableFooter>{tableFooter}</TableFooter>
+                        </Table>
+                    </Paper>
 
-                        {/* Модальные окна */}
-                        <InformationModalWindow
-                            open={modalWindowInfoIsOpening}
-                            onExited={this.handleExitInformationModalWindow}
-                            formData={updatingDataItem}
-                            cancel={this.handleCloseInformationModalWindow}
-                            formFieldNames={Object.values(infoWindowModel)}
-                            handleDeleteButtonClick={
-                                this.handleDeleteButtonClick
-                            }
-                            handleUpdateButtonClick={
-                                this.handleOpenOnEditChangeModalWindow
-                            }
-                        />
+                        {/* Модальные окна */ }
+                <InformationModalWindow
+                    open={modalWindowInfoIsOpening}
+                    onExited={this.handleExitInformationModalWindow}
+                    formData={updatingDataItem}
+                    cancel={this.handleCloseInformationModalWindow}
+                    formFieldNames={Object.values(infoWindowModel)}
+                    handleDeleteButtonClick={
+                        this.handleDeleteButtonClick
+                    }
+                    handleUpdateButtonClick={
+                        this.handleOpenOnEditChangeModalWindow
+                    }
+                />
 
-                        <ChangeItemModalWindow
-                            open={modalWindowChangingIsOpening}
-                            save={changeData}
-                            formFields={
-                                updatingDataItem
-                                    ? editWindowFields
-                                    : createWindowFields
-                            }
-                            data={updatingDataItem}
-                            cancel={this.handleCloseChangeModalWindow}
-                            currentPage={currentPage}
-                            elementsPerPage={elementsPerPage}
-                            header={changeModalWindowTitle}
-                        >
-                            {/*отправляем тело диалогового окна в качестве children */}
-                            {isExistsDialogBodies ? (
-                                updatingDataItem ? (
-                                    <ChangeItemDialogBodyComponent />
-                                ) : (
-                                        <AddItemDialogBodyComponent />
-                                    )
-                            ) : null}
-                        </ChangeItemModalWindow>
+                    <ChangeItemModalWindow
+                        open={modalWindowChangingIsOpening}
+                        save={changeData}
+                        formFields={
+                            updatingDataItem
+                                ? editWindowFields
+                                : createWindowFields
+                        }
+                        data={updatingDataItem}
+                        cancel={this.handleCloseChangeModalWindow}
+                        currentPage={currentPage}
+                        elementsPerPage={elementsPerPage}
+                        header={changeModalWindowTitle}
+                    >
+                        {/*отправляем тело диалогового окна в качестве children */}
+                        {isExistsDialogBodies ? (
+                            updatingDataItem ? (
+                                <ChangeItemDialogBodyComponent />
+                            ) : (
+                                    <AddItemDialogBodyComponent />
+                                )
+                        ) : null}
+                    </ChangeItemModalWindow>
                     </>
                 );
             }

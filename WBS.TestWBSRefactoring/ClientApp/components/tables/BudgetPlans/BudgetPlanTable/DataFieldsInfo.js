@@ -1,4 +1,4 @@
-import TypesOfColumnData from "../../../../constants/typesOfColumnData";
+import TypesOfColumnData from "constants/typesOfColumnData";
  
 //Cвойства объекта должны соответствовать свойствам данных,
 //получаемых с сервера
@@ -33,6 +33,7 @@ const tableHeaders = {
 };
  
 const titleTable = "Бюджетные планы";
+const tableId = "BudgetPlans";
  
 const createWindowFields = {
     [commonFields.year.propName]: commonFields.year,
@@ -50,5 +51,6 @@ export default {
     editWindowFields, 
     infoWindowModel, 
     tableHeaders, 
-    titleTable 
+    titleTable,
+    tableId
 };

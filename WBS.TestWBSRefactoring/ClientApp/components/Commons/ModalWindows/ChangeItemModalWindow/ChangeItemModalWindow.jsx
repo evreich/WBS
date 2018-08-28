@@ -10,7 +10,7 @@ import Button from "material-ui/Button";
 import { withStyles } from 'material-ui/styles';
 
 import styles from './ChangeItemModalWindow.css';
-import HTTP_METHOD from '../../../../settings/httpMethods';
+import HTTP_METHOD from 'settings/httpMethods';
 
 class ChangeItemModalWindow extends React.Component {
     constructor(props) {

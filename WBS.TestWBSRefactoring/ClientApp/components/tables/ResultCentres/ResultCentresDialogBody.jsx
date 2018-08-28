@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 import TextFieldMultiline from "../../Commons/TextFields/TextFieldMultiline";
 import TextFieldPlaceholder from "../../Commons/TextFields/TextFieldPlaceholder";
-import transformFieldsToState from "../../../helpers/transformFieldsToState";
+import transformFieldsToState from "helpers/transformFieldsToState";
 
 class ResultCentresDialogBody extends React.PureComponent {
     constructor(props) {

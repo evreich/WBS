@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 
-import CreateTable from "../../../components/Commons/Table";
+import CreateTable from "components/Commons/Table";
 import {
     getTable,
     clearTable,

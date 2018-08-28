@@ -5,7 +5,7 @@ import TextFieldMultiline from "../../Commons/TextFields/TextFieldMultiline";
 import TextFieldSelect from "../../Commons/TextFields/TextFieldSelect";
 import TextFieldPlaceholder from "../../Commons/TextFields/TextFieldPlaceholder";
 import { getCategoryGroups } from "../helpersAPI";
-import transformFieldsToState from '../../../helpers/transformFieldsToState';
+import transformFieldsToState from 'helpers/transformFieldsToState';
 
 class CategoriesOfEquipmentDialogBody extends React.PureComponent {
     constructor(props) {

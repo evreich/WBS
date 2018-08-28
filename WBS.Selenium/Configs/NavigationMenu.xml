@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<navigationMenu>
+
+  <node>
+    <title>Документы</title>
+    <children>      
+      <node>
+        <title>Таблица разработки</title>
+        <children></children>
+      </node>      
+      <node>
+        <title>Макет</title>
+        <children></children>
+      </node>
+      <node>
+        <title>Заявки на инвестиции</title>
+        <children></children>
+      </node>
+      <node>
+        <title>Бюджетные планы</title>
+        <children></children>
+      </node>
+      <node>
+        <title>Статистика</title>
+        <children></children>
+      </node>
+      <node>
+        <title>Все обработанные мной заявки</title>
+        <children></children>
+      </node>
+      <node>
+        <title>Инструкции</title>
+        <children></children>
+      </node>      
+    </children>
+  </node>
+
+  <node>
+    <title>Справочники</title>
+    <children>
+      <node>
+        <title>Ситы</title>
+        <children></children>
+      </node>
+      <node>
+        <title>Пользователи</title>
+        <children></children>
+      </node>
+      <node>
+        <title>Поставщики</title>
+        <children></children>
+      </node>
+      <node>
+        <title>Формат ситов</title>
+        <children></children>
+      </node>
+      <node>
+        <title>Типы инвестиций</title>
+        <children></children>
+      </node>
+      <node>
+        <title>Центры результатов</title>
+        <children></children>
+      </node>
+      <node>
+        <title>Группы категорий</title>
+        <children></children>
+      </node>
+      <node>
+        <title>Категории оборудования</title>
+        <children></children>
+      </node>
+    </children>
+  </node>
+
+</navigationMenu>

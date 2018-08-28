@@ -1,4 +1,4 @@
-import TypesOfColumnData from "../../../constants/typesOfColumnData";
+import TypesOfColumnData from "constants/typesOfColumnData";
 
 //Cвойства объекта должны соответствовать свойствам данных,
 //получаемых с сервера
@@ -34,11 +34,13 @@ const tableHeaders = {
 };
 
 const titleTable = "Поставщики";
+const tableId = "Providers";
 
 export default { 
     createWindowFields, 
     editWindowFields, 
     infoWindowModel, 
     tableHeaders, 
-    titleTable 
+    titleTable,
+    tableId
 };

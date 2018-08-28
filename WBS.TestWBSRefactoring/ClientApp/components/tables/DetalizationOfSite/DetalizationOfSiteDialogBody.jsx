@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import TextFieldSelect from "../../Commons/TextFields/TextFieldSelect";
 import TextFieldPlaceholder from "../../Commons/TextFields/TextFieldPlaceholder";
 import { QueryParamsContext } from "../BudgetPlans/DetalizationOfBudgetPlan/DetalizationOfBudgetPlan";
-import transformFieldsToState from "../../../helpers/transformFieldsToState";
+import transformFieldsToState from "helpers/transformFieldsToState";
 import {
     getResultCentres,
     getTypesOfInvestment,
