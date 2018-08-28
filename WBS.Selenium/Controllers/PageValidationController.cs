@@ -26,10 +26,11 @@ namespace WBS.Selenium.Controllers
                 "Ожидалось, что url будет содержать '{0}', получено - '{1}'", expectedUrl, context.Driver.Url);
         }
 
-        public void CheckPageCaption(string expectedCaption)
+        public void CheckModalCaption(string expectedCaption)
         {
-            //string actualCaption = WaitingHelper.WaitElementIsVisible(context, By.CssSelector(".MainMenuTruncateCaption")).Text;
-            //Assert.AreEqual(expectedCaption, actualCaption, "Ожидался заголовок страницы '{0}', получен - '{1}'", expectedCaption, actualCaption);
+            string actualCaption = context.Waitings.Get(Waitings.Normal).Until(ExpectedConditions.ElementIsVisible(
+                By.XPath("//div[contains(@class,'ModalWindow')]//h2[contains(@class,'MuiTypography-title')]"))).Text;
+            Assert.AreEqual(expectedCaption, actualCaption, "Ожидался заголовок страницы '{0}', получен - '{1}'", expectedCaption, actualCaption);
         }
 
         public void CheckFieldValue(IFormController form, string field, string value)

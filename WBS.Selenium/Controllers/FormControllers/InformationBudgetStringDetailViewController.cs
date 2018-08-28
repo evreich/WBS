@@ -23,6 +23,7 @@ namespace WBS.Selenium.Controllers.FormControllers
              
              //buttons
              new UIMapper("Редактировать",typeof(MuiIconController),"IconLabelButtons",false, new Dictionary<string, string>(){{"form", "InformationModalWindow" } }),
+             new UIMapper("Удалить",typeof(MuiIconController),"ButtonDelete",false, new Dictionary<string, string>(){{"form", "InformationModalWindow" } }),
              new UIMapper("ОК",typeof(MuiButtonController),"ОК"),
         };
     }

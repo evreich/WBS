@@ -85,6 +85,13 @@ namespace WBS.Selenium.Controllers.UIControllers
                 context.Waitings.Get(Waitings.Normal).Until(ExpectedConditions.ElementIsVisible(By.XPath(xpath)));
             }, "В таблице {0} ожидалось значение '{1}'", id, value);
         }
+
+        public void CheckTablenNotContains(string value)
+        {
+            string xpath = $"//table[contains(@class,'{tableClass}')]//td[contains(text(),'{value}')]";
+            Assert.True(context.Driver.FindElements(By.XPath(xpath)).Count==0,
+             "В таблице {0} не ожидалось значение '{1}'", id, value);
+        }
         #endregion
     }
 }
