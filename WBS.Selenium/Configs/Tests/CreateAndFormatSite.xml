@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<data>
+  <title>Формат сита 1</title>
+  <profile>Профиль</profile>
+  <directorOfFormat>user1</directorOfFormat>
+  <directorofKYformat>user1</directorofKYformat>
+  <kyFormatId>user1</kyFormatId>
+  <typeOfFormat>Тип формата 1</typeOfFormat>
+  <e1>25</e1>
+  <e2>500</e2>
+  <e3>265232</e3>
+</data>

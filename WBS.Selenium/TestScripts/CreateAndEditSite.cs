@@ -42,7 +42,7 @@ namespace WBS.Selenium.TestScripts
         {
             NavigationMenu.OpenPage("Ситы");
 
-            PageValidation.CheckPageCaption("/Sits");
+            PageValidation.CheckUrl("/Sits");
         }
 
         [Test(Description = "4. Создать пользователя"), Order(4)]
@@ -56,16 +56,98 @@ namespace WBS.Selenium.TestScripts
             string createrOfBudget = Context.TestSettings.GetValue("createrOfBudget");
             string kyRegion = Context.TestSettings.GetValue("kyRegion");
             string operationDirector = Context.TestSettings.GetValue("operationDirector");
+            string userName = Context.TestSettings.GetValue("userName");
 
             ListView.ClickElement("Создать");
-            CreateSiteDetailView.SetElementValue("Название",title);
-            //CreateSiteDetailView.SetElementValue("Формат", format);
+
+            //проверка
+            PageValidation.CheckModalCaption("Создание");
+
+            CreateSiteDetailView.SetElementValue("Название", title);
+            CreateSiteDetailView.SetElementValue("Формат", format);
+            Thread.Sleep(2000);
             CreateSiteDetailView.SetElementValue("КУ Сита", kusit);
             CreateSiteDetailView.SetElementValue("Технический эксперт", technicalExpert);
             CreateSiteDetailView.SetElementValue("Директор Сита", directorOfSit);
             CreateSiteDetailView.SetElementValue("Создатель", createrOfBudget);
             CreateSiteDetailView.SetElementValue("КУ региональный", kyRegion);
             CreateSiteDetailView.SetElementValue("Операционный директор", operationDirector);
+
+            CreateSiteDetailView.ClickElement("Сохранить");
+            Thread.Sleep(2000);
+            //проверка
+            ListView.CheckTableContains(title);
+            ListView.CheckTableContains(format);
+            ListView.CheckTableContains(userName);
+        }
+
+        [Test(Description = "5.Проверка полей"), Order(5)]
+        public void OpenEditAndCekFields()
+        {
+            string title = Context.TestSettings.GetValue("title");
+            string format = Context.TestSettings.GetValue("format");
+            string kusit = Context.TestSettings.GetValue("kusit");
+            string technicalExpert = Context.TestSettings.GetValue("technicalExpert");
+            string directorOfSit = Context.TestSettings.GetValue("directorOfSit");
+            string createrOfBudget = Context.TestSettings.GetValue("createrOfBudget");
+            string kyRegion = Context.TestSettings.GetValue("kyRegion");
+            string operationDirector = Context.TestSettings.GetValue("operationDirector");
+            string userName = Context.TestSettings.GetValue("userName");
+
+            ListView.ClickRowTable(title);
+            //проверка
+            PageValidation.CheckModalCaption("Информационное окно");
+
+            //проверка
+            PageValidation.CheckFieldValue(InformationSiteDetailView, "Название", title);
+            PageValidation.CheckFieldValue(InformationSiteDetailView, "Формат", format);
+            PageValidation.CheckFieldValue(InformationSiteDetailView, "КУ Сита", userName);
+            PageValidation.CheckFieldValue(InformationSiteDetailView, "Технический эксперт", userName);
+            PageValidation.CheckFieldValue(InformationSiteDetailView, "Директор Сита", userName);
+            PageValidation.CheckFieldValue(InformationSiteDetailView, "Создатель", userName);
+            PageValidation.CheckFieldValue(InformationSiteDetailView, "КУ региональный", userName);
+            PageValidation.CheckFieldValue(InformationSiteDetailView, "Операционный директор", userName);
+        }
+
+        [Test(Description = "6.Редактирование полей"), Order(6)]
+        public void EditFields()
+        {
+            string kusit = Context.TestSettings.GetValue("kusit");
+            string newTitle = Context.TestSettings.GetValue("newTitle");
+            string userName = Context.TestSettings.GetValue("userName");
+
+            InformationSiteDetailView.ClickElement("Редактировать");
+
+            //проверка
+            //PageValidation.CheckModalCaption("Редактирование");
+            PageValidation.CheckFieldValue(CreateSiteDetailView, "КУ Сита", userName);
+
+
+            CreateSiteDetailView.SetElementValue("Название", newTitle);
+            //CreateSiteDetailView.SetElementValue("Должность", jobPosition);
+            //CreateSiteDetailView.SetElementValue("Подразделение", department);
+
+            CreateSiteDetailView.ClickElement("Сохранить");
+            Thread.Sleep(2000);
+            InformationSiteDetailView.ClickElement("ОК");
+            //проверка
+            ListView.CheckTableContains(newTitle);
+        }
+
+        [Test(Description = "7.Удаление"), Order(7)]
+        public void Delete()
+        {
+            string newTitle = Context.TestSettings.GetValue("newTitle");
+
+            ListView.ClickRowTable(newTitle);
+            //проверка
+            PageValidation.CheckModalCaption("Информационное окно");
+
+            InformationBudgetStringDetailView.ClickElement("Удалить");
+            Thread.Sleep(2000);
+
+            //проверка
+            ListView.CheckTablenNotContains(newTitle);
 
         }
     }

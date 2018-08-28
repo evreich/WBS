@@ -34,7 +34,7 @@ namespace WBS.Selenium.TestScripts
 
             NavigationMenu.OpenPage("Бюджетные планы");
 
-            PageValidation.CheckPageCaption("/BudgetPlans");
+            PageValidation.CheckUrl("/BudgetPlans");
         }
         //создать бюджетный план с годом, входящим в диапазон
         [Test(Description = "3. Создать бюджетный план, выбрать год для бюджетного плана."), Order(3)]
@@ -62,7 +62,7 @@ namespace WBS.Selenium.TestScripts
             string quantity = Context.TestSettings.GetValue("quantity");
             string date = Context.TestSettings.GetValue("date");
 
-            ListView.ClickRowTable("2020");
+            ListView.ClickRowTable("2018");
             //CreateBudgetDetailView.ClickElement("Ссылка год");
             Thread.Sleep(1000);
             CreateBudgetDetailView.SetElementValue("Название сита", sit);
@@ -76,7 +76,7 @@ namespace WBS.Selenium.TestScripts
             CreateBudgetDetailView.SetElementValue("Тип инвестиций", typeinvest);
             Thread.Sleep(500);
             CreateBudgetDetailView.SetElementValue("Категория", category);
-            Thread.Sleep(500);
+            Thread.Sleep(2000);
             CreateBudgetDetailView.SetElementValue("Предмет инвестиций", objectinvest);
             Thread.Sleep(500);
             // Не работает проставление значения через js
@@ -147,6 +147,22 @@ namespace WBS.Selenium.TestScripts
             ListView.CheckTableContains(quantity);
             ListView.CheckTableContains(newDateFormat);
             ListView.CheckTableContains(newSum.ToString());
+        }
+
+        [Test(Description = "7.Удаление"), Order(7)]
+        public void Delete()
+        {
+            string date = Context.TestSettings.GetValue("newDate");
+            //баг: различный формат даты
+            string[] parseDate = date.Split('-');
+            string newDateFormat = parseDate[2] + "-" + parseDate[0] + "-" + parseDate[1];
+
+            ListView.ClickRowTable(newDateFormat);
+
+            InformationBudgetStringDetailView.ClickElement("Удалить");
+            Thread.Sleep(2000);
+            //проверка
+            ListView.CheckTablenNotContains(newDateFormat);
         }
     }
 }
