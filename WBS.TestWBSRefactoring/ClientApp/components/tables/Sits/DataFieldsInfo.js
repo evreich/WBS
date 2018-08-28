@@ -80,22 +80,6 @@ const commonFields = {
     }
 };
 
-const createWindowFields = {
-    [commonFields.title.propName]: commonFields.title,
-    [commonFields.formatId.propName]: commonFields.formatId,
-    [commonFields.kySitId.propName]: commonFields.kySitId,
-    [commonFields.technicalExpertId.propName]: commonFields.technicalExpertId,
-    [commonFields.directorOfSitId.propName]: commonFields.directorOfSitId,
-    [commonFields.createrOfBudgetId.propName]: commonFields.createrOfBudgetId,
-    [commonFields.kyRegionId.propName]: commonFields.kyRegionId,
-    [commonFields.operationDirectorId.propName]:
-        commonFields.operationDirectorId
-};
-
-const editWindowFields = {
-    ...createWindowFields
-};
-
 const infoWindowModel = {
     [commonFields.title.propName]: commonFields.title,
     [commonFields.formatTitle.propName]: commonFields.formatTitle,
@@ -105,7 +89,24 @@ const infoWindowModel = {
     [commonFields.createrOfBudgetFio.propName]: commonFields.createrOfBudgetFio,
     [commonFields.kyRegionFio.propName]: commonFields.kyRegionFio,
     [commonFields.operationDirectorFio.propName]:
-        commonFields.operationDirectorFio
+    commonFields.operationDirectorFio
+};
+
+const createWindowFields = {
+    [commonFields.title.propName]: commonFields.title,
+    [commonFields.formatId.propName]: commonFields.formatId,
+    [commonFields.kySitId.propName]: commonFields.kySitId,
+    [commonFields.technicalExpertId.propName]: commonFields.technicalExpertId,
+    [commonFields.directorOfSitId.propName]: commonFields.directorOfSitId,
+    [commonFields.createrOfBudgetId.propName]: commonFields.createrOfBudgetId,
+    [commonFields.kyRegionId.propName]: commonFields.kyRegionId,
+    [commonFields.operationDirectorId.propName]:
+    commonFields.operationDirectorId,
+    ...infoWindowModel
+};
+
+const editWindowFields = {
+    ...createWindowFields
 };
 
 const tableHeaders = {
@@ -121,11 +122,13 @@ const tableHeaders = {
 };
 
 const titleTable = "Ситы";
+const tableId = "Sits";
 
 export default {
     createWindowFields,
     editWindowFields,
     infoWindowModel,
     tableHeaders,
-    titleTable
+    titleTable,
+    tableId
 };

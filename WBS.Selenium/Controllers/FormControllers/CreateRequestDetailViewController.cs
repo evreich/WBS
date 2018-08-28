@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using WBS.Selenium.Models;
 using WBS.Selenium.Controllers.UIControllers;
-using System.Collections.Generic;
 
 namespace WBS.Selenium.Controllers.FormControllers
 {
@@ -21,7 +20,10 @@ namespace WBS.Selenium.Controllers.FormControllers
             new UIMapper("Вне бюджета", typeof(TabPanelController), "Вне бюджета"),
             new UIMapper("Инвестиции", typeof(TabPanelController), "Инвестиции"),
             new UIMapper("Поставщик", typeof(TabPanelController), "Поставщик"),
-            new UIMapper("Сохранить", typeof(MuiButtonController), "Сохранить"),    
+            new UIMapper("Обоснование необходимости инвестиций", typeof(ComboBoxController), "rationaleForInvestmentId"),
+            new UIMapper("Добавить поставщика", typeof(ComboBoxController), ""),
+            new UIMapper("Сохранить", typeof(MuiButtonController), "Сохранить"),
+            new UIMapper("Таблица поставщиков", typeof(TableController), "Common"),
         };
     }
 }

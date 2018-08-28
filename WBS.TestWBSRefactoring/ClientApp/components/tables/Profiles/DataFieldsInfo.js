@@ -71,11 +71,13 @@ const tableHeaders = {
 };
 
 const titleTable = "Пользователи";
+const tableId = "Profiles";
 
 export default { 
     createWindowFields, 
     editWindowFields, 
     infoWindowModel, 
     tableHeaders, 
-    titleTable
+    titleTable,
+    tableId
 };

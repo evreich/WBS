@@ -19,15 +19,13 @@ namespace WBS.Selenium.Controllers.UIControllers
 
         public void SetListValues(params string[] values)
         {
-            IWebElement resultCentre = context.Driver.FindElement(locator);
-            resultCentre.Click();
+            IWebElement ddl = context.Driver.FindElement(locator);
+            ddl.Click();
             foreach (var item in values)
             {
                 IWebElement li = context.Driver.FindElement(By.XPath($"//ul[@role='listbox']//span[contains(text(),'{item}')]"));
                 li.Click();
             }
-            //IWebElement form = context.Driver.FindElement(By.XPath("//div[contains(@class,'MuiBackdrop')]"));
-            //form.
             IJavaScriptExecutor js = ((IJavaScriptExecutor)context.Driver);
             js.ExecuteScript("document.querySelector(\"div[class*='MuiBackdrop-invisible'\").style.display = 'none'");
             js.ExecuteScript("document.querySelector(\"div[class*='MuiMenu-paper'\").style.display = 'none'");

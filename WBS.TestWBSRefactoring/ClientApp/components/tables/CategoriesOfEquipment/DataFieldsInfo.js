@@ -32,6 +32,7 @@ const commonFields = {
 
 const createWindowFields = {
     [commonFields.categoryGroupId.propName]: commonFields.categoryGroupId,
+    [commonFields.categoryGroupTitle.propName]: commonFields.categoryGroupTitle,
     [commonFields.code.propName]: commonFields.code,
     [commonFields.title.propName]: commonFields.title,
     [commonFields.depreciationPeriod.propName]: commonFields.depreciationPeriod,
@@ -56,11 +57,13 @@ const tableHeaders = {
 };
 
 const titleTable = "Категории оборудования";
+const tableId = "CategoriesOfEquipment";
 
 export default { 
     createWindowFields, 
     editWindowFields, 
     infoWindowModel, 
     tableHeaders, 
-    titleTable
+    titleTable,
+    tableId
 };

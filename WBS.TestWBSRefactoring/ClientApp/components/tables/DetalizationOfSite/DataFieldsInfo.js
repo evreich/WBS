@@ -62,9 +62,14 @@ const commonFields = {
 
 const createWindowFields = {
     [commonFields.resultCenterId.propName]: commonFields.resultCenterId,
+    [commonFields.resultCenterTitle.propName]: commonFields.resultCenterTitle,
     [commonFields.typeOfInvestmentId.propName]: commonFields.typeOfInvestmentId,
+    [commonFields.typeOfInvestmentTitle.propName]:
+        commonFields.typeOfInvestmentTitle,
     [commonFields.categoryOfEquipmentId.propName]:
         commonFields.categoryOfEquipmentId,
+    [commonFields.categoryOfEquipmentTitle.propName]:
+        commonFields.categoryOfEquipmentTitle,
     [commonFields.subjectOfInvestment.propName]:
         commonFields.subjectOfInvestment,
     [commonFields.dateOfDelivery.propName]: commonFields.dateOfDelivery,
@@ -106,11 +111,13 @@ const tableHeaders = {
 };
 
 const titleTable = "Детальный план сита";
+const tableId = "DetalizationOfSite";
 
 export default {
     createWindowFields,
     editWindowFields,
     infoWindowModel,
     tableHeaders,
-    titleTable
+    titleTable,
+    tableId
 };
