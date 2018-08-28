@@ -38,7 +38,7 @@ namespace WBS.Selenium.Models
         private Lazy<InformationBudgetStringDetailViewController> informationBudgetStringDetailView = new Lazy<InformationBudgetStringDetailViewController>(() => new InformationBudgetStringDetailViewController());
         private Lazy<CreateSiteDetailViewController> createSiteDetailView = new Lazy<CreateSiteDetailViewController>(() =>new CreateSiteDetailViewController());
         private Lazy<SelectProviderDetailViewController> selectProviderDetailView = new Lazy<SelectProviderDetailViewController>(() => new SelectProviderDetailViewController());
-        private Lazy<CreateSitFormDetailViewController> createSitFormDetailView = new Lazy<CreateSitFormDetailViewController>(() => new CreateSitFormDetailViewController());
+        private Lazy<CreateSitFormatDetailViewController> createSitFormDetailView = new Lazy<CreateSitFormatDetailViewController>(() => new CreateSitFormatDetailViewController());
 
         public CreateSiteDetailViewController CreateSiteDetailView => InitializeController(createSiteDetailView);
         public InformationBudgetStringDetailViewController InformationBudgetStringDetailView => InitializeController(informationBudgetStringDetailView);
@@ -50,7 +50,7 @@ namespace WBS.Selenium.Models
         public CreateRequestDetailViewController CreateRequestDetailView => InitializeController(createRequestDetailView);
         public CreateBudgetDetailViewController CreateBudgetDetailView => InitializeController(createBudgetDetailView);
         public SelectProviderDetailViewController SelectProviderDetailView => InitializeController(selectProviderDetailView);
-        public CreateSitFormDetailViewController CreateSitFormDetailView => InitializeController(createSitFormDetailView);
+        public CreateSitFormatDetailViewController CreateSitFormDetailView => InitializeController(createSitFormDetailView);
 
         public PageValidationController PageValidation { get; private set; }
 
