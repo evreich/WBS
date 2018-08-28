@@ -114,13 +114,13 @@ namespace WBS.Selenium.TestScripts
         {
             string kusit = Context.TestSettings.GetValue("kusit");
             string newTitle = Context.TestSettings.GetValue("newTitle");
+            string userName = Context.TestSettings.GetValue("userName");
 
             InformationSiteDetailView.ClickElement("Редактировать");
-            ////проверка
+
+            //проверка
             //PageValidation.CheckModalCaption("Редактирование");
-            
-            //баг
-            //PageValidation.CheckFieldValue(CreateSiteDetailView, "КУ Сита", kusit);
+            PageValidation.CheckFieldValue(CreateSiteDetailView, "КУ Сита", userName);
 
 
             CreateSiteDetailView.SetElementValue("Название", newTitle);

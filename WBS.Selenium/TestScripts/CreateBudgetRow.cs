@@ -62,7 +62,7 @@ namespace WBS.Selenium.TestScripts
             string quantity = Context.TestSettings.GetValue("quantity");
             string date = Context.TestSettings.GetValue("date");
 
-            ListView.ClickRowTable("2020");
+            ListView.ClickRowTable("2018");
             //CreateBudgetDetailView.ClickElement("Ссылка год");
             Thread.Sleep(1000);
             CreateBudgetDetailView.SetElementValue("Название сита", sit);
@@ -160,7 +160,7 @@ namespace WBS.Selenium.TestScripts
             ListView.ClickRowTable(newDateFormat);
 
             InformationBudgetStringDetailView.ClickElement("Удалить");
-
+            Thread.Sleep(2000);
             //проверка
             ListView.CheckTablenNotContains(newDateFormat);
         }
