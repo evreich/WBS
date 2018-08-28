@@ -96,6 +96,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\FormControllers\CreateSiteDetailViewController.cs" />
     <Compile Include="Controllers\FormControllers\InformationBudgetStringDetailViewController.cs" />
     <Compile Include="Controllers\UIControllers\ButtonCreateRowController.cs" />
     <Compile Include="Controllers\FormControllers\CreateBudgetDetailViewController.cs" />
@@ -107,6 +108,7 @@
     <Compile Include="Controllers\UIControllers\CheckComboBoxController.cs" />
     <Compile Include="Controllers\UIControllers\ComboBoxController.cs" />
     <Compile Include="Controllers\PageValidationController.cs" />
+    <Compile Include="Controllers\UIControllers\ComplexComboBoxController.cs" />
     <Compile Include="Controllers\UIControllers\LabelController.cs" />
     <Compile Include="Controllers\UIControllers\MuiIconController.cs" />
     <Compile Include="Controllers\UIControllers\DatePickerController.cs" />
@@ -129,6 +131,7 @@
     <Compile Include="Controllers\UIControllers\UIController.cs" />
     <Compile Include="Providers\EncoderProvider.cs" />
     <Compile Include="Reporter.cs" />
+    <Compile Include="TestScripts\CreateAndEditSite.cs" />
     <Compile Include="TestScripts\CreateBudgetPlan.cs" />
     <Compile Include="TestScripts\CreateBudgetRow.cs" />
     <Compile Include="TestScripts\CreateRequest.cs" />
@@ -153,6 +156,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Configs\Tests\CreateAndEditSite.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Configs\Tests\CreateAndEditUser.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
