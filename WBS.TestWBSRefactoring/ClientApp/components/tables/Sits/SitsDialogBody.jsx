@@ -46,33 +46,17 @@ class SitsDialogBody extends React.PureComponent {
 
     showError = () => {};
 
-    getDataToSave = () => {
-        const { 
-            formatId,
-            kySitId,
-            technicalExpertId,
-            directorOfSitId,
-            createrOfBudgetId,
-            kyRegionId,
-            operationDirectorId,
-            title
-        } = this.state;
-        return {
-            formatId,
-            kySitId,
-            technicalExpertId,
-            directorOfSitId,
-            createrOfBudgetId,
-            kyRegionId,
-            operationDirectorId,
-            title 
-        }
-    }
+    getDataToSave = () => this.state
 
     //handlers
-    handleChange = e => {
+    handleChange = (e, ...args) => {
         const { name, value } = e.target;
-        this.setState({ [name]: value });
+        const otherArgs = args.length > 0 ? args.reduce((obj, item) => ({ ...obj, ...item })) : {};
+
+        this.setState({
+            [name]: value,
+            ...otherArgs
+        });
     };
 
     render() {
@@ -81,12 +65,12 @@ class SitsDialogBody extends React.PureComponent {
             formats,
             formatId,
             title,
-            kySitId,
-            technicalExpertId,
-            directorOfSitId,
-            createrOfBudgetId,
-            kyRegionId,
-            operationDirectorId,
+            kySitFio,
+            technicalExpertFio,
+            directorOfSitFio,
+            createrOfBudgetFio,
+            kyRegionFio,
+            operationDirectorFio,
         } = this.state;
         const {
             title: titleName,
@@ -97,6 +81,13 @@ class SitsDialogBody extends React.PureComponent {
             createrOfBudgetId: createrOfBudgetIdName,
             kyRegionId: kyRegionIdName,
             operationDirectorId: operationDirectorIdName,
+            formatTitle: formatTitleName,
+            kySitFio: kySitFioName,
+            technicalExpertFio: technicalExpertFioName,
+            directorOfSitFio: directorOfSitFioName,
+            createrOfBudgetFio: createrOfBudgetFioName,
+            kyRegionFio: kyRegionFioName,
+            operationDirectorFio: operationDirectorFioName,
  
         } = formFields;
 
@@ -119,6 +110,7 @@ class SitsDialogBody extends React.PureComponent {
                         onChange: this.handleChange,
                         fullWidth: true
                     }}
+                    textPropName={formatTitleName.propName}
                     items={
                         formats &&
                         formats.map(elem => ({
@@ -130,37 +122,43 @@ class SitsDialogBody extends React.PureComponent {
                 <UserAutosuggestField
                     name={kySitIdName.propName}
                     label={kySitIdName.label}
-                    value={kySitId}
+                    value={kySitFio}
+                    textPropName={kySitFioName.propName}
                     onSuggestionSelected={this.handleChange}
                 />
                 <UserAutosuggestField
                     name={technicalExpertIdName.propName}
                     label={technicalExpertIdName.label}
-                    value={technicalExpertId}
+                    value={technicalExpertFio}
+                    textPropName={technicalExpertFioName.propName}
                     onSuggestionSelected={this.handleChange}
                 />
                 <UserAutosuggestField
                     name={directorOfSitIdName.propName}
                     label={directorOfSitIdName.label}
-                    value={directorOfSitId}
+                    value={directorOfSitFio}
+                    textPropName={directorOfSitFioName.propName}
                     onSuggestionSelected={this.handleChange}
                 />
                 <UserAutosuggestField
                     name={createrOfBudgetIdName.propName}
                     label={createrOfBudgetIdName.label}
-                    value={createrOfBudgetId}
+                    value={createrOfBudgetFio}
+                    textPropName={createrOfBudgetFioName.propName}
                     onSuggestionSelected={this.handleChange}
                 />
                 <UserAutosuggestField
                     name={kyRegionIdName.propName}
                     label={kyRegionIdName.label}
-                    value={kyRegionId}
+                    value={kyRegionFio}
+                    textPropName={kyRegionFioName.propName}
                     onSuggestionSelected={this.handleChange}
                 />
                 <UserAutosuggestField
                     name={operationDirectorIdName.propName}
                     label={operationDirectorIdName.label}
-                    value={operationDirectorId}
+                    value={operationDirectorFio}
+                    textPropName={operationDirectorFioName.propName}
                     onSuggestionSelected={this.handleChange}
                 />
 

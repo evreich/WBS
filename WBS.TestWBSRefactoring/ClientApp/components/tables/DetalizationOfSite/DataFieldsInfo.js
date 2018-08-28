@@ -62,9 +62,14 @@ const commonFields = {
 
 const createWindowFields = {
     [commonFields.resultCenterId.propName]: commonFields.resultCenterId,
+    [commonFields.resultCenterTitle.propName]: commonFields.resultCenterTitle,
     [commonFields.typeOfInvestmentId.propName]: commonFields.typeOfInvestmentId,
+    [commonFields.typeOfInvestmentTitle.propName]:
+        commonFields.typeOfInvestmentTitle,
     [commonFields.categoryOfEquipmentId.propName]:
         commonFields.categoryOfEquipmentId,
+    [commonFields.categoryOfEquipmentTitle.propName]:
+        commonFields.categoryOfEquipmentTitle,
     [commonFields.subjectOfInvestment.propName]:
         commonFields.subjectOfInvestment,
     [commonFields.dateOfDelivery.propName]: commonFields.dateOfDelivery,

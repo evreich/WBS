@@ -3,7 +3,7 @@ import React from "react";
 import DataFieldsInfo from './DataFieldsInfo';
 import ProvidersContainer from '../../../containers/tables/Providers/Providers';
 import DialogBody from './ProvidersDialogBody';
-import { tableStyles } from './Providers.css';
+import { tableStyles } from '../tableLayoutAuto.css';
 import ProviderTableRow from './ProviderTableRow';
 
 

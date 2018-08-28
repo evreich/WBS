@@ -75,9 +75,10 @@ class DetalizationOfSiteDialogBody extends React.PureComponent {
     getDataToSave = () => {
         const amount = this.props.formFields.amount;
         const {
-            resultCentres,
-            typesOfInvestment,
-            categoryGroups,
+            id,
+            resultCenter,
+            typeOfInvestment,
+            categoryOfEquipment,
             resultCenterId,
             typeOfInvestmentId,
             categoryOfEquipmentId,
@@ -90,11 +91,12 @@ class DetalizationOfSiteDialogBody extends React.PureComponent {
         } = this.state;
 
         return {
+            id,
             budgetPlanId,
             siteId,
-            resultCentres,
-            typesOfInvestment,
-            categoryGroups,
+            resultCenter,
+            typeOfInvestment,
+            categoryOfEquipment,
             resultCenterId,
             typeOfInvestmentId,
             categoryOfEquipmentId,
@@ -107,9 +109,14 @@ class DetalizationOfSiteDialogBody extends React.PureComponent {
     };
 
     //handlers
-    handleChange = e => {
+    handleChange = (e, ...args) => {
         const { name, value } = e.target;
-        this.setState({ [name]: value });
+        const otherArgs = args.length > 0 ? args.reduce((obj, item) => ({ ...obj, ...item })) : {};
+
+        this.setState({
+            [name]: value,
+            ...otherArgs
+        });
     };
 
     render() {
@@ -128,8 +135,11 @@ class DetalizationOfSiteDialogBody extends React.PureComponent {
         } = this.state;
         const {
             resultCenterId: resultCenterName,
+            resultCenter: resultCenterTitleName,
             typeOfInvestmentId: typeOfInvestmentName,
+            typeOfInvestment: typeOfInvestmentTitleName,
             categoryOfEquipmentId: categoryName,
+            categoryOfEquipment: categoryTitleName,
             subjectOfInvestment: subjectOfInvestmentName,
             dateOfDelivery: dateOfDeliveryName,
             count: countName,
@@ -155,6 +165,7 @@ class DetalizationOfSiteDialogBody extends React.PureComponent {
                         onChange: this.handleChange,
                         fullWidth: true
                     }}
+                    textPropName={resultCenterTitleName.propName}
                     items={
                         resultCentres &&
                         resultCentres.map(elem => ({
@@ -171,6 +182,7 @@ class DetalizationOfSiteDialogBody extends React.PureComponent {
                         onChange: this.handleChange,
                         fullWidth: true
                     }}
+                    textPropName={typeOfInvestmentTitleName.propName}
                     items={
                         typesOfInvestment &&
                         typesOfInvestment.map(elem => ({
@@ -187,6 +199,7 @@ class DetalizationOfSiteDialogBody extends React.PureComponent {
                         onChange: this.handleChange,
                         fullWidth: true
                     }}
+                    textPropName={categoryTitleName.propName}
                     items={
                         categoryGroups &&
                         categoryGroups.map(elem => ({

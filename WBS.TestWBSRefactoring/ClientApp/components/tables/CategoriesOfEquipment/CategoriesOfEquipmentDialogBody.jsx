@@ -52,9 +52,14 @@ class CategoriesOfEquipmentDialogBody extends React.PureComponent {
     getDataToSave = () => this.state;
 
     //handlers
-    handleChange = e => {
+    handleChange = (e, ...args) => {
         const { name, value } = e.target;
-        this.setState({ [name]: value });
+        const otherArgs = args.length > 0 ? args.reduce((obj, item) => ({ ...obj, ...item })) : {};
+
+        this.setState({
+            [name]: value,
+            ...otherArgs
+        });
     };
 
     render() {
@@ -62,6 +67,7 @@ class CategoriesOfEquipmentDialogBody extends React.PureComponent {
         const { categoryGroupId, code, title, depreciationPeriod, categoryGroups } = this.state;
         const {
             categoryGroupId: categoryName,
+            categoryGroupTitle: categoryGroupTitleName,
             code: codeName,
             title: titleName,
             depreciationPeriod: periodName
@@ -77,6 +83,7 @@ class CategoriesOfEquipmentDialogBody extends React.PureComponent {
                         onChange: this.handleChange,
                         fullWidth: true
                     }}
+                    textPropName={categoryGroupTitleName.propName}
                     items={
                         categoryGroups &&
                         categoryGroups.map(elem => ({
