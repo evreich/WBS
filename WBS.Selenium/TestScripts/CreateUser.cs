@@ -44,7 +44,7 @@ namespace WBS.Selenium.TestScripts
         {
             NavigationMenu.OpenPage("Пользователи");
 
-            PageValidation.CheckPageCaption("/Profiles");            
+            PageValidation.CheckPageCaption("/Profiles");
         }
 
         [Test(Description = "4. Создать пользователя"), Order(4)]

@@ -13,7 +13,7 @@ using WBS.Selenium.Models;
 
 namespace WBS.Selenium.TestScripts
 {
-    [TestFixture(Description = "1.Создание бюджетных строк в бюджетном блане"), Order(2)]/*(TestName = "1.Создание бюджетной строки")]*/
+    [TestFixture(Description = "3.Создание бюджетных строк в бюджетном блане"), Order(3)]/*(TestName = "1.Создание бюджетной строки")]*/
     public class CreateBudgetRow : TestBase
     {
         public override string Id => "CreateBudgetPlan";
@@ -91,6 +91,62 @@ namespace WBS.Selenium.TestScripts
 
             // Проверка по дате
             ListView.CheckTableContainsByName(date, "Детальный план сита");
+        }
+
+        [Test(Description = "5. Открыть окно просмотра и редактирования"), Order(5)]
+        public void OpenEditStringOfPlan()
+        {
+            string sit = Context.TestSettings.GetValue("sit");
+            string price = Context.TestSettings.GetValue("price");
+            string result = Context.TestSettings.GetValue("result");
+            string typeinvest = Context.TestSettings.GetValue("typeinvest");
+            string category = Context.TestSettings.GetValue("category");
+            string objectinvest = Context.TestSettings.GetValue("objectinvest");
+            string quantity = Context.TestSettings.GetValue("quantity");
+            string date = Context.TestSettings.GetValue("date");
+            int newSum = Convert.ToInt32(quantity) * Convert.ToInt32(price);
+            //баг: различный формат даты
+            string[] parseDate = date.Split('-');
+            string newDateFormat = parseDate[2] + "-" + parseDate[0] + "-" + parseDate[1];
+
+            ListView.ClickRowTable(newDateFormat);
+
+            //проверка
+            PageValidation.CheckFieldValue(InformationBudgetStringDetailView, "Центр результата", result);
+            PageValidation.CheckFieldValue(InformationBudgetStringDetailView, "Тип инвестиций", typeinvest);
+            PageValidation.CheckFieldValue(InformationBudgetStringDetailView, "Категория", category);
+            PageValidation.CheckFieldValue(InformationBudgetStringDetailView, "Предмет инвестиций", objectinvest);
+            PageValidation.CheckFieldValue(InformationBudgetStringDetailView, "Дата поставки", newDateFormat);
+            PageValidation.CheckFieldValue(InformationBudgetStringDetailView, "Количество", quantity);
+            PageValidation.CheckFieldValue(InformationBudgetStringDetailView, "Цена", price);
+            PageValidation.CheckFieldValue(InformationBudgetStringDetailView, "Сумма", newSum.ToString());
+
+            InformationBudgetStringDetailView.ClickElement("Редактировать");
+        }
+
+        [Test(Description = "6. Редактирование полей"), Order(6)]
+        public void EditFields()
+        {
+            string objectinvest = Context.TestSettings.GetValue("newObjectinvest");
+            string quantity = Context.TestSettings.GetValue("newQuantity");
+            string date = Context.TestSettings.GetValue("newDate");
+            string price = Context.TestSettings.GetValue("price");
+            int newSum = Convert.ToInt32(quantity) * Convert.ToInt32(price);
+            //баг: различный формат даты
+            string[] parseDate = date.Split('-');
+            string newDateFormat = parseDate[2] + "-" + parseDate[0] + "-" + parseDate[1];
+            CreateBudgetDetailView.SetElementValue("Предмет инвестиций", objectinvest);
+            Thread.Sleep(500);
+            CreateBudgetDetailView.SetElementValue("Дата поставки", date);
+            Thread.Sleep(500);
+            CreateBudgetDetailView.SetElementValue("Количество", quantity);
+            CreateBudgetDetailView.ClickElement("Сохранить");
+            InformationBudgetStringDetailView.ClickElement("ОК");
+            //проверки
+            ListView.CheckTableContains(objectinvest);
+            ListView.CheckTableContains(quantity);
+            ListView.CheckTableContains(newDateFormat);
+            ListView.CheckTableContains(newSum.ToString());
         }
     }
 }
