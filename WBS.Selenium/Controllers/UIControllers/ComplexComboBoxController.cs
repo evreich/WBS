@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace WBS.Selenium.Controllers.UIControllers
 {
-    public class ComplexComboBoxController:UIController
+    public class ComplexComboBoxController : UIController
     {
         public override void Initialize(Context context, string id, bool waitPostback = false, Dictionary<string, string> parameters = null)
         {

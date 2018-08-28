@@ -33,7 +33,7 @@ namespace WBS.Selenium.TestScripts
 
             NavigationMenu.OpenPage("Бюджетные планы");
 
-            PageValidation.CheckPageCaption("/BudgetPlans");
+            PageValidation.CheckUrl("/BudgetPlans");
         }
         //создать бюджетный план с годом, входящим в диапазон
         [Test, Order(4)]

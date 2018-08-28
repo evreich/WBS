@@ -36,7 +36,7 @@ namespace WBS.Selenium
 
             NavigationMenu.OpenPage("Заявки на инвестиции");
 
-            PageValidation.CheckPageCaption("/DAIRequests");
+            PageValidation.CheckUrl("/DAIRequests");
         }
         [Test(Description = "3. Заполнить поля на форме создания заявки"), Order(3)]
         public void CreateOnOrder()
