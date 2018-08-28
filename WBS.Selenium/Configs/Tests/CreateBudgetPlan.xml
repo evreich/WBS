@@ -3,11 +3,15 @@
   <year>2018</year>
   <invalidyear>20000123</invalidyear>
   <sit>sit1</sit>
-  <date>2018-10-24</date>
+  <date>10-24-2018</date>
   <result>ggnbvc</result>
   <typeinvest>Тип инвестиций</typeinvest>
   <category>К1</category>
   <objectinvest>Предмет инвестиций</objectinvest>
   <quantity>500</quantity>
   <price>200</price>
+
+  <newObjectinvest>Новые инвестиции</newObjectinvest>
+  <newQuantity>700</newQuantity>
+  <newDate>10-20-2018</newDate>
 </data>

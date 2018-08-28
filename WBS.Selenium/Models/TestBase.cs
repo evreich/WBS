@@ -35,7 +35,9 @@ namespace WBS.Selenium.Models
         private Lazy<CreateRequestDetailViewController> createRequestDetailView = new Lazy<CreateRequestDetailViewController>(() => new CreateRequestDetailViewController());
         private Lazy<CreateBudgetDetailViewController> createBudgetDetailView = new Lazy<CreateBudgetDetailViewController>(() => new CreateBudgetDetailViewController());
         private Lazy<InformationUserDetailViewController> informationUserDetailView = new Lazy<InformationUserDetailViewController>(() => new InformationUserDetailViewController());
+        private Lazy<InformationBudgetStringDetailViewController> informationBudgetStringDetailView = new Lazy<InformationBudgetStringDetailViewController>(() => new InformationBudgetStringDetailViewController());
 
+        public InformationBudgetStringDetailViewController InformationBudgetStringDetailView => InitializeController(informationBudgetStringDetailView);
         public InformationUserDetailViewController InformationUserDetailView => InitializeController(informationUserDetailView);
         public CreateUserDetailViewController CreateUserDetailView => InitializeController(createUserDetailView);
         public ListViewController ListView => InitializeController(listView);

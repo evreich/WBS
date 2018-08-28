@@ -96,6 +96,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\FormControllers\InformationBudgetStringDetailViewController.cs" />
     <Compile Include="Controllers\UIControllers\ButtonCreateRowController.cs" />
     <Compile Include="Controllers\FormControllers\CreateBudgetDetailViewController.cs" />
     <Compile Include="Controllers\UIControllers\ButtonLinkYearController.cs" />

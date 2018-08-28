@@ -15,7 +15,7 @@ namespace WBS.Selenium.Controllers.UIControllers
         public override void Initialize(Context context, string id, bool waitPostback = false, Dictionary<string, string> parameters = null)
         {
             base.Initialize(context, id, waitPostback, parameters);
-            locator = By.XPath($"//tr[contains(@class,'InformationForm')]//td[text()='{id}']/parent::tr//div");
+            locator = By.XPath($"//tr[contains(@class,'Information')]//td[text()='{id}']/parent::tr//div");
         }
 
         public override string GetValue()
