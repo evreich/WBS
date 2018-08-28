@@ -43,6 +43,7 @@ namespace WBS.Selenium
         {
             string sit = Context.TestSettings.GetValue("sit");
             string result = Context.TestSettings.GetValue("result");
+            string typeInvest = Context.TestSettings.GetValue("typeInvest");
             ListView.ClickElement("Создать");
             Thread.Sleep(2000);
             CreateRequestDetailView.SetElementValue("Название сита", sit);
@@ -50,6 +51,12 @@ namespace WBS.Selenium
             CreateRequestDetailView.SetElementValue("Центр результата", result);
             CreateRequestDetailView.ClickElement("Выбор технической службы");
             CreateRequestDetailView.ClickElement("Поставщик");
+            CreateRequestDetailView.ClickAddInTable("Таблица поставщиков");
+            Thread.Sleep(5000);
+            SelectProviderDetailView.ClickPlus(Context, "Поставщик1");
+            Thread.Sleep(2000);
+            CreateRequestDetailView.SetElementValue("Обоснование необходимости инвестиций", typeInvest);
+            Thread.Sleep(5000);
             PageController.ScrollBottom(Context);
             Thread.Sleep(2000);
             CreateRequestDetailView.ClickElement("Сохранить");

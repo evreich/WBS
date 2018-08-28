@@ -36,7 +36,11 @@ namespace WBS.Selenium.Models
         private Lazy<CreateBudgetDetailViewController> createBudgetDetailView = new Lazy<CreateBudgetDetailViewController>(() => new CreateBudgetDetailViewController());
         private Lazy<InformationUserDetailViewController> informationUserDetailView = new Lazy<InformationUserDetailViewController>(() => new InformationUserDetailViewController());
         private Lazy<InformationBudgetStringDetailViewController> informationBudgetStringDetailView = new Lazy<InformationBudgetStringDetailViewController>(() => new InformationBudgetStringDetailViewController());
+        private Lazy<CreateSiteDetailViewController> createSiteDetailView = new Lazy<CreateSiteDetailViewController>(() =>new CreateSiteDetailViewController());
+        private Lazy<SelectProviderDetailViewController> selectProviderDetailView = new Lazy<SelectProviderDetailViewController>(() => new SelectProviderDetailViewController());
+        private Lazy<CreateSitFormDetailViewController> createSitFormDetailView = new Lazy<CreateSitFormDetailViewController>(() => new CreateSitFormDetailViewController());
 
+        public CreateSiteDetailViewController CreateSiteDetailView => InitializeController(createSiteDetailView);
         public InformationBudgetStringDetailViewController InformationBudgetStringDetailView => InitializeController(informationBudgetStringDetailView);
         public InformationUserDetailViewController InformationUserDetailView => InitializeController(informationUserDetailView);
         public CreateUserDetailViewController CreateUserDetailView => InitializeController(createUserDetailView);
@@ -45,6 +49,8 @@ namespace WBS.Selenium.Models
 
         public CreateRequestDetailViewController CreateRequestDetailView => InitializeController(createRequestDetailView);
         public CreateBudgetDetailViewController CreateBudgetDetailView => InitializeController(createBudgetDetailView);
+        public SelectProviderDetailViewController SelectProviderDetailView => InitializeController(selectProviderDetailView);
+        public CreateSitFormDetailViewController CreateSitFormDetailView => InitializeController(createSitFormDetailView);
 
         public PageValidationController PageValidation { get; private set; }
 
@@ -152,7 +158,7 @@ namespace WBS.Selenium.Models
             Thread.Sleep(1000);
             IWebElement button = Context.Driver.FindElement(By.XPath("//button[contains(@class,'ButtonPrimary-button')]"));
             button.Click();
-            Thread.Sleep(5000);
+            Thread.Sleep(10000);
             // Вынести в константы главную страницу после логина
             string MainPage = "http://localhost:55443/Home";
             // Проверка, на то, что после логина перешли на главную страницу сайта
