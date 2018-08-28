@@ -159,7 +159,7 @@ namespace WBS.API.Controllers
                 .Where(p => !p.DeletionMark
                        && (string.IsNullOrEmpty(query) ||
                           (!string.IsNullOrEmpty(p.Fio) && p.Fio.ToUpper().Contains(query.ToUpper())
-                           || !string.IsNullOrEmpty(p.Login)) && p.Login.ToUpper().Contains(query.ToUpper())))                          
+                           || !string.IsNullOrEmpty(p.Login) && p.Login.ToUpper().Contains(query.ToUpper()))))                          
                 .Select(f => new ProfilesForSelection(f));
                 
             if (count.HasValue)
