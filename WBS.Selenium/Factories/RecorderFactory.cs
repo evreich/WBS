@@ -8,6 +8,10 @@ using WBS.Selenium.Enums;
 
 namespace WBS.Selenium.Factories
 {
+    /// <summary>
+    ///  Класс RecorderFactory
+    ///  класс для настройки видео
+    /// </summary>
     public class RecorderFactory
     {
         private const string DefaultExtension = ".avi";

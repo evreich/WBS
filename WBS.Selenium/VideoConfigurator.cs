@@ -5,7 +5,7 @@ namespace WBS.Selenium
 {
     public class VideoConfigurator
     {
-        public int Width { get; } = SystemInformation.PrimaryMonitorSize.Width; //PrimaryMonitorSize
+        public int Width { get; } = SystemInformation.PrimaryMonitorSize.Width;
         public int Height { get; } = SystemInformation.PrimaryMonitorSize.Height;
         public int FramePerSecond { get; set; } = 30;
         public int FrameCount { get; } = 0;

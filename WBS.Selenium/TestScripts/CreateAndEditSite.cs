@@ -12,42 +12,50 @@ using WBS.Selenium.Controllers;
 using System.IO;
 using Microsoft.Expression.Encoder.ScreenCapture;
 using WBS.Selenium.Models;
-
+using WBS.Selenium.Enums;
 
 namespace WBS.Selenium.TestScripts
 {
     [TestFixture(Description = "1.Создание и редактирование нового пользователя"), Order(2)]/*(TestName = "1.Создание нового пользователя")]*/
     class CreateAndEditSite : TestBase
     {
+        //Id ссылается на Config\\Tests\\CreateAndEditSite.xml файл (имя файла=имя класса)
+        //необходимо, чтобы получать данные из CreateAndEditSite.xml через TestSettings 
         public override string Id => "CreateAndEditSite";
 
         [Test(Description = "1. Открыть браузер"), Order(1)]
         public void OpenaBrowser()
         {
+            //перейти по url
             Context.Driver.Navigate().GoToUrl("http://localhost:55443");
+            //развернуть браузер 
             Context.Driver.Manage().Window.Maximize();
-            Thread.Sleep(2000);
         }
 
         [Test(Description = "2. Зарегистрироваться в системе"), Order(2)]
         public void AvtorizationOnAllUsers()
         {
-            User user = Context.Users.FirstOrDefault(u => u.Name == "Admin");
+            //получить пользователя по имени из контекста
+            User user = Context.Users.GetUserbyName(UserNames.Admin);
+            //залогиниться под пользователем user
             Login(user);
-            Thread.Sleep(1000);
+            //проверить часть url
+            PageValidation.CheckUrl("/Home");
         }
 
         [Test(Description = "3. Открыть вкладку \"Ситы\""), Order(3)]
         public void OpenNavigation()
         {
+            //открыть вкладку Ситы
             NavigationMenu.OpenPage("Ситы");
-
+            //проверить часть url
             PageValidation.CheckUrl("/Sits");
         }
 
         [Test(Description = "4. Создать пользователя"), Order(4)]
         public void CreateNewUser()
         {
+            //получить данные из CreateAndEditSite.xml
             string title = Context.TestSettings.GetValue("title");
             string format = Context.TestSettings.GetValue("format");
             string kusit = Context.TestSettings.GetValue("kusit");
@@ -58,14 +66,15 @@ namespace WBS.Selenium.TestScripts
             string operationDirector = Context.TestSettings.GetValue("operationDirector");
             string userName = Context.TestSettings.GetValue("userName");
 
+            //нажимает на объект из Maps, у которого Field равен Создать
             ListView.ClickElement("Создать");
 
-            //проверка
+            //проверка заголовка модального окна
             PageValidation.CheckModalCaption("Создание");
 
+            //заполнение полей 
             CreateSiteDetailView.SetElementValue("Название", title);
             CreateSiteDetailView.SetElementValue("Формат", format);
-            Thread.Sleep(2000);
             CreateSiteDetailView.SetElementValue("КУ Сита", kusit);
             CreateSiteDetailView.SetElementValue("Технический эксперт", technicalExpert);
             CreateSiteDetailView.SetElementValue("Директор Сита", directorOfSit);
@@ -73,8 +82,9 @@ namespace WBS.Selenium.TestScripts
             CreateSiteDetailView.SetElementValue("КУ региональный", kyRegion);
             CreateSiteDetailView.SetElementValue("Операционный директор", operationDirector);
 
+            //нажимает на объект из Maps, у которого Field равен Сохранить
             CreateSiteDetailView.ClickElement("Сохранить");
-            Thread.Sleep(2000);
+
             //проверка
             ListView.CheckTableContains(title);
             ListView.CheckTableContains(format);
@@ -128,7 +138,7 @@ namespace WBS.Selenium.TestScripts
             //CreateSiteDetailView.SetElementValue("Подразделение", department);
 
             CreateSiteDetailView.ClickElement("Сохранить");
-            Thread.Sleep(2000);
+
             InformationSiteDetailView.ClickElement("ОК");
             //проверка
             ListView.CheckTableContains(newTitle);
@@ -144,7 +154,6 @@ namespace WBS.Selenium.TestScripts
             PageValidation.CheckModalCaption("Информационное окно");
 
             InformationBudgetStringDetailView.ClickElement("Удалить");
-            Thread.Sleep(2000);
 
             //проверка
             ListView.CheckTablenNotContains(newTitle);

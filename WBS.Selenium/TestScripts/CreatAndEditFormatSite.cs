@@ -12,6 +12,7 @@ using WBS.Selenium.Controllers;
 using System.IO;
 using Microsoft.Expression.Encoder.ScreenCapture;
 using WBS.Selenium.Models;
+using WBS.Selenium.Enums;
 
 namespace WBS.Selenium.TestScripts
 {
@@ -31,7 +32,7 @@ namespace WBS.Selenium.TestScripts
         [Test(Description = "2. Зарегистрироваться в системе"), Order(2)]
         public void AvtorizationOnAllUsers()
         {
-            User user = Context.Users.FirstOrDefault(u => u.Name == "Admin");
+            User user = Context.Users.GetUserbyName(UserNames.Admin);
             Login(user);
             Thread.Sleep(1000);
         }

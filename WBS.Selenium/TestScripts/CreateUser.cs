@@ -14,6 +14,7 @@ using WBS.Selenium.Controllers;
 using System.IO;
 using Microsoft.Expression.Encoder.ScreenCapture;
 using WBS.Selenium.Models;
+using WBS.Selenium.Enums;
 
 namespace WBS.Selenium.TestScripts
 {
@@ -28,15 +29,15 @@ namespace WBS.Selenium.TestScripts
         {
             Context.Driver.Navigate().GoToUrl("http://localhost:55443");
             Context.Driver.Manage().Window.Maximize();
-            Thread.Sleep(2000);
         }
 
         [Test(Description = "2. Зарегистрироваться в системе"), Order(2)]
         public void AvtorizationOnAllUsers()
         {
-            User user = Context.Users.FirstOrDefault(u => u.Name == "Admin");
+            User user = Context.Users.GetUserbyName(UserNames.Admin);
             Login(user);
-            Thread.Sleep(1000);
+
+            PageValidation.CheckUrl("/Home");
         }
 
         [Test(Description = "3. Открыть вкладку \"Пользователи\""), Order(3)]
@@ -68,9 +69,9 @@ namespace WBS.Selenium.TestScripts
             CreateUserDetailView.SetElementValue("Подразделение", department);
             CreateUserDetailView.SetListValues("Полномочия", roles);
             CreateUserDetailView.SetElementValue("Пароль", password);
-            Thread.Sleep(2000);
+
             CreateUserDetailView.ClickElement("Сохранить");
-            Thread.Sleep(2000);
+
             //проверка
             ListView.CheckTableContains(fio);
         }
@@ -107,7 +108,7 @@ namespace WBS.Selenium.TestScripts
             CreateUserDetailView.SetElementValue("Подразделение", department);
 
             CreateUserDetailView.ClickElement("Сохранить");
-            Thread.Sleep(2000);
+
             InformationUserDetailView.ClickElement("ОК");
             //проверка
             ListView.CheckTableContains(fio);

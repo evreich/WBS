@@ -11,6 +11,10 @@ using WBS.Selenium.Interfaces;
 
 namespace WBS.Selenium.Controllers
 {
+    /// <summary>
+    ///  класс PageValidationController
+    ///  класс для некоторых проверок
+    /// </summary>
     public class PageValidationController
     {
         private Context context;

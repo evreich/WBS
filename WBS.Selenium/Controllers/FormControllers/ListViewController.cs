@@ -8,6 +8,10 @@ using WBS.Selenium.Controllers.UIControllers;
 
 namespace WBS.Selenium.Controllers.FormControllers
 {
+    /// <summary>
+    ///  Класс ListViewController
+    ///  основной DetailView (таблица Common и кнопка Создать), описывающий работу с таблицей
+    /// </summary>
     public class ListViewController : FormController
     {
         public override List<UIMapper> Map => new List<UIMapper>

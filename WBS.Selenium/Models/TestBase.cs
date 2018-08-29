@@ -22,13 +22,21 @@ using System.IO;
 
 namespace WBS.Selenium.Models
 {
+    /// <summary>
+    /// Абстракный класс TestBase
+    ///  является базовым для всех тестов
+    ///  осуществляется "ленивая" инициализация контролеров, формируется отчёт и видеозапись, имеет методы для входа и выхода пользователя
+    /// </summary>
     public abstract class TestBase
     {
         public Context Context;
         public abstract string Id { get; }
         private VideoRecorder _recording;
-        private bool _saveFailedOnly = true; //хранить видео только падений
+        //хранить видео только падений
+        private bool _saveFailedOnly = true;
 
+        //инициализация контроллеров
+        #region  FormControllers
         private Lazy<NavigationMenuController> navigationMenu = new Lazy<NavigationMenuController>(() => new NavigationMenuController());
         private Lazy<ListViewController> listView = new Lazy<ListViewController>(() => new ListViewController());
         private Lazy<CreateUserDetailViewController> createUserDetailView = new Lazy<CreateUserDetailViewController>(() => new CreateUserDetailViewController());
@@ -36,7 +44,7 @@ namespace WBS.Selenium.Models
         private Lazy<CreateBudgetDetailViewController> createBudgetDetailView = new Lazy<CreateBudgetDetailViewController>(() => new CreateBudgetDetailViewController());
         private Lazy<InformationUserDetailViewController> informationUserDetailView = new Lazy<InformationUserDetailViewController>(() => new InformationUserDetailViewController());
         private Lazy<InformationBudgetStringDetailViewController> informationBudgetStringDetailView = new Lazy<InformationBudgetStringDetailViewController>(() => new InformationBudgetStringDetailViewController());
-        private Lazy<CreateSiteDetailViewController> createSiteDetailView = new Lazy<CreateSiteDetailViewController>(() =>new CreateSiteDetailViewController());
+        private Lazy<CreateSiteDetailViewController> createSiteDetailView = new Lazy<CreateSiteDetailViewController>(() => new CreateSiteDetailViewController());
         private Lazy<SelectProviderDetailViewController> selectProviderDetailView = new Lazy<SelectProviderDetailViewController>(() => new SelectProviderDetailViewController());
         private Lazy<CreateSitFormatDetailViewController> createSitFormDetailView = new Lazy<CreateSitFormatDetailViewController>(() => new CreateSitFormatDetailViewController());
         private Lazy<InformationSiteDetailViewController> informationSiteDetailView = new Lazy<InformationSiteDetailViewController>(() => new InformationSiteDetailViewController());
@@ -56,10 +64,12 @@ namespace WBS.Selenium.Models
         public SelectProviderDetailViewController SelectProviderDetailView => InitializeController(selectProviderDetailView);
         public CreateSitFormatDetailViewController CreateSitFormDetailView => InitializeController(createSitFormDetailView);
 
+        #endregion
         public PageValidationController PageValidation { get; private set; }
 
         public TestBase()
         {
+            //формирование отчёта
             string reportTitle;
             if (TestContext.CurrentContext.Test.Properties.ContainsKey("Description") &&
                 TestContext.CurrentContext.Test.Properties["Description"].Count() != 0)
@@ -73,7 +83,7 @@ namespace WBS.Selenium.Models
             Reporter.Instance.CreateTest(reportTitle);
         }
 
-
+        //выполняется перед запуском каждого теста в текущем тест сьюте
         [SetUp]
         public void InitReport()
         {
@@ -86,9 +96,11 @@ namespace WBS.Selenium.Models
 
         }
 
+        //выполняется после каждого теста
         [TearDown]
         public void LogTestResult()
         {
+            //записать результаты выполнения шага теста в отчёт
             var status = NUnit.Framework.TestContext.CurrentContext.Result.Outcome.Status;
             var stacktrace = string.IsNullOrEmpty(NUnit.Framework.TestContext.CurrentContext.Result.StackTrace)
                     ? ""
@@ -124,7 +136,8 @@ namespace WBS.Selenium.Models
             return PageController.GetScreenshot(Context);
         }
 
-        [OneTimeSetUp] // вызывается перед началом запуска всех тестов
+        //вызывается перед началом запуска всех тестов
+        [OneTimeSetUp]
         public void Start()
         {
             string testTitle;
@@ -139,15 +152,20 @@ namespace WBS.Selenium.Models
             _recording.Start();
             PageValidation.Initialize(Context);
         }
-        [OneTimeTearDown] //вызывается после завершения всех тестов
+
+        //вызывается после завершения всех тестов
+        [OneTimeTearDown]
         public void Stop()
         {
+            //остановка записи
             _recording?.Stop();
 
             if (_saveFailedOnly && Equals(TestContext.CurrentContext.Result.Outcome, ResultState.Success))
             {
                 DeleteRelatedVideo();
             }
+
+            //закрытие браузера
             Context.Driver.Quit();
         }
 
@@ -156,17 +174,22 @@ namespace WBS.Selenium.Models
         {
             IWebElement login = Context.Driver.FindElement(By.XPath("//input[contains(@class,'MuiInput') and contains(@name,'login')]"));
             login.SendKeys(user.Login);
-            Thread.Sleep(1000);
             IWebElement parol = Context.Driver.FindElement(By.XPath("//input[contains(@class,'MuiInput') and contains(@name,'password')]"));
             parol.SendKeys(user.Password);
-            Thread.Sleep(1000);
             IWebElement button = Context.Driver.FindElement(By.XPath("//button[contains(@class,'ButtonPrimary-button')]"));
             button.Click();
-            Thread.Sleep(10000);
-            // Вынести в константы главную страницу после логина
-            string MainPage = "http://localhost:55443/Home";
-            // Проверка, на то, что после логина перешли на главную страницу сайта
-            Assert.IsTrue(Context.Driver.Url.Equals(MainPage), String.Format("Переход после логина не был осуществлен на главную страницу сайта. Под пользователем - {0}", user.Login));
+            PageController.WaitUntilJSReady(Context);
+        }
+
+        public void Login(string login, string password)
+        {
+            IWebElement loginElement = Context.Driver.FindElement(By.XPath("//input[contains(@class,'MuiInput') and contains(@name,'login')]"));
+            loginElement.SendKeys(login);
+            IWebElement passordElement = Context.Driver.FindElement(By.XPath("//input[contains(@class,'MuiInput') and contains(@name,'password')]"));
+            passordElement.SendKeys(password);
+            IWebElement button = Context.Driver.FindElement(By.XPath("//button[contains(@class,'ButtonPrimary-button')]"));
+            button.Click();
+            PageController.WaitUntilJSReady(Context);
         }
 
         // Выход из приложения
@@ -179,6 +202,7 @@ namespace WBS.Selenium.Models
             logoutButton.Click();
         }
 
+        //инициализация контролера
         private T InitializeController<T>(Lazy<T> controller) where T : IFormController
         {
             T value;
@@ -194,6 +218,7 @@ namespace WBS.Selenium.Models
             return value;
         }
 
+        //удаление видео
         private void DeleteRelatedVideo()
         {
             try

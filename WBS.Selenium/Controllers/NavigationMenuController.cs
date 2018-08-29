@@ -14,6 +14,10 @@ using WBS.Selenium.Enums;
 
 namespace WBS.Selenium.Controllers
 {
+    /// <summary>
+    ///  Класс NavigationMenuController
+    ///  класс для работы с навигационным меню
+    /// </summary>
     public class NavigationMenuController: IFormController
     {
         private MenuNode menu;
@@ -49,6 +53,10 @@ namespace WBS.Selenium.Controllers
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Метод OpenPage() 
+        /// кликает по необходимым узлам, чтобы найти и кликнуть по узлы с именем title
+        /// </summary>
         public void OpenPage(string title)
         {
             bool found = false;
@@ -79,7 +87,7 @@ namespace WBS.Selenium.Controllers
             IWebElement closeMenu=context.Driver.FindElement(By.CssSelector("path[d*='M15.41 7.41L14']"));
             closeMenu.Click();
 
-            PageController.WaitJsLoaded(context);
+            PageController.WaitUntilJSReady(context);
         }
 
         public void SetElementValue(string element, string value)
@@ -87,6 +95,10 @@ namespace WBS.Selenium.Controllers
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Метод FindNode() 
+        /// составляет маршрут Stack<string> path до узла с именем title
+        /// </summary>
         private void FindNode(MenuNode node, string title, ref bool found)
         {
             if (node.Title == title)

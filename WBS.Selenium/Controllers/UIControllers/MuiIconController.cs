@@ -23,6 +23,7 @@ namespace WBS.Selenium.Controllers.UIControllers
         public override void Click()
         {
             base.Click();
+            PageController.WaitUntilJSReady(context);
             //if (waitPageChanged)
             //    // PageController.WaitPageChanged(context);
             //    PageController.WaitJsLoaded(context);
