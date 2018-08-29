@@ -98,9 +98,9 @@
   <ItemGroup>
     <Compile Include="Controllers\FormControllers\CreateSiteDetailViewController.cs" />
     <Compile Include="Controllers\FormControllers\InformationBudgetStringDetailViewController.cs" />
-    <Compile Include="Controllers\FormControllers\InformationSiteDetailViewController.cs" />
+    <Compile Include="Controllers\UIControllers\ButtonCreateRowController.cs" />
     <Compile Include="Controllers\FormControllers\CreateBudgetDetailViewController.cs" />
-    <Compile Include="Controllers\FormControllers\CreateSitFormDetailViewController.cs" />
+    <Compile Include="Controllers\FormControllers\CreateSitFormatDetailViewController.cs" />
     <Compile Include="Controllers\FormControllers\InformationUserDetailViewController.cs" />
     <Compile Include="Controllers\FormControllers\SelectProviderDetailViewController.cs" />
     <Compile Include="Controllers\UIControllers\CheckBoxController.cs" />
@@ -135,6 +135,7 @@
     <Compile Include="Providers\EncoderProvider.cs" />
     <Compile Include="Reporter.cs" />
     <Compile Include="TestScripts\CheckRolesInBudgetPlan.cs" />
+    <Compile Include="TestScripts\CreatAndEditFormatSite.cs" />
     <Compile Include="TestScripts\CreateAndEditSite.cs" />
     <Compile Include="TestScripts\CreateBudgetPlan.cs" />
     <Compile Include="TestScripts\CreateBudgetRow.cs" />
@@ -166,6 +167,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Configs\Tests\CreateAndEditUser.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Configs\Tests\CreateAndFormatSite.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Configs\Tests\CreateBudgetPlan.xml">

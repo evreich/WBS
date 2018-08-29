@@ -60,7 +60,7 @@ namespace WBS.Selenium.Models
         public CreateRequestDetailViewController CreateRequestDetailView => InitializeController(createRequestDetailView);
         public CreateBudgetDetailViewController CreateBudgetDetailView => InitializeController(createBudgetDetailView);
         public SelectProviderDetailViewController SelectProviderDetailView => InitializeController(selectProviderDetailView);
-        public CreateSitFormDetailViewController CreateSitFormDetailView => InitializeController(createSitFormDetailView);
+        public CreateSitFormatDetailViewController CreateSitFormDetailView => InitializeController(createSitFormDetailView);
 
         #endregion
         public PageValidationController PageValidation { get; private set; }
