@@ -44,9 +44,9 @@ namespace WBS.Selenium.Models
         private Lazy<CreateBudgetDetailViewController> createBudgetDetailView = new Lazy<CreateBudgetDetailViewController>(() => new CreateBudgetDetailViewController());
         private Lazy<InformationUserDetailViewController> informationUserDetailView = new Lazy<InformationUserDetailViewController>(() => new InformationUserDetailViewController());
         private Lazy<InformationBudgetStringDetailViewController> informationBudgetStringDetailView = new Lazy<InformationBudgetStringDetailViewController>(() => new InformationBudgetStringDetailViewController());
-        private Lazy<CreateSiteDetailViewController> createSiteDetailView = new Lazy<CreateSiteDetailViewController>(() =>new CreateSiteDetailViewController());
+        private Lazy<CreateSiteDetailViewController> createSiteDetailView = new Lazy<CreateSiteDetailViewController>(() => new CreateSiteDetailViewController());
         private Lazy<SelectProviderDetailViewController> selectProviderDetailView = new Lazy<SelectProviderDetailViewController>(() => new SelectProviderDetailViewController());
-        private Lazy<CreateSitFormDetailViewController> createSitFormDetailView = new Lazy<CreateSitFormDetailViewController>(() => new CreateSitFormDetailViewController());
+        private Lazy<CreateSitFormatDetailViewController> createSitFormDetailView = new Lazy<CreateSitFormatDetailViewController>(() => new CreateSitFormatDetailViewController());
         private Lazy<InformationSiteDetailViewController> informationSiteDetailView = new Lazy<InformationSiteDetailViewController>(() => new InformationSiteDetailViewController());
 
         public InformationSiteDetailViewController InformationSiteDetailView => InitializeController(informationSiteDetailView);
@@ -135,7 +135,7 @@ namespace WBS.Selenium.Models
         }
 
         //вызывается перед началом запуска всех тестов
-        [OneTimeSetUp] 
+        [OneTimeSetUp]
         public void Start()
         {
             string testTitle;
@@ -152,7 +152,7 @@ namespace WBS.Selenium.Models
         }
 
         //вызывается после завершения всех тестов
-        [OneTimeTearDown] 
+        [OneTimeTearDown]
         public void Stop()
         {
             //остановка записи
@@ -174,6 +174,17 @@ namespace WBS.Selenium.Models
             login.SendKeys(user.Login);
             IWebElement parol = Context.Driver.FindElement(By.XPath("//input[contains(@class,'MuiInput') and contains(@name,'password')]"));
             parol.SendKeys(user.Password);
+            IWebElement button = Context.Driver.FindElement(By.XPath("//button[contains(@class,'ButtonPrimary-button')]"));
+            button.Click();
+            PageController.WaitUntilJSReady(Context);
+        }
+
+        public void Login(string login, string password)
+        {
+            IWebElement loginElement = Context.Driver.FindElement(By.XPath("//input[contains(@class,'MuiInput') and contains(@name,'login')]"));
+            loginElement.SendKeys(login);
+            IWebElement passordElement = Context.Driver.FindElement(By.XPath("//input[contains(@class,'MuiInput') and contains(@name,'password')]"));
+            passordElement.SendKeys(password);
             IWebElement button = Context.Driver.FindElement(By.XPath("//button[contains(@class,'ButtonPrimary-button')]"));
             button.Click();
             PageController.WaitUntilJSReady(Context);

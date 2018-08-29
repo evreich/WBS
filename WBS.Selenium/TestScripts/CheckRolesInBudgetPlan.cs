@@ -26,8 +26,8 @@ namespace WBS.Selenium.TestScripts
         {
             string login = Context.TestSettings.GetValue("admin");
             string password = Context.TestSettings.GetValue("password");
-            User user = new User() { Login = login, Password = password };
-            Login(user);
+
+            Login(login, password); 
 
             PageValidation.CheckUrl("/Home");
         }
@@ -47,8 +47,8 @@ namespace WBS.Selenium.TestScripts
             string password = Context.TestSettings.GetValue("password");
 
             Logout();
-            User user = new User() { Login = login, Password = password };
-            Login(user);
+
+            Login(login, password);
 
             PageValidation.CheckUrl("/Home");
         }
@@ -58,7 +58,7 @@ namespace WBS.Selenium.TestScripts
         {
             NavigationMenu.OpenPage("Бюджетные планы");
 
-            PageValidation.CheckUrl("/Home");
+            PageValidation.CheckUrl("/BudgetPlans");
         }
 
         [Test(Description = "6. Зарегистрироваться в системе"), Order(6)]
@@ -68,8 +68,8 @@ namespace WBS.Selenium.TestScripts
             string password = Context.TestSettings.GetValue("password");
 
             Logout();
-            User user = new User() { Login = login, Password = password };
-            Login(user);
+
+            Login(login,password);
 
             PageValidation.CheckUrl("/Home");
         }
@@ -78,7 +78,8 @@ namespace WBS.Selenium.TestScripts
         public void OpenNavigation3()
         {
             //TODO: ожидается другой Exception
-            Assert.Throws(typeof(Exception), () => { NavigationMenu.OpenPage("Бюджетные планы"); });
+            Assert.Throws(typeof(Exception), () => { NavigationMenu.OpenPage("Бюджетные планы"); },
+                "Ожидалось, что пользователю будет не доступна вкладка \"Бюджетные планы\"");
             
             PageValidation.CheckUrl("/Home");
         }
