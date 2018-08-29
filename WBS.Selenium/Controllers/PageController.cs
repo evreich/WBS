@@ -28,10 +28,11 @@ namespace WBS.Selenium.Controllers
             js.ExecuteScript(string.Format("document.querySelector(\"div[id=\'{0}\'] button\").scrollIntoView()", id));
         }
         //не работает, найти ид 
-        public static void ScrollTop(Context context, string id)
+        public static void ScrollTop(Context context)
         {
             IJavaScriptExecutor js = ((IJavaScriptExecutor)context.Driver);
-            js.ExecuteScript($"$('#{id}').scrollTop(0);");
+            //js.ExecuteScript($"$('#{id}').scrollTop(0);");
+            js.ExecuteScript("document.querySelector(\"[type=\'submit\']\").scrollIntoView(false);");
         }
         public static void WaitJsLoaded(Context context)
         {
