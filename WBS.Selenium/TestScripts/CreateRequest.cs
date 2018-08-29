@@ -25,7 +25,6 @@ namespace WBS.Selenium
         {
             Context.Driver.Navigate().GoToUrl("http://localhost:55443");
             Context.Driver.Manage().Window.Maximize();
-            Thread.Sleep(2000);
 
         }
         [Test(Description = "2. Зарегистрироваться в системе"), Order(2)]
@@ -34,6 +33,8 @@ namespace WBS.Selenium
             //открытие формы редактирования заявки
             User user = Context.Users.GetUserbyName(UserNames.Admin);
             Login(user);
+
+            PageValidation.CheckUrl("/Home");
 
             NavigationMenu.OpenPage("Заявки на инвестиции");
 
@@ -46,20 +47,14 @@ namespace WBS.Selenium
             string result = Context.TestSettings.GetValue("result");
             string typeInvest = Context.TestSettings.GetValue("typeInvest");
             ListView.ClickElement("Создать");
-            Thread.Sleep(2000);
             CreateRequestDetailView.SetElementValue("Название сита", sit);
-            Thread.Sleep(2000);
             CreateRequestDetailView.SetElementValue("Центр результата", result);
             CreateRequestDetailView.ClickElement("Выбор технической службы");
             CreateRequestDetailView.ClickElement("Поставщик");
             CreateRequestDetailView.ClickAddInTable("Таблица поставщиков");
-            Thread.Sleep(5000);
             SelectProviderDetailView.ClickPlus(Context, "Поставщик1");
-            Thread.Sleep(2000);
             CreateRequestDetailView.SetElementValue("Обоснование необходимости инвестиций", typeInvest);
-            Thread.Sleep(5000);
             PageController.ScrollBottom(Context);
-            Thread.Sleep(2000);
             CreateRequestDetailView.ClickElement("Сохранить");
 
             //проверка

@@ -26,7 +26,6 @@ namespace WBS.Selenium.TestScripts
         {
             Context.Driver.Navigate().GoToUrl("http://localhost:55443");
             Context.Driver.Manage().Window.Maximize();
-            Thread.Sleep(2000);
         }
 
         [Test(Description = "2. Зарегистрироваться в системе"), Order(2)]
@@ -34,7 +33,8 @@ namespace WBS.Selenium.TestScripts
         {
             User user = Context.Users.GetUserbyName(UserNames.Admin);
             Login(user);
-            Thread.Sleep(1000);
+
+            PageValidation.CheckUrl("/Home");
         }
 
         [Test(Description = "3. Открыть вкладку \"Формат ситов\""), Order(3)]
@@ -58,8 +58,7 @@ namespace WBS.Selenium.TestScripts
             string e3 = Context.TestSettings.GetValue("e3");
 
             ListView.ClickElement("Создать");
-            CreateSiteDetailView.SetElementValue("Название", title);
-            //CreateSiteDetailView.SetElementValue("Формат", format);
+            CreateSitFormDetailView.SetElementValue("Название", title);
             CreateSitFormDetailView.SetElementValue("Профиль", profile);
             CreateSitFormDetailView.SetElementValue("Директор формата", directorOfFormat);
             CreateSitFormDetailView.SetElementValue("Директор КУ формата", directorofKYformat);
@@ -70,7 +69,6 @@ namespace WBS.Selenium.TestScripts
             CreateSitFormDetailView.SetElementValue("Е3", e3);
 
             CreateSitFormDetailView.ClickElement("Сохранить");
-            Thread.Sleep(2000);
             //проверка
             ListView.CheckTableContains(title);
 

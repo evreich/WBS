@@ -102,7 +102,6 @@
     <Compile Include="Controllers\FormControllers\CreateBudgetDetailViewController.cs" />
     <Compile Include="Controllers\FormControllers\CreateSitFormatDetailViewController.cs" />
     <Compile Include="Controllers\FormControllers\InformationSitFormDetailViewController.cs" />
-    <Compile Include="Controllers\FormControllers\InformationSiteDetailViewController.cs" />
     <Compile Include="Controllers\FormControllers\InformationUserDetailViewController.cs" />
     <Compile Include="Controllers\FormControllers\SelectProviderDetailViewController.cs" />
     <Compile Include="Controllers\UIControllers\CheckBoxController.cs" />
