@@ -12,7 +12,7 @@ using WBS.Selenium.Controllers;
 using System.IO;
 using Microsoft.Expression.Encoder.ScreenCapture;
 using WBS.Selenium.Models;
-
+using WBS.Selenium.Enums;
 
 namespace WBS.Selenium.TestScripts
 {
@@ -26,15 +26,15 @@ namespace WBS.Selenium.TestScripts
         {
             Context.Driver.Navigate().GoToUrl("http://localhost:55443");
             Context.Driver.Manage().Window.Maximize();
-            Thread.Sleep(2000);
         }
 
         [Test(Description = "2. Зарегистрироваться в системе"), Order(2)]
         public void AvtorizationOnAllUsers()
         {
-            User user = Context.Users.FirstOrDefault(u => u.Name == "Admin");
+            User user = Context.Users.GetUserbyName(UserNames.Admin);
             Login(user);
-            Thread.Sleep(1000);
+
+            PageValidation.CheckUrl("/Home");
         }
 
         [Test(Description = "3. Открыть вкладку \"Ситы\""), Order(3)]
@@ -65,7 +65,6 @@ namespace WBS.Selenium.TestScripts
 
             CreateSiteDetailView.SetElementValue("Название", title);
             CreateSiteDetailView.SetElementValue("Формат", format);
-            Thread.Sleep(2000);
             CreateSiteDetailView.SetElementValue("КУ Сита", kusit);
             CreateSiteDetailView.SetElementValue("Технический эксперт", technicalExpert);
             CreateSiteDetailView.SetElementValue("Директор Сита", directorOfSit);
@@ -128,7 +127,7 @@ namespace WBS.Selenium.TestScripts
             //CreateSiteDetailView.SetElementValue("Подразделение", department);
 
             CreateSiteDetailView.ClickElement("Сохранить");
-            Thread.Sleep(2000);
+
             InformationSiteDetailView.ClickElement("ОК");
             //проверка
             ListView.CheckTableContains(newTitle);
@@ -144,7 +143,6 @@ namespace WBS.Selenium.TestScripts
             PageValidation.CheckModalCaption("Информационное окно");
 
             InformationBudgetStringDetailView.ClickElement("Удалить");
-            Thread.Sleep(2000);
 
             //проверка
             ListView.CheckTablenNotContains(newTitle);

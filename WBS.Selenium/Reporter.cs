@@ -25,7 +25,6 @@ namespace WBS.Selenium.Models
         private NameValueCollection appSettings;
         private Reporter()
         {
-            //GlobalSettingsFactory globalSettings = new GlobalSettingsFactory();
             string reportDate = DateTime.Now.ToString("dd.MM.yyyy");
             //string reportDate = DateTime.Now.ToString("dd.MM.yyyy HHч mmм");
             appSettings = ConfigurationManager.AppSettings;

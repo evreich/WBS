@@ -9,7 +9,8 @@ using System.Threading;
 
 namespace WBS.Selenium.TestScripts
 {
-   public  class CheckRolesInBudgetPlan : TestBase
+    [TestFixture(Description = "7.Проверка полей для бюджетных планов"), Order(7)]
+    public  class CheckRolesInBudgetPlan : TestBase
     {
         public override string Id => "CheckRolesInBudgetPlan";
 
@@ -18,17 +19,17 @@ namespace WBS.Selenium.TestScripts
         {
             Context.Driver.Navigate().GoToUrl("http://localhost:55443");
             Context.Driver.Manage().Window.Maximize();
-            Thread.Sleep(2000);
         }
 
         [Test(Description = "2. Зарегистрироваться в системе"), Order(2)]
-        public void AvtorizationOnAllUsers()
+        public void Avtorization()
         {
             string login = Context.TestSettings.GetValue("admin");
             string password = Context.TestSettings.GetValue("password");
             User user = new User() { Login = login, Password = password };
             Login(user);
-            Thread.Sleep(1000);
+
+            PageValidation.CheckUrl("/Home");
         }
 
         [Test(Description = "3. Открыть вкладку \"Бюджетные планы\""), Order(3)]
@@ -40,7 +41,7 @@ namespace WBS.Selenium.TestScripts
         }
 
         [Test(Description = "4. Зарегистрироваться в системе"), Order(4)]
-        public void ChangeUser()
+        public void AvtorizationAsAccountant()
         {
             string login = Context.TestSettings.GetValue("admin");
             string password = Context.TestSettings.GetValue("password");
@@ -54,6 +55,27 @@ namespace WBS.Selenium.TestScripts
 
         [Test(Description = "5. Открыть вкладку \"Бюджетные планы\""), Order(5)]
         public void OpenNavigation2()
+        {
+            NavigationMenu.OpenPage("Бюджетные планы");
+
+            PageValidation.CheckUrl("/Home");
+        }
+
+        [Test(Description = "6. Зарегистрироваться в системе"), Order(6)]
+        public void AvtorizationAsUser()
+        {
+            string login = Context.TestSettings.GetValue("admin");
+            string password = Context.TestSettings.GetValue("password");
+
+            Logout();
+            User user = new User() { Login = login, Password = password };
+            Login(user);
+
+            PageValidation.CheckUrl("/Home");
+        }
+
+        [Test(Description = "7. Открыть вкладку \"Бюджетные планы\""), Order(7)]
+        public void OpenNavigation3()
         {
             //TODO: ожидается другой Exception
             Assert.Throws(typeof(Exception), () => { NavigationMenu.OpenPage("Бюджетные планы"); });

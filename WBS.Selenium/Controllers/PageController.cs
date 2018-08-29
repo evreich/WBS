@@ -10,6 +10,10 @@ using WBS.Selenium.Enums;
 
 namespace WBS.Selenium.Controllers
 {
+    /// <summary>
+    ///  Статический класс PageController
+    ///  класс для работы со страницей
+    /// </summary>
     public static class PageController
     {
         public static void ScrollBottom(Context context)
@@ -54,7 +58,15 @@ namespace WBS.Selenium.Controllers
 
         private static void WaitAjaxLoaded(Context context)
         {
-            context.Waitings.Get(Waitings.Normal).Until(wd => (bool)((IJavaScriptExecutor)wd).ExecuteScript("return (typeof jQuery!='undefined')? $.active == 0 : true;"));
+            context.Waitings.Get(Waitings.Normal).Until(wd => (bool)((IJavaScriptExecutor)wd).
+            ExecuteScript("return (typeof jQuery!='undefined')? $.active == 0 : true;"));
+        }
+
+        public static void WaitUntilJSReady(Context context)
+        {            
+            context.Waitings.Get(Waitings.Normal).Until(wd => (bool)((IJavaScriptExecutor)wd).
+            ExecuteScript("return document.readyState").ToString().Equals("complete"));
+
         }
     }
 }

@@ -10,6 +10,7 @@ using OpenQA.Selenium;
 using WBS.Selenium.Controllers;
 using WBS.Selenium.Controllers.UIControllers;
 using WBS.Selenium.Models;
+using WBS.Selenium.Enums;
 
 namespace WBS.Selenium
 {
@@ -31,7 +32,7 @@ namespace WBS.Selenium
         public void AvtorizationOnUser()
         {
             //открытие формы редактирования заявки
-            User user = Context.Users.FirstOrDefault(u => u.Name == "Admin");
+            User user = Context.Users.GetUserbyName(UserNames.Admin);
             Login(user);
 
             NavigationMenu.OpenPage("Заявки на инвестиции");
