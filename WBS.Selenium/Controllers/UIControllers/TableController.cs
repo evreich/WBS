@@ -14,12 +14,18 @@ namespace WBS.Selenium.Controllers.UIControllers
     public class TableController:UIController
     {
         MuiButtonController buttonAdd;
+        string div = string.Empty;
         string tableClass;
         public override void Initialize(Context context, string id, bool waitPostback = false, Dictionary<string, string> parameters = null)
         {
+           
             base.Initialize(context, id, waitPostback, parameters);
+            if(parameters!=null && parameters.ContainsKey("div"))
+            {
+                div = $"//div[contains(@id,'{parameters["div"]}')]";
+            }
             tableClass = $"{id}Table";
-            locator = By.XPath($"//div[contains(@class,'{tableClass}') and contains(@class,'MuiPaper')]");
+            locator = By.XPath($"{div}//table[contains(@class,'{tableClass}')]");
         }
 
         #region TableActions
@@ -28,13 +34,20 @@ namespace WBS.Selenium.Controllers.UIControllers
             string xpath = $"//table[contains(@class,'{tableClass}')]//td[contains(text(),'{value}')]";
             IWebElement td = context.Waitings.Get(Waitings.Short).Until(ExpectedConditions.ElementToBeClickable(By.XPath(xpath)));
             td.Click();
+        }  
+        
+        public void ClickFirstRow()
+        {
+            string xpath = $"{div}//table[contains(@class,'{tableClass}')]//td";
+            IWebElement td = context.Waitings.Get(Waitings.Short).Until(ExpectedConditions.ElementToBeClickable(By.XPath(xpath)));
+            td.Click();
         }
 
-        public List<string> GetListFieldValues(string field,int maxPageNum)
+        public List<string> GetListFieldValues(string column, int maxPageNum)
         {
             List<string> values = new List<string>();
             List<IWebElement> columns = context.Driver.FindElements(By.XPath($"//table[contains(@class,'{tableClass}')]//th//span")).ToList();
-            int numColumn = columns.FindIndex(a => a.Text.Contains(field));
+            int numColumn = columns.FindIndex(a => a.Text.Contains(column));
             List<IWebElement> rows= context.Driver.FindElements(By.XPath($"//table[contains(@class,'{tableClass}')]//tbody//tr[contains(@class,'{tableClass}')]")).ToList();
             for(int i=0;i<rows.Count;i++)
             {
@@ -84,6 +97,16 @@ namespace WBS.Selenium.Controllers.UIControllers
             {
                 context.Waitings.Get(Waitings.Normal).Until(ExpectedConditions.ElementIsVisible(By.XPath(xpath)));
             }, "В таблице {0} ожидалось значение '{1}'", id, value);
+        }
+
+        public void CheckTableContainsByColumn(string column, string value)
+        {
+            List<IWebElement> columns = context.Driver.FindElements(By.XPath($"{div}//table[contains(@class,'{tableClass}')]//th//span")).ToList();
+            int numColumn = columns.FindIndex(a => a.Text.Contains(column));
+            IWebElement row = context.Driver.FindElement(By.XPath($"{div}//table[contains(@class,'{tableClass}')]//tbody//*[contains(text(),'{value}')]/parent::tr"));
+            List<IWebElement> tds = row.FindElements(By.TagName("td")).ToList();
+            int num= tds.FindIndex(td => td.Text == value);
+            Assert.True(numColumn==num, "Ожидалось, что в таблице в столбце {0} будет значение {1}",column,value);
         }
 
         public void CheckTablenNotContains(string value)

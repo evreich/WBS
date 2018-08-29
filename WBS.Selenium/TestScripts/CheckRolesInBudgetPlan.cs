@@ -43,7 +43,7 @@ namespace WBS.Selenium.TestScripts
         [Test(Description = "4. Зарегистрироваться в системе"), Order(4)]
         public void AvtorizationAsAccountant()
         {
-            string login = Context.TestSettings.GetValue("admin");
+            string login = Context.TestSettings.GetValue("accountant");
             string password = Context.TestSettings.GetValue("password");
 
             Logout();
@@ -64,7 +64,7 @@ namespace WBS.Selenium.TestScripts
         [Test(Description = "6. Зарегистрироваться в системе"), Order(6)]
         public void AvtorizationAsUser()
         {
-            string login = Context.TestSettings.GetValue("admin");
+            string login = Context.TestSettings.GetValue("user");
             string password = Context.TestSettings.GetValue("password");
 
             Logout();

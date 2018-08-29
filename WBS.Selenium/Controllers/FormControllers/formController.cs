@@ -88,11 +88,24 @@ namespace WBS.Selenium.Controllers.FormControllers
             table?.Click(value);
         }
 
+        public void ClickFirstRowTable(string tableName)
+        {
+            TableController table = mapping[tableName] as TableController;
+            table?.ClickFirstRow();
+        }
+
         public void CheckTableContains(string tableName,string value)
         {
             TableController table = mapping[tableName] as TableController;
             table?.CheckTableContains(value);
         }
+
+        public void CheckTableContains(string tableName,string column, string value)
+        {
+            TableController table = mapping[tableName] as TableController;
+            table?.CheckTableContainsByColumn(column,value);
+        }
+
         public void ClickAddInTable(string tableName)
         {
             TableController table = mapping[tableName] as TableController;

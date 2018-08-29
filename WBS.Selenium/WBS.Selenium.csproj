@@ -136,6 +136,7 @@
     <Compile Include="Providers\EncoderProvider.cs" />
     <Compile Include="Reporter.cs" />
     <Compile Include="TestScripts\CheckRolesInBudgetPlan.cs" />
+    <Compile Include="TestScripts\CheckStatusBudgetRows.cs" />
     <Compile Include="TestScripts\CreatAndEditFormatSite.cs" />
     <Compile Include="TestScripts\CreateAndEditSite.cs" />
     <Compile Include="TestScripts\CreateBudgetPlan.cs" />
@@ -162,6 +163,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Configs\Tests\CheckRolesInBudgetPlan.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Configs\Tests\CheckStatusBudgetRows.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Configs\Tests\CreateAndEditSite.xml">
