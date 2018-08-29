@@ -10,8 +10,8 @@
   <e2>500</e2>
   <e3>265232</e3>
 
-  <newtitle>Формат сита 1</newtitle>
-  <newprofile>Профиль</newprofile>
+  <newTitle>Формат сита 2</newTitle>
+  <newprofile>user1</newprofile>
   <newdirectorOfFormat>user1</newdirectorOfFormat>
   <newdirectorofKYformat>user1</newdirectorofKYformat>
   <newkyFormatId>user1</newkyFormatId>
@@ -19,4 +19,5 @@
   <newe1>25</newe1>
   <newe2>500</newe2>
   <newe3>265232</newe3>
+  <userName>Гордеев</userName>
 </data>

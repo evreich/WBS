@@ -24,6 +24,7 @@ namespace WBS.Selenium.Controllers.FormControllers
            //кнопка сохранить и отмена
             new UIMapper("Сохранить",typeof(MuiButtonController),"Сохранить"),
             new UIMapper("Отмена",typeof(MuiButtonController),"Отмена"),
+            
         };
     }
 }
