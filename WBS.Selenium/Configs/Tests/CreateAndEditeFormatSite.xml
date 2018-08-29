@@ -9,4 +9,14 @@
   <e1>25</e1>
   <e2>500</e2>
   <e3>265232</e3>
+
+  <newtitle>Формат сита 1</newtitle>
+  <newprofile>Профиль</newprofile>
+  <newdirectorOfFormat>user1</newdirectorOfFormat>
+  <newdirectorofKYformat>user1</newdirectorofKYformat>
+  <newkyFormatId>user1</newkyFormatId>
+  <newtypeOfFormat>Тип формата 1</newtypeOfFormat>
+  <newe1>25</newe1>
+  <newe2>500</newe2>
+  <newe3>265232</newe3>
 </data>

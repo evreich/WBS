@@ -38,8 +38,9 @@ namespace WBS.Selenium.Models
         private Lazy<InformationBudgetStringDetailViewController> informationBudgetStringDetailView = new Lazy<InformationBudgetStringDetailViewController>(() => new InformationBudgetStringDetailViewController());
         private Lazy<CreateSiteDetailViewController> createSiteDetailView = new Lazy<CreateSiteDetailViewController>(() =>new CreateSiteDetailViewController());
         private Lazy<SelectProviderDetailViewController> selectProviderDetailView = new Lazy<SelectProviderDetailViewController>(() => new SelectProviderDetailViewController());
-        private Lazy<CreateSitFormDetailViewController> createSitFormDetailView = new Lazy<CreateSitFormDetailViewController>(() => new CreateSitFormDetailViewController());
+        private Lazy<CreateSitFormatDetailViewController> createSitFormDetailView = new Lazy<CreateSitFormatDetailViewController>(() => new CreateSitFormatDetailViewController());
         private Lazy<InformationSiteDetailViewController> informationSiteDetailView = new Lazy<InformationSiteDetailViewController>(() => new InformationSiteDetailViewController());
+        private Lazy<InformationSitFormDetailViewController> informationSitFormDetailView = new Lazy<InformationSitFormDetailViewController>(() => new InformationSitFormDetailViewController());
 
         public InformationSiteDetailViewController InformationSiteDetailView => InitializeController(informationSiteDetailView);
         public CreateSiteDetailViewController CreateSiteDetailView => InitializeController(createSiteDetailView);
@@ -48,6 +49,7 @@ namespace WBS.Selenium.Models
         public CreateUserDetailViewController CreateUserDetailView => InitializeController(createUserDetailView);
         public ListViewController ListView => InitializeController(listView);
         public NavigationMenuController NavigationMenu => InitializeController(navigationMenu);
+        public InformationSitFormDetailViewController InformationSitFormDetailView => InitializeController(informationSitFormDetailView);
 
         public CreateRequestDetailViewController CreateRequestDetailView => InitializeController(createRequestDetailView);
         public CreateBudgetDetailViewController CreateBudgetDetailView => InitializeController(createBudgetDetailView);

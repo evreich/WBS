@@ -98,9 +98,10 @@
   <ItemGroup>
     <Compile Include="Controllers\FormControllers\CreateSiteDetailViewController.cs" />
     <Compile Include="Controllers\FormControllers\InformationBudgetStringDetailViewController.cs" />
-    <Compile Include="Controllers\UIControllers\ButtonCreateRowController.cs" />
+    <Compile Include="Controllers\FormControllers\InformationSiteDetailViewController.cs" />
     <Compile Include="Controllers\FormControllers\CreateBudgetDetailViewController.cs" />
     <Compile Include="Controllers\FormControllers\CreateSitFormatDetailViewController.cs" />
+    <Compile Include="Controllers\FormControllers\InformationSitFormDetailViewController.cs" />
     <Compile Include="Controllers\FormControllers\InformationUserDetailViewController.cs" />
     <Compile Include="Controllers\FormControllers\SelectProviderDetailViewController.cs" />
     <Compile Include="Controllers\UIControllers\CheckBoxController.cs" />
@@ -168,7 +169,7 @@
     <Content Include="Configs\Tests\CreateAndEditUser.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Configs\Tests\CreateAndFormatSite.xml">
+    <Content Include="Configs\Tests\CreateAndEditeFormatSite.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Configs\Tests\CreateBudgetPlan.xml">

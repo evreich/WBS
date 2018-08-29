@@ -18,7 +18,7 @@ namespace WBS.Selenium.TestScripts
     [TestFixture(Description = "1.Создание формата сита"), Order(2)]/*(TestName = "1.Создание формата сита")]*/
     class CreatAndEditFormatSite : TestBase
     {
-        public override string Id => "CreateAndFormatSite";
+        public override string Id => "CreateAndEditeFormatSite";
 
         [Test(Description = "1. Открыть браузер"), Order(1)]
         public void OpenaBrowser()
@@ -41,7 +41,7 @@ namespace WBS.Selenium.TestScripts
         {
             NavigationMenu.OpenPage("Формат ситов");
 
-            PageValidation.CheckPageCaption("/Formats");
+            PageValidation.CheckUrl("/Formats");
         }
         [Test(Description = "4. Создать формат ситов"), Order(4)]
         public void CreateFormatSit()
@@ -73,6 +73,37 @@ namespace WBS.Selenium.TestScripts
             //проверка
             ListView.CheckTableContains(title);
 
+        }
+        [Test(Description = "5.Открыть строку, проверить данные на форме"), Order(5)]
+        public void OpenAndCheckFormatSit()
+        {
+            string title = Context.TestSettings.GetValue("title");
+            string profile = Context.TestSettings.GetValue("profile");
+            string directorOfFormat = Context.TestSettings.GetValue("directorOfFormat");
+            string directorofKYformat = Context.TestSettings.GetValue("directorofKYformat");
+            string kyFormatId = Context.TestSettings.GetValue("kyFormatId");
+            string typeOfFormat = Context.TestSettings.GetValue("typeOfFormat");
+            string e1 = Context.TestSettings.GetValue("e1");
+            string e2 = Context.TestSettings.GetValue("e2");
+            string e3 = Context.TestSettings.GetValue("e3");
+
+            //открытие строки с только что созданным форматом сита
+            ListView.ClickRowTable(title);
+            //проверяем, что все данные совпадают
+            PageValidation.CheckFieldValue(InformationSitFormDetailView, "Название", title);
+            PageValidation.CheckFieldValue(InformationSitFormDetailView, "Профиль", profile);
+            PageValidation.CheckFieldValue(InformationSitFormDetailView, "Директор формата", directorOfFormat);
+            PageValidation.CheckFieldValue(InformationSitFormDetailView, "Директор КУ формата", title);
+            PageValidation.CheckFieldValue(InformationSitFormDetailView, "Ку Формат", profile);
+            PageValidation.CheckFieldValue(InformationSitFormDetailView, "Тип формата", directorOfFormat);
+            PageValidation.CheckFieldValue(InformationSitFormDetailView, "Е1", e1);
+            PageValidation.CheckFieldValue(InformationSitFormDetailView, "Е2", e2);
+            PageValidation.CheckFieldValue(InformationSitFormDetailView, "Е3", e3);
+        }
+        [Test(Description = "6.Редактирование полей"), Order(6)]
+        public void EditFields()
+        { 
+            
         }
     }
 }
