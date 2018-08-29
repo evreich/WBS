@@ -85,24 +85,53 @@ namespace WBS.Selenium.TestScripts
             string e1 = Context.TestSettings.GetValue("e1");
             string e2 = Context.TestSettings.GetValue("e2");
             string e3 = Context.TestSettings.GetValue("e3");
-
+            string userName = Context.TestSettings.GetValue("userName");
             //открытие строки с только что созданным форматом сита
             ListView.ClickRowTable(title);
             //проверяем, что все данные совпадают
             PageValidation.CheckFieldValue(InformationSitFormDetailView, "Название", title);
             PageValidation.CheckFieldValue(InformationSitFormDetailView, "Профиль", profile);
-            PageValidation.CheckFieldValue(InformationSitFormDetailView, "Директор формата", directorOfFormat);
-            PageValidation.CheckFieldValue(InformationSitFormDetailView, "Директор КУ формата", title);
-            PageValidation.CheckFieldValue(InformationSitFormDetailView, "Ку Формат", profile);
-            PageValidation.CheckFieldValue(InformationSitFormDetailView, "Тип формата", directorOfFormat);
-            PageValidation.CheckFieldValue(InformationSitFormDetailView, "Е1", e1);
-            PageValidation.CheckFieldValue(InformationSitFormDetailView, "Е2", e2);
-            PageValidation.CheckFieldValue(InformationSitFormDetailView, "Е3", e3);
+            PageValidation.CheckFieldValue(InformationSitFormDetailView, "Директор Формата", userName);
+            PageValidation.CheckFieldValue(InformationSitFormDetailView, "Директор КУ Формата", userName);
+            PageValidation.CheckFieldValue(InformationSitFormDetailView, "КУ Формат", userName);
+            PageValidation.CheckFieldValue(InformationSitFormDetailView, "Тип Формата", typeOfFormat);
+            PageValidation.CheckFieldValue(InformationSitFormDetailView, "E1", e1);
+            PageValidation.CheckFieldValue(InformationSitFormDetailView, "E2", e2);
+            PageValidation.CheckFieldValue(InformationSitFormDetailView, "E3", e3);
         }
         [Test(Description = "6.Редактирование полей"), Order(6)]
-        public void EditFields()
-        { 
-            
+        public void EditFieldsSitForm()
+        {
+            string newtitle = Context.TestSettings.GetValue("newTitle");
+            string newprofile = Context.TestSettings.GetValue("newprofile");
+
+            InformationSitFormDetailView.ClickElement("Редактировать");
+
+            //заполняем значениями формы Формат сита
+            CreateSitFormDetailView.SetElementValue("Название", newtitle);
+            CreateSitFormDetailView.SetElementValue("Профиль", newprofile);
+            //сохранить форму
+            CreateSitFormDetailView.ClickElement("Сохранить");
+
+            //нажать кнопку ок
+            InformationSitFormDetailView.ClickElement("ОК");
         }
+        [Test(Description = "7.Удаление строки Формат сита"), Order(7)]
+        public void Delete()
+        {
+            string newTitle = Context.TestSettings.GetValue("newTitle");
+
+            ListView.ClickRowTable(newTitle);
+            //проверка
+            PageValidation.CheckModalCaption("Информационное окно");
+
+            InformationSitFormDetailView.ClickElement("Удалить");
+
+            //проверка
+            ListView.CheckTablenNotContains(newTitle);
+
+        }
+
     }
-}
+    }
+
