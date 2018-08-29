@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 import {
     TableCell,
     TableRow,
-} from 'material-ui/Table';
-import Add from "material-ui-icons/Add";
-import IconButton from "material-ui/IconButton";
+} from '@material-ui/core/Table';
+import Add from "@material-ui/icons/Add";
+import IconButton from "@material-ui/core/IconButton";
 
 const ProviderTableRow = ({ row, classes, add }) => (
     <TableRow className={classes.rowHover}>

@@ -4,11 +4,11 @@ import PropTypes from "prop-types";
 import ExpansionPanel, {
     ExpansionPanelSummary,
     ExpansionPanelDetails
-} from "material-ui/ExpansionPanel";
-import ExpandMoreIcon from "material-ui-icons/ExpandMore";
-import Typography from "material-ui/Typography";
-import Grid from "material-ui/Grid";
-import Button from "material-ui/Button";
+} from "@material-ui/core/ExpansionPanel";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import Typography from "@material-ui/core/Typography";
+import Grid from "@material-ui/core/Grid";
+import Button from "@material-ui/core/Button";
 
 import DatePicker from "components/Commons/DatePicker";
 import TextFieldSelect from "components/Commons/TextFields/TextFieldSelect";

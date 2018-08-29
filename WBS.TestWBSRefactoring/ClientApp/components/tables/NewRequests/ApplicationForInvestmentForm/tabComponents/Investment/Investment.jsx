@@ -6,16 +6,16 @@ import Table, {
     TableCell,
     TableHead,
     TableRow
-} from "material-ui/Table";
-import TextField from "material-ui/TextField";
-import AddCircleOutlineIcon from "material-ui-icons/AddCircleOutline";
-import AddIcon from "material-ui-icons/Add";
-import DeleteIcon from "material-ui-icons/Delete";
-import MoreHorizIcon from "material-ui-icons/MoreHoriz";
-import Button from "material-ui/Button";
-import Tooltip from "material-ui/Tooltip";
-import IconButton from "material-ui/IconButton";
-import { withStyles } from "material-ui/styles";
+} from "@material-ui/core/Table";
+import TextField from "@material-ui/core/TextField";
+import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
+import AddIcon from "@material-ui/icons/Add";
+import DeleteIcon from "@material-ui/icons/Delete";
+import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
+import Button from "@material-ui/core/Button";
+import Tooltip from "@material-ui/core/Tooltip";
+import IconButton from "@material-ui/core/IconButton";
+import { withStyles } from "@material-ui/core/styles";
 
 import styles from 'components/Commons/Table/TableStyles.css';
 

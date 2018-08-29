@@ -6,7 +6,7 @@ import {
     TableHead,
     TableRow,
     TableSortLabel
-} from "material-ui/Table";
+} from "@material-ui/core/Table";
 import Tooltip from "@material-ui/core/Tooltip";
 
 import TypesOfColumnData from "constants/typesOfColumnData";

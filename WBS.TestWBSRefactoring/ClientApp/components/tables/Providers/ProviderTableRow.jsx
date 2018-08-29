@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import {
     TableCell,
     TableRow,
-} from 'material-ui/Table';
+} from '@material-ui/core/Table';
  
 const ProviderTableRow = (props) => {
     const {row, classes, handleInfoButtonClick} = props

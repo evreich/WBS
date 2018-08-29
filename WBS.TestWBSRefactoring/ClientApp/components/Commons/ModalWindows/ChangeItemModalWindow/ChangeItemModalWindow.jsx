@@ -5,9 +5,9 @@ import Dialog, {
     DialogActions,
     DialogContent,
     DialogTitle
-} from "material-ui/Dialog";
-import Button from "material-ui/Button";
-import { withStyles } from 'material-ui/styles';
+} from "@material-ui/core/Dialog";
+import Button from "@material-ui/core/Button";
+import { withStyles } from '@material-ui/core/styles';
 
 import styles from './ChangeItemModalWindow.css';
 import HTTP_METHOD from 'settings/httpMethods';

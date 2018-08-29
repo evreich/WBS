@@ -5,8 +5,8 @@ import Table, {
     TableCell,
     TableHead,
     TableRow
-} from "material-ui/Table";
-import { withStyles } from "material-ui/styles";
+} from "@material-ui/core/Table";
+import { withStyles } from "@material-ui/core/styles";
 import styles from "components/Commons/Table/TableStyles.css";
 
 const Budget = ({ classes, budgetData: { rowBudget, totalSit } }) => (

@@ -5,10 +5,12 @@ import Dialog, {
     DialogActions,
     DialogContent,
     DialogTitle
-} from "material-ui/Dialog";
-import Button from "material-ui/Button";
-import Divider from "material-ui/Divider";
-import { withStyles } from "material-ui/styles";
+} from "@material-ui/core/Dialog";
+import Button from "@material-ui/core/Button";
+import Divider from "@material-ui/core/Divider";
+import { withStyles } from "@material-ui/core/styles";
+
+import moment from "moment";
 
 import styles from "./ApplicationForInvestmentForm.css";
 import HTTP_METHOD from "settings/httpMethods";
@@ -24,45 +26,47 @@ let rationaleForInvestment = React.createRef();
 let expansionComponents = React.createRef();
 
 const ApplicationForInvestmentForm = props => {
-    //заносим все поля объекта в state компонента;
-    //каждому элементу массива объектов technicalServices соответсвует чекбокс на форме, поэтому
-    //расскладываем массив technicalServices в state на поля вида [technicalServices.title]:true
 
-    // static getDerivedStateFromProps(nextProps) {
-    //     if (nextProps.data) {
-    //         const techServsIsNotEmpty =
-    //             nextProps.data.technicalServices.length > 0;
-    //         const techServs = techServsIsNotEmpty
-    //             ? nextProps.data.technicalServices
-    //                   .map(t => ({ [t.title]: true }))
-    //                   .reduce(
-    //                       (accum, currElem) =>
-    //                           (accum = { ...accum, ...currElem })
-    //                   )
-    //             : {};
-    //         const radioBlock = techServsIsNotEmpty
-    //             ? "techServsSelected"
-    //             : "aribaSelected";
+    const { classes, cancel, open, formFields, data } = props;
+    const {
+        mainDialogBodyFields,
+        rationaleForInvestmenFields,
+        expansionElementsFields
+    } = formFields;
 
-    //         return { ...nextProps.data, ...techServs, radioBlock };
-    //     } else return null;
-    // };
+    let dataToMainBody, dataToRationaleForInvestment, dataToExpansionElements;
+    
+    //destruct "data" to part of form
+    if (data) {
+        const getDefineFieldsFromData = defineFields => { 
+            let accumObj = {};
+
+            defineFields.forEach(field => accumObj = ({ ...accumObj, [field]: data[field] }));        
+            return accumObj;
+        }
+
+        dataToMainBody = getDefineFieldsFromData(Object.keys(mainDialogBodyFields));
+        dataToRationaleForInvestment = getDefineFieldsFromData(Object.keys(rationaleForInvestmenFields));
+        dataToExpansionElements = getDefineFieldsFromData(Object.keys(expansionElementsFields));
+    }
 
     const onSaveButtonClick = () => {
         const { save, cancel, data, currentPage, elementsPerPage } = props;
 
-        //TODO: rename
-        //берем данные с связанных частей формы
-        const values1 = mainFormBodyRef.getDataToSave();
-        const values2 = investmentTabsRef.getDataToSave();
-        const values3 = rationaleForInvestment.getDataToSave();
-        const values4 = expansionComponents.getDataToSave();
+        const mainFormValues = mainFormBodyRef.getDataToSave();
+        const investmentTabsValues = investmentTabsRef.getDataToSave();
+        const rationaleForInvestmentValues = rationaleForInvestment.getDataToSave();
+        const expansionComponentsValues = expansionComponents.getDataToSave();
 
         const allFormValues = {
-            ...values1,
-            ...values2,
-            ...values3,
-            ...values4
+            ...mainFormValues,
+            ...investmentTabsValues,
+            ...rationaleForInvestmentValues,
+            ...expansionComponentsValues,
+            subject: data ? data.subject : "-",
+            creationData: data ? data.creationData : moment().format('L'),
+            lastModifiedData: moment().format('L'),
+            id: data ? data.id : 0
         };
 
         if (allFormValues) {
@@ -72,14 +76,6 @@ const ApplicationForInvestmentForm = props => {
             cancel(allFormValues);
         }
     };
-
-    const { classes, cancel, open, formFields } = props;
-    const removeButtonEnable = true;
-    const {
-        mainDialogBodyFields,
-        rationaleForInvestmenFields,
-        expansionElementsFields
-    } = formFields;
 
     return (
         <Dialog open={open} onClose={cancel} maxWidth={false} disableEnforceFocus={true}>
@@ -96,12 +92,13 @@ const ApplicationForInvestmentForm = props => {
                 <MainFormBody
                     onRef={instance => (mainFormBodyRef = instance)}
                     formFields={mainDialogBodyFields}
+                    data={dataToMainBody}
                     classes={classes}
                 />
 
                 {/* Переключатель по вкладкам */}
                 <InvestmentTabs
-                    classes={classes}
+                    classes={classes}dataToRationaleForInvestment
                     onRef={instance => (investmentTabsRef = instance)}
                 />
 
@@ -109,6 +106,7 @@ const ApplicationForInvestmentForm = props => {
 
                 <RationaleForInvestment
                     onRef={instance => (rationaleForInvestment = instance)}
+                    data={dataToRationaleForInvestment}
                     formFields={rationaleForInvestmenFields}
                     classes={classes}
                 />
@@ -116,15 +114,15 @@ const ApplicationForInvestmentForm = props => {
                 {/* Выпадающие меню */}
                 <ExpansionElementsComponent
                     formFields={expansionElementsFields}
+                    data={dataToExpansionElements}
                     classes={classes}
                     onRef={instance => (expansionComponents = instance)}
                 />
 
-                {/* Attachments */}
                 <Attachments classes={classes} />
 
                 <DialogActions>
-                    <span style={{ flex: 1 }}>
+                    {/* <span style={{ flex: 1 }}>
                         <Button
                             onClick={cancel}
                             variant="raised"
@@ -133,7 +131,7 @@ const ApplicationForInvestmentForm = props => {
                         >
                             Удалить
                         </Button>
-                    </span>
+                    </span> */}
                     <Button onClick={cancel} className={classes.cancelButton}>
                         Отмена
                     </Button>

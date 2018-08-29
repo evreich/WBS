@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import { TableCell, TableRow } from "material-ui/Table";
+import { TableCell, TableRow } from "@material-ui/core/Table";
 
 const ProfilesTableRow = props => {
     const { row, classes, handleInfoButtonClick } = props;

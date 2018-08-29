@@ -2,14 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import classNames from "classnames";
-import RefreshIcon from "material-ui-icons/Refresh";
-import IconButton from "material-ui/IconButton";
-import Toolbar from "material-ui/Toolbar";
-import Typography from "material-ui/Typography";
-import Tooltip from "material-ui/Tooltip";
-import FilterListIcon from "material-ui-icons/FilterList";
-import { withStyles } from "material-ui/styles";
-import Button from "material-ui/Button";
+import RefreshIcon from "@material-ui/icons/Refresh";
+import IconButton from "@material-ui/core/IconButton";
+import Toolbar from "@material-ui/core/Toolbar";
+import Typography from "@material-ui/core/Typography";
+import Tooltip from "@material-ui/core/Tooltip";
+import FilterListIcon from "@material-ui/icons/FilterList";
+import { withStyles } from "@material-ui/core/styles";
+import Button from "@material-ui/core/Button";
 
 import { toolbarStyles } from "components/Commons/Table/TableStyles.css";
 

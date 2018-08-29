@@ -5,10 +5,10 @@ import Dialog, {
     DialogActions,
     DialogContent,
     DialogTitle
-} from "material-ui/Dialog";
-import TextField from "material-ui/TextField";
-import { MenuItem } from "material-ui/Menu";
-import Button from "material-ui/Button";
+} from "@material-ui/core/Dialog";
+import TextField from "@material-ui/core/TextField";
+import MenuItem from "@material-ui/core/MenuItem";
+import Button from "@material-ui/core/Button";
 
 import DateRangePicker from "../../Commons/DateRangePicker";
 

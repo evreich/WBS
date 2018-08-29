@@ -4,10 +4,10 @@ import PropTypes from 'prop-types';
 import {
     TableCell,
     TableRow,
-} from 'material-ui/Table';
-import Assignment from 'material-ui-icons/Assignment';
-import Search from 'material-ui-icons/Search';
-import { IconButton } from 'material-ui';
+} from '@material-ui/core/Table';
+import Assignment from '@material-ui/icons/Assignment';
+import Search from '@material-ui/icons/Search';
+import IconButton from '@material-ui/core/IconButton';
 
 const BudgetPlanTableRow = (props) => {
     //TODO: реализовать открытие модальных окон на нажатие по соотв кнопкам

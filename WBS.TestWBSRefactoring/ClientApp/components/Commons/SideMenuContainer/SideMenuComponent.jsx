@@ -1,33 +1,33 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { withStyles } from 'material-ui/styles';
+import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
-import Drawer from 'material-ui/Drawer';
-import AppBar from 'material-ui/AppBar';
-import Toolbar from 'material-ui/Toolbar';
-import List from 'material-ui/List';
-import { CardHeader } from 'material-ui/Card';
-import Avatar from 'material-ui/Avatar';
-import AccountBoxIcon from 'material-ui-icons/AccountBox';
-import FolderIcon from 'material-ui-icons/Folder';
-import DescriptionIcon from 'material-ui-icons/Description';
-import InsertDriveFileIcon from 'material-ui-icons/InsertDriveFile';
-import InfoOutlineIcon from 'material-ui-icons/InfoOutline';
-import TrendingUpIcon from 'material-ui-icons/TrendingUp';
-import RestorePageIcon from 'material-ui-icons/RestorePage'
-import ChromeReaderMode from 'material-ui-icons/ChromeReaderMode';
-import AssessmentIcon from 'material-ui-icons/Assessment';
-import LibraryBooksIcon from 'material-ui-icons/LibraryBooks';
-import AccountCircleIcon from 'material-ui-icons/AccountCircle';
-import SupervisorAccountIcon from 'material-ui-icons/SupervisorAccount';
-import HomeIcon from 'material-ui-icons/Home';
-import Typography from 'material-ui/Typography';
-import Divider from 'material-ui/Divider';
-import IconButton from 'material-ui/IconButton';
-import MenuIcon from 'material-ui-icons/Menu';
-import ChevronLeftIcon from 'material-ui-icons/ChevronLeft';
-import ExitToAppIcon from 'material-ui-icons/ExitToApp'
+import Drawer from '@material-ui/core/Drawer';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import List from '@material-ui/core/List';
+import CardHeader from '@material-ui/core/Card';
+import Avatar from '@material-ui/core/Avatar';
+import AccountBoxIcon from '@material-ui/icons/AccountBox';
+import FolderIcon from '@material-ui/icons/Folder';
+import DescriptionIcon from '@material-ui/icons/Description';
+import InsertDriveFileIcon from '@material-ui/icons/InsertDriveFile';
+import InfoOutlineIcon from '@material-ui/icons/InfoOutline';
+import TrendingUpIcon from '@material-ui/icons/TrendingUp';
+import RestorePageIcon from '@material-ui/icons/RestorePage'
+import ChromeReaderMode from '@material-ui/icons/ChromeReaderMode';
+import AssessmentIcon from '@material-ui/icons/Assessment';
+import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
+import HomeIcon from '@material-ui/icons/Home';
+import Typography from '@material-ui/core/Typography';
+import Divider from '@material-ui/core/Divider';
+import IconButton from '@material-ui/core/IconButton';
+import MenuIcon from '@material-ui/icons/Menu';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp'
 
 import NavListItem from '../NavListItem';
 import styles from './SideMenuComponent.css.js';
