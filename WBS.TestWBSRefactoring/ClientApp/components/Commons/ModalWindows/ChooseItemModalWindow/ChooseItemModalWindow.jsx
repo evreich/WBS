@@ -1,13 +1,12 @@
 ﻿import React from "react";
 import PropTypes from "prop-types";
 
-import Dialog, {
-    DialogContent,
-    DialogTitle
-} from "material-ui/Dialog";
-import { withStyles } from 'material-ui/styles';
-import Clear from "material-ui-icons/Clear";
-import IconButton from "material-ui/IconButton";
+import Dialog from "@material-ui/core/Dialog";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import { withStyles } from '@material-ui/core/styles';
+import Clear from "@material-ui/icons/Clear";
+import IconButton from "@material-ui/core/IconButton";
 
 import styles from './ChooseItemModalWindow.css';
 

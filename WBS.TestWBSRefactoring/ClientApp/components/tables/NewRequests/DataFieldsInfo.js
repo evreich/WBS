@@ -13,8 +13,8 @@ const commonFields = {
         label: "Название сита",
         type: TypesOfColumnData.NUMBER
     },
-    siteTitle: {
-        propName: "siteTitle",
+    siteName: {
+        propName: "siteName",
         label: "Название сита",
         type: TypesOfColumnData.STRING
     },
@@ -125,8 +125,8 @@ const commonFields = {
         label: "Дополнительные ежегодные затраты",
         type: TypesOfColumnData.NUMBER
     },
-    technicalServs: {
-        propName: "technicalServs",
+    technicalServices: {
+        propName: "technicalServices",
         label: "Выбор технической службы*",
         type: TypesOfColumnData.ARRAY
     }
@@ -139,7 +139,7 @@ const mainDialogBodyFields = {
     [commonFields.siteId.propName]: commonFields.siteId,
     [commonFields.resultCentreId.propName]: commonFields.resultCentreId,
     [commonFields.deliveryTime.propName]: commonFields.deliveryTime,
-    [commonFields.technicalServs.propName]: commonFields.technicalServs
+    [commonFields.technicalServices.propName]: commonFields.technicalServices
 };
 
 const rationaleForInvestmenFields = {
@@ -180,11 +180,16 @@ const editWindowFields = {
     ...createWindowFields
 };
 
-const infoWindowModel = {};
+const infoWindowModel = {
+    [commonFields.creationData.propName]: commonFields.creationData,
+    [commonFields.siteName.propName]: commonFields.siteName,
+    [commonFields.lastModifiedData.propName]: commonFields.lastModifiedData,
+    [commonFields.subject.propName]: commonFields.subject
+};
 
 const tableHeaders = {
     [commonFields.creationData.propName]: commonFields.creationData,
-    [commonFields.siteTitle.propName]: commonFields.siteTitle,
+    [commonFields.siteName.propName]: commonFields.siteName,
     [commonFields.lastModifiedData.propName]: commonFields.lastModifiedData,
     [commonFields.subject.propName]: commonFields.subject
 };

@@ -590,7 +590,7 @@ namespace WBS.DAL.Migrations
                     b.HasOne("WBS.DAL.Data.Models.DAIRequest", "DAI")
                         .WithMany("DAIRequestsProviders")
                         .HasForeignKey("DaiId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("WBS.DAL.Provider", "Provider")
                         .WithMany()
@@ -603,7 +603,7 @@ namespace WBS.DAL.Migrations
                     b.HasOne("WBS.DAL.Data.Models.DAIRequest", "DAI")
                         .WithMany("DAIRequestsTechnicalService")
                         .HasForeignKey("DaiId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("WBS.DAL.Data.Models.TechnicalService", "TechnicalServ")
                         .WithMany()

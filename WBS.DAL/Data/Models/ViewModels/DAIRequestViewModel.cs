@@ -11,9 +11,9 @@ namespace WBS.DAL.Data.Models.ViewModels
 
         public string Number { get; set; }
 
-        public DateTime? CreationData { get; set; }
+        public string CreationData { get; set; }
 
-        public DateTime? LastModifiedData { get; set; }
+        public string LastModifiedData { get; set; }
 
         public DateTime? ReceiptTaskData { get; set; }
 
@@ -55,8 +55,8 @@ namespace WBS.DAL.Data.Models.ViewModels
         public DAIRequestViewModel(DAIRequest request)
         {
             Id = request.Id;
-            CreationData = request.CreationData;
-            LastModifiedData = request.LastModifiedData;
+            CreationData = request.CreationData.Value.ToString("MM.dd.yyyy");
+            LastModifiedData = request.LastModifiedData.Value.ToString("MM.dd.yyyy");
             ReceiptTaskData = request.ReceiptTaskData;
             DirectorApprovalDate = request.DirectorApprovalDate;
             Number = request.Number;
@@ -127,7 +127,8 @@ namespace WBS.DAL.Data.Models.ViewModels
             return new DAIRequest()
             {
                 Id = Id,
-                CreationData = CreationData,
+                CreationData = new DateTime?(DateTime.Parse(CreationData)),
+                LastModifiedData = new DateTime?(DateTime.Parse(LastModifiedData)),
                 SitId = SiteId,
                 ResultCentreId = ResultCentreId,
                 ApprovalOfTechExpertIsRequired = ApprovalOfTechExpertIsRequired,
@@ -149,8 +150,8 @@ namespace WBS.DAL.Data.Models.ViewModels
                 ReasonForDAI = ReasonForDAI,
 
                 CommentForDirectorGeneral = CommentForDirectorGeneral,
-                DAIRequestsProviders = providers
-
+                DAIRequestsProviders = providers,
+                Subject = Subject
             };
         }
 
