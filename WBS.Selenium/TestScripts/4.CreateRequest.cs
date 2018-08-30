@@ -58,7 +58,7 @@ namespace WBS.Selenium.TestScripts
             CreateRequestDetailView.ClickElement("Поставщик");
             CreateRequestDetailView.ClickAddInTable("Таблица поставщиков");
             SelectProviderDetailView.ClickPlus("Поставщик1");
-            //CreateRequestDetailView.SetElementValue("Обоснование необходимости инвестиций", typeInvest);
+            CreateRequestDetailView.SetElementValue("Обоснование необходимости инвестиций", typeInvest);
             PageController.ScrollBottom(Context);
             CreateRequestDetailView.SetElementValue("Загрузить файл", attachment);
             CreateRequestDetailView.ClickElement("Сохранить");
