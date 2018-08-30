@@ -21,6 +21,7 @@ namespace WBS.Selenium.Controllers.FormControllers
             new UIMapper("Инвестиции", typeof(TabPanelController), "Инвестиции"),
             new UIMapper("Поставщик", typeof(TabPanelController), "Поставщик"),
             new UIMapper("Обоснование необходимости инвестиций", typeof(ComboBoxController), "rationaleForInvestmentId"),
+            new UIMapper("Загрузить файл",typeof(AttachFileController),""),
             new UIMapper("Сохранить", typeof(MuiButtonController), "Сохранить"),
             new UIMapper("Таблица поставщиков", typeof(TableController), "Common"),
         };
