@@ -16,7 +16,7 @@ using WBS.Selenium.Enums;
 
 namespace WBS.Selenium.TestScripts
 {
-    [TestFixture(Description = "1.Создание и редактирование нового пользователя"), Order(2)]/*(TestName = "1.Создание нового пользователя")]*/
+    [TestFixture(Description = "3.Создание и редактирование Сита"), Order(3)]/*(TestName = "1.Создание нового пользователя")]*/
     class CreateAndEditSite : TestBase
     {
         //Id ссылается на Config\\Tests\\CreateAndEditSite.xml файл (имя файла=имя класса)

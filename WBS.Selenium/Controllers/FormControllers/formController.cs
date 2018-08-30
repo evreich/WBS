@@ -62,22 +62,22 @@ namespace WBS.Selenium.Controllers.FormControllers
         #region Validation
         public bool CheckElementIsEnabled(string element)
         {
-            throw new NotImplementedException();
+            return ((IUIValidationController)mapping[element]).IsEnabled();
         }
 
         public bool CheckElementIsVisible(string element)
         {
-            throw new NotImplementedException();
+            return ((IUIValidationController)mapping[element]).IsVisible();
         }
 
         public void WaitElementIsEnabled(string element)
         {
-            throw new NotImplementedException();
+            ((IUIValidationController)mapping[element]).IsEnabled();
         }
 
         public void WaitElementIsVisible(string element)
         {
-            throw new NotImplementedException();
+           ((IUIValidationController)mapping[element]).IsVisible();
         }
         #endregion
 

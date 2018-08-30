@@ -12,10 +12,10 @@ using WBS.Selenium.Controllers.UIControllers;
 using WBS.Selenium.Models;
 using WBS.Selenium.Enums;
 
-namespace WBS.Selenium
+namespace WBS.Selenium.TestScripts
 {
-    [TestFixture(Description = "1.Создание заявки на инвестиции"), Order(2)]/*(TestName = "1.Создание заявки")]*/
-    class CreateRequest : TestBase
+    [TestFixture(Description = "4.Создание заявки на инвестиции"), Order(4)]/*(TestName = "1.Создание заявки")]*/
+    public class CreateRequest : TestBase
     {
 
         public override string Id => "CreateRequest";

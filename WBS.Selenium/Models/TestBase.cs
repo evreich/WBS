@@ -113,6 +113,13 @@ namespace WBS.Selenium.Models
             {
                 case TestStatus.Failed:
                     logstatus = Status.Fail;
+                    try
+                    {
+                        string screen = GetExtendError();
+                        if (!string.IsNullOrEmpty(screen))
+                            screenHtml = string.IsNullOrEmpty(screen) ? "" : $"<img src='data:image/gif;base64,{screen}' width='100%' />";
+                    }
+                    catch { }
                     break;
                 case TestStatus.Inconclusive:
                     logstatus = Status.Warning;
@@ -195,8 +202,14 @@ namespace WBS.Selenium.Models
         // Выход из приложения
         public void Logout()
         {
-            IWebElement sideBarButton = Context.Driver.FindElement(By.CssSelector(".SideMenuComponent-menuButton-6"));
-            sideBarButton.Click();
+            IWebElement menuController = Context.Driver.FindElement(By.XPath("//header//button[contains(@class,'MuiButtonBase')]"));
+            menuController.Click();
+            try
+            {
+                IWebElement menuController2 = Context.Driver.FindElement(By.XPath("//header//button[contains(@class,'MuiButtonBase')]"));
+                menuController2.Click();
+            }
+            catch { }
             Thread.Sleep(1000);
             IWebElement logoutButton = Context.Driver.FindElement(By.CssSelector(".SideMenuComponent-drawerHeader-9 > button"));
             logoutButton.Click();

@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <data>
   <fio>Иванов Александр Алексеевич</fio>
-  <login>user2</login>
+  <login>user1</login>
   <jobPosition>Рабочий</jobPosition>
   <department>Главное</department>
   <password>12345</password>

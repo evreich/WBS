@@ -25,8 +25,8 @@ namespace WBS.Selenium.Models
         private NameValueCollection appSettings;
         private Reporter()
         {
-            string reportDate = DateTime.Now.ToString("dd.MM.yyyy");
-            //string reportDate = DateTime.Now.ToString("dd.MM.yyyy HHч mmм");
+            //string reportDate = DateTime.Now.ToString("dd.MM.yyyy");
+            string reportDate = DateTime.Now.ToString("dd.MM.yyyy HHч mmм");
             appSettings = ConfigurationManager.AppSettings;
             string reporter = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDi‌​rectory, appSettings.Get("reporter")));
             Directory.CreateDirectory(reporter);

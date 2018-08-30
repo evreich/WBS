@@ -44,8 +44,8 @@ namespace WBS.Selenium.TestScripts
         public void AvtorizationAsAccountant()
         {
             string login = Context.TestSettings.GetValue("accountant");
-            string password = Context.TestSettings.GetValue("password");
-
+            string password =Context.TestSettings.GetValue("password");
+            Thread.Sleep(2000);
             Logout();
 
             Login(login, password);
@@ -66,7 +66,7 @@ namespace WBS.Selenium.TestScripts
         {
             string login = Context.TestSettings.GetValue("user");
             string password = Context.TestSettings.GetValue("password");
-
+            Thread.Sleep(2000);
             Logout();
 
             Login(login,password);

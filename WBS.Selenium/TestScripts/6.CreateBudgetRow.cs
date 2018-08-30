@@ -14,7 +14,7 @@ using WBS.Selenium.Enums;
 
 namespace WBS.Selenium.TestScripts
 {
-    [TestFixture(Description = "3.Создание бюджетных строк в бюджетном блане"), Order(3)]
+    [TestFixture(Description = "6.Создание бюджетных строк в бюджетном блане"), Order(6)]
     public class CreateBudgetRow : TestBase
     {
         public override string Id => "CreateBudgetPlan";
@@ -65,6 +65,9 @@ namespace WBS.Selenium.TestScripts
             string quantity = Context.TestSettings.GetValue("quantity");
             string date = Context.TestSettings.GetValue("date");
             string year = Context.TestSettings.GetValue("year");
+            //баг: различный формат даты
+            string[] parseDate = date.Split('-');
+            string newDateFormat = parseDate[2] + "-" + parseDate[0] + "-" + parseDate[1];
 
             ListView.ClickRowTable(year);
             CreateBudgetDetailView.SetElementValue("Название сита", sit);
@@ -81,7 +84,7 @@ namespace WBS.Selenium.TestScripts
             CreateBudgetDetailView.ClickElement("Сохранить");
 
             // Проверка по дате
-            ListView.CheckTableContainsByName(date, "Детальный план сита");
+            ListView.CheckTableContainsByName(newDateFormat, "Детальный план сита");
         }
 
         [Test(Description = "5. Открыть окно просмотра и редактирования"), Order(5)]
