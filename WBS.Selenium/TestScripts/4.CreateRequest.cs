@@ -49,6 +49,8 @@ namespace WBS.Selenium.TestScripts
             string result = Context.TestSettings.GetValue("result");
             string typeInvest = Context.TestSettings.GetValue("typeInvest");
             string provider = Context.TestSettings.GetValue("provider");
+            string attachment = Context.TestSettings.GetValue("attachment");
+
             ListView.ClickElement("Создать");
             CreateRequestDetailView.SetElementValue("Название сита", sit);
             CreateRequestDetailView.SetElementValue("Центр результата", result);
@@ -56,8 +58,9 @@ namespace WBS.Selenium.TestScripts
             CreateRequestDetailView.ClickElement("Поставщик");
             CreateRequestDetailView.ClickAddInTable("Таблица поставщиков");
             SelectProviderDetailView.ClickPlus("Поставщик1");
-            CreateRequestDetailView.SetElementValue("Обоснование необходимости инвестиций", typeInvest);
+            //CreateRequestDetailView.SetElementValue("Обоснование необходимости инвестиций", typeInvest);
             PageController.ScrollBottom(Context);
+            CreateRequestDetailView.SetElementValue("Загрузить файл", attachment);
             CreateRequestDetailView.ClickElement("Сохранить");
 
             //проверка
