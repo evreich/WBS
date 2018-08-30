@@ -1,17 +1,16 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import Table, {
-    TableBody,
-    TableCell,
-    TableHead,
-    TableRow
-} from "material-ui/Table";
-import Button from "material-ui/Button";
-import AddCircleOutlineIcon from "material-ui-icons/AddCircleOutline";
-import IconButton from "material-ui/IconButton";
-import DeleteIcon from "material-ui-icons/Delete";
-import { withStyles } from "material-ui/styles";
+import Table from "@material-ui/core/Table";
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
+import TableRow from "@material-ui/core/TableRow";
+import TableHead from "@material-ui/core/TableHead";
+import Button from "@material-ui/core/Button";
+import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
+import IconButton from "@material-ui/core/IconButton";
+import DeleteIcon from "@material-ui/icons/Delete";
+import { withStyles } from "@material-ui/core/styles";
 
 import styles from 'components/Commons/Table/TableStyles.css';
 

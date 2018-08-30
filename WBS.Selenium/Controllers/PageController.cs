@@ -36,19 +36,6 @@ namespace WBS.Selenium.Controllers
         }
         public static void WaitJsLoaded(Context context)
         {
-            //IJavaScriptExecutor jsExecutor = context.Driver as IJavaScriptExecutor;
-            //jsExecutor.ExecuteScript(@"
-            //    window.pageisready = false; 
-            //    window.pagewaitfunc = function() {
-            //        $(document).unbind('callbackResultAfter', window.pagewaitfunc);
-            //        setTimeout(function() {
-            //            window.pageisready = true;
-            //        }, 100);
-            //    };   
-            //    $(window).bind('callbackResultAfter', window.pagewaitfunc);"
-            //);
-            //context.Wait.Until(wd => (bool)((IJavaScriptExecutor)wd).ExecuteScript("return window.pageisready;"));
-            WaitAjaxLoaded(context);
             Thread.Sleep(3000);
         }
 

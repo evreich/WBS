@@ -185,7 +185,7 @@ namespace WBS.Selenium.Models
             parol.SendKeys(user.Password);
             IWebElement button = Context.Driver.FindElement(By.XPath("//button[contains(@class,'ButtonPrimary-button')]"));
             button.Click();
-            PageController.WaitUntilJSReady(Context);
+            PageController.WaitJsLoaded(Context);
         }
 
         public void Login(string login, string password)
@@ -196,7 +196,7 @@ namespace WBS.Selenium.Models
             passordElement.SendKeys(password);
             IWebElement button = Context.Driver.FindElement(By.XPath("//button[contains(@class,'ButtonPrimary-button')]"));
             button.Click();
-            PageController.WaitUntilJSReady(Context);
+            PageController.WaitJsLoaded(Context);
         }
 
         // Выход из приложения

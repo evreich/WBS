@@ -117,6 +117,12 @@ namespace WBS.Selenium.Controllers.FormControllers
             TableController table = mapping[tableName] as TableController;
             table?.CheckTablenNotContains(value);
         }
+
+        public void ShowCountsOfElements(string tableName, int count)
+        {
+            TableController table = mapping[tableName] as TableController;
+            table?.ShowCountsOfElements(count);
+        }
         public bool NextPage(string tableName)
         {
             TableController table = mapping[tableName] as TableController;

@@ -87,7 +87,7 @@ namespace WBS.Selenium.Controllers
             IWebElement closeMenu = context.Driver.FindElements(By.XPath("//span[contains(@class,'MuiIconButton')]"))[2];//By.CssSelector("path[d*='M15.41 7.41L14']"));
             closeMenu.Click();
 
-            PageController.WaitUntilJSReady(context);
+            PageController.WaitJsLoaded(context);
         }
 
         public void SetElementValue(string element, string value)

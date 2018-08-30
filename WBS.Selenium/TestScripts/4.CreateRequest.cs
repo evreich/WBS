@@ -39,6 +39,8 @@ namespace WBS.Selenium.TestScripts
             NavigationMenu.OpenPage("Заявки на инвестиции");
 
             PageValidation.CheckUrl("/DAIRequests");
+
+            //ListView.ShowCountsOfElements("Таблица", 10);
         }
         [Test(Description = "3. Заполнить поля на форме создания заявки"), Order(3)]
         public void CreateOnOrder()
@@ -46,15 +48,19 @@ namespace WBS.Selenium.TestScripts
             string sit = Context.TestSettings.GetValue("sit");
             string result = Context.TestSettings.GetValue("result");
             string typeInvest = Context.TestSettings.GetValue("typeInvest");
+            string provider = Context.TestSettings.GetValue("provider");
+            string attachment = Context.TestSettings.GetValue("attachment");
+
             ListView.ClickElement("Создать");
             CreateRequestDetailView.SetElementValue("Название сита", sit);
             CreateRequestDetailView.SetElementValue("Центр результата", result);
             CreateRequestDetailView.ClickElement("Выбор технической службы");
             CreateRequestDetailView.ClickElement("Поставщик");
             CreateRequestDetailView.ClickAddInTable("Таблица поставщиков");
-            SelectProviderDetailView.ClickPlus(Context, "Поставщик1");
+            SelectProviderDetailView.ClickPlus("Поставщик1");
             CreateRequestDetailView.SetElementValue("Обоснование необходимости инвестиций", typeInvest);
             PageController.ScrollBottom(Context);
+            CreateRequestDetailView.SetElementValue("Загрузить файл", attachment);
             CreateRequestDetailView.ClickElement("Сохранить");
 
 

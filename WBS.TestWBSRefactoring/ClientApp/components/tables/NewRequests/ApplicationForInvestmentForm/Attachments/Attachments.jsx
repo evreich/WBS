@@ -4,7 +4,10 @@ import PropTypes from "prop-types";
 import Gallery from "react-fine-uploader";
 import FineUploaderTraditional from "fine-uploader-wrappers";
 
-import Table, { TableBody, TableCell, TableRow } from "material-ui/Table";
+import Table from "@material-ui/core/Table";
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
+import TableRow from "@material-ui/core/TableRow";
 
 import AttachmentConstants from "constants/attachment";
 import { getAttachment } from "./helpersAPI";

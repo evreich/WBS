@@ -65,9 +65,6 @@ namespace WBS.Selenium.TestScripts
             string quantity = Context.TestSettings.GetValue("quantity");
             string date = Context.TestSettings.GetValue("date");
             string year = Context.TestSettings.GetValue("year");
-            //баг: различный формат даты
-            string[] parseDate = date.Split('-');
-            string newDateFormat = parseDate[2] + "-" + parseDate[0] + "-" + parseDate[1];
 
             ListView.ClickRowTable(year);
             CreateBudgetDetailView.SetElementValue("Название сита", sit);
@@ -84,7 +81,7 @@ namespace WBS.Selenium.TestScripts
             CreateBudgetDetailView.ClickElement("Сохранить");
 
             // Проверка по дате
-            ListView.CheckTableContainsByName(newDateFormat, "Детальный план сита");
+            ListView.CheckTableContainsByName(date, "Детальный план сита");
         }
 
         [Test(Description = "5. Открыть окно просмотра и редактирования"), Order(5)]
@@ -99,18 +96,15 @@ namespace WBS.Selenium.TestScripts
             string quantity = Context.TestSettings.GetValue("quantity");
             string date = Context.TestSettings.GetValue("date");
             int newSum = Convert.ToInt32(quantity) * Convert.ToInt32(price);
-            //баг: различный формат даты
-            string[] parseDate = date.Split('-');
-            string newDateFormat = parseDate[2] + "-" + parseDate[0] + "-" + parseDate[1];
 
-            ListView.ClickRowTable(newDateFormat);
+            ListView.ClickRowTable(date);
 
             //проверка
             PageValidation.CheckFieldValue(InformationBudgetStringDetailView, "Центр результата", result);
             PageValidation.CheckFieldValue(InformationBudgetStringDetailView, "Тип инвестиций", typeinvest);
             PageValidation.CheckFieldValue(InformationBudgetStringDetailView, "Категория", category);
             PageValidation.CheckFieldValue(InformationBudgetStringDetailView, "Предмет инвестиций", objectinvest);
-            PageValidation.CheckFieldValue(InformationBudgetStringDetailView, "Дата поставки", newDateFormat);
+            PageValidation.CheckFieldValue(InformationBudgetStringDetailView, "Дата поставки", date);
             PageValidation.CheckFieldValue(InformationBudgetStringDetailView, "Количество", quantity);
             PageValidation.CheckFieldValue(InformationBudgetStringDetailView, "Цена", price);
             PageValidation.CheckFieldValue(InformationBudgetStringDetailView, "Сумма", newSum.ToString());
@@ -126,9 +120,6 @@ namespace WBS.Selenium.TestScripts
             string date = Context.TestSettings.GetValue("newDate");
             string price = Context.TestSettings.GetValue("price");
             int newSum = Convert.ToInt32(quantity) * Convert.ToInt32(price);
-            //баг: различный формат даты
-            string[] parseDate = date.Split('-');
-            string newDateFormat = parseDate[2] + "-" + parseDate[0] + "-" + parseDate[1];
 
             CreateBudgetDetailView.SetElementValue("Предмет инвестиций", objectinvest);
             CreateBudgetDetailView.SetElementValue("Дата поставки", date);
@@ -138,7 +129,7 @@ namespace WBS.Selenium.TestScripts
             //проверки
             ListView.CheckTableContains(objectinvest);
             ListView.CheckTableContains(quantity);
-            ListView.CheckTableContains(newDateFormat);
+            ListView.CheckTableContains(date);
             ListView.CheckTableContains(newSum.ToString());
         }
 
@@ -146,16 +137,13 @@ namespace WBS.Selenium.TestScripts
         public void Delete()
         {
             string date = Context.TestSettings.GetValue("newDate");
-            //баг: различный формат даты
-            string[] parseDate = date.Split('-');
-            string newDateFormat = parseDate[2] + "-" + parseDate[0] + "-" + parseDate[1];
 
-            ListView.ClickRowTable(newDateFormat);
+            ListView.ClickRowTable(date);
 
             InformationBudgetStringDetailView.ClickElement("Удалить");
 
             //проверка
-            ListView.CheckTablenNotContains(newDateFormat);
+            ListView.CheckTablenNotContains(date);
         }
     }
 }

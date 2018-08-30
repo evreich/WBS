@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { DatePicker } from 'material-ui-pickers';
-import KeyboardArrowLeft from 'material-ui-icons/KeyboardArrowLeft'
-import KeyboardArrowRight from 'material-ui-icons/KeyboardArrowRight'
+import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft'
+import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight'
 
 
 class CustomDatePicker extends Component {
