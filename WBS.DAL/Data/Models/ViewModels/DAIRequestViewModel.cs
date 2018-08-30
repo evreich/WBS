@@ -55,8 +55,8 @@ namespace WBS.DAL.Data.Models.ViewModels
         public DAIRequestViewModel(DAIRequest request)
         {
             Id = request.Id;
-            CreationData = request.CreationData.Value.ToString("MM.dd.yyyy");
-            LastModifiedData = request.LastModifiedData.Value.ToString("MM.dd.yyyy");
+            CreationData = request.CreationData.Value.ToString("MM-dd-yyyy");
+            LastModifiedData = request.LastModifiedData.Value.ToString("MM-dd-yyyy");
             ReceiptTaskData = request.ReceiptTaskData;
             DirectorApprovalDate = request.DirectorApprovalDate;
             Number = request.Number;
@@ -127,8 +127,8 @@ namespace WBS.DAL.Data.Models.ViewModels
             return new DAIRequest()
             {
                 Id = Id,
-                CreationData = new DateTime?(DateTime.Parse(CreationData)),
-                LastModifiedData = new DateTime?(DateTime.Parse(LastModifiedData)),
+                CreationData = new DateTime?(DateTime.ParseExact(CreationData, "MM-dd-yyyy", System.Globalization.CultureInfo.InvariantCulture)),
+                LastModifiedData = new DateTime?(DateTime.ParseExact(LastModifiedData, "MM-dd-yyyy", System.Globalization.CultureInfo.InvariantCulture)),
                 SitId = SiteId,
                 ResultCentreId = ResultCentreId,
                 ApprovalOfTechExpertIsRequired = ApprovalOfTechExpertIsRequired,

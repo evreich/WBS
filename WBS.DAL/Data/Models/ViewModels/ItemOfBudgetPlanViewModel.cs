@@ -38,7 +38,7 @@ namespace WBS.DAL.Data.Models.ViewModels
         {
             Id = item.Id;
             SubjectOfInvestment = item.SubjectOfInvestment;
-            DateOfDelivery = item.DateOfDelivery.ToString("MM.dd.yyyy");
+            DateOfDelivery = item.DateOfDelivery.ToString("MM-dd-yyyy");
             Count = item.Count;
             Price = item.Price;
             Amount = item.Amount;
