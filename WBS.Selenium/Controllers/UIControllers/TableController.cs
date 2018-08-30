@@ -11,16 +11,16 @@ using WBS.Selenium.Enums;
 
 namespace WBS.Selenium.Controllers.UIControllers
 {
-    public class TableController:UIController
+    public class TableController : UIController
     {
         MuiButtonController buttonAdd;
         string div = string.Empty;
         string tableClass;
         public override void Initialize(Context context, string id, bool waitPostback = false, Dictionary<string, string> parameters = null)
         {
-           
+
             base.Initialize(context, id, waitPostback, parameters);
-            if(parameters!=null && parameters.ContainsKey("div"))
+            if (parameters != null && parameters.ContainsKey("div"))
             {
                 div = $"//div[contains(@id,'{parameters["div"]}')]";
             }
@@ -34,8 +34,8 @@ namespace WBS.Selenium.Controllers.UIControllers
             string xpath = $"//table[contains(@class,'{tableClass}')]//td[contains(text(),'{value}')]";
             IWebElement td = context.Waitings.Get(Waitings.Short).Until(ExpectedConditions.ElementToBeClickable(By.XPath(xpath)));
             td.Click();
-        }  
-        
+        }
+
         public void ClickFirstRow()
         {
             string xpath = $"{div}//table[contains(@class,'{tableClass}')]//td";
@@ -48,8 +48,8 @@ namespace WBS.Selenium.Controllers.UIControllers
             List<string> values = new List<string>();
             List<IWebElement> columns = context.Driver.FindElements(By.XPath($"//table[contains(@class,'{tableClass}')]//th//span")).ToList();
             int numColumn = columns.FindIndex(a => a.Text.Contains(column));
-            List<IWebElement> rows= context.Driver.FindElements(By.XPath($"//table[contains(@class,'{tableClass}')]//tbody//tr[contains(@class,'{tableClass}')]")).ToList();
-            for(int i=0;i<rows.Count;i++)
+            List<IWebElement> rows = context.Driver.FindElements(By.XPath($"//table[contains(@class,'{tableClass}')]//tbody//tr[contains(@class,'{tableClass}')]")).ToList();
+            for (int i = 0; i < rows.Count; i++)
             {
                 List<IWebElement> tds = rows[i].FindElements(By.TagName("td")).ToList();
                 values.Add(tds[numColumn].Text);
@@ -58,18 +58,18 @@ namespace WBS.Selenium.Controllers.UIControllers
             return values;
         }
 
-        public void SortColumn(string column,bool sortUp)
+        public void SortColumn(string column, bool sortUp)
         {
             string headerXpath = $"//thead//*[contains(text(),'{column}')]";
             string sortUpClass = "DirectionAsc";
             string sortDownClass = "DirectionDesc";
             IWebElement columnHead = context.Driver.FindElement(By.XPath(headerXpath));
-            if(!columnHead.GetAttribute("class").Contains("MuiTableSortLabel-active"))
+            if (!columnHead.GetAttribute("class").Contains("MuiTableSortLabel-active"))
             {
                 columnHead.Click();
             }
-            while(sortUp&& context.Driver.FindElements(By.XPath($"//thead//*[contains(@class,'{sortUpClass}')]")).Count == 0 ||
-                !sortUp && context.Driver.FindElements(By.XPath($"//thead//*[contains(@class,'{sortDownClass}')]")).Count==0)
+            while (sortUp && context.Driver.FindElements(By.XPath($"//thead//*[contains(@class,'{sortUpClass}')]")).Count == 0 ||
+                !sortUp && context.Driver.FindElements(By.XPath($"//thead//*[contains(@class,'{sortDownClass}')]")).Count == 0)
             {
                 columnHead.Click();
             }
@@ -103,7 +103,7 @@ namespace WBS.Selenium.Controllers.UIControllers
         public void CheckTableContains(string value)
         {
             string xpath = $"//table[contains(@class,'{tableClass}')]//td[contains(text(),'{value}')]";
-            Assert.DoesNotThrow(()=>
+            Assert.DoesNotThrow(() =>
             {
                 context.Waitings.Get(Waitings.Normal).Until(ExpectedConditions.ElementIsVisible(By.XPath(xpath)));
             }, "В таблице {0} ожидалось значение '{1}'", id, value);
@@ -115,16 +115,46 @@ namespace WBS.Selenium.Controllers.UIControllers
             int numColumn = columns.FindIndex(a => a.Text.Contains(column));
             IWebElement row = context.Driver.FindElement(By.XPath($"{div}//table[contains(@class,'{tableClass}')]//tbody//*[contains(text(),'{value}')]/parent::tr"));
             List<IWebElement> tds = row.FindElements(By.TagName("td")).ToList();
-            int num= tds.FindIndex(td => td.Text == value);
-            Assert.True(numColumn==num, "Ожидалось, что в таблице в столбце {0} будет значение {1}",column,value);
+            int num = tds.FindIndex(td => td.Text == value);
+            Assert.True(numColumn == num, "Ожидалось, что в таблице в столбце {0} будет значение {1}", column, value);
         }
 
         public void CheckTablenNotContains(string value)
         {
             string xpath = $"//table[contains(@class,'{tableClass}')]//td[contains(text(),'{value}')]";
-            Assert.True(context.Driver.FindElements(By.XPath(xpath)).Count==0,
+            Assert.True(context.Driver.FindElements(By.XPath(xpath)).Count == 0,
              "В таблице {0} не ожидалось значение '{1}'", id, value);
         }
-        #endregion
+        public bool NextPage(string tableClass)
+        {
+
+            string a = $"//table[contains(@class,'{tableClass}')]//tfoot//button[@aria-label='Следующая страница']";
+            try
+            {
+                IWebElement e = context.Waitings.Get(Waitings.Normal).Until(ExpectedConditions.ElementToBeClickable(By.XPath(a)));
+                e.Click();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+            public bool PrevPage(string tableClass)
+            {
+
+                string b = $"//table[contains(@class,'{tableClass}')]//tfoot//button[@aria-label='Предыдущая страница']";
+                try
+                {
+                    IWebElement c = context.Waitings.Get(Waitings.Normal).Until(ExpectedConditions.ElementToBeClickable(By.XPath(b)));
+                    c.Click();
+                    return true;
+                }
+                catch
+                {
+                    return false;
+                }
+            }
+        }
     }
-}
+#endregion
