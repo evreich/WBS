@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<data>
+  <admin>admin</admin>
+  <user>user</user>
+  <password>12345</password>
+  <passwordFrromUser>123</passwordFrromUser>
+</data>
