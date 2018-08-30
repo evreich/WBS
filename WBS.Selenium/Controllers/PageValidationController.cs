@@ -26,7 +26,7 @@ namespace WBS.Selenium.Controllers
 
         public void CheckUrl(string expectedUrl)
         {
-            Assert.DoesNotThrow(() => { context.Waitings.Get(Waitings.Short).Until(ExpectedConditions.UrlContains(expectedUrl)); },
+            Assert.DoesNotThrow(() => { context.Waitings.Get(Waitings.Normal).Until(ExpectedConditions.UrlContains(expectedUrl)); },
                 "Ожидалось, что url будет содержать '{0}', получено - '{1}'", expectedUrl, context.Driver.Url);
         }
 
