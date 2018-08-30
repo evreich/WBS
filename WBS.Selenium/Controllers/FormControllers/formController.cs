@@ -9,15 +9,22 @@ using WBS.Selenium.Controllers.UIControllers;
 
 namespace WBS.Selenium.Controllers.FormControllers
 {
+    /// <summary>
+    ///  Абстрактный класс FormController
+    ///  базовый класс для всех DetailView
+    /// </summary>
     public abstract class FormController : IFormController, IFormValidationController
     {
         protected Context Context;
         protected Dictionary<string, IUIController> mapping;
+
+        //список элементов, находящихся на форме
         public abstract List<UIMapper> Map { get; }
 
         public void Initialize(Context context)
         {
             Context = context;
+            //инициализация объектов по List<UIMapper> Map
             List<UIMapper> map = Map;
             mapping = new Dictionary<string, IUIController>();
             foreach (UIMapper item in map)
@@ -81,10 +88,34 @@ namespace WBS.Selenium.Controllers.FormControllers
             table?.Click(value);
         }
 
+        public void ClickFirstRowTable(string tableName)
+        {
+            TableController table = mapping[tableName] as TableController;
+            table?.ClickFirstRow();
+        }
+
         public void CheckTableContains(string tableName,string value)
         {
             TableController table = mapping[tableName] as TableController;
             table?.CheckTableContains(value);
+        }
+
+        public void CheckTableContains(string tableName,string column, string value)
+        {
+            TableController table = mapping[tableName] as TableController;
+            table?.CheckTableContainsByColumn(column,value);
+        }
+
+        public void ClickAddInTable(string tableName)
+        {
+            TableController table = mapping[tableName] as TableController;
+            table?.ClickAdd();
+        }
+
+        public void CheckTablenNotContains(string tableName,string value)
+        {
+            TableController table = mapping[tableName] as TableController;
+            table?.CheckTablenNotContains(value);
         }
         #endregion
     }

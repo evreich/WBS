@@ -10,6 +10,7 @@ using OpenQA.Selenium;
 using WBS.Selenium.Controllers;
 using WBS.Selenium.Controllers.UIControllers;
 using WBS.Selenium.Models;
+using WBS.Selenium.Enums;
 
 namespace WBS.Selenium
 {
@@ -24,34 +25,36 @@ namespace WBS.Selenium
         {
             Context.Driver.Navigate().GoToUrl("http://localhost:55443");
             Context.Driver.Manage().Window.Maximize();
-            Thread.Sleep(2000);
 
         }
         [Test(Description = "2. Зарегистрироваться в системе"), Order(2)]
         public void AvtorizationOnUser()
         {
             //открытие формы редактирования заявки
-            User user = Context.Users.FirstOrDefault(u => u.Name == "Admin");
+            User user = Context.Users.GetUserbyName(UserNames.Admin);
             Login(user);
+
+            PageValidation.CheckUrl("/Home");
 
             NavigationMenu.OpenPage("Заявки на инвестиции");
 
-            PageValidation.CheckPageCaption("/DAIRequests");
+            PageValidation.CheckUrl("/DAIRequests");
         }
         [Test(Description = "3. Заполнить поля на форме создания заявки"), Order(3)]
         public void CreateOnOrder()
         {
             string sit = Context.TestSettings.GetValue("sit");
             string result = Context.TestSettings.GetValue("result");
+            string typeInvest = Context.TestSettings.GetValue("typeInvest");
             ListView.ClickElement("Создать");
-            Thread.Sleep(2000);
             CreateRequestDetailView.SetElementValue("Название сита", sit);
-            Thread.Sleep(2000);
             CreateRequestDetailView.SetElementValue("Центр результата", result);
             CreateRequestDetailView.ClickElement("Выбор технической службы");
             CreateRequestDetailView.ClickElement("Поставщик");
+            CreateRequestDetailView.ClickAddInTable("Таблица поставщиков");
+            SelectProviderDetailView.ClickPlus(Context, "Поставщик1");
+            CreateRequestDetailView.SetElementValue("Обоснование необходимости инвестиций", typeInvest);
             PageController.ScrollBottom(Context);
-            Thread.Sleep(2000);
             CreateRequestDetailView.ClickElement("Сохранить");
 
             //проверка

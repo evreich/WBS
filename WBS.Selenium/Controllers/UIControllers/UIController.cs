@@ -11,6 +11,11 @@ using WBS.Selenium.Enums;
 
 namespace WBS.Selenium.Controllers.UIControllers
 {
+    /// <summary>
+    /// Абстракный класс UIController
+    ///  является базовым для всех контролеров
+    ///  инициализирует объект и реализует основные методы для работы с контролерами
+    /// </summary>
     public abstract class UIController: IUIController
     {
         protected By locator;

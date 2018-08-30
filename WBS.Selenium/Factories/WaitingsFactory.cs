@@ -11,6 +11,11 @@ using WBS.Selenium.Enums;
 
 namespace WBS.Selenium.Factories
 {
+    /// <summary>
+    ///  Класс WaitingsFactory
+    ///  класс для создания словаря ожиданий
+    ///  время ожиданий редактируется в App.config
+    /// </summary>
     public class WaitingsFactory
     {
         private Dictionary<string, WebDriverWait> waitings { get; }

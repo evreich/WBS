@@ -17,16 +17,15 @@ namespace WBS.Selenium.Controllers.UIControllers
         }
         public override void SetValue(string value)
         {
-            // Через sendkeys не работает
             IWebElement datePicker = context.Driver.FindElement(locator);
             datePicker.SendKeys(value);
             Thread.Sleep(2000);
         }
 
-        public void SetValueByJs(Context context, string value)
-        {
-            IJavaScriptExecutor js = ((IJavaScriptExecutor)context.Driver);
-            js.ExecuteScript(string.Format("document.querySelector(\"input[name=\'dateOfDelivery\']\").setAttribute(\"value\",\"{0}\")", value));
-        }
+        //public void SetValueByJs(Context context, string value)
+        //{
+        //    IJavaScriptExecutor js = ((IJavaScriptExecutor)context.Driver);
+        //    js.ExecuteScript(string.Format("document.querySelector(\"input[name=\'dateOfDelivery\']\").value=\"{0}\"", value));
+        //}
     }
 }

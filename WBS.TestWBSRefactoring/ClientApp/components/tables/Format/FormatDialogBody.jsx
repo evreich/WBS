@@ -40,9 +40,14 @@ class FormatDialogBody extends React.PureComponent {
     getDataToSave = () => this.state;
 
     //handlers
-    handleChange = e => {
+    handleChange = (e, ...args) => {
         const { name, value } = e.target;
-        this.setState({ [name]: value });
+        const otherArgs = args.length > 0 ? args.reduce((obj, item) => ({ ...obj, ...item })) : {};
+
+        this.setState({
+            [name]: value,
+            ...otherArgs
+        });
     };
 
     render() {
@@ -50,9 +55,9 @@ class FormatDialogBody extends React.PureComponent {
         const {
             title,
             profile,
-            directorOfFormatId,
-            directorOfKYFormatId,
-            kyFormatId,
+            directorOfFormatFio,
+            directorOfKYFormatFio,
+            kyFormatFio,
             typeOfFormat,
             e1Limit,
             e2Limit,
@@ -62,8 +67,11 @@ class FormatDialogBody extends React.PureComponent {
             title: titleName,
             profile: profileName,
             directorOfFormatId: directorOfFormatIdName,
+            directorOfFormatFio: directorOfFormatFioName,
             directorOfKYFormatId: directorOfKYFormatIdName,
+            directorOfKYFormatFio: directorOfKYFormatFioName,
             kyFormatId: kyFormatIdName,
+            kyFormatFio: kyFormatFioName,
             typeOfFormat: typeOfFormatName,
             e1Limit: e1LimitName,
             e2Limit: e2LimitName,
@@ -93,19 +101,22 @@ class FormatDialogBody extends React.PureComponent {
                 <UserAutosuggestField
                     name={directorOfFormatIdName.propName}
                     label={directorOfFormatIdName.label}
-                    value={directorOfFormatId}
+                    value={directorOfFormatFio}
+                    textPropName={directorOfFormatFioName.propName}
                     onSuggestionSelected={this.handleChange}
                 />
                 <UserAutosuggestField
                     name={directorOfKYFormatIdName.propName}
                     label={directorOfKYFormatIdName.label}
-                    value={directorOfKYFormatId}
+                    value={directorOfKYFormatFio}
+                    textPropName={directorOfKYFormatFioName.propName}
                     onSuggestionSelected={this.handleChange}
                 />
                 <UserAutosuggestField
                     name={kyFormatIdName.propName}
                     label={kyFormatIdName.label}
-                    value={kyFormatId}
+                    value={kyFormatFio}
+                    textPropName={kyFormatFioName.propName}
                     onSuggestionSelected={this.handleChange}
                 />
                 <TextFieldMultiline

@@ -10,9 +10,11 @@ using OpenQA.Selenium;
 using WBS.Selenium.Controllers;
 using WBS.Selenium.Controllers.UIControllers;
 using WBS.Selenium.Models;
+using WBS.Selenium.Enums;
 
 namespace WBS.Selenium.TestScripts
 {
+    [TestFixture(Description = "2.Создание бюджетных плана"), Order(2)]/*(TestName = "1.Создание бюджетной строки")]*/
     public class CreateBudgetPlan : TestBase
     {
         public override string Id => "CreateBudgetPlan";
@@ -28,12 +30,12 @@ namespace WBS.Selenium.TestScripts
         public void AvtorizationOnUser()
         {
             //открытие формы ,бюджетные планы
-            User user = Context.Users.FirstOrDefault(u => u.Name == "Admin");
+            User user = Context.Users.GetUserbyName(UserNames.Admin);
             Login(user);
 
             NavigationMenu.OpenPage("Бюджетные планы");
 
-            PageValidation.CheckPageCaption("/BudgetPlans");
+            PageValidation.CheckUrl("/BudgetPlans");
         }
         //создать бюджетный план с годом, входящим в диапазон
         [Test, Order(4)]

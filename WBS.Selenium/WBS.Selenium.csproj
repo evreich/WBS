@@ -96,17 +96,21 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\FormControllers\CreateSiteDetailViewController.cs" />
     <Compile Include="Controllers\FormControllers\InformationBudgetStringDetailViewController.cs" />
-    <Compile Include="Controllers\UIControllers\ButtonCreateRowController.cs" />
+    <Compile Include="Controllers\FormControllers\InformationSiteDetailViewController.cs" />
     <Compile Include="Controllers\FormControllers\CreateBudgetDetailViewController.cs" />
-    <Compile Include="Controllers\UIControllers\ButtonLinkYearController.cs" />
+    <Compile Include="Controllers\FormControllers\CreateSitFormatDetailViewController.cs" />
+    <Compile Include="Controllers\FormControllers\InformationSitFormDetailViewController.cs" />
     <Compile Include="Controllers\FormControllers\InformationUserDetailViewController.cs" />
+    <Compile Include="Controllers\FormControllers\SelectProviderDetailViewController.cs" />
     <Compile Include="Controllers\UIControllers\CheckBoxController.cs" />
     <Compile Include="Controllers\FormControllers\CreateRequestDetailViewController.cs" />
     <Compile Include="Controllers\FormControllers\CreateUserDetailViewController.cs" />
     <Compile Include="Controllers\UIControllers\CheckComboBoxController.cs" />
     <Compile Include="Controllers\UIControllers\ComboBoxController.cs" />
     <Compile Include="Controllers\PageValidationController.cs" />
+    <Compile Include="Controllers\UIControllers\ComplexComboBoxController.cs" />
     <Compile Include="Controllers\UIControllers\LabelController.cs" />
     <Compile Include="Controllers\UIControllers\MuiIconController.cs" />
     <Compile Include="Controllers\UIControllers\DatePickerController.cs" />
@@ -114,10 +118,12 @@
     <Compile Include="Controllers\UIControllers\TableController.cs" />
     <Compile Include="Controllers\UIControllers\TabPanelController.cs" />
     <Compile Include="Controllers\UIControllers\TextBoxController.cs" />
+    <Compile Include="Enums\UserNames.cs" />
     <Compile Include="Enums\VideoQuality.cs" />
     <Compile Include="Enums\Waitings.cs" />
     <Compile Include="Factories\RecorderFactory.cs" />
     <Compile Include="Factories\TestSettingsFactory.cs" />
+    <Compile Include="Factories\UsersFactory.cs" />
     <Compile Include="Factories\WaitingsFactory.cs" />
     <Compile Include="Models\Context.cs" />
     <Compile Include="Controllers\FormControllers\FormController.cs" />
@@ -129,6 +135,10 @@
     <Compile Include="Controllers\UIControllers\UIController.cs" />
     <Compile Include="Providers\EncoderProvider.cs" />
     <Compile Include="Reporter.cs" />
+    <Compile Include="TestScripts\CheckRolesInBudgetPlan.cs" />
+    <Compile Include="TestScripts\CheckStatusBudgetRows.cs" />
+    <Compile Include="TestScripts\CreatAndEditFormatSite.cs" />
+    <Compile Include="TestScripts\CreateAndEditSite.cs" />
     <Compile Include="TestScripts\CreateBudgetPlan.cs" />
     <Compile Include="TestScripts\CreateBudgetRow.cs" />
     <Compile Include="TestScripts\CreateRequest.cs" />
@@ -136,7 +146,6 @@
     <Compile Include="Interfaces\IFormValidationController.cs" />
     <Compile Include="Interfaces\IUIController.cs" />
     <Compile Include="TestScripts\CreateUser.cs" />
-    <Compile Include="TestScripts\Login.cs" />
     <Compile Include="Models\MenuNode.cs" />
     <Compile Include="Models\UIMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -153,7 +162,19 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Configs\Tests\CheckRolesInBudgetPlan.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Configs\Tests\CheckStatusBudgetRows.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Configs\Tests\CreateAndEditSite.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Configs\Tests\CreateAndEditUser.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Configs\Tests\CreateAndEditeFormatSite.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Configs\Tests\CreateBudgetPlan.xml">

@@ -14,12 +14,13 @@ using WBS.Selenium.Controllers;
 using System.IO;
 using Microsoft.Expression.Encoder.ScreenCapture;
 using WBS.Selenium.Models;
+using WBS.Selenium.Enums;
 
 namespace WBS.Selenium.TestScripts
 {
-    
-    [TestFixture(Description = "1.Создание и редактирование нового пользователя"),Order(2)]/*(TestName = "1.Создание нового пользователя")]*/
-    public class CreateAndEditUser:TestBase
+
+    [TestFixture(Description = "1.Создание и редактирование нового пользователя"), Order(1)]/*(TestName = "1.Создание нового пользователя")]*/
+    public class CreateAndEditUser : TestBase
     {
         public override string Id => "CreateAndEditUser";
 
@@ -28,15 +29,15 @@ namespace WBS.Selenium.TestScripts
         {
             Context.Driver.Navigate().GoToUrl("http://localhost:55443");
             Context.Driver.Manage().Window.Maximize();
-            Thread.Sleep(2000);      
         }
 
         [Test(Description = "2. Зарегистрироваться в системе"), Order(2)]
         public void AvtorizationOnAllUsers()
         {
-            User user = Context.Users.FirstOrDefault(u => u.Name == "Admin");
+            User user = Context.Users.GetUserbyName(UserNames.Admin);
             Login(user);
-            Thread.Sleep(1000);
+
+            PageValidation.CheckUrl("/Home");
         }
 
         [Test(Description = "3. Открыть вкладку \"Пользователи\""), Order(3)]
@@ -44,7 +45,7 @@ namespace WBS.Selenium.TestScripts
         {
             NavigationMenu.OpenPage("Пользователи");
 
-            PageValidation.CheckPageCaption("/Profiles");
+            PageValidation.CheckUrl("/Profiles");
         }
 
         [Test(Description = "4. Создать пользователя"), Order(4)]
@@ -58,21 +59,24 @@ namespace WBS.Selenium.TestScripts
             string roles = Context.TestSettings.GetValue("roles");
 
             ListView.ClickElement("Создать");
-            Thread.Sleep(2000);
+
+            //проверка
+            PageValidation.CheckModalCaption("Создание");
+
             CreateUserDetailView.SetElementValue("ФИО", fio);
             CreateUserDetailView.SetElementValue("Логин", login);
             CreateUserDetailView.SetElementValue("Должность", jobPosition);
             CreateUserDetailView.SetElementValue("Подразделение", department);
             CreateUserDetailView.SetListValues("Полномочия", roles);
             CreateUserDetailView.SetElementValue("Пароль", password);
-            Thread.Sleep(2000);
+
             CreateUserDetailView.ClickElement("Сохранить");
-            Thread.Sleep(2000);
+
             //проверка
             ListView.CheckTableContains(fio);
         }
 
-        [Test(Description ="Проверка полей"), Order(5)]
+        [Test(Description = "5.Проверка полей"), Order(5)]
         public void OpenEditAndCekFields()
         {
             string fio = Context.TestSettings.GetValue("fio");
@@ -81,7 +85,6 @@ namespace WBS.Selenium.TestScripts
             string roles = Context.TestSettings.GetValue("roles");
 
             ListView.ClickRowTable(fio);
-            Thread.Sleep(2000);
 
             //проверка
             PageValidation.CheckFieldValue(InformationUserDetailView, "ФИО", fio);
@@ -89,7 +92,7 @@ namespace WBS.Selenium.TestScripts
             PageValidation.CheckFieldValue(InformationUserDetailView, "Подразделение", department);
         }
 
-        [Test(Description ="Редактирование полей"),Order(6)]
+        [Test(Description = "6.Редактирование полей"), Order(6)]
         public void EditFields()
         {
             string fio = Context.TestSettings.GetValue("newFio");
@@ -97,33 +100,33 @@ namespace WBS.Selenium.TestScripts
             string department = Context.TestSettings.GetValue("newDepartment");
 
             InformationUserDetailView.ClickElement("Редактировать");
+            //проверка
+            PageValidation.CheckModalCaption("Редактирование");
 
-            Thread.Sleep(2000);
             CreateUserDetailView.SetElementValue("ФИО", fio);
             CreateUserDetailView.SetElementValue("Должность", jobPosition);
             CreateUserDetailView.SetElementValue("Подразделение", department);
 
             CreateUserDetailView.ClickElement("Сохранить");
-            Thread.Sleep(2000);
+
             InformationUserDetailView.ClickElement("ОК");
             //проверка
             ListView.CheckTableContains(fio);
         }
 
-        [Test(Description = "Проверка полей"), Order(7)]
+        [Test(Description = "7.Проверка полей"), Order(7)]
         public void CheckNewFields()
         {
             string fio = Context.TestSettings.GetValue("newFio");
             string jobPosition = Context.TestSettings.GetValue("newJobPosition");
             string department = Context.TestSettings.GetValue("newDepartment");
 
-            
             ListView.ClickRowTable(fio);
 
             //проверка
             PageValidation.CheckFieldValue(InformationUserDetailView, "ФИО", fio);
             PageValidation.CheckFieldValue(InformationUserDetailView, "Должность", jobPosition);
             PageValidation.CheckFieldValue(InformationUserDetailView, "Подразделение", department);
-        }
+        }        
     }
 }
