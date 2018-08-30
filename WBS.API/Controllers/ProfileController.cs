@@ -123,7 +123,7 @@ namespace WBS.API.Controllers
         }
 
 
-        [HttpGet("{currentPage}/{pazeSize}")]
+        [HttpGet("{currentPage}/{pageSize}")]
         public IActionResult Get(int currentPage = 0, int pageSize = 5)
         {
             _logger.LogInformation("Get information about profiles on page");
