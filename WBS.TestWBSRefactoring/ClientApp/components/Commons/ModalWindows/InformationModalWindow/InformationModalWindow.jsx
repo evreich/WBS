@@ -4,16 +4,15 @@ import PropTypes from "prop-types";
 import ButtonDelete from "../../Buttons/ButtonDelete";
 import ButtonUpdate from "../../Buttons/ButtonUpdate";
 
-import Dialog, {
-    DialogActions,
-    DialogContent,
-    DialogTitle
-} from "@material-ui/core/Dialog";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogTitle from "@material-ui/core/DialogTitle";
 import Button from "@material-ui/core/Button";
 import { withStyles } from "@material-ui/core/styles";
 
 import styles from "./InformationModalWindow.css";
-import TypesOfColumnData from "constants/typesOfColumnData";
+import transormDataForRender from '../../../../helpers/transormDataForRender';
 
 class InformationModalWindow extends React.PureComponent {
     static propTypes = {
@@ -77,7 +76,7 @@ class InformationModalWindow extends React.PureComponent {
                                         <td>
                                             <div className={classes.cellValue}>
                                                 {
-                                                    formData[firstPropOfObj.propName]
+                                                    transormDataForRender(formData[firstPropOfObj.propName], firstPropOfObj.type)
                                                 }
                                             </div>
                                         </td>
@@ -109,12 +108,9 @@ class InformationModalWindow extends React.PureComponent {
                                                         classes.cellValue
                                                     }
                                                 >
-                                                    {elem.type ===
-                                                        TypesOfColumnData.ARRAY
-                                                        ? formData[elem.propName].map(item => item.title).join(", ")
-                                                        : formData[
-                                                        elem.propName
-                                                        ]}
+                                                    {
+                                                        transormDataForRender(formData[elem.propName], elem.type)
+                                                    }
                                                 </div>
                                             </td>
                                             <td />

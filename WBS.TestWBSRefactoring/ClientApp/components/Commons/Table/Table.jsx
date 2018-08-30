@@ -2,13 +2,12 @@ import PropTypes from "prop-types";
 import React from "react";
 
 import { withStyles } from "@material-ui/core/styles";
-import Table, {
-    TableBody,
-    TableCell,
-    TableFooter,
-    TablePagination,
-    TableRow
-} from "@material-ui/core/Table";
+import Table from "@material-ui/core/Table";
+import TablePagination from "@material-ui/core/TablePagination";
+import TableCell from "@material-ui/core/TableCell";
+import TableRow from "@material-ui/core/TableRow";
+import TableFooter from "@material-ui/core/TableFooter";
+import TableBody from "@material-ui/core/TableBody";
 import Paper from "@material-ui/core/Paper";
 
 import TablePaginationActionsWrapped from "../Pagination";

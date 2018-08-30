@@ -7,7 +7,7 @@ import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import List from '@material-ui/core/List';
-import CardHeader from '@material-ui/core/Card';
+import CardHeader from '@material-ui/core/CardHeader';
 import Avatar from '@material-ui/core/Avatar';
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import FolderIcon from '@material-ui/icons/Folder';
@@ -82,7 +82,7 @@ class SideMenuComponent extends Component {
                         avatar={
                             <Avatar aria-label="User" className={classes.avatar}>
                                 N
-              </Avatar>
+                            </Avatar>
                         }
                         title={<strong>{auth.username}</strong>}
                         subheader={<strong>{auth.role}</strong>}

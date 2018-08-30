@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import PropTypes from "prop-types";
 
-import { InputAdornment } from "@material-ui/core/Input";
+import InputAdornment from "@material-ui/core/InputAdornment";
 import SentimentDissatisfiedIcon from "@material-ui/icons/SentimentDissatisfied";
 import SentimentSatisfiedIcon from "@material-ui/icons/SentimentSatisfied";
 

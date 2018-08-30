@@ -55,8 +55,8 @@ namespace WBS.DAL.Data.Models.ViewModels
         public DAIRequestViewModel(DAIRequest request)
         {
             Id = request.Id;
-            CreationData = request.CreationData.Value.ToString("dd-MM-yyyy");
-            LastModifiedData = request.LastModifiedData.Value.ToString("dd-MM-yyyy");
+            CreationData = request.CreationData.Value.ToString("MM.dd.yyyy");
+            LastModifiedData = request.LastModifiedData.Value.ToString("MM.dd.yyyy");
             ReceiptTaskData = request.ReceiptTaskData;
             DirectorApprovalDate = request.DirectorApprovalDate;
             Number = request.Number;

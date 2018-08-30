@@ -1,11 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import Dialog, {
-    DialogActions,
-    DialogContent,
-    DialogTitle
-} from "@material-ui/core/Dialog";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogTitle from "@material-ui/core/DialogTitle";
 import Button from "@material-ui/core/Button";
 import Divider from "@material-ui/core/Divider";
 import { withStyles } from "@material-ui/core/styles";
@@ -19,6 +18,7 @@ import InvestmentTabs from "./tabComponents/InvestmentTabs";
 import Attachments from "./Attachments";
 import ExpansionElementsComponent from "./expansionComponents/ExpansionElementsComponent";
 import RationaleForInvestment from "./RationaleForInvestment/RationaleForInvestment";
+import DATE_FORMAT from "../../../../constants/dateFormat";
 
 let mainFormBodyRef = React.createRef();
 let investmentTabsRef = React.createRef();
@@ -64,8 +64,8 @@ const ApplicationForInvestmentForm = props => {
             ...rationaleForInvestmentValues,
             ...expansionComponentsValues,
             subject: data ? data.subject : "-",
-            creationData: data ? data.creationData : moment().format('L'),
-            lastModifiedData: moment().format('L'),
+            creationData: data ? data.creationData : moment().format(DATE_FORMAT),
+            lastModifiedData: moment().format(DATE_FORMAT),
             id: data ? data.id : 0
         };
 

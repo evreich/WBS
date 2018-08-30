@@ -8,7 +8,6 @@ import Checkbox from '@material-ui/core/Checkbox';
 
 const WAIT_INTERVAL = 3000;
 
-
 export default class Filters extends React.Component {
     constructor(props) {
         super(props);

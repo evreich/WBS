@@ -1,10 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types';
 
-import {
-    TableCell,
-    TableRow,
-} from '@material-ui/core/Table';
+import TableCell from "@material-ui/core/TableCell";
+import TableRow from "@material-ui/core/TableRow";
 import Assignment from '@material-ui/icons/Assignment';
 import Search from '@material-ui/icons/Search';
 import IconButton from '@material-ui/core/IconButton';
