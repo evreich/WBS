@@ -113,6 +113,13 @@ namespace WBS.Selenium.Models
             {
                 case TestStatus.Failed:
                     logstatus = Status.Fail;
+                    try
+                    {
+                        string screen = GetExtendError();
+                        if (!string.IsNullOrEmpty(screen))
+                            screenHtml = string.IsNullOrEmpty(screen) ? "" : $"<img src='data:image/gif;base64,{screen}' width='100%' />";
+                    }
+                    catch { }
                     break;
                 case TestStatus.Inconclusive:
                     logstatus = Status.Warning;

@@ -16,7 +16,7 @@ using WBS.Selenium.Enums;
 
 namespace WBS.Selenium.TestScripts
 {
-    [TestFixture(Description = "1.Создание формата сита"), Order(2)]/*(TestName = "1.Создание формата сита")]*/
+    [TestFixture(Description = "2.Создание формата сита"), Order(2)]/*(TestName = "1.Создание формата сита")]*/
     class CreatAndEditFormatSite : TestBase
     {
         public override string Id => "CreateAndEditeFormatSite";

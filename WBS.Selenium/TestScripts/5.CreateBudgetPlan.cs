@@ -14,57 +14,60 @@ using WBS.Selenium.Enums;
 
 namespace WBS.Selenium.TestScripts
 {
-    [TestFixture(Description = "2.Создание бюджетных плана"), Order(2)]/*(TestName = "1.Создание бюджетной строки")]*/
+    [TestFixture(Description = "5.Создание бюджетных плана"), Order(5)]/*(TestName = "1.Создание бюджетной строки")]*/
     public class CreateBudgetPlan : TestBase
     {
         public override string Id => "CreateBudgetPlan";
 
-        [Test, Order(1)]
+        [Test(Description = "1. Открыть браузер"), Order(1)]
         public void OpenaBrowser()
         {
             Context.Driver.Navigate().GoToUrl("http://localhost:55443");
             Context.Driver.Manage().Window.Maximize();
-            Thread.Sleep(2000);
         }
-        [Test, Order(2)]
+
+        [Test(Description = "2. Зарегистрироваться в системе"), Order(2)]
         public void AvtorizationOnUser()
         {
-            //открытие формы ,бюджетные планы
+            //открытие формы бюджетные планы
             User user = Context.Users.GetUserbyName(UserNames.Admin);
             Login(user);
+
+            PageValidation.CheckUrl("/Home");
 
             NavigationMenu.OpenPage("Бюджетные планы");
 
             PageValidation.CheckUrl("/BudgetPlans");
         }
-        //создать бюджетный план с годом, входящим в диапазон
-        [Test, Order(4)]
-        public void CreateYear()
-        {
-            string year = Context.TestSettings.GetValue("year");
-            ListView.ClickElement("Создать");
-            Thread.Sleep(2000);
-            CreateBudgetDetailView.SetElementValue("Год", year);
-            Thread.Sleep(5000);
-            CreateBudgetDetailView.ClickElement("Сохранить");
-            Thread.Sleep(5000);
-            //проверка на наличие бюджетного плана в списке бюджетных планов
-            ListView.CheckTableContains(year);
-        }
-        [Test, Order(3)]
+
+        [Test(Description = "3. Создать бюджетный план с некорректным годом"), Order(3)]
         public void CreateYear1()
         {
             string year1 = Context.TestSettings.GetValue("invalidyear");
             ListView.ClickElement("Создать");
-            Thread.Sleep(2000);
-            CreateBudgetDetailView.SetElementValue("Год", year1);
-            Thread.Sleep(2000);
-            PageValidation.CheckError("Год должен быть в диапазоне от 2008 до 2040");
-            Thread.Sleep(2000);
-            CreateBudgetDetailView.ClickElement("Отмена");
-            Thread.Sleep(2000);
 
+            CreateBudgetDetailView.SetElementValue("Год", year1);
+
+            PageValidation.CheckError("Год должен быть в диапазоне от 2008 до 2040");
+
+            CreateBudgetDetailView.ClickElement("Отмена");
         }
+        //создать бюджетный план с годом, входящим в диапазон
+        [Test(Description = "4. Создать бюджетный план"), Order(4)]
+        public void CreateYear()
+        {
+            string year = Context.TestSettings.GetValue("year");
+
+            ListView.ClickElement("Создать");
+
+            CreateBudgetDetailView.SetElementValue("Год", year);
+            CreateBudgetDetailView.ClickElement("Сохранить");
+
+            //проверка на наличие бюджетного плана в списке бюджетных планов
+            ListView.CheckTableContains(year);
+        }
+
+        
     }
 }
 
