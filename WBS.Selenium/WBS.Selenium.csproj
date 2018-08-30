@@ -136,14 +136,6 @@
     <Compile Include="Controllers\UIControllers\UIController.cs" />
     <Compile Include="Providers\EncoderProvider.cs" />
     <Compile Include="Reporter.cs" />
-    <Compile Include="TestScripts\CheckRolesInBudgetPlan.cs" />
-    <Compile Include="TestScripts\CheckRolesInSit.cs" />
-    <Compile Include="TestScripts\CheckStatusBudgetRows.cs" />
-    <Compile Include="TestScripts\CreatAndEditFormatSite.cs" />
-    <Compile Include="TestScripts\CreateAndEditSite.cs" />
-    <Compile Include="TestScripts\CreateBudgetPlan.cs" />
-    <Compile Include="TestScripts\CreateBudgetRow.cs" />
-    <Compile Include="TestScripts\CreateRequest.cs" />
     <Compile Include="TestScripts\7.CheckRolesInBudgetPlan.cs" />
     <Compile Include="TestScripts\8.CheckStatusBudgetRows.cs" />
     <Compile Include="TestScripts\2.CreatAndEditFormatSite.cs" />
@@ -160,6 +152,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Models\TestBase.cs" />
     <Compile Include="Models\User.cs" />
+    <Compile Include="TestScripts\CheckRolesInSit.cs" />
     <Compile Include="VideoConfigurator.cs" />
     <Compile Include="VideoRecorder.cs" />
   </ItemGroup>

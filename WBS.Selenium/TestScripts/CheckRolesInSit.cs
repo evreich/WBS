@@ -9,7 +9,7 @@ using System.Threading;
 
 namespace WBS.Selenium.TestScripts
 {
-    [TestFixture(Description = "7.Проверка полей для сита"), Order(7)]
+    [TestFixture(Description = "9.Проверка полей для сита"), Order(9)]
     public class CheckRolesInSit : TestBase
     {
         public override string Id => "CheckRolesInSit";
