@@ -10,6 +10,7 @@ import {
     getTypesOfInvestment,
     getCategoriesOfEquip
 } from "../helpersAPI";
+import DatePicker from "../../Commons/DatePicker";
 
 const budgetPlanPropName = "budgetPlanId";
 const sitePropName = "siteId";
@@ -119,6 +120,10 @@ class DetalizationOfSiteDialogBody extends React.PureComponent {
         });
     };
 
+    handleDateChange = name => date => {
+        this.setState({ [name]: date });
+    };
+
     render() {
         const { errors, formFields } = this.props;
         const {
@@ -218,15 +223,14 @@ class DetalizationOfSiteDialogBody extends React.PureComponent {
                         fullWidth: true
                     }}
                 />
-                <TextFieldPlaceholder
-                    muProps={{
-                        name: dateOfDeliveryName.propName,
-                        label: dateOfDeliveryName.label,
-                        value: dateOfDelivery,
-                        type: "date",
-                        onChange: this.handleChange,
-                        fullWidth: true
-                    }}
+                <DatePicker
+                    name={dateOfDeliveryName.propName}
+                    label={dateOfDeliveryName.label}
+                    value={dateOfDelivery ? dateOfDelivery : null}
+                    onChange={this.handleDateChange(
+                        dateOfDeliveryName.propName
+                    )}
+                    style={{ width: 300, marginTop: "16px" }}
                 />
                 <TextFieldPlaceholder
                     muProps={{
