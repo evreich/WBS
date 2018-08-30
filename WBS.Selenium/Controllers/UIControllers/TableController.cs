@@ -89,6 +89,16 @@ namespace WBS.Selenium.Controllers.UIControllers
         }
         #endregion
 
+        #region Pagination
+        public void ShowCountsOfElements(int count)
+        {
+            IWebElement div = context.Driver.FindElement(By.XPath($"//table[contains(@class,'{tableClass}')]//div[contains(@class,'MuiTablePagination') and contains(@class,'selectMenu')]"));
+            div.Click();
+            IWebElement li = context.Driver.FindElement(By.XPath($"//ul[contains(@class,'MuiList-padding')]//li[text()='{count}']"));
+            li.Click();
+        }
+        #endregion
+
         #region Validation
         public void CheckTableContains(string value)
         {

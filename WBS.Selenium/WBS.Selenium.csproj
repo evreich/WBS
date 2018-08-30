@@ -152,7 +152,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Models\TestBase.cs" />
     <Compile Include="Models\User.cs" />
-    <Compile Include="TestScripts\CheckRolesInSit.cs" />
+    <Compile Include="TestScripts\9.CheckRolesInSit.cs" />
     <Compile Include="VideoConfigurator.cs" />
     <Compile Include="VideoRecorder.cs" />
   </ItemGroup>
