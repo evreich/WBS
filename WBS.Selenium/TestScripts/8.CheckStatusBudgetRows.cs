@@ -11,7 +11,7 @@ using WBS.Selenium.Models;
 
 namespace WBS.Selenium.TestScripts
 {
-    [TestFixture(Description = "8.Проверка полей для бюджетных планов"), Order(8)]
+    [TestFixture(Description = "8.Проверка статусов для бюджетных планов"), Order(8)]
     public class CheckStatusBudgetRows : TestBase
     {
         public override string Id => "CheckStatusBudgetRows";
