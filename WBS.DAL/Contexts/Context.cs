@@ -49,6 +49,16 @@ namespace WBS.DAL
                 .WithMany(provider => provider.ProvidersTechnicalServices)
                 .OnDelete(DeleteBehavior.Cascade);
 
+            modelBuilder.Entity<DAIRequestsProvider>()
+                .HasOne(dai_prov => dai_prov.DAI)
+                .WithMany(provider => provider.DAIRequestsProviders)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<DAIRequestsTechnicalService>()
+                .HasOne(dai_prov => dai_prov.DAI)
+                .WithMany(provider => provider.DAIRequestsTechnicalService)
+                .OnDelete(DeleteBehavior.Cascade);
+
             base.OnModelCreating(modelBuilder);
         }
 

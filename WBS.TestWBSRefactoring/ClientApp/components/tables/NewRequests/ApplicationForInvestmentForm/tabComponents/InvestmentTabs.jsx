@@ -1,8 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import Tabs, { Tab } from "material-ui/Tabs";
-import Paper from "material-ui/Paper";
+import Tabs from "@material-ui/core/Tabs";
+import Tab from "@material-ui/core/Tab";
+import Paper from "@material-ui/core/Paper";
 
 import ChooseItemModalWindow from "components/Commons/ModalWindows/ChooseItemModalWindow";
 import TextFieldSelect from "components/Commons/TextFields/TextFieldSelect";

@@ -1,17 +1,16 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import { withStyles } from "material-ui/styles";
-import Table, {
-    TableBody,
-    TableCell,
-    TableFooter,
-    TablePagination,
-    TableRow
-} from "material-ui/Table";
+import { withStyles } from "@material-ui/core/styles";
+import Table from "@material-ui/core/Table";
+import TableCell from "@material-ui/core/TableCell";
+import TableRow from "@material-ui/core/TableRow";
+import TableBody from "@material-ui/core/TableBody";
+import TableFooter from "@material-ui/core/TableFooter";
+import TablePagination from "@material-ui/core/TablePagination";
 
-import InsertDriveFileIcon from "material-ui-icons/InsertDriveFile";
-import Paper from "material-ui/Paper";
+import InsertDriveFileIcon from "@material-ui/icons/InsertDriveFile";
+import Paper from "@material-ui/core/Paper";
 
 import { styles } from "../../Commons/Table/TableStyles.css";
 import fillDataToTable from "./tempHelpers/fillDataToTable";

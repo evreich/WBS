@@ -6,10 +6,6 @@ import { getTable, clearTable, updateTable, changeData, deleteData } from '../ta
 const TABLE = "newRequests";
 const ROUTE = document.api.newRequests;
 
-//TODO: исправить код в Table component
-//заглушка для InformationModalWindow
-const EmptyComponent = () => null;
-
 const mapStateToProps = state => 
     (state.tables[TABLE] ?
         {
@@ -26,7 +22,7 @@ const mapDispatchToProps = (dispatch) => ({
     deleteData: (pageIndex, pageSize, data) => dispatch(deleteData(pageIndex, pageSize, data, ROUTE, TABLE))
 });
 
-const CategoriesOfEquipmentContainer = (dataFields, ChangeItemWindow) => 
+const NewRequestsContainer = (dataFields, ChangeItemWindow) => 
     connect(
         mapStateToProps,
         mapDispatchToProps
@@ -34,9 +30,8 @@ const CategoriesOfEquipmentContainer = (dataFields, ChangeItemWindow) =>
         CreateTable({
             dataFiledsInfo: dataFields,
             ChangeItemModalWindow: ChangeItemWindow,
-            InformationModalWindow: EmptyComponent,
             title: TABLE
         })
     );
 
-export default CategoriesOfEquipmentContainer;
+export default NewRequestsContainer;
