@@ -1,23 +1,24 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import Divider from "material-ui/Divider";
+import Divider from "@material-ui/core/Divider";
 
-import Radio from "components/Commons/Radio/Radio";
-import DatePicker from "components/Commons/DatePicker";
-import Checkbox from "components/Commons/Checkbox/Checkbox";
-import TextFieldSelect from "components/Commons/TextFields/TextFieldSelect";
-import TextFieldPlaceholder from "components/Commons/TextFields/TextFieldPlaceholder";
-import transformFieldsToState from "helpers/transformFieldsToState";
+import Radio from "../../../../Commons/Radio/Radio";
+import DatePicker from "../../../../Commons/DatePicker";
+import Checkbox from "../../../../Commons/Checkbox/Checkbox";
+import TextFieldSelect from "../../../../Commons/TextFields/TextFieldSelect";
+import TextFieldPlaceholder from "../../../../Commons/TextFields/TextFieldPlaceholder";
+import transformFieldsToState from "../../../../../helpers/transformFieldsToState";
 import {
     getSites,
     getResultCentres,
     getTechnicalServs
-} from "components/tables/helpersAPI";
+} from "../../../helpersAPI";
 
 class MainFormBody extends React.PureComponent {
     constructor(props) {
         super(props);
+        this.fields = transformFieldsToState(Object.values(props.formFields));
 
         this.state = {
             id: 0,
@@ -25,8 +26,7 @@ class MainFormBody extends React.PureComponent {
             sits: [],
             resultCentres: [],
             technicalServs: [],
-            selectedTechServs: [],
-            ...transformFieldsToState(Object.values(props.formFields))
+            ...this.fields
         };
     }
 
@@ -38,9 +38,13 @@ class MainFormBody extends React.PureComponent {
         classes: PropTypes.object
     };
 
-    //lifecycles
     static getDerivedStateFromProps(nextProps) {
-        return nextProps && nextProps.data ? { ...nextProps.data } : null;
+        if (nextProps.data) {
+            const isShowTechServs =
+                nextProps.data.technicalServices.length > 0 ? "true" : "false";
+
+            return { ...nextProps.data, isShowTechServs };
+        } else return null;
     }
 
     setSites = data =>
@@ -53,10 +57,26 @@ class MainFormBody extends React.PureComponent {
             resultCentres: data
         });
 
-    setTechServs = data =>
-        this.setState({
-            technicalServs: data
-        });
+    setTechServs = data => {
+        const technicalServicesFromProps =
+            this.props.data && this.props.data.technicalServices;
+
+        const technicalServs = data
+            .map(serv_elem => {
+                const checked = technicalServicesFromProps
+                        ? technicalServicesFromProps.find(
+                            prop_elem => prop_elem.title === serv_elem.title
+                        )
+                            ? true
+                            : false
+                        : false;
+                        
+                    return { ...serv_elem, checked };
+            })
+            .reduce((accum, currValue) => ({...accum, [currValue.title] : currValue }), {});
+
+        this.setState({ technicalServs });
+    };
 
     showError = () => {};
 
@@ -79,17 +99,19 @@ class MainFormBody extends React.PureComponent {
             resultCentreId,
             deliveryTime,
             technicalServs,
-            selectedTechServs
         } = this.state;
+        const technicalServices = Object.values(technicalServs)
+            .filter(item =>
+                item.checked
+            )
+            .map(item => ({ id: item.id, title: item.title}) )
         return {
             number,
             directorApprovalDate,
             siteId,
             resultCentreId,
             deliveryTime,
-            technicalServices: technicalServs.filter(item =>
-                selectedTechServs.includes(item.title)
-            )
+            technicalServices
         };
     };
 
@@ -109,15 +131,10 @@ class MainFormBody extends React.PureComponent {
     handleChangeCheckbox = name => event => {
         event.persist();
         this.setState(prevState => {
-            const currSelectedTechServs = prevState.selectedTechServs.slice();
-            event.target.checked
-                ? currSelectedTechServs.push(name)
-                : currSelectedTechServs.splice(
-                      currSelectedTechServs.indexOf(name),
-                      1
-                  );
+            const technicalServs = {...prevState.technicalServs};
+            technicalServs[name].checked = event.target.checked;
 
-            return { selectedTechServs: currSelectedTechServs };
+            return { technicalServs };
         });
     };
 
@@ -141,7 +158,7 @@ class MainFormBody extends React.PureComponent {
             siteId: siteIdName,
             resultCentreId: resultCentreIdName,
             deliveryTime: deliveryTimeName,
-            technicalServs: technicalServsName
+            technicalServices: technicalServsName
         } = formFields;
 
         return (
@@ -264,7 +281,7 @@ class MainFormBody extends React.PureComponent {
                         {isShowTechServs === "true" && (
                             <>
                                 {technicalServs &&
-                                    technicalServs.map(s => (
+                                    Object.values(technicalServs).map(s => (
                                         <Checkbox
                                             name={s.title}
                                             label={s.title}
@@ -272,7 +289,7 @@ class MainFormBody extends React.PureComponent {
                                                 height: 24
                                             }}
                                             key={s.title}
-                                            defaultChecked={this.state[s.title]}
+                                            checked={s.checked}
                                             onChange={this.handleChangeCheckbox(
                                                 s.title
                                             )}

@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormControlLabel } from 'material-ui/Form';
-import RadioComp from 'material-ui/Radio';
+
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import RadioComp from '@material-ui/core/Radio';
 
 const Radio = ({ input, label, style, value, checked, radioStyle, onChange}) =>
     <FormControlLabel

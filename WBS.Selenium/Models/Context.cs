@@ -12,30 +12,28 @@ using WBS.Selenium.Factories;
 
 namespace WBS.Selenium
 {
+    /// <summary>
+    ///  Класс Context
+    ///  имеет поля для работы с драйвером, ожиданиями, которые создаются с помощью драйвера, список пользователей
+    ///  для каждого теста необходим свой IWebDriver
+    /// </summary>
     public class Context
     {
-        public List<User> Users { get; set; }
-        XmlSerializer formatter = new XmlSerializer(typeof(List<User>), new XmlRootAttribute("users"));
-
-        public IWebDriver Driver { get; set; }
-
-        //public WebDriverWait Wait { get; set; }        
-
+        //драйвер=браузер
+        public IWebDriver Driver { get; set; }      
+        //фабрика для раюоты с данными тестов в Configs\\Tests\\*.xml
         public TestSettingsFactory TestSettings { get; protected set; }
-
+        //фабрика ожиданий
         public WaitingsFactory Waitings { get; }
+        //фабрика пользователей
+        public UsersFactory Users { get; }
 
         public Context(string testId)
         {
             Driver = new ChromeDriver();
-            //Wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(10));
             TestSettings = new TestSettingsFactory(testId);
             Waitings = new WaitingsFactory(Driver);
-            string path = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDi‌​rectory, "Configs\\Users.xml"));
-            using (FileStream fs = new FileStream(path, FileMode.OpenOrCreate))
-            {
-                Users = (List<User>)formatter.Deserialize(fs);
-            }
+            Users = new UsersFactory();
         }
     }
 }

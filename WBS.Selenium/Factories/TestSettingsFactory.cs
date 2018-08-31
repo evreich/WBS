@@ -8,6 +8,10 @@ using System.IO;
 
 namespace WBS.Selenium.Factories
 {
+    /// <summary>
+    ///  Класс TestSettingsFactory
+    ///  класс для настройки работы с файлами тестов в .xml
+    /// </summary>
     public class TestSettingsFactory
     {
         private XDocument testConfig;

@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<data>
+  <title>Формат сита 1</title>
+  <profile>Профиль</profile>
+  <directorOfFormat>user1</directorOfFormat>
+  <directorofKYformat>user1</directorofKYformat>
+  <kyFormatId>user1</kyFormatId>
+  <typeOfFormat>Тип формата 1</typeOfFormat>
+  <e1>25</e1>
+  <e2>500</e2>
+  <e3>265232</e3>
+
+  <newTitle>Формат сита 2</newTitle>
+  <newprofile>user1</newprofile>
+  <newdirectorOfFormat>user1</newdirectorOfFormat>
+  <newdirectorofKYformat>user1</newdirectorofKYformat>
+  <newkyFormatId>user1</newkyFormatId>
+  <newtypeOfFormat>Тип формата 1</newtypeOfFormat>
+  <newe1>25</newe1>
+  <newe2>500</newe2>
+  <newe3>265232</newe3>
+  <userName>Гордеев</userName>
+</data>

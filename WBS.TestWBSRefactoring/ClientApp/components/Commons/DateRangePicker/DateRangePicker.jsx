@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { withStyles } from 'material-ui/styles';
+import { withStyles } from '@material-ui/core/styles';
 import { DatePicker } from 'material-ui-pickers';
-import KeyboardArrowLeft from 'material-ui-icons/KeyboardArrowLeft'
-import KeyboardArrowRight from 'material-ui-icons/KeyboardArrowRight'
+import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft'
+import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight'
 import styles from './DateRangePicker.css';
 
 class DateRangePicker extends Component {

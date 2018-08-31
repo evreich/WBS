@@ -11,7 +11,12 @@ using WBS.Selenium.Enums;
 
 namespace WBS.Selenium.Controllers.UIControllers
 {
-    public abstract class UIController: IUIController
+    /// <summary>
+    /// Абстракный класс UIController
+    ///  является базовым для всех контролеров
+    ///  инициализирует объект и реализует основные методы для работы с контролерами
+    /// </summary>
+    public abstract class UIController: IUIController,IUIValidationController
     {
         protected By locator;
         protected Context context;
@@ -78,6 +83,24 @@ namespace WBS.Selenium.Controllers.UIControllers
         public void WaitVisible()
         {
             context.Waitings.Get(Waitings.Normal).Until(ExpectedConditions.ElementIsVisible(locator));
+        }
+
+        public bool IsEnabled()
+        {
+            try
+            {
+                IWebElement e = context.Waitings.Get(Waitings.Normal).Until(ExpectedConditions.ElementToBeClickable(locator));
+                return e.Displayed;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public void WaitEnabled()
+        {
+            context.Waitings.Get(Waitings.Normal).Until(ExpectedConditions.ElementToBeClickable(locator));
         }
     }
 }

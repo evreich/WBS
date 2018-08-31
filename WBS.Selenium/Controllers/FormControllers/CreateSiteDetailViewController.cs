@@ -13,7 +13,7 @@ namespace WBS.Selenium.Controllers.FormControllers
         public override List<UIMapper> Map => new List<UIMapper>
         {
              new UIMapper("Название", typeof(TextBoxController), "title",false,new Dictionary<string, string> { { "type", "textarea" } }),
-             new UIMapper("Формат", typeof(ComboBoxController), "formatId"),
+             new UIMapper("Формат", typeof(ComboBoxController), "formatId",true),
              new UIMapper("КУ Сита", typeof(ComplexComboBoxController), "kySitId"),
              new UIMapper("Технический эксперт", typeof(ComplexComboBoxController), "technicalExpertId"),
              new UIMapper("Директор Сита", typeof(ComplexComboBoxController), "directorOfSitId"),

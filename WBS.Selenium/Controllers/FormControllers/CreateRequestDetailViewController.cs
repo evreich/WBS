@@ -12,8 +12,8 @@ namespace WBS.Selenium.Controllers.FormControllers
     {
         public override List<UIMapper> Map => new List<UIMapper>
         {
-            new UIMapper("Название сита", typeof(ComboBoxController), "siteId"),
-            new UIMapper("Центр результата", typeof(ComboBoxController), "resultCentreId"),
+            new UIMapper("Название сита", typeof(ComboBoxController), "siteId",true),
+            new UIMapper("Центр результата", typeof(ComboBoxController), "resultCentreId",true),
             new UIMapper("Выбор технической службы", typeof(CheckBoxController), "Выбор технической службы"),
             new UIMapper("Ariba", typeof(CheckBoxController), "Ariba",false,new Dictionary<string, string> { { "type", "span" } }),
             new UIMapper("Бюджет", typeof(TabPanelController), "Бюджет"),
@@ -21,7 +21,7 @@ namespace WBS.Selenium.Controllers.FormControllers
             new UIMapper("Инвестиции", typeof(TabPanelController), "Инвестиции"),
             new UIMapper("Поставщик", typeof(TabPanelController), "Поставщик"),
             new UIMapper("Обоснование необходимости инвестиций", typeof(ComboBoxController), "rationaleForInvestmentId"),
-            new UIMapper("Добавить поставщика", typeof(ComboBoxController), ""),
+            new UIMapper("Загрузить файл",typeof(AttachFileController),""),
             new UIMapper("Сохранить", typeof(MuiButtonController), "Сохранить"),
             new UIMapper("Таблица поставщиков", typeof(TableController), "Common"),
         };

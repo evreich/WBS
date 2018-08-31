@@ -8,6 +8,10 @@ using WBS.Selenium.Controllers.UIControllers;
 
 namespace WBS.Selenium.Controllers.FormControllers
 {
+    /// <summary>
+    ///  Класс ListViewController
+    ///  основной DetailView (таблица Common и кнопка Создать), описывающий работу с таблицей
+    /// </summary>
     public class ListViewController : FormController
     {
         public override List<UIMapper> Map => new List<UIMapper>
@@ -16,7 +20,7 @@ namespace WBS.Selenium.Controllers.FormControllers
              
              //table
              new UIMapper("Таблица",typeof(TableController),"Common"),
-             new UIMapper("Детальный план сита",typeof(DetailedPlanTableController),"DetalizationOfSite"),
+             new UIMapper("Детальный план сита",typeof(TableController),"Common",false,new Dictionary<string, string>(){ { "div", "DetalizationOfSite" } }),
         };
 
         public void CheckTableContains(string value)
@@ -35,6 +39,12 @@ namespace WBS.Selenium.Controllers.FormControllers
         {
             TableController table = mapping["Таблица"] as TableController;
             table?.Click(value);
+        }
+
+        public void ClickFirstRowTable()
+        {
+            TableController table = mapping["Таблица"] as TableController;
+            table?.ClickFirstRow();
         }
 
         public List<string> GetListFieldValues(string field, int maxPageNum=0)

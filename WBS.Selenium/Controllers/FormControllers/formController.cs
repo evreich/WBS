@@ -9,15 +9,22 @@ using WBS.Selenium.Controllers.UIControllers;
 
 namespace WBS.Selenium.Controllers.FormControllers
 {
+    /// <summary>
+    ///  Абстрактный класс FormController
+    ///  базовый класс для всех DetailView
+    /// </summary>
     public abstract class FormController : IFormController, IFormValidationController
     {
         protected Context Context;
         protected Dictionary<string, IUIController> mapping;
+
+        //список элементов, находящихся на форме
         public abstract List<UIMapper> Map { get; }
 
         public void Initialize(Context context)
         {
             Context = context;
+            //инициализация объектов по List<UIMapper> Map
             List<UIMapper> map = Map;
             mapping = new Dictionary<string, IUIController>();
             foreach (UIMapper item in map)
@@ -55,22 +62,22 @@ namespace WBS.Selenium.Controllers.FormControllers
         #region Validation
         public bool CheckElementIsEnabled(string element)
         {
-            throw new NotImplementedException();
+            return ((IUIValidationController)mapping[element]).IsEnabled();
         }
 
         public bool CheckElementIsVisible(string element)
         {
-            throw new NotImplementedException();
+            return ((IUIValidationController)mapping[element]).IsVisible();
         }
 
         public void WaitElementIsEnabled(string element)
         {
-            throw new NotImplementedException();
+            ((IUIValidationController)mapping[element]).IsEnabled();
         }
 
         public void WaitElementIsVisible(string element)
         {
-            throw new NotImplementedException();
+           ((IUIValidationController)mapping[element]).IsVisible();
         }
         #endregion
 
@@ -81,11 +88,24 @@ namespace WBS.Selenium.Controllers.FormControllers
             table?.Click(value);
         }
 
+        public void ClickFirstRowTable(string tableName)
+        {
+            TableController table = mapping[tableName] as TableController;
+            table?.ClickFirstRow();
+        }
+
         public void CheckTableContains(string tableName,string value)
         {
             TableController table = mapping[tableName] as TableController;
             table?.CheckTableContains(value);
         }
+
+        public void CheckTableContains(string tableName,string column, string value)
+        {
+            TableController table = mapping[tableName] as TableController;
+            table?.CheckTableContainsByColumn(column,value);
+        }
+
         public void ClickAddInTable(string tableName)
         {
             TableController table = mapping[tableName] as TableController;
@@ -96,6 +116,22 @@ namespace WBS.Selenium.Controllers.FormControllers
         {
             TableController table = mapping[tableName] as TableController;
             table?.CheckTablenNotContains(value);
+        }
+
+        public void ShowCountsOfElements(string tableName, int count)
+        {
+            TableController table = mapping[tableName] as TableController;
+            table?.ShowCountsOfElements(count);
+        }
+        public bool NextPage(string tableName)
+        {
+            TableController table = mapping[tableName] as TableController;
+            return table.NextPage(tableName);
+        }
+        public bool PrevPage(string tableName)
+        {
+            TableController table = mapping[tableName] as TableController;
+            return table.PrevPage(tableName);
         }
         #endregion
     }

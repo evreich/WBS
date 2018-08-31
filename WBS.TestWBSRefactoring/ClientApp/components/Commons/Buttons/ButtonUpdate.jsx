@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import IconButton from 'material-ui/IconButton';
-import { withStyles } from 'material-ui/styles';
-import EditIcon from 'material-ui-icons/Edit';
+import IconButton from '@material-ui/core/IconButton';
+import { withStyles } from '@material-ui/core/styles';
+import EditIcon from '@material-ui/icons/Edit';
 
 import styles from './Button.css'
 

@@ -26,6 +26,8 @@ namespace WBS.Selenium.Controllers
             Thread.Sleep(2000);
             IWebElement cbItem = context.Driver.FindElement(By.XPath($"//ul[@role='listbox']//li[contains(text(),'{value}')]"));
             cbItem.Click();
+            if (waitPostback)            
+                PageController.WaitJsLoaded(context);
         }
     }
 }

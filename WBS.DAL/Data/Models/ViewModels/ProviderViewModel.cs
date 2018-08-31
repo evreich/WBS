@@ -13,14 +13,16 @@ namespace WBS.DAL.Data.Models.ViewModels
 
         public ProviderViewModel(Provider provider)
         {
-            Id = provider.Id;
-            Title = provider.Title;
-
-            if (provider.ProvidersTechnicalServices != null)
+            if(provider != null)
             {
-                Profiles = provider.ProvidersTechnicalServices.Select(p => new TechnicalServiceViewModel(p.TechnicalService)).ToList();
-            }
-            
+                Id = provider.Id;
+                Title = provider.Title;
+
+                if (provider.ProvidersTechnicalServices != null)
+                {
+                    Profiles = provider.ProvidersTechnicalServices.Select(p => new TechnicalServiceViewModel(p.TechnicalService)).ToList();
+                }
+            }         
         }
 
         public ProviderViewModel()

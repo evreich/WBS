@@ -14,5 +14,6 @@ namespace WBS.Selenium.Interfaces
         string GetValue();
         void SetValue(string value);
         void WaitVisible();
+        
     }
 }

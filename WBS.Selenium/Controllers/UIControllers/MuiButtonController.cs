@@ -23,11 +23,7 @@ namespace WBS.Selenium.Controllers.UIControllers
         public override void Click()
         {
             base.Click();
-            //if (waitPageChanged)
-            //    // PageController.WaitPageChanged(context);
-            //    PageController.WaitJsLoaded(context);
-            //else if (waitPostback)
-            //    PageController.WaitPageLoaded(context);
+            PageController.WaitJsLoaded(context);
         }
     }
 }
