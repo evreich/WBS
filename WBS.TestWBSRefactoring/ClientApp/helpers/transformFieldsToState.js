@@ -1,4 +1,7 @@
+import moment from "moment"
+
 import TypesOfColumnData from "../constants/typesOfColumnData";
+import DATE_FORMAT from "../constants/dateFormat";
 
 const transformFieldsToState = fields =>
     fields.reduce(
@@ -17,7 +20,7 @@ const setInitValueForType = type => {
         case TypesOfColumnData.NONE:
             return '';
         case TypesOfColumnData.DATE:
-            return new Date();
+            return moment().format(DATE_FORMAT);
         case TypesOfColumnData.ARRAY:
             return [];
         case TypesOfColumnData.BOOLEAN:

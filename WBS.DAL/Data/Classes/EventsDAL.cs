@@ -28,7 +28,7 @@ namespace WBS.DAL.Data.Classes
         {
             return _context.Events
                 .Include(item => item.BudgetPlan)
-                .Include(item => item.Status) 
+                .Include(item => item.Status)
                 .ToList();
         }
     }

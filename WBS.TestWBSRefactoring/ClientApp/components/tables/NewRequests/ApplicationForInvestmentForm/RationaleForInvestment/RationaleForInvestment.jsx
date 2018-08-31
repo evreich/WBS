@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import TextFieldSelect from "components/Commons/TextFields/TextFieldSelect";
 import TextFieldMultiline from "components/Commons/TextFields/TextFieldMultiline";
 import Checkbox from "components/Commons/Checkbox/Checkbox";
-import { getInvestmentRational } from "../../../helpersAPI";
+import { getInvestmentRational } from "components/tables/helpersAPI";
 import transformFieldsToState from 'helpers/transformFieldsToState';
 
 class RationaleForInvestment extends React.PureComponent {
@@ -24,8 +24,13 @@ class RationaleForInvestment extends React.PureComponent {
     static propTypes = {
         classes: PropTypes.object,
         formFields: PropTypes.object,
-        onRef: PropTypes.func
+        onRef: PropTypes.func,
+        data: PropTypes.object
     };
+
+    static getDerivedStateFromProps(nextProps) {
+        return nextProps && nextProps.data ? { ...nextProps.data } : null;
+    }
 
     componentDidMount() {
         const onRef = this.props.onRef;
@@ -101,11 +106,11 @@ class RationaleForInvestment extends React.PureComponent {
                         />
                     </div>
                     <Checkbox
-                        name={approvalOfTechExpertIsRequiredName.propname}
+                        name={approvalOfTechExpertIsRequiredName.propName}
                         label={approvalOfTechExpertIsRequiredName.label}
-                        defaultChecked={approvalOfTechExpertIsRequired}
+                        checked={approvalOfTechExpertIsRequired}
                         checkboxStyle={{ height: 24 }}
-                        onChange={this.handleChangeCheckbox(approvalOfTechExpertIsRequiredName.propname)}
+                        onChange={this.handleChangeCheckbox(approvalOfTechExpertIsRequiredName.propName)}
                     />
                 </div>
                 <div

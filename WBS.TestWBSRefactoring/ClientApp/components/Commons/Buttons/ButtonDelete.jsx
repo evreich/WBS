@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import IconButton from 'material-ui/IconButton';
-import { withStyles } from 'material-ui/styles';
-import Delete from 'material-ui-icons/Delete';
+import IconButton from '@material-ui/core/IconButton';
+import { withStyles } from '@material-ui/core/styles';
+import Delete from '@material-ui/icons/Delete';
 
 import styles from './Button.css'
 

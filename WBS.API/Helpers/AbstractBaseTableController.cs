@@ -4,7 +4,6 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using WBS.DAL;
 using WBS.DAL.Cache;
 using WBS.DAL.Data.Helpers;
@@ -12,7 +11,7 @@ using WBS.DAL.Data.Models.ViewModels;
 
 namespace WBS.API.Helpers
 {
-    public abstract class AbstractBaseTableController<T,U>: Controller where T : class, IBaseEntity where U : IViewModel<T>
+    public abstract class AbstractBaseTableController<T, U> : Controller where T : class, IBaseEntity where U : IViewModel<T>
     {
         protected readonly ILogger _logger;
         protected readonly AbstractDAL<T> _dal;
@@ -22,17 +21,19 @@ namespace WBS.API.Helpers
             _dal = dal;
             _logger = logger;
         }
-        
+
         [HttpGet("{currentPage}/{pageSize}")]
         [Authorize]
-        public virtual IActionResult Get(int currentPage = 0, int pageSize = 5) 
+        public virtual IActionResult Get(int currentPage = 0, int pageSize = 5)
         {
             _logger.LogInformation("Getting information is started");
+
             var allData = _dal.Get()
                         .OrderBy(f => f.Id);
             var dataForPage = allData.Skip((currentPage) * pageSize)
                             .Take(pageSize)
-                            .Select(d => (U)Activator.CreateInstance(typeof(U), d));
+                            .Select(d => (U)Activator.CreateInstance(typeof(U), d))
+                            .ToList();
 
             _logger.LogInformation("Getting information is completed");
             return Ok(new DataWithPaginationViewModel<U>
@@ -41,6 +42,34 @@ namespace WBS.API.Helpers
                 Pagination = new Pagination { CurrentPage = currentPage, ElementsPerPage = pageSize, ElementsCount = allData.Count() }
             });
         }
+        
+        /*
+         * Обобщенный метод с учетом фильтрации и сортировки
+        [HttpGet]
+        [Authorize]
+        public virtual IActionResult Get(int currentPage = 0, int pageSize = 5, string filters = null, string sort = null) //as query params
+        {
+            _logger.LogInformation("Getting information is started");
+
+            //TODO: реализовать необходимые преобразования, в зависимости от того, в каком виде данные придут с клиента
+            List<Filter> filtersList = ParseFilters(filters);
+            Sort sortObj = ParseSort(sort);
+
+            var allData = _dal.Find(filtersList, sortObj);
+            
+            var dataForPage = allData.Skip((currentPage) * pageSize)
+                            .Take(pageSize)
+                            .Select(d => (U)Activator.CreateInstance(typeof(U), d));
+
+            _logger.LogInformation("Getting information is completed");
+
+            return Ok(new DataWithPaginationViewModel<U>
+            {
+                Data = dataForPage,
+                Pagination = new Pagination { CurrentPage = currentPage, ElementsPerPage = pageSize, ElementsCount = allData.Count() }
+            });
+        }
+*/
 
         [HttpPut]
         [Authorize]

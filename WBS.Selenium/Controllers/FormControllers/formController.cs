@@ -62,22 +62,22 @@ namespace WBS.Selenium.Controllers.FormControllers
         #region Validation
         public bool CheckElementIsEnabled(string element)
         {
-            throw new NotImplementedException();
+            return ((IUIValidationController)mapping[element]).IsEnabled();
         }
 
         public bool CheckElementIsVisible(string element)
         {
-            throw new NotImplementedException();
+            return ((IUIValidationController)mapping[element]).IsVisible();
         }
 
         public void WaitElementIsEnabled(string element)
         {
-            throw new NotImplementedException();
+            ((IUIValidationController)mapping[element]).IsEnabled();
         }
 
         public void WaitElementIsVisible(string element)
         {
-            throw new NotImplementedException();
+           ((IUIValidationController)mapping[element]).IsVisible();
         }
         #endregion
 
@@ -116,6 +116,22 @@ namespace WBS.Selenium.Controllers.FormControllers
         {
             TableController table = mapping[tableName] as TableController;
             table?.CheckTablenNotContains(value);
+        }
+
+        public void ShowCountsOfElements(string tableName, int count)
+        {
+            TableController table = mapping[tableName] as TableController;
+            table?.ShowCountsOfElements(count);
+        }
+        public bool NextPage(string tableName)
+        {
+            TableController table = mapping[tableName] as TableController;
+            return table.NextPage(tableName);
+        }
+        public bool PrevPage(string tableName)
+        {
+            TableController table = mapping[tableName] as TableController;
+            return table.PrevPage(tableName);
         }
         #endregion
     }

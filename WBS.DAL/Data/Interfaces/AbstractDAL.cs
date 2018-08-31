@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using WBS.DAL.Cache;
+using WBS.DAL.Data.Helpers;
 
 namespace WBS.DAL
 {
@@ -36,6 +37,14 @@ namespace WBS.DAL
         public virtual IEnumerable<T> Get()
         {
             return _cache.Get(_cache.AllIdentifier, param => GetItems());
+        }
+
+        public virtual IEnumerable<T> Find(List<Filter> filters, Sort sort)
+        {
+            IEnumerable<T> data = _cache.Get(_cache.AllIdentifier, param => GetItems());
+            data = QueryHelper.ApplyConditions(data, filters);
+            data = QueryHelper.ApplySort(data, sort);
+            return data;
         }
 
         public virtual T Update(T item)

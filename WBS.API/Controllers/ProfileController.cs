@@ -123,20 +123,20 @@ namespace WBS.API.Controllers
         }
 
 
-        [HttpGet("{currentPage}/{pazeSize}")]
+        [HttpGet("{currentPage}/{pageSize}")]
         public IActionResult Get(int currentPage = 0, int pageSize = 5)
         {
             _logger.LogInformation("Get information about profiles on page");
             var data = _dal.GetUsers()
                         .Select(u => new ProfileViewModel(u))
-                        .ToList()
-                        .OrderBy(f => f.Id)
-                        .Skip((currentPage) * pageSize)
-                        .Take(pageSize);
+                        .ToList();
+            var dataToPage = data.OrderBy(f => f.Id)
+                            .Skip((currentPage) * pageSize)
+                            .Take(pageSize);
             _logger.LogInformation("Getting information is succesfull");
             return Ok(new DataWithPaginationViewModel<ProfileViewModel>
             {
-                Data = data,
+                Data = dataToPage,
                 Pagination = new Pagination { CurrentPage = currentPage, ElementsPerPage = pageSize, ElementsCount = data.Count() }
             });
         }

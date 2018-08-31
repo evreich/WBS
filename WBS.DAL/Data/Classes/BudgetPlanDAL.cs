@@ -28,7 +28,7 @@ namespace WBS.DAL.Data.Classes
         }
 
         protected override IEnumerable<BudgetPlan> GetItems()
-        {        
+        {
             return _context.BudgetPlans
                 .Include(item => item.Items)
                 .Include(item => item.Events)

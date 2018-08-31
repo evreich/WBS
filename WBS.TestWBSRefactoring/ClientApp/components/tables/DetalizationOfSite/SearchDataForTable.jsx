@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import Divider from "@material-ui/core/Divider";
-import Search from "material-ui-icons/Search";
+import Search from "@material-ui/icons/Search";
 import Button from "@material-ui/core/Button";
 import ExpansionPanel from "@material-ui/core/ExpansionPanel";
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
@@ -10,7 +10,7 @@ import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import Typography from "@material-ui/core/Typography";
 import ExpansionPanelActions from "@material-ui/core/ExpansionPanelActions";
-import { withStyles } from "material-ui/styles";
+import { withStyles } from "@material-ui/core/styles";
 
 import TextFieldSelect from "../../Commons/TextFields/TextFieldSelect";
 import TextFieldPlaceholder from "../../Commons/TextFields/TextFieldPlaceholder";

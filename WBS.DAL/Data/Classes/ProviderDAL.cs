@@ -12,7 +12,10 @@ namespace WBS.DAL
 
         protected override IEnumerable<Provider> GetItems()
         {
-            return _context.Providers.Include(p => p.ProvidersTechnicalServices).ThenInclude(ts => ts.TechnicalService).ToList();
+            return _context.Providers
+                .Include(p => p.ProvidersTechnicalServices)
+                    .ThenInclude(ts => ts.TechnicalService)
+                .ToList();
         }
 
         protected override Provider GetItem(object id)

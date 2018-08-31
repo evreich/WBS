@@ -104,6 +104,7 @@
     <Compile Include="Controllers\FormControllers\InformationSitFormDetailViewController.cs" />
     <Compile Include="Controllers\FormControllers\InformationUserDetailViewController.cs" />
     <Compile Include="Controllers\FormControllers\SelectProviderDetailViewController.cs" />
+    <Compile Include="Controllers\UIControllers\AttachFileController.cs" />
     <Compile Include="Controllers\UIControllers\CheckBoxController.cs" />
     <Compile Include="Controllers\FormControllers\CreateRequestDetailViewController.cs" />
     <Compile Include="Controllers\FormControllers\CreateUserDetailViewController.cs" />
@@ -125,6 +126,7 @@
     <Compile Include="Factories\TestSettingsFactory.cs" />
     <Compile Include="Factories\UsersFactory.cs" />
     <Compile Include="Factories\WaitingsFactory.cs" />
+    <Compile Include="Interfaces\IUIValidationController.cs" />
     <Compile Include="Models\Context.cs" />
     <Compile Include="Controllers\FormControllers\FormController.cs" />
     <Compile Include="Controllers\FormControllers\ListViewController.cs" />
@@ -135,22 +137,23 @@
     <Compile Include="Controllers\UIControllers\UIController.cs" />
     <Compile Include="Providers\EncoderProvider.cs" />
     <Compile Include="Reporter.cs" />
-    <Compile Include="TestScripts\CheckRolesInBudgetPlan.cs" />
-    <Compile Include="TestScripts\CheckStatusBudgetRows.cs" />
-    <Compile Include="TestScripts\CreatAndEditFormatSite.cs" />
-    <Compile Include="TestScripts\CreateAndEditSite.cs" />
-    <Compile Include="TestScripts\CreateBudgetPlan.cs" />
-    <Compile Include="TestScripts\CreateBudgetRow.cs" />
-    <Compile Include="TestScripts\CreateRequest.cs" />
+    <Compile Include="TestScripts\7.CheckRolesInBudgetPlan.cs" />
+    <Compile Include="TestScripts\8.CheckStatusBudgetRows.cs" />
+    <Compile Include="TestScripts\2.CreatAndEditFormatSite.cs" />
+    <Compile Include="TestScripts\3.CreateAndEditSite.cs" />
+    <Compile Include="TestScripts\5.CreateBudgetPlan.cs" />
+    <Compile Include="TestScripts\6.CreateBudgetRow.cs" />
+    <Compile Include="TestScripts\4.CreateRequest.cs" />
     <Compile Include="Interfaces\IFormController.cs" />
     <Compile Include="Interfaces\IFormValidationController.cs" />
     <Compile Include="Interfaces\IUIController.cs" />
-    <Compile Include="TestScripts\CreateUser.cs" />
+    <Compile Include="TestScripts\1.CreateUser.cs" />
     <Compile Include="Models\MenuNode.cs" />
     <Compile Include="Models\UIMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Models\TestBase.cs" />
     <Compile Include="Models\User.cs" />
+    <Compile Include="TestScripts\9.CheckRolesInSit.cs" />
     <Compile Include="VideoConfigurator.cs" />
     <Compile Include="VideoRecorder.cs" />
   </ItemGroup>
@@ -158,11 +161,17 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Attachments\test.docx" />
+    <None Include="Attachments\test.pdf" />
     <None Include="license" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Attachments\attachment14.txt" />
     <Content Include="Configs\Tests\CheckRolesInBudgetPlan.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Configs\Tests\CheckRolesInSit.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Configs\Tests\CheckStatusBudgetRows.xml">
@@ -193,6 +202,7 @@
     <Content Include="extent-config.xml">
     </Content>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

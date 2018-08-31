@@ -113,6 +113,13 @@ namespace WBS.Selenium.Models
             {
                 case TestStatus.Failed:
                     logstatus = Status.Fail;
+                    try
+                    {
+                        string screen = GetExtendError();
+                        if (!string.IsNullOrEmpty(screen))
+                            screenHtml = string.IsNullOrEmpty(screen) ? "" : $"<img src='data:image/gif;base64,{screen}' width='100%' />";
+                    }
+                    catch { }
                     break;
                 case TestStatus.Inconclusive:
                     logstatus = Status.Warning;
@@ -178,7 +185,7 @@ namespace WBS.Selenium.Models
             parol.SendKeys(user.Password);
             IWebElement button = Context.Driver.FindElement(By.XPath("//button[contains(@class,'ButtonPrimary-button')]"));
             button.Click();
-            PageController.WaitUntilJSReady(Context);
+            PageController.WaitJsLoaded(Context);
         }
 
         public void Login(string login, string password)
@@ -189,7 +196,7 @@ namespace WBS.Selenium.Models
             passordElement.SendKeys(password);
             IWebElement button = Context.Driver.FindElement(By.XPath("//button[contains(@class,'ButtonPrimary-button')]"));
             button.Click();
-            PageController.WaitUntilJSReady(Context);
+            PageController.WaitJsLoaded(Context);
         }
 
         // Выход из приложения

@@ -13,7 +13,7 @@ namespace WBS.Selenium.Controllers.UIControllers
         public override void Initialize(Context context, string id, bool waitPostback = false, Dictionary<string, string> parameters = null)
         {
             this.context = context;
-            locator = By.XPath($"//h3[contains(@class,'MuiListItemText') and text()='{id}']");
+            locator = By.XPath($"//span[contains(@class,'MuiListItemText') and text()='{id}']");
         }
 
         //public  void Click()

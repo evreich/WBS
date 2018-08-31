@@ -20,10 +20,10 @@ namespace WBS.Selenium.Controllers.FormControllers
             
         };
        
-        public void ClickPlus(Context context,string value)
+        public void ClickPlus(string value)
         {
 
-            IWebElement cbItem = context.Driver.FindElement(By.XPath($"//div//table//tr[.//td[text()='{value}']]//td//button[@name='addProviderBtn']"));
+            IWebElement cbItem = Context.Driver.FindElement(By.XPath($"//div//table//tr[.//td[text()='{value}']]//td//button[@name='addProviderBtn']"));
             cbItem.Click();
         }
     }

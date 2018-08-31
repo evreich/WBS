@@ -39,8 +39,9 @@ namespace WBS.API.Controllers
             }
 
             _logger.LogInformation("Create '{dataId}' data", value.Id);
+
             var daiModel = value.CreateModel();
-            daiModel.CreationData = DateTime.UtcNow; 
+
             var createdData = _daiRequestDAL.Create(daiModel);
 
             if (createdData != null)
@@ -70,7 +71,6 @@ namespace WBS.API.Controllers
             }
 
             var daiModel = value.CreateModel();
-            daiModel.LastModifiedData = DateTime.UtcNow;
             _logger.LogInformation("Change '{dataId}' data", daiModel.Id);
             var updatedData = _dal.Update(daiModel);
 
