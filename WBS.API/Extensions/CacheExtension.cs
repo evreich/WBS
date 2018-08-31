@@ -1,11 +1,8 @@
 ﻿using System;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using WBS.DAL;
 using WBS.DAL.Cache;
-using WBS.DAL.Models;
 
 namespace WBS.API.Extensions
 {

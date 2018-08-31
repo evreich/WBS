@@ -11,12 +11,13 @@ namespace WBS.DAL
     {
         public FormatDAL(WBSContext context, ICache cache) : base(context, cache) { }
 
-        protected override IQueryable<Format> GetItems()
+        protected override IEnumerable<Format> GetItems()
         {
             return _context.Formats
                 .Include(f => f.DirectorOfFormat)
                 .Include(f => f.DirectorOfKYFormat)
-                .Include(f => f.KYFormat);
+                .Include(f => f.KYFormat)
+                .ToList();
         }
 
         protected override Format GetItem(object id)

@@ -10,11 +10,12 @@ namespace WBS.DAL
     {
         public ProviderDAL(WBSContext context, ICache cache) : base(context, cache) { }      
 
-        protected override IQueryable<Provider> GetItems()
+        protected override IEnumerable<Provider> GetItems()
         {
             return _context.Providers
                 .Include(p => p.ProvidersTechnicalServices)
-                    .ThenInclude(ts => ts.TechnicalService);
+                    .ThenInclude(ts => ts.TechnicalService)
+                .ToList();
         }
 
         protected override Provider GetItem(object id)

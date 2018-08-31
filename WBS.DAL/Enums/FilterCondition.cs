@@ -1,5 +1,5 @@
 ﻿
-namespace WBS.API.Enums
+namespace WBS.DAL.Enums
 {
     public enum FilterCondition
     {
@@ -10,6 +10,6 @@ namespace WBS.API.Enums
         LessOrEqual,
         Notequal,
         Contains,
-        AnyOf
+        In
     }
 }

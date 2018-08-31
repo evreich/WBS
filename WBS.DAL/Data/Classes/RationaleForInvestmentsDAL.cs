@@ -20,9 +20,9 @@ namespace WBS.DAL
                 .FirstOrDefault();
         }
 
-        protected override IQueryable<RationaleForInvestment> GetItems()
+        protected override IEnumerable<RationaleForInvestment> GetItems()
         {
-            return _context.RationaleForInvestments;
+            return _context.RationaleForInvestments.ToList();
         }
     }
 }

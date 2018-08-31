@@ -34,6 +34,7 @@ namespace WBS.DAL.Cache
                 DropAll<T>();
             }
         }
+
         public void Add<T>(string id, T data)
         {
             if (data != null)// если объект не пустой
@@ -64,6 +65,7 @@ namespace WBS.DAL.Cache
             _cache.Remove(GenerateKey<T>(data.Id.ToString()));
             DropAll<T>();
         }
+
         public void Remove<T, TId>(TId id)
         {
             _cache.Remove(GenerateKey<T>(id.ToString()));

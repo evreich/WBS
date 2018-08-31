@@ -14,9 +14,9 @@ namespace WBS.DAL
         {
         }
 
-        protected override IQueryable<CategoryOfEquipment> GetItems()
+        protected override IEnumerable<CategoryOfEquipment> GetItems()
         {
-            return _context.CategoriesOfEquipment.Include(f => f.CategoryGroup);
+            return _context.CategoriesOfEquipment.Include(f => f.CategoryGroup).ToList();
         }
 
         protected override CategoryOfEquipment GetItem(object id)

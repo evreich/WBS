@@ -1,6 +1,7 @@
 ﻿using System;
-using System.Linq;
+using System.Collections.Generic;
 using WBS.DAL.Cache;
+using WBS.DAL.Data.Helpers;
 
 namespace WBS.DAL
 {
@@ -15,7 +16,7 @@ namespace WBS.DAL
             _cache = cache;
         }
 
-        protected abstract IQueryable<T> GetItems();
+        protected abstract IEnumerable<T> GetItems();
         protected abstract T GetItem(object id);
 
         public virtual T Create(T item)
@@ -33,9 +34,17 @@ namespace WBS.DAL
             return _cache.Get(id, x => GetItem(id));
         }
 
-        public virtual IQueryable<T> Get()
+        public virtual IEnumerable<T> Get()
         {
             return _cache.Get(_cache.AllIdentifier, param => GetItems());
+        }
+
+        public virtual IEnumerable<T> Find(List<Filter> filters, Sort sort)
+        {
+            IEnumerable<T> data = _cache.Get(_cache.AllIdentifier, param => GetItems());
+            data = QueryHelper.ApplyConditions(data, filters);
+            data = QueryHelper.ApplySort(data, sort);
+            return data;
         }
 
         public virtual T Update(T item)

@@ -32,7 +32,8 @@ namespace WBS.API.Helpers
                         .OrderBy(f => f.Id);
             var dataForPage = allData.Skip((currentPage) * pageSize)
                             .Take(pageSize)
-                            .Select(d => (U)Activator.CreateInstance(typeof(U), d));
+                            .Select(d => (U)Activator.CreateInstance(typeof(U), d))
+                            .ToList();
 
             _logger.LogInformation("Getting information is completed");
             return Ok(new DataWithPaginationViewModel<U>
@@ -41,7 +42,7 @@ namespace WBS.API.Helpers
                 Pagination = new Pagination { CurrentPage = currentPage, ElementsPerPage = pageSize, ElementsCount = allData.Count() }
             });
         }
-
+        
         /*
          * Обобщенный метод с учетом фильтрации и сортировки
         [HttpGet]
@@ -50,16 +51,13 @@ namespace WBS.API.Helpers
         {
             _logger.LogInformation("Getting information is started");
 
-            var query = _dal.Get();
-
             //TODO: реализовать необходимые преобразования, в зависимости от того, в каком виде данные придут с клиента
             List<Filter> filtersList = ParseFilters(filters);
             Sort sortObj = ParseSort(sort);
 
-            QueryHelper.ApplyConditions(ref query, filtersList);
-            QueryHelper.ApplySort(ref query, sortObj);
-
-            var dataForPage = query.Skip((currentPage) * pageSize)
+            var allData = _dal.Find(filtersList, sortObj);
+            
+            var dataForPage = allData.Skip((currentPage) * pageSize)
                             .Take(pageSize)
                             .Select(d => (U)Activator.CreateInstance(typeof(U), d));
 
@@ -71,7 +69,7 @@ namespace WBS.API.Helpers
                 Pagination = new Pagination { CurrentPage = currentPage, ElementsPerPage = pageSize, ElementsCount = allData.Count() }
             });
         }
-        */
+*/
 
         [HttpPut]
         [Authorize]

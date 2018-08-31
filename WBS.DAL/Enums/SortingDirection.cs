@@ -1,5 +1,5 @@
 ﻿
-namespace WBS.API.Enums
+namespace WBS.DAL.Enums
 {
     public enum SortingDirection
     {

@@ -1,7 +1,7 @@
 ﻿using System;
-using WBS.API.Enums;
+using WBS.DAL.Enums;
 
-namespace WBS.API.Helpers
+namespace WBS.DAL.Data.Helpers
 {
     public class Filter
     {
