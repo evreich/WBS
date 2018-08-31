@@ -9,7 +9,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ClientApp\containers\home\" />
+    <Folder Include="ClientApp-old\containers\home\" />
+    <Folder Include="ClientApp\actions\" />
+    <Folder Include="ClientApp\containers\" />
+    <Folder Include="ClientApp\services\" />
+    <Folder Include="ClientApp\utils\" />
+    <Folder Include="ClientApp\stylesheets\" />
+    <Folder Include="ClientApp\reducers\" />
     <Folder Include="wwwroot\" />
     <Folder Include="wwwroot\dist\" />
   </ItemGroup>
