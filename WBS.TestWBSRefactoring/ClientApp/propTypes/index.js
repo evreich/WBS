@@ -1,8 +1,8 @@
-﻿import auth from "./auth";
-export { auth };
+﻿import authPropType from "./auth";
+export { authPropType };
 
-import columnHeader from "./columnHeader";
-export { columnHeader };
+import columnHeaderPropType from "./columnHeader";
+export { columnHeaderPropType };
 
-import pagination from "./pagination";
-export { pagination };
+import paginationPropType from "./pagination";
+export { paginationPropType };

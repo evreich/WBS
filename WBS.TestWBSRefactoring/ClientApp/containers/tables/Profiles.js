@@ -13,13 +13,13 @@ const TABLE = "profiles";
 const ROUTE = document.api.profiles;
 const ROUTE_MARK_ON_DELETE_PROFILE = document.api.markProfileForDeletion;
 
-const mapStateToProps = state => 
+const mapStateToProps = state =>
     (state.tables[TABLE]
         ? {
-              ...state.tables[TABLE]
-              //TODO: send server error in form from redux store
-              //errors: state.tables[TABLE].errors
-          }
+            ...state.tables[TABLE]
+            //TODO: send server error in form from redux store
+            //errors: state.tables[TABLE].errors
+        }
         : {});
 
 const mapDispatchToProps = dispatch => ({
@@ -32,25 +32,13 @@ const mapDispatchToProps = dispatch => ({
     deleteData: (pageIndex, pageSize, data) => dispatch(markOnDeleteData(pageIndex, pageSize, data, ROUTE, ROUTE_MARK_ON_DELETE_PROFILE, TABLE))
 });
 
-const ProfilesContainer = (
-    dataFields,
-    ProfilesAddItemDialogBody,
-    ProfilesEditItemDialogBody,
-    ProfilesInformationForm,
-    ProviderTableRow
-) =>
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(
-        CreateTable({
-            dataFiledsInfo: dataFields,
-            AddItemDialogBodyComponent: ProfilesAddItemDialogBody,
-            ChangeItemDialogBodyComponent: ProfilesEditItemDialogBody,
-            RowComponent: ProviderTableRow,
-            InformationModalWindow: ProfilesInformationForm, 
-            title: TABLE
-        })
-    );
-
-export default ProfilesContainer;
+//TODO: TableRow
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(
+    CreateTable({
+        RowComponent: ProviderTableRow,
+        title: TABLE
+    })
+);

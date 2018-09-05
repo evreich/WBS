@@ -1,12 +1,12 @@
 import { connect } from "react-redux";
 
-import CreateTable from "components/Commons/Table";
+import CreateTable from "generators/Table";
 import { getTable, clearTable, updateTable, changeData, deleteData } from '../tablesActions';
 
 const TABLE = "formats";
 const ROUTE = document.api.formats;
 
-const mapStateToProps = state => 
+const mapStateToProps = state =>
     (state.tables[TABLE] ?
         {
             ...state.tables[TABLE]
@@ -22,18 +22,12 @@ const mapDispatchToProps = (dispatch) => ({
     deleteData: (pageIndex, pageSize, data) => dispatch(deleteData(pageIndex, pageSize, data, ROUTE, TABLE))
 });
 
-const FormatContainer = (dataFields, DialogBody) => 
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(
-        CreateTable({
-            dataFiledsInfo: dataFields,
-            AddItemDialogBodyComponent: DialogBody,
-            ChangeItemDialogBodyComponent: DialogBody,
-            title: TABLE,
-        })
-    );
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(
+    CreateTable({
+        title: TABLE,
+    })
+);
 
-
-export default FormatContainer;

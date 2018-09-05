@@ -11,7 +11,7 @@ import MuiTableBody from "@material-ui/core/TableBody";
 import Paper from "@material-ui/core/Paper";
 
 import TablePaginationActionsWrapped from "../Pagination";
-import SortedTableHead from "./SortedTableHead";
+import SortedTableHead from "../SortedTableHead";
 import { styles } from "./Table.css";
 import SortingActions from "constants/sortingActions";
 import { sortOn } from "helpers/sortinngFunctions";
@@ -19,6 +19,7 @@ import TableToolbar from "./Toolbar";
 import CommonChangeItemModalWindow from "../ModalWindows/ChangeItemModalWindow";
 import CommonInformationModalWindow from "../ModalWindows/InformationModalWindow";
 import CommonTableRow from "./TableRow";
+import { paginationPropType } from "propTypes";
 
 //заголовки диалоговых окон
 const createTitleModalWindow = "Создание";
@@ -40,7 +41,6 @@ const Table = ({
             constructor(props) {
                 super(props);
                 this.state = {
-                    modalWindowInfoIsOpening: false,
                     modalWindowChangingIsOpening: false,
                     updatingDataItem: null,
                     changeModalWindowTitle: createTitleModalWindow,
@@ -57,11 +57,13 @@ const Table = ({
             static propTypes = {
                 classes: PropTypes.object.isRequired,
                 getDataTable: PropTypes.func.isRequired,
+                //getDescriptors: PropTypes.func.isRequired,
                 clearTable: PropTypes.func.isRequired,
                 updateTable: PropTypes.func.isRequired,
                 changeData: PropTypes.func.isRequired,
                 data: PropTypes.array.isRequired,
-                pagination: PropTypes.object.isRequired,
+                descriptors: PropTypes.array.isRequired,
+                pagination: PropTypes.paginationPropType.isRequired,
                 deleteData: PropTypes.func,
                 queryParams: PropTypes.object,
                 showToolbar: PropTypes.bool
@@ -74,12 +76,14 @@ const Table = ({
                     elementsCount: 0
                 },
                 data: [],
+                descriptors: [],
                 showToolbar: true
             };
 
             //lifecycle hooks
             componentDidMount() {
                 const { getDataTable, queryParams } = this.props;
+                //дескрипторы тоже где-то тут приходят
                 getDataTable(undefined, undefined, queryParams);
             }
 
@@ -110,25 +114,6 @@ const Table = ({
                 this.setState({
                     modalWindowChangingIsOpening: true,
                     changeModalWindowTitle: editTitleModalWindow
-                });
-            };
-
-            handleCloseInformationModalWindow = () => {
-                this.setState({
-                    modalWindowInfoIsOpening: false
-                });
-            };
-
-            handleExitInformationModalWindow = () => {
-                this.setState({
-                    updatingDataItem: null
-                });
-            };
-
-            handleOpenInformationModalWindow = item => {
-                this.setState({
-                    modalWindowInfoIsOpening: true,
-                    updatingDataItem: item
                 });
             };
 
@@ -198,7 +183,6 @@ const Table = ({
                     showToolbar
                 } = this.props;
                 const {
-                    modalWindowInfoIsOpening,
                     modalWindowChangingIsOpening,
                     updatingDataItem,
                     changeModalWindowTitle,
@@ -265,9 +249,7 @@ const Table = ({
                             {/*Таблица*/}
                             {showToolbar && (
                                 <TableToolbar
-                                    onCreate={
-                                        this.handleOpenOnCreateChangeModalWindow
-                                    }
+                                    onCreate={this.handleOpenOnCreateChangeModalWindow}
                                     title={titleTable}
                                 />
                             )}
@@ -285,13 +267,9 @@ const Table = ({
                                             <RowComponent
                                                 key={row.id}
                                                 row={row}
-                                                displayedColumns={Object.values(
-                                                    tableHeaders
-                                                )}
-                                                classes={classes}
-                                                handleInfoButtonClick={
-                                                    this.handleOpenInformationModalWindow
-                                                }
+                                                displayedColumns={Object.values(tableHeaders)}
+                                            classes={classes}
+                                            handleInfoButtonClick={this.handleOpenOnEditChangeModalWindow}
                                             />
                                         ))}
                                     {this.fillingEmptyRows(emptyRows)}
@@ -303,20 +281,6 @@ const Table = ({
                         </Paper>
 
                         {/* Модальные окна */}
-                        <InformationModalWindow
-                            open={modalWindowInfoIsOpening}
-                            onExited={this.handleExitInformationModalWindow}
-                            formData={updatingDataItem}
-                            cancel={this.handleCloseInformationModalWindow}
-                            formFieldNames={Object.values(infoWindowModel)}
-                            handleDeleteButtonClick={
-                                this.handleDeleteButtonClick
-                            }
-                            handleUpdateButtonClick={
-                                this.handleOpenOnEditChangeModalWindow
-                            }
-                        />
-
                         <ChangeItemModalWindow
                             open={modalWindowChangingIsOpening}
                             save={changeData}
@@ -325,7 +289,8 @@ const Table = ({
                                     ? editWindowFields
                                     : createWindowFields
                             }
-                            data={updatingDataItem}
+                            descriptors={descriptors}
+                            //data={updatingDataItem}
                             cancel={this.handleCloseChangeModalWindow}
                             currentPage={currentPage}
                             elementsPerPage={elementsPerPage}

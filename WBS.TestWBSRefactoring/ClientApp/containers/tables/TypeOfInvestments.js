@@ -3,10 +3,10 @@ import { connect } from "react-redux";
 import CreateTable from "components/Commons/Table";
 import { getTable, clearTable, updateTable, changeData, deleteData } from '../tablesActions';
 
-const TABLE = "providers";
-const ROUTE = document.api.providers;
+const TABLE = "typeOfInvestments";
+const ROUTE = document.api.typeOfInvestments;
 
-const mapStateToProps = state => 
+const mapStateToProps = state =>
     (state.tables[TABLE] ?
         {
             ...state.tables[TABLE]
@@ -15,27 +15,20 @@ const mapStateToProps = state =>
         } : {});
 
 const mapDispatchToProps = (dispatch) => ({
-    getDataTable: (pageIndex, pageSize, queryParams) => dispatch(getTable(pageIndex, pageSize, ROUTE, TABLE, queryParams)),
+    getDataTable: (pageIndex, pageSize) => dispatch(getTable(pageIndex, pageSize, ROUTE, TABLE)),
     clearTable: () => dispatch(clearTable(TABLE)),
     updateTable: (data) => dispatch(updateTable(data, TABLE)),
     changeData: (pageIndex, pageSize, method, data) => dispatch(changeData(pageIndex, pageSize, method, data, ROUTE, TABLE)),
     deleteData: (pageIndex, pageSize, data) => dispatch(deleteData(pageIndex, pageSize, data, ROUTE, TABLE))
 });
 
-const ProvidersContainer = (dataFields, DialogBody, ProviderTableRow, tableStyles) => 
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(
-        CreateTable({
-            dataFiledsInfo: dataFields,
-            AddItemDialogBodyComponent: DialogBody,
-            ChangeItemDialogBodyComponent: DialogBody,
-            title: TABLE,
-            tableStyles: tableStyles,
-            RowComponent: ProviderTableRow
-        })
-    );
-
-
-export default ProvidersContainer;
+//TODO: tableStyles
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(
+    CreateTable({
+        title: TABLE,
+        tableStyles: tableStyles
+    })
+);

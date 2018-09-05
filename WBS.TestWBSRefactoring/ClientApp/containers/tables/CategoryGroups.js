@@ -1,12 +1,12 @@
 import { connect } from "react-redux";
 
-import CreateTable from "components/Commons/Table";
+import CreateTable from "generators/Table";
 import { getTable, clearTable, updateTable, changeData, deleteData } from '../tablesActions';
 
-const TABLE = "typeOfInvestments";
-const ROUTE = document.api.typeOfInvestments;
+const TABLE = "categoryGroups";
+const ROUTE = document.api.categoryGroups;
 
-const mapStateToProps = state => 
+const mapStateToProps = state =>
     (state.tables[TABLE] ?
         {
             ...state.tables[TABLE]
@@ -22,19 +22,13 @@ const mapDispatchToProps = (dispatch) => ({
     deleteData: (pageIndex, pageSize, data) => dispatch(deleteData(pageIndex, pageSize, data, ROUTE, TABLE))
 });
 
-const TypeOfInvestmentsContainer = (dataFields, DialogBody, tableStyles) => 
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(
-        CreateTable({
-            dataFiledsInfo: dataFields,
-            AddItemDialogBodyComponent: DialogBody,
-            ChangeItemDialogBodyComponent: DialogBody,
-            title: TABLE,
-            tableStyles: tableStyles
-        })
-    );
-
-
-export default TypeOfInvestmentsContainer;
+//TODO: tableStyles
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(
+    CreateTable({
+        title: TABLE,
+        tableStyles: tableStyles
+    })
+);

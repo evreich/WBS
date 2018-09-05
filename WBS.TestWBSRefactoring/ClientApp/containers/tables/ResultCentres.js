@@ -3,10 +3,10 @@ import { connect } from "react-redux";
 import CreateTable from "components/Commons/Table";
 import { getTable, clearTable, updateTable, changeData, deleteData } from '../tablesActions';
 
-const TABLE = "categoriesOfEquipment";
-const ROUTE = document.api.categoriesOfEquipment;
+const TABLE = "resultCentres";
+const ROUTE = document.api.resultCentres;
 
-const mapStateToProps = state => 
+const mapStateToProps = state =>
     (state.tables[TABLE] ?
         {
             ...state.tables[TABLE]
@@ -22,18 +22,13 @@ const mapDispatchToProps = (dispatch) => ({
     deleteData: (pageIndex, pageSize, data) => dispatch(deleteData(pageIndex, pageSize, data, ROUTE, TABLE))
 });
 
-const CategoriesOfEquipmentContainer = (dataFields, DialogBody) => 
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(
-        CreateTable({
-            dataFiledsInfo: dataFields,
-            AddItemDialogBodyComponent: DialogBody,
-            ChangeItemDialogBodyComponent: DialogBody,
-            title: TABLE
-        })
-    );
-
-
-export default CategoriesOfEquipmentContainer;
+//TODO: tableStyles
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(
+    CreateTable({
+        title: TABLE,
+        tableStyles: tableStyles
+    })
+);

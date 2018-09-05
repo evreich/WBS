@@ -1,4 +1,4 @@
-import TYPE from 'constants/actionTypes.js';
+import TYPE from './tablesActionTypes.js';
 
 const initialState = { errors: [] };
 

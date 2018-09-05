@@ -266,7 +266,6 @@ class SideMenuComponent extends Component {
 
 SideMenuComponent.propTypes = {
     classes: PropTypes.object.isRequired,
-    theme: PropTypes.object.isRequired,
     logout: PropTypes.func,
 };
 

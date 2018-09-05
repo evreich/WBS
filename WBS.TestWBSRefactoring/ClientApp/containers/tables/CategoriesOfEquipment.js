@@ -1,12 +1,12 @@
 import { connect } from "react-redux";
 
-import CreateTable from "components/Commons/Table";
+import CreateTable from "generators/Table";
 import { getTable, clearTable, updateTable, changeData, deleteData } from '../tablesActions';
 
-const TABLE = "categoryGroups";
-const ROUTE = document.api.categoryGroups;
+const TABLE = "categoriesOfEquipment";
+const ROUTE = document.api.categoriesOfEquipment;
 
-const mapStateToProps = state => 
+const mapStateToProps = state =>
     (state.tables[TABLE] ?
         {
             ...state.tables[TABLE]
@@ -22,19 +22,11 @@ const mapDispatchToProps = (dispatch) => ({
     deleteData: (pageIndex, pageSize, data) => dispatch(deleteData(pageIndex, pageSize, data, ROUTE, TABLE))
 });
 
-const CategoryGroupsContainer = (dataFields, DialogBody, tableStyles) => 
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(
-        CreateTable({
-            dataFiledsInfo: dataFields,
-            AddItemDialogBodyComponent: DialogBody,
-            ChangeItemDialogBodyComponent: DialogBody,
-            title: TABLE,
-            tableStyles: tableStyles
-        })
-    );
-
-
-export default CategoryGroupsContainer;
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(
+    CreateTable({
+        title: TABLE
+    })
+); 
