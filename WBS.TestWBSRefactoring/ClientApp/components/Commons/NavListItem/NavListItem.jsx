@@ -56,8 +56,14 @@ class NavListItem extends Component {
 NavListItem.propTypes = {
     text: PropTypes.string,
     icon: PropTypes.element.isRequired,
-    to: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
-    children: PropTypes.any,
+    to: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.object
+    ]),
+    children: PropTypes.oneOfType([
+        PropTypes.node,
+        PropTypes.arrayOf(PropTypes.node)
+    ]),
     className: PropTypes.string,
 };
 
