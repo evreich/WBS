@@ -2,18 +2,18 @@ import React from 'react';
 import { Route } from 'react-router-dom';
 
 import Layout from './components/Commons/Layout';
-import AuthorizationForm from './containers/authorization/authorizationContainer';
+import AuthorizationForm from 'containers/authorization/authorizationContainer';
 import Home from './components/Home';
-import CategoriesOfEquipment from './components/tables/CategoriesOfEquipment';
-import CategoryGroups from './components/tables/CategoryGroups'
-import BudgetPlans from './components/tables/BudgetPlans';
-import TypeOfInvestments from './components/tables/TypesOfInvestment';
-import ResultCentres from './components/tables/ResultCentres';
-import Providers from './components/tables/Providers';
-import Sits from './components/tables/Sits';
-import Formats from './components/tables/Format';
-import Profiles from './components/tables/Profiles';
-import DAIRequests from './components/tables/DAIRequests'
+import CategoriesOfEquipment from 'containers/tables/CategoriesOfEquipment';
+import CategoryGroups from 'containers/tables/CategoryGroups'
+import BudgetPlans from 'containers/tables/BudgetPlans';
+import TypeOfInvestments from 'containers/tables/TypesOfInvestment';
+import ResultCentres from 'containers/tables/ResultCentres';
+import Providers from 'containers/tables/Providers';
+import Sits from 'containers/tables/Sits';
+import Formats from 'containers/tables/Format';
+import Profiles from 'containers/tables/Profiles';
+import DAIRequests from 'containers/tables/DAIRequests'
 
 const routes = ( 
     <Layout>

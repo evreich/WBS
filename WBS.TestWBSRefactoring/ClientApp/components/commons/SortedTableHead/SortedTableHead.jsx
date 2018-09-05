@@ -8,6 +8,7 @@ import TableSortLabel from "@material-ui/core/TableSortLabel";
 import Tooltip from "@material-ui/core/Tooltip";
 
 import TypesOfColumnData from "constants/typesOfColumnData";
+import { columnHeaderPropType } from "propTypes";
 
 const SortedTableHead = props => {
     const { columnHeaders, order, orderBy, classes } = props;
@@ -61,7 +62,7 @@ SortedTableHead.propTypes = {
     onRequestSort: PropTypes.func.isRequired,
     order: PropTypes.string.isRequired,
     orderBy: PropTypes.string.isRequired,
-    columnHeaders: PropTypes.array.isRequired,
+    columnHeaders: PropTypes.arrayOf(columnHeaderPropType),
     classes: PropTypes.object
 };
 export default SortedTableHead;

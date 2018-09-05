@@ -1,9 +1,9 @@
-import TYPE from 'constants/actionTypes.js';
+import TYPE from './tablesActionTypes.js';
 
 const initialState = { errors: [] };
 
 export const reducer = (state = initialState, action) => {
-    switch(action.type){
+    switch (action.type) {
         case TYPE.GET_TABLE_SUCCESS: {
             return {
                 ...state,
@@ -24,6 +24,12 @@ export const reducer = (state = initialState, action) => {
             let newState = { ...state };
             newState[action.title].data = action.data;
             return newState;
+        }
+        case TYPE.SET_UPDATING_ITEM: {
+            return {
+                ...state,
+                updatingItem: action.updatingItem
+            }
         }
         default:
             return state;
