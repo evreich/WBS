@@ -1,13 +1,16 @@
 import { connect } from "react-redux";
 
-import CreateTable from "components/Commons/Table";
+import CreateTable from "generators/Table";
+import ProfileTableRow from "components/tableRows/ProfileTableRow";
 import {
     getTable,
     clearTable,
     updateTable,
     changeData,
-} from "../tablesActions";
-import { markOnDeleteData } from './profileActions';
+    setUpdatingItem
+} from "actions/tablesActions";
+import { markOnDeleteData } from 'actions/profileActions';
+import descriptors from "descriptors/profilesDescriptors";
 
 const TABLE = "profiles";
 const ROUTE = document.api.profiles;
@@ -22,14 +25,14 @@ const mapStateToProps = state =>
         }
         : {});
 
+//TODO: повторяется одно и то же - вынести?
 const mapDispatchToProps = dispatch => ({
-    getDataTable: (pageIndex, pageSize) =>
-        dispatch(getTable(pageIndex, pageSize, ROUTE, TABLE)),
+    getDataTable: (pageIndex, pageSize) => dispatch(getTable(pageIndex, pageSize, ROUTE, TABLE)),
     clearTable: () => dispatch(clearTable(TABLE)),
     updateTable: data => dispatch(updateTable(data, TABLE)),
-    changeData: (pageIndex, pageSize, method, data) =>
-        dispatch(changeData(pageIndex, pageSize, method, data, ROUTE, TABLE)),
-    deleteData: (pageIndex, pageSize, data) => dispatch(markOnDeleteData(pageIndex, pageSize, data, ROUTE, ROUTE_MARK_ON_DELETE_PROFILE, TABLE))
+    changeData: (pageIndex, pageSize, method, data) => dispatch(changeData(pageIndex, pageSize, method, data, ROUTE, TABLE)),
+    deleteData: (pageIndex, pageSize, data) => dispatch(markOnDeleteData(pageIndex, pageSize, data, ROUTE, ROUTE_MARK_ON_DELETE_PROFILE, TABLE)),
+    setUpdatingItem: (updatingItemId) => dispatch(setUpdatingItem(updatingItemId))
 });
 
 //TODO: TableRow
@@ -38,7 +41,8 @@ export default connect(
     mapDispatchToProps
 )(
     CreateTable({
-        RowComponent: ProviderTableRow,
+        dataFiledsInfo: descriptors,
+        RowComponent: ProfileTableRow,
         title: TABLE
     })
 );

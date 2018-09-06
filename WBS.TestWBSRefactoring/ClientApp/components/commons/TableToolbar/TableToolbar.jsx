@@ -9,7 +9,7 @@ import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import Button from '@material-ui/core/Button';
 import Tooltip from '@material-ui/core/Tooltip';
 
-import { toolbarStyles } from './TableStyles.css';
+import { toolbarStyles } from './TableToolbar.css';
 
 let TableToolbar = props => {
     const {classes, onCreate, title } = props;

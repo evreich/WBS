@@ -12,7 +12,6 @@ import muiTheme from 'muiTheme';
 import SideMenuContainer from 'containers/SideMenuContainer/SideMenuContainer';
 import authPropType from "propTypes/auth";
 
-
 const Layout = ({ pushToHome, children, routing, auth }) => {
     let targetRoute = routing.location.pathname;
     const customPush = route => (route !== targetRoute ? push(route) : null);
@@ -42,6 +41,7 @@ const Layout = ({ pushToHome, children, routing, auth }) => {
 
 Layout.propTypes = {
     children: PropTypes.array,
+    //TODO
     routing: PropTypes.shape({
         location: PropTypes.shape({
             pathname: PropTypes.string

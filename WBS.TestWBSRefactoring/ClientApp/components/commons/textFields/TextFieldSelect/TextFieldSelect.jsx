@@ -1,9 +1,11 @@
 ﻿import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
+
 import { withStyles } from 'material-ui/styles';
-import styles from '../TextFields/TextField.css'
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
+
+import styles from 'stylesheets/textField.css'
 
 // компонент выпадающий список TextFieldSelect
 // ожидаемый вх.параметр items должен представлять собой массив обьектов вида {value, text}

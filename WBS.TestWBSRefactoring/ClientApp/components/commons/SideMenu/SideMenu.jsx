@@ -30,7 +30,7 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp'
 
 import NavListItem from '../NavListItem';
-import styles from './SideMenuComponent.css.js';
+import styles from './SideMenu.css.js';
 
 
 class SideMenuComponent extends Component {
@@ -201,7 +201,7 @@ class SideMenuComponent extends Component {
                             className={classes.nested}
                             text="Типы инвестиций"
                             icon={<TrendingUpIcon />}
-                            to="/TypeOfInvestments"
+                            to="/TypeSOfInvestments"
                         />
                         <NavListItem
                             className={classes.nested}

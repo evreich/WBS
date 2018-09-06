@@ -10,7 +10,6 @@ import routes from './routes';
 const baseUrl = document.getElementsByTagName('base')[0].getAttribute('href');
 const history = createBrowserHistory({ basename: baseUrl });
 
-
 const store = configureStore(history);
 
 function renderApp(routes) {

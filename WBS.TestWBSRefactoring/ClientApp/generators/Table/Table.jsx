@@ -10,15 +10,14 @@ import MuiTableFooter from "@material-ui/core/TableFooter";
 import MuiTableBody from "@material-ui/core/TableBody";
 import Paper from "@material-ui/core/Paper";
 
-import TablePaginationActionsWrapped from "../Pagination";
-import SortedTableHead from "../SortedTableHead";
+import TablePagination from "components/commons/TablePagination";
+import SortedTableHead from "components/commons/SortedTableHead";
 import { styles } from "./Table.css";
-import SortingActions from "constants/sortingActions";
-import { sortOn } from "helpers/sortinngFunctions";
-import TableToolbar from "./Toolbar";
-import CommonChangeItemModalWindow from "../ModalWindows/ChangeItemModalWindow";
-import CommonInformationModalWindow from "../ModalWindows/InformationModalWindow";
-import CommonTableRow from "./TableRow";
+//import SortingActions from "constants/sortingActions";
+//import { sortOn } from "helpers/sortinngFunctions";
+import TableToolbar from "components/commons/TableToolbar";
+import CommonChangeItemModalWindow from "components/commons/modalWindows/ChangeItemModalWindow";
+import CommonTableRow from "components/commons/TableRow";
 import { paginationPropType } from "propTypes";
 
 //заголовки диалоговых окон
@@ -30,7 +29,7 @@ const Table = ({
     AddItemDialogBodyComponent,
     ChangeItemDialogBodyComponent,
     RowComponent = CommonTableRow,
-    InformationModalWindow = CommonInformationModalWindow,
+    //InformationModalWindow = CommonInformationModalWindow,
     ChangeItemModalWindow = CommonChangeItemModalWindow,
     isNeedFillEmptyRow = true,
     isNeedTableFooter = true,
@@ -49,7 +48,7 @@ const Table = ({
                 };
 
                 this.sortingData = {
-                    sort: SortingActions.SORT_DESC,
+                    sort: 'desc',//SortingActions.SORT_DESC,
                     sortBy: ""
                 };
             }
@@ -61,9 +60,10 @@ const Table = ({
                 clearTable: PropTypes.func.isRequired,
                 updateTable: PropTypes.func.isRequired,
                 changeData: PropTypes.func.isRequired,
+                setUpdatingItem: PropTypes.func.isRequired,
                 data: PropTypes.array.isRequired,
                 descriptors: PropTypes.array.isRequired,
-                pagination: PropTypes.paginationPropType.isRequired,
+                pagination: paginationPropType.isRequired,
                 deleteData: PropTypes.func,
                 queryParams: PropTypes.object,
                 showToolbar: PropTypes.bool
@@ -110,7 +110,10 @@ const Table = ({
                 });
             };
 
-            handleOpenOnEditChangeModalWindow = () => {
+            handleOpenOnEditChangeModalWindow = (id) => {
+                const { setUpdatingItem } = this.props;
+                setUpdatingItem(id);
+
                 this.setState({
                     modalWindowChangingIsOpening: true,
                     changeModalWindowTitle: editTitleModalWindow
@@ -139,8 +142,8 @@ const Table = ({
                 );
             };
 
-            handleSortByHeaderClick = sortColumnId => {
-                const sortingData = this.sortingData;
+            handleSortByHeaderClick = /*sortColumnId*/() => {
+                /*const sortingData = this.sortingData;
                 const updateTable = this.props.updateTable;
 
                 let newOrder = SortingActions.SORT_DESC;
@@ -154,17 +157,17 @@ const Table = ({
                 const newData = this.sortData(sortColumnId, newOrder);
 
                 this.sortingData = { sort: newOrder, sortBy: sortColumnId };
-                updateTable(newData);
+                updateTable(newData);*/
             };
 
-            sortData = (sortColumnId, order) => {
-                const data = this.props.data;
-                const typeOfSortData =
-                    dataFiledsInfo.tableHeaders[sortColumnId].type;
-
-                return data
-                    .sort(sortOn(sortColumnId, typeOfSortData, order))
-                    .slice(0);
+            sortData = (/*sortColumnId, order*/) => {
+                /* const data = this.props.data;
+                 const typeOfSortData =
+                     dataFiledsInfo.tableHeaders[sortColumnId].type;
+ 
+                 return data
+                     .sort(sortOn(sortColumnId, typeOfSortData, order))
+                     .slice(0);*/
             };
 
             fillingEmptyRows = emptyRows =>
@@ -224,13 +227,13 @@ const Table = ({
                             }}
                             onChangePage={this.handleChangePage}
                             onChangeRowsPerPage={this.handleChangeRowsPerPage}
-                            ActionsComponent={TablePaginationActionsWrapped}
+                            ActionsComponent={TablePagination}
                         />
                     </MuiTableRow>
                 );
 
                 const {
-                    infoWindowModel,
+                    // infoWindowModel,
                     createWindowFields,
                     editWindowFields,
                     tableHeaders,
@@ -268,8 +271,8 @@ const Table = ({
                                                 key={row.id}
                                                 row={row}
                                                 displayedColumns={Object.values(tableHeaders)}
-                                            classes={classes}
-                                            handleInfoButtonClick={this.handleOpenOnEditChangeModalWindow}
+                                                classes={classes}
+                                                handleInfoButtonClick={this.handleOpenOnEditChangeModalWindow(row.id)}
                                             />
                                         ))}
                                     {this.fillingEmptyRows(emptyRows)}
@@ -289,8 +292,7 @@ const Table = ({
                                     ? editWindowFields
                                     : createWindowFields
                             }
-                            descriptors={descriptors}
-                            //data={updatingDataItem}
+                            //descriptors={descriptors} - из стора?
                             cancel={this.handleCloseChangeModalWindow}
                             currentPage={currentPage}
                             elementsPerPage={elementsPerPage}

@@ -1,13 +1,15 @@
 ﻿import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
+
 import { withStyles } from 'material-ui/styles';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
-import styles from './TextField.css';
 import InputLabel from '@material-ui/core/InputLabel';
 import ListItemText from '@material-ui/core/ListItemText';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControl from '@material-ui/core/FormControl';
+
+import styles from 'stylesheets/textField.css'
 
 //Компонент 'выпадающий список с мультивыбором'
 //ожидается обязательный параметр items - массив обьектов вида {id, title}

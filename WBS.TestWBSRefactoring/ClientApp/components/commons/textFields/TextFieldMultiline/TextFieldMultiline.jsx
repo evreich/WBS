@@ -1,8 +1,10 @@
 ﻿import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from 'material-ui/styles';
+
+import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField'
-import styles from './TextField.css'
+
+import styles from 'stylesheets/textField.css'
 
 const TextFieldMultiline = (props) => {
     const { classes, label, rows = 1, placeholder, input, meta: { touched, error }, style } = props;

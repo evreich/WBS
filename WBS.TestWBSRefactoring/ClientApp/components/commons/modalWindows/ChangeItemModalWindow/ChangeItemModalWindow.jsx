@@ -1,7 +1,7 @@
 ﻿import React from "react";
 import PropTypes from "prop-types";
 
-import { Field, reduxForm, SubmissionError } from 'redux-form'
+import { /*Field, reduxForm,*/ SubmissionError } from 'redux-form';
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
@@ -10,13 +10,27 @@ import Button from "@material-ui/core/Button";
 import { withStyles } from '@material-ui/core/styles';
 
 import styles from './ChangeItemModalWindow.css';
-import HTTP_METHOD from 'constants/httpMethods';
-import TextFieldMultiline from "../../textFields/TextFieldMultiline/TextFieldMultiline";
+//import TextFieldMultiline from "../../textFields/TextFieldMultiline/TextFieldMultiline";
 
 class ChangeItemModalWindow extends React.Component {
-    constructor(props) {
-        super(props);
-        this.dialogContent = React.createRef();
+    submmit = (values) => {
+        const errors = {}
+        if (!values.title) {
+            errors.title = '*Обязательное поле'
+        }
+
+        if (!(JSON.stringify(errors) === "{}")) {
+            throw new SubmissionError(errors)
+        }
+        return new Promise((resolve, reject) => {
+            const { save } = this.props;
+            save(values, resolve, reject)
+        })
+    }
+
+    cancel = () => {
+        const { cancel } = this.props
+        cancel();
     }
 
     static propTypes = {
@@ -25,34 +39,19 @@ class ChangeItemModalWindow extends React.Component {
         error: PropTypes.object,
         open: PropTypes.bool.isRequired,
         data: PropTypes.any,
-        currentPage: PropTypes.number,
-        elementsPerPage: PropTypes.number,
         classes: PropTypes.object,
         formFields: PropTypes.object,
-        header: PropTypes.string,
-        children: PropTypes.object
+        header: PropTypes.string
     };
-
-    onSaveButtonClick = () => {
-        const values = this.dialogContent.getDataToSave();
-        const { save, cancel, data, currentPage, elementsPerPage } = this.props;
-
-        if (values) {
-            let method = data ? HTTP_METHOD.HTTP_PUT : HTTP_METHOD.HTTP_POST;
-
-            save(currentPage, elementsPerPage, method, values);
-            cancel(values);
-        }
-    };
-
+ 
     render() {
-        const { open, cancel, data, formFields, classes, header, children } = this.props;
+        const { open, cancel, /*data, formFields,*/ classes, header } = this.props;
 
-        const dialogBodyComponent = React.Children.map(children, child => React.cloneElement(child, {
+        /*const dialogBodyComponent = React.Children.map(children, child => React.cloneElement(child, {
             onRef: instance => { this.dialogContent = instance },
             data,
             formFields
-        }));
+        }));*/
 
         return (
             <Dialog open={open} onClose={cancel} maxWidth={false} classes={{ paper: classes.container }}>
@@ -61,20 +60,22 @@ class ChangeItemModalWindow extends React.Component {
                 </DialogTitle>
                 <DialogContent>
                     {//TODO: ???
-                        formFields.map((field) => {
-                            switch (/*field.component*/) {
-                                case componentTypes.TEXT_FIELD:
-
-                                    break;
-                                case componentTypes.TEXT_FIELD_MULTILINE:
-                                    <Field
-                                        component={TextFieldMultiline}
-                                        ...
-                                    />
-                                    break;
-                                    { /* и т.д....*/ }
-                            }
-                        })
+                        /* formFields.map((field) => {
+                         * if (field.isVisible) {
+                             switch (field.component) {
+                                 case componentTypes.TEXT_FIELD:
+ 
+                                     break;
+                                 case componentTypes.TEXT_FIELD_MULTILINE:
+                                     <Field
+                                         component={TextFieldMultiline}
+                                         ...
+                                     />
+                                     break;
+                                     {  и т.д.... }
+                             }
+                           }
+                         })*/
                     }
                 </DialogContent>
                 <DialogActions>

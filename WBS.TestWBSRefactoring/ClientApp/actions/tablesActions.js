@@ -1,7 +1,7 @@
 import TYPE from 'constants/actionTypes';
 import request from 'utils/fetchUtil';
 import REQUEST_METHOD from 'constants/httpMethods';
-import { concatParamsToPath } from 'helpers/helperAPIRequest';
+import { concatParamsToPath } from 'utils/apiRequestUtil';
 
 export function receiveTable(data, title) {
     return {

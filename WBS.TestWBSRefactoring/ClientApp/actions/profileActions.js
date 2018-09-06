@@ -1,6 +1,6 @@
 import request from 'utils/fetchUtil';
-import REQUEST_METHOD from 'settings/httpMethods';
-import { getTable, errorsReceive } from '../tablesActions';
+import REQUEST_METHOD from 'constants/httpMethods';
+import { getTable, errorsReceive } from 'actions/tablesActions';
 
 export function markOnDeleteData(currentPage = 0, elementsPerPage = 5, data, baseRoute, markRoute, title) {
     return (dispatch) => {

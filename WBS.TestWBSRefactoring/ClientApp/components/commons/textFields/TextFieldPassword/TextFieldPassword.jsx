@@ -1,8 +1,10 @@
 ﻿import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
+
 import { withStyles } from 'material-ui/styles';
 import TextField from 'material-ui/TextField';
-import styles from './TextField.css'
+
+import styles from 'stylesheets/textField.css'
 
 class TextFieldPlaceholder extends React.Component {
 
