@@ -15,5 +15,9 @@ namespace WBS.DAL.Data
         public const string QUARTER_SECOND = "Второй";
         public const string QUARTER_THIRD = "Третий";
         public const string QUARTER_FOURTH = "Четвертый";
+
+        public const string TEXNICAL_SERVICE_FIRST = "It";
+        public const string TEXNICAL_SERVICE_SECOND = "Equipment";
+        public const string TEXNICAL_SERVICE_THIRD = "Construction";
     }
 }

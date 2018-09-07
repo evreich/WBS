@@ -38,6 +38,12 @@ namespace WBS.DAL
                         new Status { Id = 3, Title = Constants.STATUS_BP_CURRENT },
                         new Status { Id = 4, Title = Constants.STATUS_BP_ARCHIVE }
                     );
+            //инициализация таблицы Техн.Сервисов
+            modelBuilder.Entity<TechnicalService>().HasData(
+                        new TechnicalService { Id = 1, Title = Constants.TEXNICAL_SERVICE_FIRST },
+                        new TechnicalService { Id = 2, Title = Constants.TEXNICAL_SERVICE_SECOND },
+                        new TechnicalService { Id = 3, Title = Constants.TEXNICAL_SERVICE_THIRD }
+                    );
 
             //мультиключи для промежуточной таблицы EventQuarters
             modelBuilder.Entity<EventQuarter>().HasKey(c => new { c.EventId, c.QuarterOfYearId });
