@@ -4,9 +4,10 @@ import CreateTable from "generators/Table";
 import { getTable, clearTable, updateTable, changeData, deleteData, setUpdatingItem } from 'actions/tablesActions';
 import { tableStyles } from 'stylesheets/tableLayoutAuto.css';
 import descriptors from "descriptors/categoryGroupsDescriptors";
+import api from 'constants/api';
 
 const TABLE = "categoryGroups";
-const ROUTE = document.api.categoryGroups;
+const ROUTE = api.categoryGroups;
 
 const mapStateToProps = state =>
     (state.tables[TABLE] ?

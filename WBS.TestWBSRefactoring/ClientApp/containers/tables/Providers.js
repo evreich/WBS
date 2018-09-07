@@ -5,9 +5,10 @@ import ProviderTableRow from "components/tableRows/ProviderTableRow";
 import { getTable, clearTable, updateTable, changeData, deleteData, setUpdatingItem } from 'actions/tablesActions';
 import { tableStyles } from 'stylesheets/tableLayoutAuto.css';
 import descriptors from "descriptors/providersDescriptors";
+import api from 'constants/api';
 
 const TABLE = "providers";
-const ROUTE = document.api.providers;
+const ROUTE = api.providers;
 
 const mapStateToProps = state =>
     (state.tables[TABLE] ?

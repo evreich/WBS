@@ -4,9 +4,10 @@ import CreateTable from "generators/Table";
 import { getTable, clearTable, updateTable, changeData, deleteData, setUpdatingItem } from 'actions/tablesActions';
 import { tableStyles } from 'stylesheets/tableLayoutAuto.css';
 import descriptors from "descriptors/typesOfInvestmentDescriptors";
+import api from 'constants/api';
 
 const TABLE = "typesOfInvestments";
-const ROUTE = document.api.typesOfInvestments;
+const ROUTE = api.typesOfInvestments;
 
 const mapStateToProps = state =>
     (state.tables[TABLE] ?

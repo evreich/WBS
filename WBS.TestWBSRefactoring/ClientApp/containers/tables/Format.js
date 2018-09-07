@@ -3,9 +3,10 @@ import { connect } from "react-redux";
 import CreateTable from "generators/Table";
 import { getTable, clearTable, updateTable, changeData, deleteData, setUpdatingItem } from 'actions/tablesActions';
 import descriptors from "descriptors/formatDescriptors";
+import api from 'constants/api';
 
 const TABLE = "formats";
-const ROUTE = document.api.formats;
+const ROUTE = api.formats;
 
 const mapStateToProps = state =>
     (state.tables[TABLE] ?

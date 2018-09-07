@@ -32,8 +32,7 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp'
 import NavListItem from '../NavListItem';
 import styles from './SideMenu.css.js';
 
-
-class SideMenuComponent extends Component {
+class SideMenu extends Component {
     state = {
         open: !!localStorage.getItem("drawerOpen"),
         auth: {}
@@ -264,9 +263,9 @@ class SideMenuComponent extends Component {
     }
 }
 
-SideMenuComponent.propTypes = {
+SideMenu.propTypes = {
     classes: PropTypes.object.isRequired,
     logout: PropTypes.func,
 };
 
-export default withStyles(styles, { withTheme: true })(SideMenuComponent);
+export default withStyles(styles, { withTheme: true })(SideMenu);

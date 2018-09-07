@@ -4,9 +4,10 @@ import CreateTable from "generators/Table";
 import { getTable, clearTable, updateTable, changeData, deleteData, setUpdatingItem } from 'actions/tablesActions';
 import { tableStyles } from 'stylesheets/tableLayoutAuto.css';
 import descriptors from "descriptors/resultCentresDescriptors";
+import api from 'constants/api';
 
 const TABLE = "resultCentres";
-const ROUTE = document.api.resultCentres;
+const ROUTE = api.resultCentres;
 
 const mapStateToProps = state =>
     (state.tables[TABLE] ?

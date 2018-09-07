@@ -2,11 +2,11 @@
     fetch
 } from 'domain-task';
 
-const ROUTE = document.api;
+import api from 'constants/api';
 
 //TODO: optimize
 export const updateJWT = (refreshToken) =>
-    fetch(`${ROUTE.token}?refreshToken=${refreshToken}`, {
+    fetch(`${api.token}?refreshToken=${refreshToken}`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json'

@@ -272,7 +272,7 @@ const Table = ({
                                                 row={row}
                                                 displayedColumns={Object.values(tableHeaders)}
                                                 classes={classes}
-                                                handleInfoButtonClick={this.handleOpenOnEditChangeModalWindow(row.id)}
+                                                handleInfoButtonClick={() => this.handleOpenOnEditChangeModalWindow(row.id)}
                                             />
                                         ))}
                                     {this.fillingEmptyRows(emptyRows)}
@@ -284,29 +284,31 @@ const Table = ({
                         </Paper>
 
                         {/* Модальные окна */}
-                        <ChangeItemModalWindow
-                            open={modalWindowChangingIsOpening}
-                            save={changeData}
-                            formFields={
-                                updatingDataItem
-                                    ? editWindowFields
-                                    : createWindowFields
-                            }
-                            //descriptors={descriptors} - из стора?
-                            cancel={this.handleCloseChangeModalWindow}
-                            currentPage={currentPage}
-                            elementsPerPage={elementsPerPage}
-                            header={changeModalWindowTitle}
-                        >
-                            {/*отправляем тело диалогового окна в качестве children */}
-                            {isExistsDialogBodies ? (
-                                updatingDataItem ? (
-                                    <ChangeItemDialogBodyComponent />
-                                ) : (
-                                        <AddItemDialogBodyComponent />
-                                    )
-                            ) : null}
-                        </ChangeItemModalWindow>
+                        {modalWindowChangingIsOpening &&
+                            <ChangeItemModalWindow
+                                //open={modalWindowChangingIsOpening}
+                                save={changeData}
+                                formFields={
+                                    updatingDataItem
+                                        ? editWindowFields
+                                        : createWindowFields
+                                }
+                                //descriptors={descriptors} - из стора?
+                                cancel={this.handleCloseChangeModalWindow}
+                                currentPage={currentPage}
+                                elementsPerPage={elementsPerPage}
+                                header={changeModalWindowTitle}
+                            >
+                                {/*отправляем тело диалогового окна в качестве children */}
+                                {isExistsDialogBodies ? (
+                                    updatingDataItem ? (
+                                        <ChangeItemDialogBodyComponent />
+                                    ) : (
+                                            <AddItemDialogBodyComponent />
+                                        )
+                                ) : null}
+                            </ChangeItemModalWindow>
+                        }
                     </>
                 );
             }

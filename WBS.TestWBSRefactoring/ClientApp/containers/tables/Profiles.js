@@ -11,10 +11,11 @@ import {
 } from "actions/tablesActions";
 import { markOnDeleteData } from 'actions/profileActions';
 import descriptors from "descriptors/profilesDescriptors";
+import api from 'constants/api';
 
 const TABLE = "profiles";
-const ROUTE = document.api.profiles;
-const ROUTE_MARK_ON_DELETE_PROFILE = document.api.markProfileForDeletion;
+const ROUTE = api.profiles;
+const ROUTE_MARK_ON_DELETE_PROFILE = api.markProfileForDeletion;
 
 const mapStateToProps = state =>
     (state.tables[TABLE]

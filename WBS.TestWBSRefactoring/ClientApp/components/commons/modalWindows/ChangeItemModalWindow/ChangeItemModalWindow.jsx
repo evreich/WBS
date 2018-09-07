@@ -1,7 +1,7 @@
 ﻿import React from "react";
 import PropTypes from "prop-types";
 
-import { /*Field, reduxForm,*/ SubmissionError } from 'redux-form';
+import { Field, reduxForm, SubmissionError } from 'redux-form';
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
@@ -10,7 +10,7 @@ import Button from "@material-ui/core/Button";
 import { withStyles } from '@material-ui/core/styles';
 
 import styles from './ChangeItemModalWindow.css';
-//import TextFieldMultiline from "../../textFields/TextFieldMultiline/TextFieldMultiline";
+import TextFieldMultiline from "../../textFields/TextFieldMultiline/TextFieldMultiline";
 
 class ChangeItemModalWindow extends React.Component {
     submmit = (values) => {
@@ -37,15 +37,14 @@ class ChangeItemModalWindow extends React.Component {
         cancel: PropTypes.func.isRequired,
         save: PropTypes.func.isRequired,
         error: PropTypes.object,
-        open: PropTypes.bool.isRequired,
-        data: PropTypes.any,
+        data: PropTypes.any, //TODO
         classes: PropTypes.object,
         formFields: PropTypes.object,
         header: PropTypes.string
     };
- 
+
     render() {
-        const { open, cancel, /*data, formFields,*/ classes, header } = this.props;
+        const { cancel, /*data,*/ formFields, classes, header } = this.props;
 
         /*const dialogBodyComponent = React.Children.map(children, child => React.cloneElement(child, {
             onRef: instance => { this.dialogContent = instance },
@@ -54,28 +53,35 @@ class ChangeItemModalWindow extends React.Component {
         }));*/
 
         return (
-            <Dialog open={open} onClose={cancel} maxWidth={false} classes={{ paper: classes.container }}>
+            <Dialog open={true} onClose={cancel} maxWidth={false} classes={{ paper: classes.container }}>
                 <DialogTitle id="form-dialog-title" className={classes.dialogTitle}>
                     <div>{header}</div>
                 </DialogTitle>
                 <DialogContent>
-                    {//TODO: ???
-                        /* formFields.map((field) => {
-                         * if (field.isVisible) {
-                             switch (field.component) {
-                                 case componentTypes.TEXT_FIELD:
- 
-                                     break;
-                                 case componentTypes.TEXT_FIELD_MULTILINE:
-                                     <Field
-                                         component={TextFieldMultiline}
-                                         ...
-                                     />
-                                     break;
-                                     {  и т.д.... }
-                             }
-                           }
-                         })*/
+                    {
+                        Object.values(formFields).map((field) => (
+                            <div>
+                                < Field
+                                    component={TextFieldMultiline}
+                                    name={field.propName}
+                                    label={field.label}
+                                />
+                            </div>
+                            /*if (field.isVisible) {
+                               switch (field.component) {
+                                   case componentTypes.TEXT_FIELD:
+   
+                                       break;
+                                   case componentTypes.TEXT_FIELD_MULTILINE:
+                                       <Field
+                                           component={TextFieldMultiline}
+                                           ...
+                                       />
+                                       break;
+                                       {  и т.д.... }
+                               }
+                             }*/
+                        ))
                     }
                 </DialogContent>
                 <DialogActions>
@@ -98,4 +104,4 @@ class ChangeItemModalWindow extends React.Component {
     }
 }
 
-export default withStyles(styles)(ChangeItemModalWindow);
+export default withStyles(styles)(reduxForm({ form: 'ChangeItemModalForm' })(ChangeItemModalWindow));
