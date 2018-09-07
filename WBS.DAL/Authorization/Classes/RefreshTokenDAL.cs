@@ -10,22 +10,17 @@ namespace WBS.DAL.Authorization.Classes
     public class RefreshTokenDAL
     {
         readonly WBSContext _context;
-        readonly ICache _cache;
 
-        public RefreshTokenDAL(WBSContext context, ICache cache)
+        public RefreshTokenDAL(WBSContext context)
         {
-            _cache = cache;
             _context = context;
         }
 
 
         public virtual RefreshToken GetByAudience(string audience)
         {
-            return _cache.Get(audience, param =>
-            {
                 return _context.RefreshTokens
                 .FirstOrDefault(_t => _t.Audience.Equals(audience, StringComparison.InvariantCultureIgnoreCase));
-            });
         }
 
         public virtual RefreshToken Add(RefreshToken token)
@@ -33,7 +28,6 @@ namespace WBS.DAL.Authorization.Classes
             var tokenEntityEntry = _context.RefreshTokens.Add(token);
             _context.SaveChanges();
             tokenEntityEntry.Reload();
-            _cache.Add(token.Token, tokenEntityEntry.Entity);
             return tokenEntityEntry.Entity;
         }
 
@@ -44,7 +38,6 @@ namespace WBS.DAL.Authorization.Classes
             {
                 _context.RefreshTokens.Remove(result);
                 _context.SaveChanges();
-                _cache.Remove(result);
             }
             return result;
         }
@@ -53,7 +46,6 @@ namespace WBS.DAL.Authorization.Classes
         {
             _context.RefreshTokens.Remove(token);
             _context.SaveChanges();
-            _cache.Remove(token);
             return token;
         }
 

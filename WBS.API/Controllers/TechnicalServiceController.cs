@@ -6,14 +6,17 @@ using WBS.DAL.Data.Models.ViewModels;
 using WBS.DAL.Data.Models;
 using Microsoft.Extensions.Logging;
 using WBS.API.Helpers;
+using WBS.DAL.Data.Interfaces;
+using WBS.DAL.Layers.Interfaces;
 
 namespace WBS.API.Controllers
 {
     [Produces("application/json")]
     [Route("api/[controller]")]
-    public class TechnicalServiceController : AbstractBaseTableController<TechnicalService, TechnicalServiceViewModel>
+    public class TechnicalServiceController : AbstractBaseTableController<TechnicalService, TechnicalServiceViewModel, TechnicalServiceDAL>
     {
-        public TechnicalServiceController(AbstractDAL<TechnicalService> dal, ILogger<TechnicalServiceController> logger) : base(dal, logger)
+        public TechnicalServiceController(ICRUD<TechnicalService> dal, ILogger<TechnicalServiceController> logger) 
+            : base(dal, logger)
         {
         }
 
@@ -22,7 +25,7 @@ namespace WBS.API.Controllers
         public IActionResult GetTechnicalServiceForSelection()
         {
             _logger.LogInformation(nameof(GetTechnicalServiceForSelection));
-            var result = _dal.Get().ToList();
+            var result = _baseDAL.Get().ToList();
             _logger.LogInformation("Getting information is succesful");
             return Ok(result);
         }

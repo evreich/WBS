@@ -5,35 +5,57 @@ using WBS.DAL.Cache;
 using WBS.DAL.Data.Models;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using WBS.DAL.Data.Interfaces;
+using WBS.DAL.Layers.Interfaces;
+using WBS.DAL.Layers;
 
 namespace WBS.DAL.Data.Classes
 {
-    public class ItemsOfBudgetPlanDAL : AbstractDAL<ItemOfBudgetPlan>
+    public class ExtensionDALIQueryableItemOfBudgetPlan : IExtensionDALIQueryable<ItemOfBudgetPlan>
     {
-        public ItemsOfBudgetPlanDAL(WBSContext context, ICache cache) : base(context, cache)
+        public IQueryable<ItemOfBudgetPlan> GetItems(IQueryable<ItemOfBudgetPlan> query)
         {
+            return query
+                .Include(i => i.BudgetPlan)
+                .Include(i => i.ResultCenter)
+                .Include(i => i.CategoryOfEquipment)
+                .Include(i => i.Site)
+                .Include(i => i.TypeOfInvestment);
+        }
+    }
+
+    public class ItemsOfBudgetPlanDAL : ICRUD<ItemOfBudgetPlan>
+    {
+        ICRUD<ItemOfBudgetPlan> _bpItem_crud;
+
+        public ItemsOfBudgetPlanDAL(GetCRUD getcrud, WBSContext context)
+        {
+            _bpItem_crud = getcrud(typeof(ItemsOfBudgetPlanDAL), typeof(ItemOfBudgetPlan)) as ICRUD<ItemOfBudgetPlan>;
         }
 
-        protected override ItemOfBudgetPlan GetItem(object id)
+        public ItemOfBudgetPlan Create(ItemOfBudgetPlan item)
         {
-            return _context.ItemOfBudgetPlans
-                .Include(item => item.BudgetPlan)
-                .Include(item => item.ResultCenter)
-                .Include(item => item.CategoryOfEquipment)
-                .Include(item => item.Site)
-                .Include(item => item.TypeOfInvestment)
-                .FirstOrDefault(item => item.Id == (int)id);
+            return _bpItem_crud.Create(item);
         }
 
-        protected override IEnumerable<ItemOfBudgetPlan> GetItems()
+        public ItemOfBudgetPlan Delete(object id)
         {
-            return _context.ItemOfBudgetPlans
-                .Include(item => item.BudgetPlan)
-                .Include(item => item.ResultCenter)
-                .Include(item => item.CategoryOfEquipment)
-                .Include(item => item.Site)
-                .Include(item => item.TypeOfInvestment)
-                .ToList();
+            return _bpItem_crud.Delete(id);
+        }
+
+        public IEnumerable<ItemOfBudgetPlan> Get()
+        {
+            return _bpItem_crud.Get();
+        }
+
+        public ItemOfBudgetPlan Get(object Id)
+        {
+            return _bpItem_crud.Get(Id);
+        }
+
+        public ItemOfBudgetPlan Update(ItemOfBudgetPlan item)
+        {
+            return _bpItem_crud.Update(item);
         }
     }
 }

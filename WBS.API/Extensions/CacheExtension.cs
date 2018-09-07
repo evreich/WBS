@@ -3,6 +3,7 @@ using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using WBS.DAL.Cache;
+using WBS.DAL.Layers;
 
 namespace WBS.API.Extensions
 {
@@ -11,7 +12,7 @@ namespace WBS.API.Extensions
         public static void AddWBSCacheServices(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddMemoryCache();
-            services.AddSingleton<ICache>(serviceProvider =>
+            services.AddTransient<GetExpirationTime>(serviceProvider => () =>
             {
                 var expirationString = configuration.GetSection("CacheSettings").GetSection("RelativeExpiration").Value;
                 TimeSpan expTimespan;
@@ -23,7 +24,7 @@ namespace WBS.API.Extensions
                 {
                     expTimespan = TimeSpan.FromMinutes(20); // hardcode defaultValue
                 }
-                return new WBSMemoryCache(serviceProvider.GetService<IMemoryCache>(), expTimespan);
+                return expTimespan;
             });
         }
     }

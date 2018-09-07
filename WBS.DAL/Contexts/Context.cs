@@ -86,5 +86,7 @@ namespace WBS.DAL
         public DbSet<ProvidersTechnicalService> ProvidersTechnicalServices { get; set; }
         public DbSet<RationaleForInvestment> RationaleForInvestments { get; set; }
         public DbSet<Attachment> Attachments { get; set; }
+        public DbSet<ObjectType> ObjectTypes { get; set; }
+        public DbSet<RolesObjectTypes> RolesObjectTypes { get; set; }
     }
 }

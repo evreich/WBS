@@ -6,64 +6,50 @@ using System.Collections.Generic;
 using WBS.DAL.Authorization.Models;
 using WBS.DAL.Cache;
 using WBS.DAL.Authorization.Models.ViewModels;
+using WBS.DAL.Data.Interfaces;
+using WBS.DAL.Layers.Interfaces;
+using WBS.DAL.Layers;
 
 namespace WBS.DAL.Authorization
 {
-    public class ProfilesDAL
+    public class ExtensionDALIQueryableProfile : IExtensionDALIQueryable<User>
     {
-        readonly WBSContext _context;
-        readonly ICache _cache;
-
-        public ProfilesDAL(WBSContext context, ICache cache)
+        public IQueryable<User> GetItems(IQueryable<User> query)
         {
-            _cache = cache;
-            _context = context;
+            return query.Include(u => u.UserRoles).ThenInclude(ur => ur.Role);
+        }
+    }
+
+    public class ProfilesDAL: ICRUD<User>
+    {
+        ICRUD<User> _users_crud;
+        ICRUD<UserRoles> _user_roles_crud;
+        ICRUD<Role> _roles_crud;
+
+        public ProfilesDAL(GetCRUD getcrud, ICRUD<UserRoles> users_roles_crud, ICRUD<Role> roles_crud)
+        {
+            _users_crud = getcrud(typeof(ProfilesDAL), typeof(User)) as ICRUD<User>;
+            _user_roles_crud = users_roles_crud;
+            _roles_crud = roles_crud;
         }
 
         public virtual User Get(string login, string password)
         {
-            return _cache.Get(login, param =>
-            {
-                var hasher = new PasswordHasher<User>();
-                return _context.Profiles
-                .Include(p => p.UserRoles)
-                    .ThenInclude(ur => ur.Role)
-                .FirstOrDefault(p => p.Login.Equals(login, StringComparison.InvariantCultureIgnoreCase)
-                    && hasher.VerifyHashedPassword(p, p.Password, password) == PasswordVerificationResult.Success);
-            });
-        }
-
-        public virtual User GetById(int id)
-        {
-            return _cache.Get(id, param =>
-            {
-                return _context.Profiles
-                .Where(p => p.Id == id)
-                .Include(p => p.UserRoles)
-                    .ThenInclude(ur => ur.Role)
-                .FirstOrDefault();
-            });
+            var hasher = new PasswordHasher<User>();
+            return _users_crud.Get().AsQueryable()
+            .Include(p => p.UserRoles)
+                .ThenInclude(ur => ur.Role)
+            .FirstOrDefault(p => p.Login.Equals(login, StringComparison.InvariantCultureIgnoreCase)
+                && hasher.VerifyHashedPassword(p, p.Password, password) == PasswordVerificationResult.Success);
         }
 
         public virtual User GetByLogin(string login)
         {
-            return _cache.Get(login, param =>
-            {
-                return _context.Profiles
+                return _users_crud.Get().AsQueryable()
                 .Where(p => p.Login.Equals(login, StringComparison.InvariantCultureIgnoreCase))
                 .Include(p => p.UserRoles)
                     .ThenInclude(ur => ur.Role)
                 .FirstOrDefault();
-            });
-        }
-
-        public virtual IEnumerable<User> GetUsers()
-        {
-            return _cache.Get<IEnumerable<User>>(_cache.AllIdentifier,
-            param => _context.Profiles
-                                .Include(p => p.UserRoles)
-                                   .ThenInclude(ur => ur.Role)
-                                .OrderBy(item => item.Id).ToList());
         }
 
         public virtual User Add(UserRegisterViewModel userViewModel)
@@ -71,22 +57,18 @@ namespace WBS.DAL.Authorization
             var user = InitFromRegisterViewModel(userViewModel, new User());
             var passwordHash = new PasswordHasher<User>().HashPassword(user, user.Password);
             user.Password = passwordHash;
-            var userEntityEntry = _context.Profiles.Add(user);
-            _context.SaveChanges();
+            var userEntityEntry = _users_crud.Create(user);
             AddUsersRoles(user.Id, userViewModel.Roles);
-            userEntityEntry.Reload();
-            _cache.Add(user.Login, userEntityEntry.Entity);
-            return userEntityEntry.Entity;
+            //userEntityEntry.Reload();
+            return userEntityEntry;
         }
 
         public virtual User Remove(int id)
         {
-            var result = _context.Profiles.Where(p => p.Id == id).FirstOrDefault();
+            var result = _users_crud.Get(id);
             if (result != null)
             {
-                _context.Profiles.Remove(result);
-                _context.SaveChanges();
-                _cache.Remove(result);
+                _users_crud.Delete(id);
             }
             return result;
         }
@@ -106,17 +88,15 @@ namespace WBS.DAL.Authorization
         public virtual User UpdateUser(ProfileViewModel profile)
         {
             //поскольку пришла вьюмодель, делаем замену на Пользователя перед добавлением в бд
-            var user = _context.Profiles.Where(p => p.Id == profile.Id).FirstOrDefault();
+            var user = _users_crud.Get().Where(p => p.Id == profile.Id).FirstOrDefault();
             if (user == null)
             {
                 return user;
             }
             user = InitFromViewModel(profile, user);
-            var entityEntry = _context.Profiles.Update(user);
-            _context.SaveChanges();
-            entityEntry.Reload();
-            _cache.Add(user.Login, entityEntry.Entity);
-            var updated = GetById(user.Id);
+            var entityEntry = _users_crud.Update(user);
+            //entityEntry.Reload();
+            var updated = Get(user.Id);
             return updated;
         }
 
@@ -132,11 +112,13 @@ namespace WBS.DAL.Authorization
 
         public virtual void DeleteUsersRoles(int userId)
         {
-            var userRoles = _context.UserRoles.Where(u => u.UserId == userId).ToList();
+            var userRoles = _user_roles_crud.Get().Where(ur => ur.UserId == userId);
             if (userRoles.Count() != 0)
             {
-                _context.RemoveRange(userRoles);
-                _context.SaveChanges();
+                foreach(var ur in userRoles)
+                {
+                    _user_roles_crud.Delete(ur);
+                }
             }
         }
 
@@ -147,14 +129,15 @@ namespace WBS.DAL.Authorization
             {
                 userRoles.Add(new UserRoles { UserId = userId, RoleId = role.Id });
             }
-            _context.AddRange(userRoles);
-            _context.SaveChanges();
+            foreach(var ur in userRoles)
+            {
+                _user_roles_crud.Create(ur);
+            }
         }
 
         public virtual IEnumerable<Role> GetRoles()
         {
-            return _cache.Get<IEnumerable<Role>>(_cache.AllIdentifier,
-                param => _context.Roles.OrderBy(item => item.Id).ToList());
+            return  _roles_crud.Get().OrderBy(item => item.Id).ToList();
         }
 
         public virtual User InitFromViewModel(ProfileViewModel viewModel, User user)
@@ -179,8 +162,33 @@ namespace WBS.DAL.Authorization
 
         public virtual bool IsAlreadyExistLogin(string login)
         {
-            var user = _context.Profiles.Where(p => p.Login.Equals(login)).FirstOrDefault();
+            var user = _users_crud.Get().Where(p => p.Login.Equals(login)).FirstOrDefault();
             return user != null;
+        }
+
+        public User Update(User item)
+        {
+            return _users_crud.Update(item);
+        }
+
+        public User Delete(object id)
+        {
+            return _users_crud.Delete(id);
+        }
+
+        public User Create(User item)
+        {
+            return _users_crud.Create(item);
+        }
+
+        public IEnumerable<User> Get()
+        {
+            return _users_crud.Get();
+        }
+
+        public User Get(object id)
+        {
+            return _users_crud.Get(id);
         }
     }
 }

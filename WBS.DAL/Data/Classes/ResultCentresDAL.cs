@@ -5,21 +5,44 @@ using WBS.DAL.Cache;
 using Microsoft.EntityFrameworkCore;
 using WBS.DAL.Authorization.Models;
 using WBS.DAL.Data.Models;
+using WBS.DAL.Data.Interfaces;
+using WBS.DAL.Layers.Interfaces;
+using WBS.DAL.Layers;
 
 namespace WBS.DAL
 {
-    public class ResultCentresDAL : AbstractDAL<ResultCenter>
+    public class ResultCentresDAL : ICRUD<ResultCenter>
     {
-        public ResultCentresDAL(WBSContext context, ICache cache) : base(context, cache) { }
+        ICRUD<ResultCenter> _result_centers_crud;
 
-        protected override IEnumerable<ResultCenter> GetItems()
+        public ResultCentresDAL(GetCRUD getcrud)
         {
-            return _context.ResultCentres.ToList();
+            _result_centers_crud = getcrud(typeof(ResultCentresDAL), typeof(ResultCenter)) as ICRUD<ResultCenter>;
         }
 
-        protected override ResultCenter GetItem(object id)
+        public ResultCenter Create(ResultCenter item)
         {
-            return _context.ResultCentres.FirstOrDefault(x => x.Id == (int)id);
+            return _result_centers_crud.Create(item);
+        }
+
+        public ResultCenter Delete(object id)
+        {
+            return _result_centers_crud.Delete(id);
+        }
+
+        public IEnumerable<ResultCenter> Get()
+        {
+            return _result_centers_crud.Get();
+        }
+
+        public ResultCenter Get(object id)
+        {
+            return _result_centers_crud.Get(id);
+        }
+
+        public ResultCenter Update(ResultCenter item)
+        {
+            return _result_centers_crud.Update(item);
         }
     }
 }

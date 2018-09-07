@@ -5,21 +5,44 @@ using WBS.DAL.Cache;
 using Microsoft.EntityFrameworkCore;
 using WBS.DAL.Authorization.Models;
 using WBS.DAL.Data.Models;
+using WBS.DAL.Data.Interfaces;
+using WBS.DAL.Layers.Interfaces;
+using WBS.DAL.Layers;
 
 namespace WBS.DAL
 {
-    public class TypesOfInvestmentDAL : AbstractDAL<TypeOfInvestment>
+    public class TypesOfInvestmentDAL : ICRUD<TypeOfInvestment>
     {
-        public TypesOfInvestmentDAL(WBSContext context, ICache cache) : base(context, cache) { }
+        ICRUD<TypeOfInvestment> _types_of_inv_crud;
 
-        protected override IEnumerable<TypeOfInvestment> GetItems()
+        public TypesOfInvestmentDAL(GetCRUD getcrud)
         {
-            return _context.TypesOfInvestment.ToList();
+            _types_of_inv_crud = getcrud(typeof(TypesOfInvestmentDAL), typeof(TypeOfInvestment)) as ICRUD<TypeOfInvestment>;
         }
 
-        protected override TypeOfInvestment GetItem(object id)
+        public TypeOfInvestment Create(TypeOfInvestment item)
         {
-            return _context.TypesOfInvestment.FirstOrDefault(x => x.Id == (int)id);
+            return _types_of_inv_crud.Create(item);
+        }
+
+        public TypeOfInvestment Delete(object id)
+        {
+            return _types_of_inv_crud.Delete(id);
+        }
+
+        public IEnumerable<TypeOfInvestment> Get()
+        {
+            return _types_of_inv_crud.Get();
+        }
+
+        public TypeOfInvestment Get(object id)
+        {
+            return _types_of_inv_crud.Get(id);
+        }
+
+        public TypeOfInvestment Update(TypeOfInvestment item)
+        {
+            return _types_of_inv_crud.Update(item);
         }
     }
 }
