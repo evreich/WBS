@@ -5,6 +5,7 @@ using WBS.DAL;
 using WBS.DAL.Data.Models;
 using Microsoft.Extensions.Logging;
 using WBS.API.Helpers;
+using System.Security.Claims;
 
 namespace WBS.API.Controllers
 {
@@ -26,6 +27,5 @@ namespace WBS.API.Controllers
             _logger.LogInformation("Getting information is succesful");
             return Ok(result);
         }
-
     }
 }
