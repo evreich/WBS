@@ -5,24 +5,44 @@ using WBS.DAL.Cache;
 using Microsoft.EntityFrameworkCore;
 using WBS.DAL.Authorization.Models;
 using WBS.DAL.Data.Models;
+using WBS.DAL.Data.Interfaces;
+using WBS.DAL.Layers.Interfaces;
+using WBS.DAL.Layers;
 
 namespace WBS.DAL
 {
-    public class TechnicalServiceDAL : AbstractDAL<TechnicalService>
+    public class TechnicalServiceDAL : ICRUD<TechnicalService>
     {
-        public TechnicalServiceDAL(WBSContext context, ICache cache): base(context,cache)
-        { }
+        ICRUD<TechnicalService> _technical_services_crud;
 
-        protected override TechnicalService GetItem(object id)
+        public TechnicalServiceDAL(GetCRUD getcrud)
         {
-            return _context.TechnicalServices
-                .Where(p => p.Id == (int)id)
-                .FirstOrDefault();
+            _technical_services_crud = getcrud(typeof(TechnicalServiceDAL), typeof(TechnicalService)) as ICRUD<TechnicalService>;
         }
 
-        protected override IEnumerable<TechnicalService> GetItems()
+        public TechnicalService Create(TechnicalService item)
         {
-            return _context.TechnicalServices.ToList();
+            return _technical_services_crud.Create(item);
+        }
+
+        public TechnicalService Delete(object id)
+        {
+            return _technical_services_crud.Delete(id);
+        }
+
+        public IEnumerable<TechnicalService> Get()
+        {
+            return _technical_services_crud.Get();
+        }
+
+        public TechnicalService Get(object id)
+        {
+            return _technical_services_crud.Get(id);
+        }
+
+        public TechnicalService Update(TechnicalService item)
+        {
+            return _technical_services_crud.Update(item);
         }
     }
 }

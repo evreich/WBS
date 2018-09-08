@@ -16,8 +16,22 @@ namespace WBS.DAL.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn)
-                .HasAnnotation("ProductVersion", "2.1.1-rtm-30846")
+                .HasAnnotation("ProductVersion", "2.1.2-rtm-30932")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
+
+            modelBuilder.Entity("WBS.DAL.Authorization.Models.ObjectType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("AssemblyName");
+
+                    b.Property<string>("TypeName");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ObjectTypes");
+                });
 
             modelBuilder.Entity("WBS.DAL.Authorization.Models.RefreshToken", b =>
                 {
@@ -54,6 +68,33 @@ namespace WBS.DAL.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Roles");
+                });
+
+            modelBuilder.Entity("WBS.DAL.Authorization.Models.RolesObjectTypes", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("id");
+
+                    b.Property<bool>("AllowCreate");
+
+                    b.Property<bool>("AllowDelete");
+
+                    b.Property<bool>("AllowRead");
+
+                    b.Property<bool>("AllowWrite");
+
+                    b.Property<int>("ObjectTypeId");
+
+                    b.Property<int>("RoleId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ObjectTypeId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("RolesObjectTypes");
                 });
 
             modelBuilder.Entity("WBS.DAL.Authorization.Models.User", b =>
@@ -536,6 +577,19 @@ namespace WBS.DAL.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Providers");
+                });
+
+            modelBuilder.Entity("WBS.DAL.Authorization.Models.RolesObjectTypes", b =>
+                {
+                    b.HasOne("WBS.DAL.Authorization.Models.ObjectType", "ObjectType")
+                        .WithMany()
+                        .HasForeignKey("ObjectTypeId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.HasOne("WBS.DAL.Authorization.Models.Role", "Role")
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.SetNull);
                 });
 
             modelBuilder.Entity("WBS.DAL.Authorization.Models.UserRoles", b =>

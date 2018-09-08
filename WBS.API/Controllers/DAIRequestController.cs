@@ -5,25 +5,20 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using WBS.API.Helpers;
 using WBS.DAL;
+using WBS.DAL.Data.Interfaces;
 using WBS.DAL.Data.Models;
 using WBS.DAL.Data.Models.ViewModels;
+using WBS.DAL.Layers.Interfaces;
 
 namespace WBS.API.Controllers
 {
     [Produces("application/json")]
     [Route("api/[controller]")]
-    public class DAIRequestController : AbstractBaseTableController<DAIRequest, DAIRequestViewModel>
+    public class DAIRequestController : AbstractBaseTableController<DAIRequest, DAIRequestViewModel, DAIRequestDAL>
     {
-        private readonly DAIRequestDAL _daiRequestDAL;
-        public DAIRequestController(AbstractDAL<DAIRequest> daiRequestDAL, ILogger<DAIRequestController> logger) : base(daiRequestDAL, logger)
+        public DAIRequestController(ICRUD<DAIRequest> daiRequestDAL, ILogger<DAIRequestController> logger) 
+            : base(daiRequestDAL, logger)
         {
-            if (!(_dal is DAIRequestDAL dal))
-            {       
-                var error = "Преобразование abstract DAL к потомку не удалось";
-                _logger.LogError(error);
-                throw new Exception(error);
-            }
-            _daiRequestDAL = dal;
         }
 
         [HttpPost]
@@ -42,11 +37,11 @@ namespace WBS.API.Controllers
 
             var daiModel = value.CreateModel();
 
-            var createdData = _daiRequestDAL.Create(daiModel);
+            var createdData = _baseDAL.Create(daiModel);
 
             if (createdData != null)
             {
-                _daiRequestDAL.AddTechnicalServs(daiModel.Id, value.TechnicalServices);
+                _baseDAL.AddTechnicalServs(daiModel.Id, value.TechnicalServices);
             }
             else
             {
@@ -72,11 +67,11 @@ namespace WBS.API.Controllers
 
             var daiModel = value.CreateModel();
             _logger.LogInformation("Change '{dataId}' data", daiModel.Id);
-            var updatedData = _dal.Update(daiModel);
+            var updatedData = _baseDAL.Update(daiModel);
 
             if (updatedData != null)
             {
-                _daiRequestDAL.AddTechnicalServs(daiModel.Id, value.TechnicalServices);
+                _baseDAL.AddTechnicalServs(daiModel.Id, value.TechnicalServices);
             }
             else
             {

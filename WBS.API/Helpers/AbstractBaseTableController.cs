@@ -7,18 +7,20 @@ using System.Linq;
 using WBS.DAL;
 using WBS.DAL.Cache;
 using WBS.DAL.Data.Helpers;
+using WBS.DAL.Data.Interfaces;
 using WBS.DAL.Data.Models.ViewModels;
+using WBS.DAL.Layers.Interfaces;
 
 namespace WBS.API.Helpers
 {
-    public abstract class AbstractBaseTableController<T, U> : Controller where T : class, IBaseEntity where U : IViewModel<T>
+    public abstract class AbstractBaseTableController<T, U, V> : Controller where T : class, IBaseEntity where U : IViewModel<T> where V : class, ICRUD<T>
     {
         protected readonly ILogger _logger;
-        protected readonly AbstractDAL<T> _dal;
+        protected readonly V _baseDAL;
 
-        public AbstractBaseTableController(AbstractDAL<T> dal, ILogger logger)
+        public AbstractBaseTableController(ICRUD<T> baseDAL, ILogger logger)
         {
-            _dal = dal;
+            _baseDAL = baseDAL as V;
             _logger = logger;
         }
 
@@ -28,7 +30,7 @@ namespace WBS.API.Helpers
         {
             _logger.LogInformation("Getting information is started");
 
-            var allData = _dal.Get()
+            var allData = _baseDAL.Get()
                         .OrderBy(f => f.Id);
             var dataForPage = allData.Skip((currentPage) * pageSize)
                             .Take(pageSize)
@@ -83,7 +85,7 @@ namespace WBS.API.Helpers
                 return BadRequest(new ResponseError(error));
             }
             _logger.LogInformation("Change '{dataId}' data", value.Id);
-            var updatedData = _dal.Update(value.CreateModel());
+            var updatedData = _baseDAL.Update(value.CreateModel());
             if (updatedData == null)
             {
                 throw new Exception("Update is not successful");
@@ -104,7 +106,7 @@ namespace WBS.API.Helpers
                 return BadRequest(new ResponseError(error));
             }
             _logger.LogInformation("Create '{dataId}' data");
-            var createdData = _dal.Create(value.CreateModel());
+            var createdData = _baseDAL.Create(value.CreateModel());
             _logger.LogInformation("Create data (ID:{id}) is succussful", createdData.Id);
             var uri = new Uri($"{HttpContext.Request.Host}{HttpContext.Request.Path.Value}");
             return Created(uri, (U)Activator.CreateInstance(typeof(U), createdData));
@@ -115,7 +117,7 @@ namespace WBS.API.Helpers
         public virtual IActionResult Delete([FromRoute] int id)
         {
             _logger.LogInformation("Delete data, ID: {id} ", id);
-            var result = _dal.Delete(id);
+            var result = _baseDAL.Delete(id);
             if (result != null)
             {
                 _logger.LogInformation("Delete is successful");

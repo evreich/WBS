@@ -6,6 +6,7 @@ using WBS.API.Extensions;
 using NLog.Web;
 using Microsoft.Extensions.Logging;
 using NLog.Extensions.Logging;
+using Microsoft.AspNetCore.Http;
 
 namespace WBS.API
 {
@@ -30,10 +31,9 @@ namespace WBS.API
                                      .AllowCredentials()
                                      .Build());
             });
-
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddMvc();
             services.AddLogging();
-
             services.AddErrorHandlers();
             services.AddWBSDALServices(Configuration);
             services.AddWBSCacheServices(Configuration);
