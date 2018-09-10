@@ -38,12 +38,16 @@ namespace WBS.API.Controllers
                             .ToList();
             //TODO: вынести в отдельные константы
             const string typeName = "categoryGroup";
-            const int typeId = 0; //_dal.GetObjectId(typeName);
 
-            var descriptor = new CategoryGroupsDescriptor(typeId, userRoles).ConvertToJSON();
-            if (descriptor == null)
+            try
+            {
+                //var descriptor = new CategoryGroupsDescriptor(typeName, userRoles).ConvertToJSON();
+                return Ok(null);
+            }
+            catch (System.TypeAccessException)
+            {
                 return StatusCode(403, new ResponseError("У пользователя нет соотв. прав доступа на тип"));
-            return Ok(descriptor);
+            }
         }
     }
 }

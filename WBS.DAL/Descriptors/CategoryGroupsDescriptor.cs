@@ -7,6 +7,7 @@ using WBS.DAL.Data.Models;
 
 namespace WBS.DAL.Descriptors
 {
+   // [TypeName(Name = titleName)]
     public class CategoryGroupsDescriptor : Descriptor
     {
         const string titleName = "title";
@@ -18,18 +19,15 @@ namespace WBS.DAL.Descriptors
         private readonly FieldInfo _code;
 
         public CategoryGroupsDescriptor(
-            //BudgetPlanDAL dal, 
+            PermissionsDAL dal, 
             object typeID,
             List<string> roles
             ) : base(
-                //dal, 
+                dal, 
                 typeID,
                 roles
                 )
-        {
-            if (!CanAccessToObject())
-                throw new TypeAccessException();
-
+        { 
             _title = new FieldInfo("Название", titleName, true, CanEditField(titleName));
             _code = new FieldInfo("Код", codeName, true, CanEditField(codeName));
         }

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace WBS.DAL.Descriptors
 {
-    internal struct FieldInfo
+    public struct FieldInfo
     {
         public string Label { get; set; }
         public string Name { get; set; }
