@@ -3,62 +3,52 @@ using System.Collections.Generic;
 using WBS.DAL.Cache;
 using Microsoft.EntityFrameworkCore;
 using System;
+using WBS.DAL.Data.Interfaces;
+using WBS.DAL.Layers.Interfaces;
+using WBS.DAL.Layers;
 
 namespace WBS.DAL
 {
-    public class ProviderDAL : AbstractDAL<Provider>
+    public class ExtensionDALIQueryableProvider : IExtensionDALIQueryable<Provider>
     {
-        public ProviderDAL(WBSContext context, ICache cache) : base(context, cache) { }      
-
-        protected override IEnumerable<Provider> GetItems()
+        public IQueryable<Provider> GetItems(IQueryable<Provider> query)
         {
-            return _context.Providers
-                .Include(p => p.ProvidersTechnicalServices)
-                    .ThenInclude(ts => ts.TechnicalService)
-                .ToList();
+            return query.Include(p => p.ProvidersTechnicalServices).ThenInclude(ts => ts.TechnicalService);
+        }
+    }
+
+    public class ProviderDAL : ICRUD<Provider>
+    {
+        ICRUD<Provider> _providers_crud;
+
+        public ProviderDAL(GetCRUD getcrud)
+        {
+            _providers_crud = getcrud(typeof(ProviderDAL), typeof(Provider)) as ICRUD<Provider>;
         }
 
-        protected override Provider GetItem(object id)
+        public Provider Create(Provider item)
         {
-            return _context.Providers.FirstOrDefault(p => p.Id == (int)id);
+            return _providers_crud.Create(item);
         }
 
-        //TODO: Refactoring after analize AbstractDAL realization
-        public override Provider Delete(object id)
+        public Provider Delete(object id)
         {
-            var item = _context.Providers
-                .Include(prov => prov.ProvidersTechnicalServices)
-                .Single(elem => elem.Id == (int)id);
-
-            if (item != null)
-            {
-                _context.Providers.Remove(item);
-                _context.SaveChanges();
-                _cache.Remove(item);
-            }
-            else
-            {
-                throw new ArgumentNullException();
-            }
-            return item;
+            return _providers_crud.Delete(id);
         }
 
-        public override Provider Update(Provider item)
+        public IEnumerable<Provider> Get()
         {
-            var currProvider = _context.Providers
-                .Include(prov => prov.ProvidersTechnicalServices)
-                .Single(elem => elem.Id == item.Id);
+            return _providers_crud.Get();
+        }
 
-            _context.Entry(currProvider).CurrentValues.SetValues(item);
+        public Provider Get(object id)
+        {
+            return _providers_crud.Get(id);
+        }
 
-            currProvider.ProvidersTechnicalServices.RemoveRange(0, currProvider.ProvidersTechnicalServices.Count);
-            currProvider.ProvidersTechnicalServices.AddRange(item.ProvidersTechnicalServices.ToList());
-
-            _context.Entry(currProvider).State = EntityState.Modified;
-            _context.SaveChanges();
-
-            _cache.Add(currProvider);
-            return currProvider;
+        public Provider Update(Provider item)
+        {
+            return _providers_crud.Update(item);
         }
     }
 }

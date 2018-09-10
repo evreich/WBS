@@ -6,16 +6,17 @@ using Microsoft.Extensions.Logging;
 using WBS.API.Helpers;
 using WBS.DAL;
 using WBS.DAL.Data.Helpers;
+using WBS.DAL.Data.Interfaces;
 using WBS.DAL.Data.Models.ViewModels;
+using WBS.DAL.Layers.Interfaces;
 
 namespace WBS.API.Controllers
 {
     [Produces("application/json")]
     [Route("api/[controller]")]
-    public class ProviderController : AbstractBaseTableController<Provider, ProviderViewModel>
+    public class ProviderController : AbstractBaseTableController<Provider, ProviderViewModel, ProviderDAL>
     {
-        public ProviderController(AbstractDAL<Provider> dal, IServiceProvider provider, 
-            ILogger<ProviderController> logger): base(dal, logger)
+        public ProviderController(ICRUD<Provider> baseDAL, ILogger<ProviderController> logger) : base(baseDAL, logger)
         {
         }
 
@@ -24,7 +25,7 @@ namespace WBS.API.Controllers
         public IActionResult Get(int id)
         {
             _logger.LogInformation("Get provider, ID: '{id}", id);
-            return Ok(_dal.Get(id));
+            return Ok(_baseDAL.Get(id));
         }
 
         [HttpGet("{title}/{currentPage}/{pageSize}")]
@@ -32,7 +33,7 @@ namespace WBS.API.Controllers
         public IActionResult Get(int currentPage = 0, int pageSize = 5, string title = "", string techServs ="")
         {
             _logger.LogInformation("Getting information is started");
-            var data = _dal.Get();
+            var data = _baseDAL.Get();
             if(!String.IsNullOrEmpty(title))
             {
                 data = data.Where(q => q.Title.Contains(title));
@@ -49,7 +50,7 @@ namespace WBS.API.Controllers
 
                 if (techServsIds != null)
                 {
-                    var providersIds = _dal.Get().Where(pts => techServsIds.FirstOrDefault(t => t == pts.Id) != 0).GroupBy(pts => pts.Id).Select(el => el.Key);
+                    var providersIds = _baseDAL.Get().Where(pts => techServsIds.FirstOrDefault(t => t == pts.Id) != 0).GroupBy(pts => pts.Id).Select(el => el.Key);
                     data = data.Where(provider => providersIds.FirstOrDefault(el => el == provider.Id) != 0);
                 }
 

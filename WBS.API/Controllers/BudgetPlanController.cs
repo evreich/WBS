@@ -10,24 +10,17 @@ using WBS.DAL.Data.Classes;
 using WBS.DAL.Data.Helpers;
 using WBS.DAL.Data.Models;
 using WBS.DAL.Data.Models.ViewModels;
+using WBS.DAL.Layers.Interfaces;
 
 namespace WBS.API.Controllers
 {
     [Produces("application/json")]
     [Route("api/[controller]")]
-    public class BudgetPlanController: AbstractBaseTableController<BudgetPlan, BudgetPlanViewModel>
+    public class BudgetPlanController: AbstractBaseTableController<BudgetPlan, BudgetPlanViewModel, BudgetPlanDAL>
     {
-        private readonly BudgetPlanDAL _budgetPlanDAL;
-
-        public BudgetPlanController(AbstractDAL<BudgetPlan> abstractDAL, ILogger<BudgetPlanController> logger) : base(abstractDAL, logger)
+        public BudgetPlanController(ICRUD<BudgetPlan> baseDAL, ILogger<BudgetPlanController> logger)
+       : base(baseDAL, logger)
         {
-            if (!(_dal is BudgetPlanDAL budgetPlanDAL))
-            {
-                var error = "Преобразование abstract DAL к потомку не удалось";
-                _logger.LogError(error);
-                throw new Exception(error);
-            }
-            _budgetPlanDAL = budgetPlanDAL;
         }
 
         [HttpGet("{currentPage}/{pageSize}")]
@@ -36,11 +29,11 @@ namespace WBS.API.Controllers
         {
             _logger.LogInformation("Getting information is started");
 
-            var allData = _dal.Get()
+            var allData = _baseDAL.Get()
                         .OrderBy(f => f.Id);
             var dataForPage = allData.Skip((currentPage) * pageSize)
                             .Take(pageSize)
-                            .Select(bp => new BudgetPlanViewModel(bp.Id, bp.Year, _budgetPlanDAL.GetStatusOfPlan(bp.Id).Title));
+                            .Select(bp => new BudgetPlanViewModel(bp.Id, bp.Year, _baseDAL.GetStatusOfPlan(bp.Id).Title));
 
             _logger.LogInformation("Getting information is completed");
             return Ok(new DataWithPaginationViewModel<BudgetPlanViewModel>
@@ -62,7 +55,7 @@ namespace WBS.API.Controllers
                 return BadRequest(new ResponseError(error));
             }
 
-            if (_budgetPlanDAL.IsAlreadyHaveInDb(value.Year))
+            if (_baseDAL.IsAlreadyHaveInDb(value.Year))
             {
                 var error = "Бюджетный план на заданный год уже существует в базе данных";
                 _logger.LogInformation(error);
@@ -71,7 +64,7 @@ namespace WBS.API.Controllers
 
             _logger.LogInformation("Create '{dataId}' data", value.Id);
             value.Status = Constants.STATUS_BP_PROJECT;
-            var createdData = _budgetPlanDAL.Create(value.CreateModel());
+            var createdData = _baseDAL.Create(value.CreateModel());
             if (createdData == null)
             {
                 throw new Exception("Create is not successful");
@@ -79,7 +72,7 @@ namespace WBS.API.Controllers
             _logger.LogInformation("Create is successful");
 
             var uri = new Uri($"{HttpContext.Request.Host}{HttpContext.Request.Path.Value}");
-            return Created(uri, new BudgetPlanViewModel(createdData.Id, createdData.Year, _budgetPlanDAL.GetStatusOfPlan(createdData.Id).Title));
+            return Created(uri, new BudgetPlanViewModel(createdData.Id, createdData.Year, _baseDAL.GetStatusOfPlan(createdData.Id).Title));
         }
     }
 }

@@ -15,7 +15,6 @@ namespace WBS.DAL.Authorization
         private readonly ProfilesDAL _profilesDal;
         private readonly RefreshTokenDAL _refreshTokenDal;
         private readonly AuthOptions _options;
-        private readonly ICache _cache;
         private readonly IServiceProvider _provider;
 
         public AuthUtils(ProfilesDAL profilesDal, RefreshTokenDAL refreshTokenDal, IServiceProvider provider)
@@ -23,7 +22,6 @@ namespace WBS.DAL.Authorization
             _profilesDal = profilesDal;
             _refreshTokenDal = refreshTokenDal;
             _options = provider.GetService(typeof(AuthOptions)) as AuthOptions;
-            _cache = provider.GetService(typeof(ICache)) as ICache;
             _provider = provider;
         }
 

@@ -5,24 +5,45 @@ using WBS.DAL.Cache;
 using Microsoft.EntityFrameworkCore;
 using WBS.DAL.Authorization.Models;
 using WBS.DAL.Data.Models;
+using WBS.DAL.Data.Interfaces;
+using WBS.DAL.Layers.Interfaces;
+using WBS.DAL.Layers;
 
 namespace WBS.DAL
 {
-    public class RationaleForInvestmentsDAL : AbstractDAL<RationaleForInvestment>
+    public class RationaleForInvestmentsDAL : ICRUD<RationaleForInvestment>
     {
-        public RationaleForInvestmentsDAL(WBSContext context, ICache cache) : base(context, cache)
-        { }
 
-        protected override RationaleForInvestment GetItem(object id)
+        ICRUD<RationaleForInvestment> _rationalies_for_inv_crud;
+
+        public RationaleForInvestmentsDAL(GetCRUD getcrud)
         {
-            return _context.RationaleForInvestments
-                .Where(p => p.Id == (int)id)
-                .FirstOrDefault();
+            _rationalies_for_inv_crud = getcrud(typeof(RationaleForInvestmentsDAL), typeof(RationaleForInvestment)) as ICRUD<RationaleForInvestment>;
         }
 
-        protected override IEnumerable<RationaleForInvestment> GetItems()
+        public RationaleForInvestment Create(RationaleForInvestment item)
         {
-            return _context.RationaleForInvestments.ToList();
+            return _rationalies_for_inv_crud.Create(item);
+        }
+
+        public RationaleForInvestment Delete(object id)
+        {
+            return _rationalies_for_inv_crud.Delete(id);
+        }
+
+        public IEnumerable<RationaleForInvestment> Get()
+        {
+            return _rationalies_for_inv_crud.Get();
+        }
+
+        public RationaleForInvestment Get(object id)
+        {
+            return _rationalies_for_inv_crud.Get(id);
+        }
+
+        public RationaleForInvestment Update(RationaleForInvestment item)
+        {
+            return _rationalies_for_inv_crud.Update(item);
         }
     }
 }

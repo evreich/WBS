@@ -5,52 +5,81 @@ using System.Linq;
 using WBS.DAL.Cache;
 using WBS.DAL.Data.Models;
 using Microsoft.EntityFrameworkCore;
+using WBS.DAL.Data.Interfaces;
+using WBS.DAL.Layers.Interfaces;
+using WBS.DAL.Layers;
 
 namespace WBS.DAL.Data.Classes
 {
-    public class BudgetPlanDAL: AbstractDAL<BudgetPlan>
+    public class ExtensionDALIQueryableBudgetPlan : IExtensionDALIQueryable<BudgetPlan>
     {
-        public BudgetPlanDAL(WBSContext context, ICache cache): base(context, cache)
+        public IQueryable<BudgetPlan> GetItems(IQueryable<BudgetPlan> query)
         {
+            return query.Include(b => b.Items).Include(b => b.Events);
+        }
+    }
+
+    public class BudgetPlanDAL: ICRUD<BudgetPlan>
+    {
+        ICRUD<BudgetPlan> _bp_crud;
+        ICRUD<Event> _events_crud;
+        ICRUD<Status> _statuses_crud;
+
+        public BudgetPlanDAL(GetCRUD getcrud, WBSContext ctx)
+        {
+            _bp_crud = getcrud(typeof(BudgetPlanDAL), typeof(BudgetPlan)) as ICRUD<BudgetPlan>;
+            _events_crud = getcrud(typeof(BudgetPlanDAL), typeof(Event)) as ICRUD<Event>;
+            _statuses_crud = getcrud(typeof(BudgetPlanDAL), typeof(Status)) as ICRUD<Status>;
         }
 
         public bool IsAlreadyHaveInDb(int year)
         {
-            return _context.BudgetPlans.FirstOrDefault(bp => bp.Year == year) != null;
-        }
-
-        protected override BudgetPlan GetItem(object id)
-        {
-            return _context.BudgetPlans
-                .Include(item => item.Items)
-                .Include(item => item.Events)
-                .FirstOrDefault(item => item.Id == (int)id);
-        }
-
-        protected override IEnumerable<BudgetPlan> GetItems()
-        {
-            return _context.BudgetPlans
-                .Include(item => item.Items)
-                .Include(item => item.Events)
-                .ToList();
+            return _bp_crud.Get().Any(bp => bp.Year == year);
         }
 
         public Status GetStatusOfPlan(int planId)
         {
-            if(_context.Events.Count() <= 0)
+            if(_events_crud.Get().Count() <= 0)
             {
-                return _context.Statuses
+                return _statuses_crud.Get()
                     .Single(status => status.Title == Constants.STATUS_BP_PROJECT);
             }
-            var latestDateOfEventsCurrentBP = _context.Events
+            var events = _events_crud.Get();
+            var latestDateOfEventsCurrentBP = events
                                         .Where(ev => ev.BudgetPlanId == planId)
-                                        .Max(ev => ev.Date);
-            return _context.Events
+                                        ?.Max(ev => ev.Date);
+
+            return _events_crud.Get().AsQueryable()
                 .Include(e => e.Status)
                 .Single(e => e.BudgetPlanId == planId &&
                              e.Date == latestDateOfEventsCurrentBP)
 
                 .Status;
+        }
+
+        public BudgetPlan Update(BudgetPlan item)
+        {
+            return _bp_crud.Update(item);
+        }
+
+        public BudgetPlan Delete(object id)
+        {
+            return _bp_crud.Delete(id);
+        }
+
+        public BudgetPlan Create(BudgetPlan item)
+        {
+            return _bp_crud.Create(item);
+        }
+
+        public IEnumerable<BudgetPlan> Get()
+        {
+            return _bp_crud.Get();
+        }
+
+        public BudgetPlan Get(object Id)
+        {
+            return _bp_crud.Get(Id);
         }
     }
 }

@@ -5,25 +5,52 @@ using WBS.DAL.Cache;
 using Microsoft.EntityFrameworkCore;
 using WBS.DAL.Authorization.Models;
 using WBS.DAL.Data.Models;
+using WBS.DAL.Data.Interfaces;
+using WBS.DAL.Layers.Interfaces;
+using WBS.DAL.Layers;
 
 namespace WBS.DAL
 {
-    public class CategoriesOfEquipmentDAL : AbstractDAL<CategoryOfEquipment>
+    public class ExtensionDALIQueryableCategoryOfEquipment : IExtensionDALIQueryable<CategoryOfEquipment>
     {
-        public CategoriesOfEquipmentDAL(WBSContext context, ICache cache): base(context, cache)
+        public IQueryable<CategoryOfEquipment> GetItems(IQueryable<CategoryOfEquipment> query)
         {
+            return query.Include(b => b.CategoryGroup);
+        }
+    }
+
+    public class CategoriesOfEquipmentDAL : ICRUD<CategoryOfEquipment>
+    {
+        ICRUD<CategoryOfEquipment> _categories_of_equipment_crud;
+
+        public CategoriesOfEquipmentDAL(GetCRUD getcrud)
+        {
+            _categories_of_equipment_crud = getcrud(typeof(CategoriesOfEquipmentDAL), typeof(CategoryOfEquipment)) as ICRUD<CategoryOfEquipment>;
         }
 
-        protected override IEnumerable<CategoryOfEquipment> GetItems()
+        public CategoryOfEquipment Create(CategoryOfEquipment item)
         {
-            return _context.CategoriesOfEquipment.Include(f => f.CategoryGroup).ToList();
+            return _categories_of_equipment_crud.Create(item);
         }
 
-        protected override CategoryOfEquipment GetItem(object id)
+        public CategoryOfEquipment Delete(object id)
         {
-            return _context.CategoriesOfEquipment
-                .Include(f => f.CategoryGroup)
-                .FirstOrDefault(x => x.Id == (int)id);
+            return _categories_of_equipment_crud.Delete(id);
+        }
+
+        public IEnumerable<CategoryOfEquipment> Get()
+        {
+            return _categories_of_equipment_crud.Get();
+        }
+
+        public CategoryOfEquipment Get(object id)
+        {
+            return _categories_of_equipment_crud.Get(id);
+        }
+
+        public CategoryOfEquipment Update(CategoryOfEquipment item)
+        {
+            return _categories_of_equipment_crud.Update(item);
         }
     }
 }

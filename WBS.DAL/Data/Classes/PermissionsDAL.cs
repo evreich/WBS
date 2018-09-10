@@ -1,17 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using WBS.DAL.Authorization.Models;
+using WBS.DAL.Data.Interfaces;
 
 namespace WBS.DAL.Data.Classes
 {
-    public interface IPermissionDAL
-    {
-        List<object> GetPermissionsForType(string typeName, List<string> roles);
-        List<object> GetPermissionsForField(string fieldName, string typeName, List<string> roles);
-    }
-
-    public class PermissionsDAL: IPermissionDAL
+    public class PermissionsDAL: IPermissionsDAL
     {
         private readonly WBSContext _context;
 
@@ -20,33 +17,14 @@ namespace WBS.DAL.Data.Classes
             _context = context;
         }
 
-        public List<object> GetPermissionsForType(string typeName, List<string> roles)
+        public IEnumerable<RolesObjectTypes> GetPermissionsForType(string typeName, string assemblyName, List<string> roles)
         {
-            /*
-             * return _context.PermisssionsToType
-                .Include(p => p.Role)
-                .Include(p => p.Type)
-                .Where(p => p.Type.Name == typeName && roles.Contains(p.Role.Name))
-                .ToList();
-
-            */
-            return null;
+            return _context.RolesObjectTypes
+                .Include(rot => rot.ObjectType)
+                    .Include(rot => rot.Role)
+                    .Where(rot => rot.ObjectType.TypeName.Equals(typeName)
+                    && rot.ObjectType.AssemblyName.Equals(assemblyName)
+                    && roles.Contains(rot.Role.Title));
         }
-
-        public List<object> GetPermissionsForField(string fieldName, string typeName, List<string> roles)
-        {
-            /*
-             * return _context.PremissionsToTypeField
-                .Include(p => p.Role)
-                .Include(p => p.Field)
-                    .ThenInclude(f => f.Type)
-                .Where(p => p.Field.Type.Name == typeName && 
-                            p.Field.Name == fieldName &&
-                            roles.Contains(p.Role.Name))
-                .ToList();
-
-            */
-            return null;
-        } 
     }
 }
