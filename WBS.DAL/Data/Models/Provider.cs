@@ -5,7 +5,7 @@ using System.Linq;
 using WBS.DAL.Cache;
 using WBS.DAL.Data.Models;
 
-namespace WBS.DAL
+namespace WBS.DAL.Data.Models
 {
     public class Provider : IBaseEntity
     {
