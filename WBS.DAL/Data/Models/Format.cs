@@ -8,7 +8,7 @@ using WBS.DAL.Authorization.Models;
 using WBS.DAL.Cache;
 using WBS.DAL.Data.Models;
 
-namespace WBS.DAL.Models
+namespace WBS.DAL.Data.Models
 {
    
     public class Format : IBaseEntity

@@ -5,10 +5,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using WBS.DAL;
 using WBS.DAL.Cache;
-using WBS.DAL.Models;
 using WBS.DAL.Data.Models;
 using WBS.DAL.Data.Classes;
-using WBS.DAL.Data.Models.ViewModels;
 using WBS.DAL.Data.Interfaces;
 using WBS.DAL.Layers.Interfaces;
 using WBS.DAL.Layers.Classes;
@@ -110,6 +108,7 @@ namespace WBS.API.Extensions
             services.AddTransient<ICRUD<BudgetPlan>, BudgetPlanDAL>();
             services.AddTransient<ICRUD<Attachment>, AttachmentDAL>();
             services.AddTransient<ICRUD<CategoryOfEquipment>, CategoriesOfEquipmentDAL>();
+            services.AddTransient<ICRUD<CategoryGroup>, CategoryGroupsDAL>();
             services.AddTransient<ICRUD<DAIRequest>, DAIRequestDAL>();
             services.AddTransient<ICRUD<Event>, EventsDAL>();
             services.AddTransient<ICRUD<Format>, FormatDAL>();

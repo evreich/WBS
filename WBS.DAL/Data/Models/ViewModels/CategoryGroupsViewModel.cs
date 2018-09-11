@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using WBS.DAL.Cache;
 using WBS.DAL.Data.Models.ViewModels;
 
-namespace WBS.DAL.Data.Models
+namespace WBS.DAL.Data.Models.ViewModels
 {
     public class CategoryGroupsViewModel : IViewModel<CategoryGroup>
     {
