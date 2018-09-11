@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace WBS.TestWBSRefactoring
+namespace WBS.Client
 {
     public class SpaController : Controller
     {

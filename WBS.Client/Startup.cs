@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace WBS.TestWBSRefactoring
+namespace WBS.Client
 {
     public class Startup
     {
