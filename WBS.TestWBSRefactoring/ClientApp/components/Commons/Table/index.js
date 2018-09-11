@@ -1,2 +1,2 @@
-import Table from './Table';
-export default Table;
+import CreateTable from './Table';
+export default CreateTable;
