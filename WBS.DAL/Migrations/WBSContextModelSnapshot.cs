@@ -19,6 +19,68 @@ namespace WBS.DAL.Migrations
                 .HasAnnotation("ProductVersion", "2.1.2-rtm-30932")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
+            modelBuilder.Entity("WBS.DAL.Authorization.Models.MenuItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("IconName");
+
+                    b.Property<int?>("ParentId");
+
+                    b.Property<string>("Text");
+
+                    b.Property<string>("To");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ParentId");
+
+                    b.ToTable("MenuItems");
+
+                    b.HasData(
+                        new { Id = 1, IconName = "FolderIcon", Text = "Документы" },
+                        new { Id = 2, IconName = "InsertDriveFileIcon", ParentId = 1, Text = "Таблица разработки", To = "/table" },
+                        new { Id = 3, IconName = "InsertDriveFileIcon", ParentId = 1, Text = "Макет", To = "/DateRangePicker" },
+                        new { Id = 4, IconName = "InsertDriveFileIcon", ParentId = 1, Text = "Заявки на инвестиции", To = "/DAIRequests" },
+                        new { Id = 5, IconName = "DescriptionIcon", ParentId = 1, Text = "Бюджетные планы", To = "/BudgetPlans" },
+                        new { Id = 6, IconName = "TrendingUpIcon", ParentId = 1, Text = "Статистика", To = "/Statistics" },
+                        new { Id = 7, IconName = "RestorePageIcon", ParentId = 1, Text = "Все обработанные мной заявки", To = "/DAIProcessedRequests" },
+                        new { Id = 8, IconName = "InfoOutlineIcon", ParentId = 1, Text = "Инструкции", To = "/DocLib" },
+                        new { Id = 9, IconName = "AccountBoxIcon", Text = "Администрирование" },
+                        new { Id = 10, IconName = "ChromeReaderMode", ParentId = 9, Text = "Добавить пользователя", To = "/signup" },
+                        new { Id = 11, IconName = "ChromeReaderMode", ParentId = 9, Text = "Журнал изменений", To = "/EventsHistory" },
+                        new { Id = 12, IconName = "AssessmentIcon", ParentId = 9, Text = "Проверка мониторинга системы", To = "/CheckDAIMonitoringSystem" },
+                        new { Id = 13, IconName = "LibraryBooksIcon", Text = "Справочники" },
+                        new { Id = 14, IconName = "HomeIcon", ParentId = 13, Text = "Ситы", To = "/Sits" },
+                        new { Id = 15, IconName = "AccountCircleIcon", ParentId = 13, Text = "Пользователи", To = "/Profiles" },
+                        new { Id = 16, IconName = "SupervisorAccountIcon", ParentId = 13, Text = "Поставщики", To = "/Providers" },
+                        new { Id = 17, IconName = "DescriptionIcon", ParentId = 13, Text = "Формат ситов", To = "/Formats" },
+                        new { Id = 18, IconName = "TrendingUpIcon", ParentId = 13, Text = "Типы инвестиций", To = "/TypeOfInvestments" },
+                        new { Id = 19, IconName = "InsertDriveFileIcon", ParentId = 13, Text = "Центры результатов", To = "/ResultCentres" },
+                        new { Id = 20, IconName = "InsertDriveFileIcon", ParentId = 13, Text = "Группы категорий", To = "/CategoryGroups" },
+                        new { Id = 21, IconName = "InsertDriveFileIcon", ParentId = 13, Text = "Категории оборудования", To = "/CategoriesOfEquipment" }
+                    );
+                });
+
+            modelBuilder.Entity("WBS.DAL.Authorization.Models.MenuItemRoles", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("MenuItemId");
+
+                    b.Property<int>("RoleId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MenuItemId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("MenuItemRoles");
+                });
+
             modelBuilder.Entity("WBS.DAL.Authorization.Models.ObjectType", b =>
                 {
                     b.Property<int>("Id")
@@ -600,6 +662,27 @@ namespace WBS.DAL.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("TypesOfInvestment");
+                });
+
+            modelBuilder.Entity("WBS.DAL.Authorization.Models.MenuItem", b =>
+                {
+                    b.HasOne("WBS.DAL.Authorization.Models.MenuItem", "Parent")
+                        .WithMany()
+                        .HasForeignKey("ParentId")
+                        .OnDelete(DeleteBehavior.SetNull);
+                });
+
+            modelBuilder.Entity("WBS.DAL.Authorization.Models.MenuItemRoles", b =>
+                {
+                    b.HasOne("WBS.DAL.Authorization.Models.MenuItem", "MenuItem")
+                        .WithMany("MenuItemRoles")
+                        .HasForeignKey("MenuItemId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.HasOne("WBS.DAL.Authorization.Models.Role", "Role")
+                        .WithMany("MenuItemRoles")
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.SetNull);
                 });
 
             modelBuilder.Entity("WBS.DAL.Authorization.Models.RolesObjectTypes", b =>

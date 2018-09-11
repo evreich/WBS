@@ -10,6 +10,12 @@ namespace WBS.DAL.Authorization.Models
     /// </summary>
     public class Role : IBaseEntity
     {
+        public Role()
+        {
+            MenuItemRoles = new List<MenuItemRoles>();
+            UserRoles = new List<UserRoles>();
+        }
+
         [Key, Column("id")]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
@@ -22,6 +28,9 @@ namespace WBS.DAL.Authorization.Models
         /// </summary>
         [Column("routes")]
         public string Routes { get; set; }
+
         public List<UserRoles> UserRoles { get; set; }
+
+        public List<MenuItemRoles> MenuItemRoles { get; set; }
     }
 }

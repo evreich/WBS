@@ -17,6 +17,15 @@ namespace WBS.DAL.Data.Classes
             _context = context;
         }
 
+        public IEnumerable<MenuItem> GetPermissionsForMenuItems(List<string> roles)
+        {
+            return _context.MenuItemRoles
+                .Include(mir => mir.MenuItem)
+                .Include(mir => mir.Role)
+                .Where(mir => roles.Contains(mir.Role.Title))
+                .Select(mir => mir.MenuItem);
+        }
+
         public IEnumerable<RolesObjectTypes> GetPermissionsForType(string typeName, string assemblyName, List<string> roles)
         {
             return _context.RolesObjectTypes
