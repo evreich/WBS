@@ -5,6 +5,7 @@ using Microsoft.Extensions.Logging;
 using WBS.API.Helpers;
 using WBS.DAL;
 using WBS.DAL.Data.Interfaces;
+using WBS.DAL.Data.Models;
 using WBS.DAL.Data.Models.ViewModels;
 using WBS.DAL.Layers.Interfaces;
 using WBS.DAL.Models;

@@ -259,8 +259,6 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
-/WBS.DAL/Migrations/20180813142350_InitialCreate.cs
-/WBS.DAL/Migrations/20180813142350_InitialCreate.Designer.cs
-*.pyc
+
 /WBS.DAL/Migrations/*
-/WBS.TestWBSRefactoring/wwwroot/dist/bundle.js
+/WBS.Client/wwwroot/dist/bundle.js

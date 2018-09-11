@@ -7,6 +7,7 @@ using WBS.API.Helpers;
 using WBS.DAL;
 using WBS.DAL.Data.Helpers;
 using WBS.DAL.Data.Interfaces;
+using WBS.DAL.Data.Models;
 using WBS.DAL.Data.Models.ViewModels;
 using WBS.DAL.Layers.Interfaces;
 
