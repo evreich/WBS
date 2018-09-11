@@ -1,4 +1,6 @@
-﻿namespace WBS.DAL.Models
+﻿using WBS.DAL.Data.Models;
+
+namespace WBS.DAL.Models
 { 
     public class FormatViewModel : IViewModel<Format>
     {      

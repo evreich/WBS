@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System.Linq;
+using System.Reflection;
 using WBS.DAL.Authorization.Models;
 using WBS.DAL.Data;
 using WBS.DAL.Data.Models;
@@ -38,6 +39,13 @@ namespace WBS.DAL
                         new Status { Id = 3, Title = Constants.STATUS_BP_CURRENT },
                         new Status { Id = 4, Title = Constants.STATUS_BP_ARCHIVE }
                     );
+
+            //инициализация таблицы типов
+            var types = Assembly.GetExecutingAssembly().GetTypes()
+                .Where(t => t.IsClass && t.Namespace == "WBS.DAL.Data.Models")
+                .Select((t, index) => new ObjectType() { AssemblyName = t.Assembly.GetName().Name, TypeName = t.FullName, Id = index+1 })
+                .ToArray();
+            modelBuilder.Entity<ObjectType>().HasData(types);
 
             //мультиключи для промежуточной таблицы EventQuarters
             modelBuilder.Entity<EventQuarter>().HasKey(c => new { c.EventId, c.QuarterOfYearId });
@@ -86,5 +94,7 @@ namespace WBS.DAL
         public DbSet<ProvidersTechnicalService> ProvidersTechnicalServices { get; set; }
         public DbSet<RationaleForInvestment> RationaleForInvestments { get; set; }
         public DbSet<Attachment> Attachments { get; set; }
+        public DbSet<ObjectType> ObjectTypes { get; set; }
+        public DbSet<RolesObjectTypes> RolesObjectTypes { get; set; }
     }
 }

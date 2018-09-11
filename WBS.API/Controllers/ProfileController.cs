@@ -6,10 +6,12 @@ using Microsoft.Extensions.Logging;
 using WBS.API.Helpers;
 using WBS.DAL;
 using WBS.DAL.Authorization;
+using WBS.DAL.Authorization.Models;
 using WBS.DAL.Authorization.Models.ViewModels;
 using WBS.DAL.Data.Helpers;
 using WBS.DAL.Data.Models.ModelsForSelections;
 using WBS.DAL.Data.Models.ViewModels;
+using WBS.DAL.Layers.Interfaces;
 
 namespace WBS.API.Controllers
 {
@@ -18,17 +20,17 @@ namespace WBS.API.Controllers
     [Authorize(Roles = "admin")]
     public class ProfileController : Controller
     {
-        private readonly WBSContext _context;
         private readonly IServiceProvider _provider;
         private readonly ProfilesDAL _dal;
         private readonly ILogger<ProfileController> _logger;
+        private readonly ICRUD<User> _users_crud;
 
-        public ProfileController(WBSContext context, IServiceProvider provider, ProfilesDAL dal, ILogger<ProfileController> logger)
+        public ProfileController(ICRUD<User> users_crud, IServiceProvider provider, ProfilesDAL dal, ILogger<ProfileController> logger)
         {
-            _context = context;
             _provider = provider;
             _dal = dal;
             _logger = logger;
+            _users_crud = users_crud;
         }
 
         [HttpPost]
@@ -127,7 +129,7 @@ namespace WBS.API.Controllers
         public IActionResult Get(int currentPage = 0, int pageSize = 5)
         {
             _logger.LogInformation("Get information about profiles on page");
-            var data = _dal.GetUsers()
+            var data = _users_crud.Get()
                         .Select(u => new ProfileViewModel(u))
                         .ToList();
             var dataToPage = data.OrderBy(f => f.Id)
@@ -155,7 +157,7 @@ namespace WBS.API.Controllers
         {
             _logger.LogInformation(nameof(GetProfilesForSelection));
             //выбираем только тех пользователей, у которых нет пометки на удаление
-            var result = _dal.GetUsers()
+            var result = _users_crud.Get()
                 .Where(p => !p.DeletionMark
                        && (string.IsNullOrEmpty(query) ||
                           (!string.IsNullOrEmpty(p.Fio) && p.Fio.ToUpper().Contains(query.ToUpper())

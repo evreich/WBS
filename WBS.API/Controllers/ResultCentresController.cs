@@ -6,14 +6,17 @@ using WBS.DAL.Data.Models.ViewModels;
 using WBS.DAL.Data.Models;
 using Microsoft.Extensions.Logging;
 using WBS.API.Helpers;
+using WBS.DAL.Data.Interfaces;
+using WBS.DAL.Layers.Interfaces;
 
 namespace WBS.API.Controllers
 {
     [Produces("application/json")]
     [Route("api/[controller]")]
-    public class ResultCentresController : AbstractBaseTableController<ResultCenter, ResultCentresViewModel>
+    public class ResultCentresController : AbstractBaseTableController<ResultCenter, ResultCentresViewModel, ResultCentresDAL>
     {
-        public ResultCentresController(AbstractDAL<ResultCenter> dal, ILogger<ResultCentresController> logger) : base(dal, logger)
+        public ResultCentresController(ICRUD<ResultCenter> dal, ILogger<ResultCentresController> logger)
+            : base(dal, logger)
         {
         }
 
@@ -22,7 +25,7 @@ namespace WBS.API.Controllers
         public IActionResult GetResCentresForSelection()
         {
             _logger.LogInformation(nameof(GetResCentresForSelection));
-            var result = _dal.Get().Select(c => new ResultCentresForSelection(c)).ToList();
+            var result = _baseDAL.Get().Select(c => new ResultCentresForSelection(c)).ToList();
             _logger.LogInformation("Getting information is succesful");
             return Ok(result);
         }

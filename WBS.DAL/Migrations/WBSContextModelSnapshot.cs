@@ -16,8 +16,45 @@ namespace WBS.DAL.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn)
-                .HasAnnotation("ProductVersion", "2.1.1-rtm-30846")
+                .HasAnnotation("ProductVersion", "2.1.2-rtm-30932")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
+
+            modelBuilder.Entity("WBS.DAL.Authorization.Models.ObjectType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("AssemblyName");
+
+                    b.Property<string>("TypeName");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ObjectTypes");
+
+                    b.HasData(
+                        new { Id = 1, AssemblyName = "WBS.DAL", TypeName = "WBS.DAL.Data.Models.Attachment" },
+                        new { Id = 2, AssemblyName = "WBS.DAL", TypeName = "WBS.DAL.Data.Models.BudgetPlan" },
+                        new { Id = 3, AssemblyName = "WBS.DAL", TypeName = "WBS.DAL.Data.Models.CategoryGroup" },
+                        new { Id = 4, AssemblyName = "WBS.DAL", TypeName = "WBS.DAL.Data.Models.CategoryOfEquipment" },
+                        new { Id = 5, AssemblyName = "WBS.DAL", TypeName = "WBS.DAL.Data.Models.DAIRequest" },
+                        new { Id = 6, AssemblyName = "WBS.DAL", TypeName = "WBS.DAL.Data.Models.DAIRequestsProvider" },
+                        new { Id = 7, AssemblyName = "WBS.DAL", TypeName = "WBS.DAL.Data.Models.DAIRequestsTechnicalService" },
+                        new { Id = 8, AssemblyName = "WBS.DAL", TypeName = "WBS.DAL.Data.Models.Event" },
+                        new { Id = 9, AssemblyName = "WBS.DAL", TypeName = "WBS.DAL.Data.Models.EventQuarter" },
+                        new { Id = 10, AssemblyName = "WBS.DAL", TypeName = "WBS.DAL.Data.Models.Format" },
+                        new { Id = 11, AssemblyName = "WBS.DAL", TypeName = "WBS.DAL.Data.Models.ItemOfBudgetPlan" },
+                        new { Id = 12, AssemblyName = "WBS.DAL", TypeName = "WBS.DAL.Data.Models.Provider" },
+                        new { Id = 13, AssemblyName = "WBS.DAL", TypeName = "WBS.DAL.Data.Models.ProvidersTechnicalService" },
+                        new { Id = 14, AssemblyName = "WBS.DAL", TypeName = "WBS.DAL.Data.Models.QuarterOfYear" },
+                        new { Id = 15, AssemblyName = "WBS.DAL", TypeName = "WBS.DAL.Data.Models.RationaleForInvestment" },
+                        new { Id = 16, AssemblyName = "WBS.DAL", TypeName = "WBS.DAL.Data.Models.ResultCenter" },
+                        new { Id = 17, AssemblyName = "WBS.DAL", TypeName = "WBS.DAL.Data.Models.Site" },
+                        new { Id = 18, AssemblyName = "WBS.DAL", TypeName = "WBS.DAL.Data.Models.Status" },
+                        new { Id = 19, AssemblyName = "WBS.DAL", TypeName = "WBS.DAL.Data.Models.TechnicalService" },
+                        new { Id = 20, AssemblyName = "WBS.DAL", TypeName = "WBS.DAL.Data.Models.TypeOfInvestment" }
+                    );
+                });
 
             modelBuilder.Entity("WBS.DAL.Authorization.Models.RefreshToken", b =>
                 {
@@ -54,6 +91,33 @@ namespace WBS.DAL.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Roles");
+                });
+
+            modelBuilder.Entity("WBS.DAL.Authorization.Models.RolesObjectTypes", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("id");
+
+                    b.Property<bool>("AllowCreate");
+
+                    b.Property<bool>("AllowDelete");
+
+                    b.Property<bool>("AllowRead");
+
+                    b.Property<bool>("AllowWrite");
+
+                    b.Property<int>("ObjectTypeId");
+
+                    b.Property<int>("RoleId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ObjectTypeId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("RolesObjectTypes");
                 });
 
             modelBuilder.Entity("WBS.DAL.Authorization.Models.User", b =>
@@ -303,6 +367,41 @@ namespace WBS.DAL.Migrations
                     b.ToTable("EventQuarters");
                 });
 
+            modelBuilder.Entity("WBS.DAL.Data.Models.Format", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("id");
+
+                    b.Property<int?>("DirectorOfFormatId");
+
+                    b.Property<int?>("DirectorOfKYFormatId");
+
+                    b.Property<int>("E1Limit");
+
+                    b.Property<int>("E2Limit");
+
+                    b.Property<int>("E3Limit");
+
+                    b.Property<int?>("KYFormatId");
+
+                    b.Property<string>("Profile");
+
+                    b.Property<string>("Title");
+
+                    b.Property<string>("TypeOfFormat");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DirectorOfFormatId");
+
+                    b.HasIndex("DirectorOfKYFormatId");
+
+                    b.HasIndex("KYFormatId");
+
+                    b.ToTable("Formats");
+                });
+
             modelBuilder.Entity("WBS.DAL.Data.Models.ItemOfBudgetPlan", b =>
                 {
                     b.Property<int>("Id")
@@ -342,6 +441,20 @@ namespace WBS.DAL.Migrations
                     b.HasIndex("TypeOfInvestmentId");
 
                     b.ToTable("ItemOfBudgetPlans");
+                });
+
+            modelBuilder.Entity("WBS.DAL.Data.Models.Provider", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("id");
+
+                    b.Property<string>("Title")
+                        .HasColumnName("title");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Providers");
                 });
 
             modelBuilder.Entity("WBS.DAL.Data.Models.ProvidersTechnicalService", b =>
@@ -489,53 +602,17 @@ namespace WBS.DAL.Migrations
                     b.ToTable("TypesOfInvestment");
                 });
 
-            modelBuilder.Entity("WBS.DAL.Models.Format", b =>
+            modelBuilder.Entity("WBS.DAL.Authorization.Models.RolesObjectTypes", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("id");
+                    b.HasOne("WBS.DAL.Authorization.Models.ObjectType", "ObjectType")
+                        .WithMany()
+                        .HasForeignKey("ObjectTypeId")
+                        .OnDelete(DeleteBehavior.SetNull);
 
-                    b.Property<int?>("DirectorOfFormatId");
-
-                    b.Property<int?>("DirectorOfKYFormatId");
-
-                    b.Property<int>("E1Limit");
-
-                    b.Property<int>("E2Limit");
-
-                    b.Property<int>("E3Limit");
-
-                    b.Property<int?>("KYFormatId");
-
-                    b.Property<string>("Profile");
-
-                    b.Property<string>("Title");
-
-                    b.Property<string>("TypeOfFormat");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DirectorOfFormatId");
-
-                    b.HasIndex("DirectorOfKYFormatId");
-
-                    b.HasIndex("KYFormatId");
-
-                    b.ToTable("Formats");
-                });
-
-            modelBuilder.Entity("WBS.DAL.Provider", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("id");
-
-                    b.Property<string>("Title")
-                        .HasColumnName("title");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Providers");
+                    b.HasOne("WBS.DAL.Authorization.Models.Role", "Role")
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.SetNull);
                 });
 
             modelBuilder.Entity("WBS.DAL.Authorization.Models.UserRoles", b =>
@@ -592,7 +669,7 @@ namespace WBS.DAL.Migrations
                         .HasForeignKey("DaiId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("WBS.DAL.Provider", "Provider")
+                    b.HasOne("WBS.DAL.Data.Models.Provider", "Provider")
                         .WithMany()
                         .HasForeignKey("ProviderId")
                         .OnDelete(DeleteBehavior.SetNull);
@@ -637,6 +714,24 @@ namespace WBS.DAL.Migrations
                         .OnDelete(DeleteBehavior.SetNull);
                 });
 
+            modelBuilder.Entity("WBS.DAL.Data.Models.Format", b =>
+                {
+                    b.HasOne("WBS.DAL.Authorization.Models.User", "DirectorOfFormat")
+                        .WithMany()
+                        .HasForeignKey("DirectorOfFormatId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.HasOne("WBS.DAL.Authorization.Models.User", "DirectorOfKYFormat")
+                        .WithMany()
+                        .HasForeignKey("DirectorOfKYFormatId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.HasOne("WBS.DAL.Authorization.Models.User", "KYFormat")
+                        .WithMany()
+                        .HasForeignKey("KYFormatId")
+                        .OnDelete(DeleteBehavior.SetNull);
+                });
+
             modelBuilder.Entity("WBS.DAL.Data.Models.ItemOfBudgetPlan", b =>
                 {
                     b.HasOne("WBS.DAL.Data.Models.BudgetPlan", "BudgetPlan")
@@ -667,7 +762,7 @@ namespace WBS.DAL.Migrations
 
             modelBuilder.Entity("WBS.DAL.Data.Models.ProvidersTechnicalService", b =>
                 {
-                    b.HasOne("WBS.DAL.Provider", "Provider")
+                    b.HasOne("WBS.DAL.Data.Models.Provider", "Provider")
                         .WithMany("ProvidersTechnicalServices")
                         .HasForeignKey("ProviderId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -690,7 +785,7 @@ namespace WBS.DAL.Migrations
                         .HasForeignKey("DirectorOfSitId")
                         .OnDelete(DeleteBehavior.SetNull);
 
-                    b.HasOne("WBS.DAL.Models.Format", "Format")
+                    b.HasOne("WBS.DAL.Data.Models.Format", "Format")
                         .WithMany("Sites")
                         .HasForeignKey("FormatId")
                         .OnDelete(DeleteBehavior.SetNull);
@@ -713,24 +808,6 @@ namespace WBS.DAL.Migrations
                     b.HasOne("WBS.DAL.Authorization.Models.User", "TechnicalExpert")
                         .WithMany()
                         .HasForeignKey("TechnicalExpertId")
-                        .OnDelete(DeleteBehavior.SetNull);
-                });
-
-            modelBuilder.Entity("WBS.DAL.Models.Format", b =>
-                {
-                    b.HasOne("WBS.DAL.Authorization.Models.User", "DirectorOfFormat")
-                        .WithMany()
-                        .HasForeignKey("DirectorOfFormatId")
-                        .OnDelete(DeleteBehavior.SetNull);
-
-                    b.HasOne("WBS.DAL.Authorization.Models.User", "DirectorOfKYFormat")
-                        .WithMany()
-                        .HasForeignKey("DirectorOfKYFormatId")
-                        .OnDelete(DeleteBehavior.SetNull);
-
-                    b.HasOne("WBS.DAL.Authorization.Models.User", "KYFormat")
-                        .WithMany()
-                        .HasForeignKey("KYFormatId")
                         .OnDelete(DeleteBehavior.SetNull);
                 });
 #pragma warning restore 612, 618

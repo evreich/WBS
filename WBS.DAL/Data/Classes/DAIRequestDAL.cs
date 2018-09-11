@@ -7,39 +7,36 @@ using WBS.DAL.Authorization.Models;
 using WBS.DAL.Data.Models;
 using System;
 using WBS.DAL.Data.Models.ViewModels;
+using WBS.DAL.Data.Interfaces;
+using WBS.DAL.Layers.Interfaces;
+using WBS.DAL.Layers;
 
 namespace WBS.DAL
 {
-    public class DAIRequestDAL : AbstractDAL<DAIRequest>
+    public class ExtensionDALIQueryableDAIRequest : IExtensionDALIQueryable<DAIRequest>
     {
-        public DAIRequestDAL(WBSContext context, ICache cache) : base(context, cache)
+        public IQueryable<DAIRequest> GetItems(IQueryable<DAIRequest> query)
         {
-
-        }
-
-        protected override DAIRequest GetItem(object id)
-        {
-            return _context.DaiRequests
-                .Include(d => d.Sit)
+            return query.Include(d => d.Sit)
                 .Include(d => d.ResultCentre)
                 .Include(d => d.DAIRequestsProviders)
                     .ThenInclude(dp => dp.Provider)
                 .Include(d => d.DAIRequestsTechnicalService)
-                    .ThenInclude(dt => dt.TechnicalServ)
-                .FirstOrDefault(d => d.Id == (int)id);
+                    .ThenInclude(dt => dt.TechnicalServ);
+        }
+    }
+
+    public class DAIRequestDAL : ICRUD<DAIRequest>
+    {
+        ICRUD<DAIRequest> _dai_requests_crud;
+        ICRUD<DAIRequestsTechnicalService> _dai_requests_tech_services_crud;
+
+        public DAIRequestDAL(GetCRUD getcrud)
+        {
+            _dai_requests_crud = getcrud(typeof(DAIRequestDAL), typeof(DAIRequest)) as ICRUD<DAIRequest>;
+            _dai_requests_tech_services_crud = getcrud(typeof(DAIRequestDAL), typeof(DAIRequestsTechnicalService)) as ICRUD<DAIRequestsTechnicalService>;
         }
 
-        protected override IEnumerable<DAIRequest> GetItems()
-        {
-            return _context.DaiRequests
-                 .Include(s => s.Sit)
-                .Include(s => s.ResultCentre)
-                .Include(d => d.DAIRequestsProviders)
-                    .ThenInclude(p => p.Provider)
-                .Include(d => d.DAIRequestsTechnicalService)
-                    .ThenInclude(t => t.TechnicalServ)
-                .ToList();
-        }
 
         public void AddTechnicalServs(int requestId, List<TechnicalServiceViewModel> servs)
         {
@@ -48,8 +45,35 @@ namespace WBS.DAL
             {
                 techServs.Add(new DAIRequestsTechnicalService { DaiId = requestId, TechnicalServId = t.Id });
             }
-            _context.DaiRequestTechnicalServices.AddRange(techServs);
-            _context.SaveChanges();
+            foreach(var service in techServs)
+            {
+                _dai_requests_tech_services_crud.Create(service);
+            }
+        }
+
+        public DAIRequest Create(DAIRequest item)
+        {
+            return _dai_requests_crud.Create(item);
+        }
+
+        public DAIRequest Delete(object id)
+        {
+            return _dai_requests_crud.Delete(id);
+        }
+
+        public IEnumerable<DAIRequest> Get()
+        {
+            return _dai_requests_crud.Get();
+        }
+
+        public DAIRequest Get(object id)
+        {
+            return _dai_requests_crud.Get(id);
+        }
+
+        public DAIRequest Update(DAIRequest item)
+        {
+            return _dai_requests_crud.Update(item);
         }
     }
 }

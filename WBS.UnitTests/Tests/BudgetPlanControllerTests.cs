@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Http;
 using System;
 using WBS.DAL;
 using WBS.DAL.Cache;
+using WBS.DAL.Layers.Interfaces;
 
 namespace WBS.Tests.Tests
 {
@@ -22,7 +23,7 @@ namespace WBS.Tests.Tests
         private readonly BudgetPlanController budgetPlanController;
         private readonly Mock<BudgetPlanDAL> budgetPlansDalMock;
         private readonly Mock<WBSContext> contextMock;
-        private readonly Mock<ICache> cacheMock;
+        private readonly Mock<ICRUDCache<BudgetPlan>> cacheMock;
 
         private const int countBudgetPlans = 20;
         private const string status = "test";
@@ -32,7 +33,7 @@ namespace WBS.Tests.Tests
             var budgetPlansList = GetBudgetPlansList();
             var budgetPlans = MockHelper.MockDbSet(budgetPlansList);
 
-            cacheMock = new Mock<ICache>();
+            cacheMock = new Mock<ICRUDCache<BudgetPlan>>();
             contextMock = new Mock<WBSContext>();
             contextMock.Setup(db => db.BudgetPlans).Returns(budgetPlans.Object);
             contextMock.Setup(db => db.Set<BudgetPlan>()).Returns(budgetPlans.Object);

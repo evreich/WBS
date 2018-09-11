@@ -3,29 +3,53 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using WBS.DAL.Cache;
+using WBS.DAL.Data.Interfaces;
 using WBS.DAL.Data.Models;
+using WBS.DAL.Layers;
+using WBS.DAL.Layers.Interfaces;
 
 namespace WBS.DAL.Data.Classes
 {
-    public class AttachmentDAL : AbstractDAL<Attachment>
+    public class ExtensionDALIQueryableAttachment : IExtensionDALIQueryable<Attachment>
     {
-        public AttachmentDAL(WBSContext context, ICache cache) : base(context, cache)
+        public IQueryable<Attachment> GetItems(IQueryable<Attachment> query)
         {
+            return query.Include(b => b.DAI);
         }
 
-        protected override Attachment GetItem(object id)
+    }
+    public class AttachmentDAL : ICRUD<Attachment>
+    {
+        ICRUD<Attachment> _attachments_crud;
+
+        public AttachmentDAL(GetCRUD getcrud)
         {
-            return _context.Attachments
-                .Include(item => item.DAI)
-                .FirstOrDefault(item => item.Id == (int)id);
+            _attachments_crud = getcrud(typeof(AttachmentDAL), typeof(Attachment)) as ICRUD<Attachment>;
         }
 
-        protected override IEnumerable<Attachment> GetItems()
+        public Attachment Create(Attachment item)
         {
-            return _context.Attachments
-                .Include(item => item.DAI)
-                .ToList();
+            return _attachments_crud.Create(item);
         }
 
+        public Attachment Delete(object id)
+        {
+            return _attachments_crud.Delete(id);
+        }
+
+        public IEnumerable<Attachment> Get()
+        {
+            return _attachments_crud.Get();
+        }
+
+        public Attachment Get(object id)
+        {
+            return _attachments_crud.Get(id);
+        }
+
+        public Attachment Update(Attachment item)
+        {
+            return _attachments_crud.Update(item);
+        }
     }
 }
