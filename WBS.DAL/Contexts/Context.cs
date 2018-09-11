@@ -39,6 +39,11 @@ namespace WBS.DAL
                         new Status { Id = 4, Title = Constants.STATUS_BP_ARCHIVE }
                     );
 
+            //делаем поле логин уникальным
+            modelBuilder.Entity<User>()
+                .HasIndex(u => u.Login)
+                .IsUnique();
+
             //мультиключи для промежуточной таблицы EventQuarters
             modelBuilder.Entity<EventQuarter>().HasKey(c => new { c.EventId, c.QuarterOfYearId });
 
