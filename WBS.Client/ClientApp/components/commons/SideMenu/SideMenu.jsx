@@ -200,7 +200,7 @@ class SideMenu extends Component {
                             className={classes.nested}
                             text="Типы инвестиций"
                             icon={<TrendingUpIcon />}
-                            to="/TypeSOfInvestments"
+                            to="/TypesOfInvestments"
                         />
                         <NavListItem
                             className={classes.nested}
