@@ -1,2 +1,0 @@
-import ApplicationForInvestmentForm from './ApplicationForInvestmentForm';
-export default ApplicationForInvestmentForm;
