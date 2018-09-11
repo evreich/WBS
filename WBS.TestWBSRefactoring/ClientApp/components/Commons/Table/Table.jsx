@@ -2,17 +2,17 @@ import PropTypes from "prop-types";
 import React from "react";
 
 import { withStyles } from "@material-ui/core/styles";
-import MuiTable from "@material-ui/core/Table";
-import MuiTablePagination from "@material-ui/core/TablePagination";
-import MuiTableCell from "@material-ui/core/TableCell";
-import MuiTableRow from "@material-ui/core/TableRow";
-import MuiTableFooter from "@material-ui/core/TableFooter";
-import MuiTableBody from "@material-ui/core/TableBody";
+import Table from "@material-ui/core/Table";
+import TablePagination from "@material-ui/core/TablePagination";
+import TableCell from "@material-ui/core/TableCell";
+import TableRow from "@material-ui/core/TableRow";
+import TableFooter from "@material-ui/core/TableFooter";
+import TableBody from "@material-ui/core/TableBody";
 import Paper from "@material-ui/core/Paper";
 
 import TablePaginationActionsWrapped from "../Pagination";
 import SortedTableHead from "./SortedTableHead";
-import { styles } from "./Table.css";
+import { styles } from "./TableStyles.css";
 import SortingActions from "constants/sortingActions";
 import { sortOn } from "helpers/sortinngFunctions";
 import TableToolbar from "./Toolbar";
@@ -36,7 +36,7 @@ const СreateTable = ({
     tableStyles = {}
 }) =>
     withStyles(() => ({ ...styles, ...tableStyles }))(
-        class Table extends React.PureComponent {
+        class CommonTable extends React.PureComponent {
             constructor(props) {
                 super(props);
                 this.state = {
@@ -184,9 +184,9 @@ const СreateTable = ({
 
             fillingEmptyRows = emptyRows =>
                 emptyRows > 0 && (
-                    <MuiTableRow style={{ height: 48 * emptyRows }}>
-                        <MuiTableCell colSpan={this.state.dataFiledsCount} />
-                    </MuiTableRow>
+                    <TableRow style={{ height: 48 * emptyRows }}>
+                        <TableCell colSpan={this.state.dataFiledsCount} />
+                    </TableRow>
                 );
 
             render() {
@@ -221,8 +221,8 @@ const СreateTable = ({
 
                 //отрисовка футера таблицы
                 const tableFooter = !isNeedTableFooter ? null : (
-                    <MuiTableRow>
-                        <MuiTablePagination
+                    <TableRow>
+                        <TablePagination
                             className={classes.footer}
                             colSpan={dataFiledsCount}
                             count={elementsCount}
@@ -242,7 +242,7 @@ const СreateTable = ({
                             onChangeRowsPerPage={this.handleChangeRowsPerPage}
                             ActionsComponent={TablePaginationActionsWrapped}
                         />
-                    </MuiTableRow>
+                    </TableRow>
                 );
 
                 const {
@@ -271,7 +271,7 @@ const СreateTable = ({
                                     title={titleTable}
                                 />
                             )}
-                            <MuiTable className={classes.table}>
+                            <Table className={classes.table}>
                                 <SortedTableHead
                                     classes={classes}
                                     order={this.sortingData.sort}
@@ -279,7 +279,7 @@ const СreateTable = ({
                                     onRequestSort={this.handleSortByHeaderClick}
                                     columnHeaders={Object.values(tableHeaders)}
                                 />
-                                <MuiTableBody>
+                                <TableBody>
                                     {data &&
                                         data.map(row => (
                                             <RowComponent
@@ -296,11 +296,11 @@ const СreateTable = ({
                                             />
                                         ))}
                                     {this.fillingEmptyRows(emptyRows)}
-                                </MuiTableBody>
+                                </TableBody>
 
                                 {/*Футер*/}
-                                <MuiTableFooter>{tableFooter}</MuiTableFooter>
-                            </MuiTable>
+                                <TableFooter>{tableFooter}</TableFooter>
+                            </Table>
                         </Paper>
 
                         {/* Модальные окна */}

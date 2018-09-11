@@ -10,7 +10,6 @@ import ruLocale from 'date-fns/locale/ru';
 
 import muiTheme from 'muiTheme';
 import SideMenuContainer from 'containers/SideMenuContainer/SideMenuContainer';
-import authPropType from "propTypes/auth";
 
 
 const Layout = ({ pushToHome, children, routing, auth }) => {
@@ -42,12 +41,8 @@ const Layout = ({ pushToHome, children, routing, auth }) => {
 
 Layout.propTypes = {
     children: PropTypes.array,
-    routing: PropTypes.shape({
-        location: PropTypes.shape({
-            pathname: PropTypes.string
-        })
-    }),
-    auth: authPropType,
+    routing: PropTypes.object,
+    auth: PropTypes.object,
     pushToHome: PropTypes.func,
 }
 
