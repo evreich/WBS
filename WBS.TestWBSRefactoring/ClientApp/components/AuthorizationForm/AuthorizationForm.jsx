@@ -5,21 +5,13 @@ import PropTypes from "prop-types";
 import Paper from "@material-ui/core/Paper"
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
+import { Field, reduxForm, SubmissionError } from 'redux-form';
 
-import TextFieldPlaceholder from "../Commons/TextFields/TextFieldPlaceholder";
+import TextFieldPlaceholder from "components/commons/textFields/TextFieldPlaceholder/TextFieldPlaceholder";
 import ButtonPrimary from "../Commons/Buttons/ButtonPrimary";
 import styles from "./AuthorizationForm.css";
 
-//TODO: Redux-forms
 class AuthorizationForm extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            login: "",
-            password: ""
-        };
-    }
-
     static getDerivedStateFromProps(nextProps) {
         return {
             accessToken: nextProps.auth && nextProps.auth.accessToken,
@@ -27,20 +19,26 @@ class AuthorizationForm extends Component {
         };
     }
 
-    handleChange = e => {
-        const { name, value } = e.target;
-        this.setState({ [name]: value });
-    };
+    submmit = (values) => {
+        const errors = {}
 
-    submmit = (event) => {
-        event.preventDefault();
+        if (!values.login) {
+            errors.login = '*Обязательное поле'
+        }
+        if (!values.password) {
+            errors.password = '*Обязательное поле'
+        }
+
+        if (!(JSON.stringify(errors) === "{}")) {
+            throw new SubmissionError(errors)
+        }
+
         const { authorization } = this.props;
-        const { login, password } = this.state;
-        authorization(login, password);
+        authorization(values.login, values.password);
     }
 
     render() {
-        const { classes, error } = this.props;
+        const { classes, error, handleSubmit } = this.props;
         const { accessToken, refreshToken } = this.state;
         return accessToken && refreshToken ? (
             <Redirect to={"/Home"} />
@@ -57,26 +55,20 @@ class AuthorizationForm extends Component {
                                     Авторизация
                             </Typography>
                                 <Typography variant="subheading">
-                                    <form onSubmit={this.submmit}>
-                                        <TextFieldPlaceholder
-                                            muProps={{
-                                                name: "login",
-                                                type: "text",
-                                                placeholder: "Введите логин",
-                                                label: "Логин",
-                                                onChange: this.handleChange,
-                                                fullWidth: true
-                                            }}
+                                    <form onSubmit={handleSubmit(this.submmit)}>
+                                        <Field
+                                            component={TextFieldPlaceholder}
+                                            name="login"
+                                            type="text"
+                                            placeholder="Введите логин"
+                                            label="Логин"
                                         />
-                                        <TextFieldPlaceholder
-                                            muProps={{
-                                                name: "password",
-                                                type: "password",
-                                                placeholder: "Введите пароль",
-                                                label: "Пароль",
-                                                onChange: this.handleChange,
-                                                fullWidth: true
-                                            }}
+                                        <Field
+                                            component={TextFieldPlaceholder}
+                                            name="password"
+                                            type="password"
+                                            placeholder="Введите пароль"
+                                            label="Пароль"
                                         />
                                         {error && (
                                             <>
@@ -86,7 +78,7 @@ class AuthorizationForm extends Component {
                                                 <br />
                                             </>
                                         )}
-                                        <ButtonPrimary text="Войти" type="submit" />
+                                        <ButtonPrimary text="Войти" type="submit"/>
                                     </form>
                                 </Typography>
                             </div>
@@ -99,8 +91,11 @@ class AuthorizationForm extends Component {
 
 AuthorizationForm.propTypes = {
     classes: PropTypes.object.isRequired,
+    handleSubmit: PropTypes.func,
     authorization: PropTypes.func,
     error: PropTypes.string
 };
 
-export default withStyles(styles)(AuthorizationForm);
+export default reduxForm({ form: 'authorization' })(
+    withStyles(styles)(AuthorizationForm)
+);

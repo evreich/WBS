@@ -26,10 +26,14 @@ export const reducer = (state = initialState, action) => {
             return newState;
         }
         case TYPE.SET_UPDATING_ITEM: {
-            return {
-                ...state,
-                updatingItem: action.updatingItem
-            }
+            let newState = { ...state };
+            newState[action.title].updatingItem = action.updatingItem;
+            return newState;
+        }
+        case TYPE.CLEAR_UPDATING_ITEM: {
+            let newState = { ...state };
+            delete newState[action.title].updatingItem;
+            return newState;
         }
         default:
             return state;

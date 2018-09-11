@@ -1,7 +1,15 @@
 import { connect } from "react-redux";
 
-import CreateTable from "generators/Table";
-import { getTable, clearTable, updateTable, changeData, deleteData, setUpdatingItem } from 'actions/tablesActions';
+import CreateTable from "factories/Table";
+import {
+    getTable,
+    clearTable,
+    updateTable,
+    changeData,
+    deleteData,
+    setUpdatingItem,
+    clearUpdatingItem
+} from 'actions/tablesActions';
 import { tableStyles } from 'stylesheets/tableLayoutAuto.css';
 import descriptors from "descriptors/categoryGroupsDescriptors";
 import api from 'constants/api';
@@ -9,13 +17,18 @@ import api from 'constants/api';
 const TABLE = "categoryGroups";
 const ROUTE = api.categoryGroups;
 
-const mapStateToProps = state =>
-    (state.tables[TABLE] ?
+const mapStateToProps = state => {
+    const props = (state.tables[TABLE] ?
         {
-            ...state.tables[TABLE]
+            ...state.tables[TABLE],
             //TODO: send server error in form from redux store
             //errors: state.tables[TABLE].errors
         } : {});
+    if (state.tables[TABLE] && state.tables[TABLE].updatingItem)
+        props.modalFormInitialValues = state.tables[TABLE].data
+            .find((item) => item.id === state.tables[TABLE].updatingItem)
+    return props;
+}
 
 //TODO: повторяется одно и то же - вынести?
 const mapDispatchToProps = (dispatch) => ({
@@ -24,7 +37,8 @@ const mapDispatchToProps = (dispatch) => ({
     updateTable: (data) => dispatch(updateTable(data, TABLE)),
     changeData: (pageIndex, pageSize, method, data) => dispatch(changeData(pageIndex, pageSize, method, data, ROUTE, TABLE)),
     deleteData: (pageIndex, pageSize, data) => dispatch(deleteData(pageIndex, pageSize, data, ROUTE, TABLE)),
-    setUpdatingItem: (updatingItemId) => dispatch(setUpdatingItem(updatingItemId))
+    setUpdatingItem: (updatingItemId) => dispatch(setUpdatingItem(updatingItemId, TABLE)),
+    clearUpdatingItem: () => dispatch(clearUpdatingItem(TABLE))
 });
 
 export default connect(

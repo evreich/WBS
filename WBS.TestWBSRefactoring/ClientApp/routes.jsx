@@ -2,7 +2,7 @@ import React from 'react';
 import { Route } from 'react-router-dom';
 
 import Layout from 'components/commons/Layout';
-//import AuthorizationForm from 'containers/authorization/authorizationContainer';
+import Authorization from 'containers/AuthorizationContainer/AuthorizationContainer';
 import Home from './components/Home';
 import CategoriesOfEquipment from 'containers/tables/CategoriesOfEquipment';
 import CategoryGroups from 'containers/tables/CategoryGroups'
@@ -17,7 +17,7 @@ import Profiles from 'containers/tables/Profiles';
 
 const routes = ( 
     <Layout>
-        <Route exact path="/" component={/*AuthorizationForm*/Home} />
+        <Route exact path="/" component={Authorization} />
         <Route path="/CategoriesOfEquipment" component={CategoriesOfEquipment} /> 
         {/*<Route path="/BudgetPlans" component={BudgetPlans} />*/}
         <Route path="/CategoryGroups" component={CategoryGroups} />

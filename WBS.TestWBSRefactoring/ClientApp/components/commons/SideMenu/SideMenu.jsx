@@ -40,7 +40,7 @@ class SideMenu extends Component {
 
     logoutClick = () => {
         const { logout } = this.props
-        sessionStorage.removeItem('auth')
+        localStorage.removeItem('auth')
         localStorage.removeItem("drawerOpen");
         this.setState({ open: false });
         logout()

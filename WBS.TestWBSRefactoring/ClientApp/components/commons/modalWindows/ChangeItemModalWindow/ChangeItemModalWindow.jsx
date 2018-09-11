@@ -1,7 +1,7 @@
 ﻿import React from "react";
 import PropTypes from "prop-types";
 
-import { Field, reduxForm, SubmissionError } from 'redux-form';
+import { Field, reduxForm } from 'redux-form';
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
@@ -13,27 +13,22 @@ import styles from './ChangeItemModalWindow.css';
 import TextFieldMultiline from "../../textFields/TextFieldMultiline/TextFieldMultiline";
 
 class ChangeItemModalWindow extends React.Component {
-    submmit = (values) => {
-        const errors = {}
-        if (!values.title) {
-            errors.title = '*Обязательное поле'
-        }
-
-        if (!(JSON.stringify(errors) === "{}")) {
-            throw new SubmissionError(errors)
-        }
-        return new Promise((resolve, reject) => {
+    submit = (values) => {
+        console.log(values);
+        //validation
+        /*return new Promise((resolve, reject) => {
             const { save } = this.props;
             save(values, resolve, reject)
-        })
-    }
+        })*/
+    };
 
     cancel = () => {
         const { cancel } = this.props
         cancel();
-    }
+    };
 
     static propTypes = {
+        handleSubmit: PropTypes.func.isRequired,
         cancel: PropTypes.func.isRequired,
         save: PropTypes.func.isRequired,
         error: PropTypes.object,
@@ -44,7 +39,7 @@ class ChangeItemModalWindow extends React.Component {
     };
 
     render() {
-        const { cancel, /*data,*/ formFields, classes, header } = this.props;
+        const { cancel, /*data,*/ formFields, classes, header, handleSubmit } = this.props;
 
         /*const dialogBodyComponent = React.Children.map(children, child => React.cloneElement(child, {
             onRef: instance => { this.dialogContent = instance },
@@ -58,50 +53,57 @@ class ChangeItemModalWindow extends React.Component {
                     <div>{header}</div>
                 </DialogTitle>
                 <DialogContent>
-                    {
-                        Object.values(formFields).map((field) => (
-                            <div>
-                                < Field
-                                    component={TextFieldMultiline}
-                                    name={field.propName}
-                                    label={field.label}
-                                />
-                            </div>
-                            /*if (field.isVisible) {
-                               switch (field.component) {
-                                   case componentTypes.TEXT_FIELD:
-   
-                                       break;
-                                   case componentTypes.TEXT_FIELD_MULTILINE:
-                                       <Field
-                                           component={TextFieldMultiline}
-                                           ...
-                                       />
-                                       break;
-                                       {  и т.д.... }
-                               }
-                             }*/
-                        ))
-                    }
+                    <form onSubmit={handleSubmit(this.submit)}>
+                        {
+                            Object.values(formFields).map((field) => (
+                                <div key={field.propName}>
+                                    < Field
+                                        component={TextFieldMultiline}
+                                        name={field.propName}
+                                        label={field.label}
+                                    />
+                                </div>
+                                /*if (field.isVisible) {
+                                   switch (field.component) {
+                                       case componentTypes.TEXT_FIELD:
+       
+                                           break;
+                                       case componentTypes.TEXT_FIELD_MULTILINE:
+                                           <Field
+                                               component={TextFieldMultiline}
+                                               ...
+                                           />
+                                           break;
+                                           {  и т.д.... }
+                                   }
+                                 }*/
+                            ))
+                        }
+                        <DialogActions>
+                            <Button
+                                type="submit"
+                                variant="raised"
+                                className={classes.saveButton}
+                            >
+                                Сохранить
+                            </Button>
+                            <Button
+                                onClick={cancel}
+                                className={classes.cancelButton}
+                            >
+                                Отмена
+                    </Button>
+                        </DialogActions>
+                    </form>
                 </DialogContent>
-                <DialogActions>
-                    <Button
-                        onClick={this.onSaveButtonClick}
-                        variant="raised"
-                        className={classes.saveButton}
-                    >
-                        Сохранить
-                    </Button>
-                    <Button
-                        onClick={cancel}
-                        className={classes.cancelButton}
-                    >
-                        Отмена
-                    </Button>
-                </DialogActions>
+
             </Dialog>
         );
     }
 }
 
-export default withStyles(styles)(reduxForm({ form: 'ChangeItemModalForm' })(ChangeItemModalWindow));
+export default withStyles(styles)(
+    reduxForm({ form: 'ChangeItemModalForm' })(
+        ChangeItemModalWindow
+    )
+);

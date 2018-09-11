@@ -3,7 +3,6 @@ import api from 'constants/api';
 import request from 'utils/fetchUtil';
 import REQUEST_METHOD from 'constants/httpMethods';
 
-//TODO: добавить actionsTypes для авторизации
 export const authorization = (login, password) => (dispatch) => {
     request(
         {

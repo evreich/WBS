@@ -47,6 +47,7 @@ const Table = ({
                         .length
                 };
 
+                //TODO
                 this.sortingData = {
                     sort: 'desc',//SortingActions.SORT_DESC,
                     sortBy: ""
@@ -61,12 +62,14 @@ const Table = ({
                 updateTable: PropTypes.func.isRequired,
                 changeData: PropTypes.func.isRequired,
                 setUpdatingItem: PropTypes.func.isRequired,
+                clearUpdatingItem: PropTypes.func.isRequired,
                 data: PropTypes.array.isRequired,
                 descriptors: PropTypes.array.isRequired,
                 pagination: paginationPropType.isRequired,
                 deleteData: PropTypes.func,
                 queryParams: PropTypes.object,
-                showToolbar: PropTypes.bool
+                showToolbar: PropTypes.bool,
+                modalFormInitialValues: PropTypes.object
             };
 
             static defaultProps = {
@@ -93,13 +96,12 @@ const Table = ({
             }
 
             //handlers
-            handleCloseChangeModalWindow = item => {
-                const updatingDataItem = this.state.updatingDataItem;
-                const currItem = item.id ? item : updatingDataItem;
+            handleCloseChangeModalWindow = () => {
+                const { clearUpdatingItem } = this.props;
+                clearUpdatingItem();
 
                 this.setState({
-                    modalWindowChangingIsOpening: false,
-                    updatingDataItem: currItem
+                    modalWindowChangingIsOpening: false
                 });
             };
 
@@ -116,6 +118,7 @@ const Table = ({
 
                 this.setState({
                     modalWindowChangingIsOpening: true,
+                    //TODO: Если нет прав на редактирование?
                     changeModalWindowTitle: editTitleModalWindow
                 });
             };
@@ -142,33 +145,7 @@ const Table = ({
                 );
             };
 
-            handleSortByHeaderClick = /*sortColumnId*/() => {
-                /*const sortingData = this.sortingData;
-                const updateTable = this.props.updateTable;
-
-                let newOrder = SortingActions.SORT_DESC;
-
-                if (
-                    sortingData.sortBy === sortColumnId &&
-                    sortingData.sort === SortingActions.SORT_DESC
-                )
-                    newOrder = SortingActions.SORT_ASC;
-
-                const newData = this.sortData(sortColumnId, newOrder);
-
-                this.sortingData = { sort: newOrder, sortBy: sortColumnId };
-                updateTable(newData);*/
-            };
-
-            sortData = (/*sortColumnId, order*/) => {
-                /* const data = this.props.data;
-                 const typeOfSortData =
-                     dataFiledsInfo.tableHeaders[sortColumnId].type;
- 
-                 return data
-                     .sort(sortOn(sortColumnId, typeOfSortData, order))
-                     .slice(0);*/
-            };
+            handleSortByHeaderClick = () => { };
 
             fillingEmptyRows = emptyRows =>
                 emptyRows > 0 && (
@@ -183,6 +160,7 @@ const Table = ({
                     pagination,
                     data,
                     changeData,
+                    modalFormInitialValues,
                     showToolbar
                 } = this.props;
                 const {
@@ -286,13 +264,13 @@ const Table = ({
                         {/* Модальные окна */}
                         {modalWindowChangingIsOpening &&
                             <ChangeItemModalWindow
-                                //open={modalWindowChangingIsOpening}
                                 save={changeData}
                                 formFields={
                                     updatingDataItem
                                         ? editWindowFields
                                         : createWindowFields
                                 }
+                                initialValues={modalFormInitialValues}
                                 //descriptors={descriptors} - из стора?
                                 cancel={this.handleCloseChangeModalWindow}
                                 currentPage={currentPage}

@@ -64,7 +64,8 @@ const СreateTable = ({
                 pagination: PropTypes.object.isRequired,
                 deleteData: PropTypes.func,
                 queryParams: PropTypes.object,
-                showToolbar: PropTypes.bool
+                showToolbar: PropTypes.bool,
+                initialValues: PropTypes.object
             };
 
             static defaultProps = {
@@ -195,6 +196,7 @@ const СreateTable = ({
                     pagination,
                     data,
                     changeData,
+                    initialValues,
                     showToolbar
                 } = this.props;
                 const {
@@ -213,10 +215,10 @@ const СreateTable = ({
                 //Вычисление пустых строк для заполнения таблицы
                 const emptyRows = isNeedFillEmptyRow
                     ? elementsPerPage -
-                      Math.min(
-                          elementsPerPage,
-                          elementsCount - currentPage * elementsPerPage
-                      )
+                    Math.min(
+                        elementsPerPage,
+                        elementsCount - currentPage * elementsPerPage
+                    )
                     : 0;
 
                 //отрисовка футера таблицы
@@ -258,16 +260,14 @@ const СreateTable = ({
                     AddItemDialogBodyComponent && ChangeItemDialogBodyComponent
                         ? true
                         : false;
-                        
+
                 return (
                     <>
                         <Paper className={classes.root} id={tableId}>
                             {/*Таблица*/}
                             {showToolbar && (
                                 <TableToolbar
-                                    onCreate={
-                                        this.handleOpenOnCreateChangeModalWindow
-                                    }
+                                    onCreate={this.handleOpenOnCreateChangeModalWindow}
                                     title={titleTable}
                                 />
                             )}
@@ -326,6 +326,7 @@ const СreateTable = ({
                                     ? editWindowFields
                                     : createWindowFields
                             }
+                            initialValues={initialValues}
                             data={updatingDataItem}
                             cancel={this.handleCloseChangeModalWindow}
                             currentPage={currentPage}
@@ -337,8 +338,8 @@ const СreateTable = ({
                                 updatingDataItem ? (
                                     <ChangeItemDialogBodyComponent />
                                 ) : (
-                                    <AddItemDialogBodyComponent />
-                                )
+                                        <AddItemDialogBodyComponent />
+                                    )
                             ) : null}
                         </ChangeItemModalWindow>
                     </>

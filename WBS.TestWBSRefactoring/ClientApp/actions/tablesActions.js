@@ -33,10 +33,18 @@ export function errorsReceive(err) {
     }
 }
 
-export function setUpdatingItem(id) {
+export function setUpdatingItem(id, title) {
     return {
         type: TYPE.SET_UPDATING_ITEM,
+        title,
         updatingItem: id
+    }
+}
+
+export function clearUpdatingItem(title) {
+    return {
+        type: TYPE.CLEAR_UPDATING_ITEM,
+        title
     }
 }
 

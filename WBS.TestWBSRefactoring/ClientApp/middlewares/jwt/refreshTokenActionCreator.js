@@ -1,5 +1,5 @@
-﻿import TYPE from 'constants/actionsTypes';
-import { updateJWT } from 'utils/updateJWT'
+﻿import TYPE from 'constants/actionTypes';
+import { updateJWT } from 'utils/updateJWT';
 
 //TODO: переместить в другое место
 export function refreshToken(dispatch, refreshToken) {

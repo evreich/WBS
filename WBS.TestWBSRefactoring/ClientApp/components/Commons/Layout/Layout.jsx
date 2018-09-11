@@ -11,9 +11,10 @@ import ruLocale from 'date-fns/locale/ru';
 import muiTheme from 'muiTheme';
 import SideMenuContainer from 'containers/SideMenuContainer/SideMenuContainer';
 import authPropType from "propTypes/auth";
+import routingPropType from "propTypes/routing";
 
-const Layout = ({ /*pushToHome, */children/*, routing*/, auth }) => {
-    /*let targetRoute = routing.location.pathname;
+const Layout = ({ pushToHome, children, routing, auth }) => {
+    let targetRoute = routing.location.pathname;
     const customPush = route => (route !== targetRoute ? push(route) : null);
     if (!auth.accessToken || !auth.refreshToken) {
         localStorage.removeItem("drawerOpen") // для управления выезжающим меню, чтобы его не было видно при logout-е
@@ -23,8 +24,7 @@ const Layout = ({ /*pushToHome, */children/*, routing*/, auth }) => {
             localStorage.removeItem("drawerOpen")// для управления выезжающим меню, чтобы его не было видно при logout-е
             customPush('/');
         }
-    }*/
-    console.log(":)");
+    }
     return (
         <MuiThemeProvider theme={muiTheme}> {/* Применяем тему для всех вложенных компонентов */}
             <MuiPickersUtilsProvider
@@ -42,12 +42,7 @@ const Layout = ({ /*pushToHome, */children/*, routing*/, auth }) => {
 
 Layout.propTypes = {
     children: PropTypes.array,
-    //TODO
-    routing: PropTypes.shape({
-        location: PropTypes.shape({
-            pathname: PropTypes.string
-        })
-    }),
+    routing: routingPropType,
     auth: authPropType,
     pushToHome: PropTypes.func,
 }
