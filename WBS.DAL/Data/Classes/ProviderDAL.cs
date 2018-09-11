@@ -6,6 +6,7 @@ using System;
 using WBS.DAL.Data.Interfaces;
 using WBS.DAL.Layers.Interfaces;
 using WBS.DAL.Layers;
+using WBS.DAL.Data.Models;
 
 namespace WBS.DAL
 {

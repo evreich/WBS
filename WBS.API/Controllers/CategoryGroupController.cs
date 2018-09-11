@@ -7,6 +7,7 @@ using Microsoft.Extensions.Logging;
 using WBS.API.Helpers;
 using WBS.DAL.Data.Interfaces;
 using WBS.DAL.Layers.Interfaces;
+using WBS.DAL.Data.Models.ViewModels;
 
 namespace WBS.API.Controllers
 {
