@@ -38,6 +38,7 @@ namespace WBS.API
             services.AddWBSDALServices(Configuration);
             services.AddWBSCacheServices(Configuration);
             services.AddWBSAuthServices(Configuration);
+            services.AddDescriptors);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

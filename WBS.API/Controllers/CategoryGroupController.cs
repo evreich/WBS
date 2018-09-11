@@ -7,6 +7,9 @@ using Microsoft.Extensions.Logging;
 using WBS.API.Helpers;
 using WBS.DAL.Data.Interfaces;
 using WBS.DAL.Layers.Interfaces;
+using WBS.DAL.Descriptors;
+using System.Security.Claims;
+using System;
 
 namespace WBS.API.Controllers
 {
@@ -29,6 +32,5 @@ namespace WBS.API.Controllers
             _logger.LogInformation("Getting information is succesful");
             return Ok(result);
         }
-
     }
 }

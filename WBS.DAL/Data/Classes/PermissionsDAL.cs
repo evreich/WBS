@@ -26,5 +26,7 @@ namespace WBS.DAL.Data.Classes
                     && rot.ObjectType.AssemblyName.Equals(assemblyName)
                     && roles.Contains(rot.Role.Title));
         }
+
+
     }
 }

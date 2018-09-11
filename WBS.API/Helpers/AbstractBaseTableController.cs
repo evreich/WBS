@@ -4,11 +4,13 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using WBS.DAL;
 using WBS.DAL.Cache;
 using WBS.DAL.Data.Helpers;
 using WBS.DAL.Data.Interfaces;
 using WBS.DAL.Data.Models.ViewModels;
+using WBS.DAL.Descriptors;
 using WBS.DAL.Layers.Interfaces;
 
 namespace WBS.API.Helpers
@@ -128,6 +130,24 @@ namespace WBS.API.Helpers
                 string error = "Data cant be founded on this ID";
                 _logger.LogInformation(error);
                 return BadRequest(new ResponseError(error));
+            }
+        }
+
+        [HttpGet("getDescriptor")]
+        public IActionResult GetDescriptor([FromServices] DescriptorOfFormGenerator descriptorCreator)
+        {
+            _logger.LogInformation(nameof(GetDescriptor));
+            var roles = HttpContext.User.Claims.Where(claim => claim.Type == ClaimTypes.Role)
+                .Select(claim => claim.Value)
+                .ToList();
+            try
+            {
+                var descriptorJSON = DescriptorConverter.ConvertToJSON(descriptorCreator.CreateDescriptor<T>(roles));
+                return Ok(descriptorJSON);
+            }
+            catch (TypeAccessException)
+            {
+                return Forbid("Отсутствует доступ к данному типу");
             }
         }
     }

@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace WBS.DAL.Descriptors
 {
-    static class DescriptorConverter
+    public static class DescriptorConverter
     {
         public static string ConvertToJSON(Descriptor descriptor)
         {

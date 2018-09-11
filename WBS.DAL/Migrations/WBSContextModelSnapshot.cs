@@ -16,7 +16,7 @@ namespace WBS.DAL.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn)
-                .HasAnnotation("ProductVersion", "2.1.2-rtm-30932")
+                .HasAnnotation("ProductVersion", "2.1.1-rtm-30846")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             modelBuilder.Entity("WBS.DAL.Authorization.Models.ObjectType", b =>
@@ -498,7 +498,7 @@ namespace WBS.DAL.Migrations
                         new { Id = 1, Title = "Проект" },
                         new { Id = 2, Title = "Редактирование" },
                         new { Id = 3, Title = "Действующий" },
-                        new { Id = 4, Title = "Архив" }
+                        new { Id = 4, Title = "dfdsf" }
                     );
                 });
 
