@@ -55,11 +55,8 @@ class SideMenu extends Component {
         const { open, auth = {} } = this.state;
 
         const menuItems = auth.availableMenuItems || [];
-        const renderedMenu = renderMenuItems(menuItems);
 
-        function renderMenuItems = (items) =>items.map(item => renderMenuItem(item));
-
-        function renderMenuItem(item){
+        const renderMenuItem = (item) => {
             if (item) {
                 const Icon = icons[item.iconName];
                 if (item.children && item.children.length > 0) {
@@ -72,6 +69,9 @@ class SideMenu extends Component {
                 }
             }
         }
+        const renderMenuItems = (items) => items.map(item => renderMenuItem(item));
+
+        const renderedMenu = renderMenuItems(menuItems);
 
         const drawer = (
             <Drawer
