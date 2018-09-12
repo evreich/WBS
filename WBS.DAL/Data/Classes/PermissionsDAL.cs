@@ -19,11 +19,26 @@ namespace WBS.DAL.Data.Classes
 
         public IEnumerable<MenuItem> GetPermissionsForMenuItems(List<string> roles)
         {
-            return _context.MenuItemRoles
+            var menuItems = _context.MenuItemRoles
                 .Include(mir => mir.MenuItem)
                 .Include(mir => mir.Role)
                 .Where(mir => roles.Contains(mir.Role.Title))
                 .Select(mir => mir.MenuItem);
+            //генерация иерархической структуры пунктов меню
+            var lookup = menuItems.ToLookup(mi => mi.ParentId);
+            List<MenuItem> build(int? parentId) => lookup[parentId]
+            .Select(x => new MenuItem()
+            {
+                Id = x.Id,
+                Text = x.Text,
+                To = x.To,
+                IconName = x.IconName,
+                Children = build(x.Id),
+                ParentId = x.ParentId
+            })
+            .ToList();
+            var resultData = build(null);
+            return resultData;
         }
 
         public IEnumerable<RolesObjectTypes> GetPermissionsForType(string typeName, string assemblyName, List<string> roles)

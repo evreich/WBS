@@ -7,6 +7,7 @@ using WBS.DAL.Authorization.Models;
 using WBS.DAL.Exceptions;
 using WBS.DAL.Authorization.Models.ViewModels;
 using WBS.DAL.Authorization.Classes;
+using WBS.DAL.Data.Interfaces;
 
 namespace WBS.DAL.Authorization
 {
@@ -14,13 +15,15 @@ namespace WBS.DAL.Authorization
     {
         private readonly ProfilesDAL _profilesDal;
         private readonly RefreshTokenDAL _refreshTokenDal;
+        private readonly IPermissionsDAL _permissionsDAL;
         private readonly AuthOptions _options;
         private readonly IServiceProvider _provider;
 
-        public AuthUtils(ProfilesDAL profilesDal, RefreshTokenDAL refreshTokenDal, IServiceProvider provider)
+        public AuthUtils(ProfilesDAL profilesDal, RefreshTokenDAL refreshTokenDal, IPermissionsDAL permissionsDAL, IServiceProvider provider)
         {
             _profilesDal = profilesDal;
             _refreshTokenDal = refreshTokenDal;
+            _permissionsDAL = permissionsDAL;
             _options = provider.GetService(typeof(AuthOptions)) as AuthOptions;
             _provider = provider;
         }
@@ -40,13 +43,16 @@ namespace WBS.DAL.Authorization
         {
             var refreshToken = new RefreshTokenHelper(tokenDAL, _provider).Create(user.Login);
             var accessToken = new AccessTokenHelper(_provider).CreateJwt(user, refreshToken);
+            var roles = user.UserRoles.Select(ur => ur.Role.Title).ToList();
+            var menuItems = _permissionsDAL.GetPermissionsForMenuItems(roles).ToList();
             return new TokenViewModel
             {
                 AccessToken = accessToken.AccessToken,
                 ExpiresIn = accessToken.ExpiresIn,
                 RefreshToken = refreshToken,
                 Username = user.Login,
-                Roles = String.Join(", ", user.UserRoles.Select(u => u.Role.Title).ToArray())
+                Roles = String.Join(", ", user.UserRoles.Select(u => u.Role.Title).ToArray()),
+                AvailableMenuItems = menuItems
             };
         }
 
