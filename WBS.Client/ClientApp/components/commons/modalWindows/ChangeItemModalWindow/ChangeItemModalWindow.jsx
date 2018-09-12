@@ -10,11 +10,23 @@ import Button from "@material-ui/core/Button";
 import { withStyles } from '@material-ui/core/styles';
 
 import styles from './ChangeItemModalWindow.css';
-import TextFieldMultiline from "../../textFields/TextFieldMultiline/TextFieldMultiline";
+import fields from 'constants/textFields';
+import HTTP_METHOD from 'constants/httpMethods';
 
 class ChangeItemModalWindow extends React.Component {
     submit = (values) => {
         console.log(values);
+
+        const { /*validate, */save, close, initialValues, currentPage, elementsPerPage } = this.props;
+        //validate(values);
+        //save(values);
+
+        if (values) {
+            let method = initialValues ? HTTP_METHOD.HTTP_PUT : HTTP_METHOD.HTTP_POST;
+
+            save(currentPage, elementsPerPage, method, values);
+            close();
+        }
         //validation
         /*return new Promise((resolve, reject) => {
             const { save } = this.props;
@@ -22,62 +34,44 @@ class ChangeItemModalWindow extends React.Component {
         })*/
     };
 
-    cancel = () => {
-        const { cancel } = this.props
-        cancel();
-    };
-
     static propTypes = {
         handleSubmit: PropTypes.func.isRequired,
-        cancel: PropTypes.func.isRequired,
+        close: PropTypes.func.isRequired,
         save: PropTypes.func.isRequired,
         error: PropTypes.object,
         data: PropTypes.any, //TODO
         classes: PropTypes.object,
         formFields: PropTypes.object,
-        header: PropTypes.string
+        header: PropTypes.string,
+        initialValues: PropTypes.object,
+        currentPage: PropTypes.number,
+        elementsPerPage: PropTypes.number
     };
 
     render() {
-        const { cancel, /*data,*/ formFields, classes, header, handleSubmit } = this.props;
-
-        /*const dialogBodyComponent = React.Children.map(children, child => React.cloneElement(child, {
-            onRef: instance => { this.dialogContent = instance },
-            data,
-            formFields
-        }));*/
+        const { close, /*data,*/ formFields, classes, header, handleSubmit } = this.props;
 
         return (
-            <Dialog open={true} onClose={cancel} maxWidth={false} classes={{ paper: classes.container }}>
+            <Dialog open={true} onClose={close} maxWidth={false} classes={{ paper: classes.container }}>
                 <DialogTitle id="form-dialog-title" className={classes.dialogTitle}>
                     <div>{header}</div>
                 </DialogTitle>
                 <DialogContent>
                     <form onSubmit={handleSubmit(this.submit)}>
                         {
-                            Object.values(formFields).map((field) => (
-                                <div key={field.propName}>
-                                    < Field
-                                        component={TextFieldMultiline}
-                                        name={field.propName}
-                                        label={field.label}
-                                    />
-                                </div>
-                                /*if (field.isVisible) {
-                                   switch (field.component) {
-                                       case componentTypes.TEXT_FIELD:
-       
-                                           break;
-                                       case componentTypes.TEXT_FIELD_MULTILINE:
-                                           <Field
-                                               component={TextFieldMultiline}
-                                               ...
-                                           />
-                                           break;
-                                           {  и т.д.... }
-                                   }
-                                 }*/
-                            ))
+                            Object.values(formFields).map(field => {
+                                const { fieldComponent, propName, label } = field || {};
+                                const component = fields[fieldComponent];
+                                return (
+                                    <div key={propName}>
+                                        < Field
+                                            component={component}
+                                            name={propName}
+                                            label={label}
+                                        />
+                                    </div>
+                                )
+                            })
                         }
                         <DialogActions>
                             <Button
@@ -88,11 +82,11 @@ class ChangeItemModalWindow extends React.Component {
                                 Сохранить
                             </Button>
                             <Button
-                                onClick={cancel}
+                                onClick={close}
                                 className={classes.cancelButton}
                             >
                                 Отмена
-                    </Button>
+                            </Button>
                         </DialogActions>
                     </form>
                 </DialogContent>

@@ -27,7 +27,7 @@ class TextFieldMultiSelect extends React.Component {
                         multiple
                         {...input}
                         value={values}
-                        renderValue={selected => selected.map(id => items.filter(item => (item.id === id)).map(f => f.title)).reduce((prev, curr) => prev.concat(curr)).join(', ')}
+                        renderValue={selected => selected.map(elem => items.filter(item => (item.id === elem.id)).map(f => f.title)).reduce((prev, curr) => prev.concat(curr)).join(', ')}
                         className={classes.textField}
                     >
                         {items.map(item => (
