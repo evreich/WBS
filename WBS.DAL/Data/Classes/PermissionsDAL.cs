@@ -23,7 +23,8 @@ namespace WBS.DAL.Data.Classes
                 .Include(mir => mir.MenuItem)
                 .Include(mir => mir.Role)
                 .Where(mir => roles.Contains(mir.Role.Title))
-                .Select(mir => mir.MenuItem);
+                .Select(mir => mir.MenuItem)
+                .Distinct();
             //генерация иерархической структуры пунктов меню
             var lookup = menuItems.ToLookup(mi => mi.ParentId);
             List<MenuItem> build(int? parentId) => lookup[parentId]
