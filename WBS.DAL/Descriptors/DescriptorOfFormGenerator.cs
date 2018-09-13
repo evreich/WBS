@@ -30,7 +30,7 @@ namespace WBS.DAL.Descriptors
         {
             Type typeEntity = typeof(T);
             string assemblyName = typeEntity.Assembly.GetName().Name;
-            string typeName = typeEntity.Name;
+            string typeName = typeEntity.FullName;
 
             if (!CanAccessToObject(typeName, assemblyName, roles))
             {

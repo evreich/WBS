@@ -42,6 +42,19 @@ namespace WBS.DAL
                         new Status { Id = 4, Title = Constants.STATUS_BP_ARCHIVE }
                     );
 
+            modelBuilder.Entity<FieldComponent>().HasData(
+                    new FieldComponent { Id = 1, Name = "TextFieldPlaceholder" },
+                    new FieldComponent { Id = 2, Name = "CategoryGroupSelect" },
+                    new FieldComponent { Id = 3, Name = "CategoryOfEquipmentSelect" },
+                    new FieldComponent { Id = 4, Name = "FormatSelect" },
+                    new FieldComponent { Id = 5, Name = "ResultCenterSelect" },
+                    new FieldComponent { Id = 6, Name = "SiteSelect" },
+                    new FieldComponent { Id = 7, Name = "TypeOfInvestmentSelect" },
+                    new FieldComponent { Id = 8, Name = "TechnicalServMultiSelect" },
+                    new FieldComponent { Id = 9, Name = "UserAutosuggestField" },
+                    new FieldComponent { Id = 10, Name = "TextFieldMultiline" }
+                );
+
             //инициализация таблицы типов
             var types = Assembly.GetExecutingAssembly().GetTypes()
                 .Where(t => t.IsClass && (t.Namespace == "WBS.DAL.Data.Models" || t.Namespace == "WBS.DAL.Authorization.Models"))

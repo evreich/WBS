@@ -12,7 +12,7 @@ namespace WBS.API.Extensions
     {
         public static void AddDescriptors(this IServiceCollection services)
         {
-            services.AddSingleton<DescriptorOfFormGenerator>(); 
+            services.AddScoped<DescriptorOfFormGenerator>(); 
         }
     }
 }
