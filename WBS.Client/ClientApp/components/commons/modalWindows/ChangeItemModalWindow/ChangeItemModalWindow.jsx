@@ -57,7 +57,7 @@ class ChangeItemModalWindow extends React.Component {
                         {
                             Object.values(formFields).map((field) => (
                                 <div key={field.propName}>
-                                    < Field
+                                    <Field
                                         component={TextFieldMultiline}
                                         name={field.propName}
                                         label={field.label}

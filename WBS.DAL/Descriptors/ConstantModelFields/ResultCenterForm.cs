@@ -4,12 +4,12 @@ using System.Text;
 
 namespace WBS.DAL.Descriptors.ConstantModelFields
 {
-    public class ResultCentresForm
+    public class ResultCenterForm
     {
         public (string label, string name) Title { get; private set; }
         public (string label, string name) Code { get; private set; }
 
-        public ResultCentresForm()
+        public ResultCenterForm()
         {
             Title = ("Название", "title");
             Code = ("Код", "code");

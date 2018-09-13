@@ -16,5 +16,8 @@ namespace WBS.DAL.Authorization.Models
         public string TypeName { get; set; }
 
         public string AssemblyName { get; set; }
+
+        List<ObjectField> ObjectFields = new List<ObjectField>();
+        List<RolesObjectTypes> RolesObjectTypes = new List<RolesObjectTypes>();
     }
 }

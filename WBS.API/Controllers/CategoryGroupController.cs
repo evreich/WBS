@@ -10,6 +10,7 @@ using WBS.DAL.Layers.Interfaces;
 using WBS.DAL.Descriptors;
 using System.Security.Claims;
 using System;
+using WBS.DAL.Data.Models.ViewModels;
 
 namespace WBS.API.Controllers
 {

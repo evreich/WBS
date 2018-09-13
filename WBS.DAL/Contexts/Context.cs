@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using WBS.DAL.Authorization.Models;
@@ -42,10 +44,25 @@ namespace WBS.DAL
 
             //инициализация таблицы типов
             var types = Assembly.GetExecutingAssembly().GetTypes()
-                .Where(t => t.IsClass && t.Namespace == "WBS.DAL.Data.Models")
+                .Where(t => t.IsClass && (t.Namespace == "WBS.DAL.Data.Models" || t.Namespace == "WBS.DAL.Authorization.Models"))
                 .Select((t, index) => new ObjectType() { AssemblyName = t.Assembly.GetName().Name, TypeName = t.FullName, Id = index+1 })
                 .ToArray();
             modelBuilder.Entity<ObjectType>().HasData(types);
+
+            //инициализация таблицы полей типов
+            List<ObjectField> typeFields = new List<ObjectField>();
+            int counter = 1;
+
+            Assembly.GetExecutingAssembly().GetTypes()
+                .Where(t => t.IsClass && (t.Namespace == "WBS.DAL.Data.Models" || t.Namespace == "WBS.DAL.Authorization.Models")).ToList()
+                .ForEach(x => x.GetProperties().ToList()
+                               .ForEach(f => typeFields.Add(new ObjectField()
+                               {
+                                   Id = counter++,
+                                   FieldName = f.Name,                                
+                                   ObjectTypeId = types.First(to => to.TypeName.Equals(x.FullName)).Id
+                               })));
+            modelBuilder.Entity<ObjectField>().HasData(typeFields.ToArray());
 
             //мультиключи для промежуточной таблицы EventQuarters
             modelBuilder.Entity<EventQuarter>().HasKey(c => new { c.EventId, c.QuarterOfYearId });
@@ -95,6 +112,9 @@ namespace WBS.DAL
         public DbSet<RationaleForInvestment> RationaleForInvestments { get; set; }
         public DbSet<Attachment> Attachments { get; set; }
         public DbSet<ObjectType> ObjectTypes { get; set; }
+        public DbSet<FieldComponent> FieldComponents { get; set; }
         public DbSet<RolesObjectTypes> RolesObjectTypes { get; set; }
+        public DbSet<ObjectField> ObjectFields { get; set; }
+        public DbSet<RolesObjectFields> RolesObjectFields { get; set; }
     }
 }

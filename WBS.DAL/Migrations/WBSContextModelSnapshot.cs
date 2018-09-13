@@ -19,6 +19,237 @@ namespace WBS.DAL.Migrations
                 .HasAnnotation("ProductVersion", "2.1.1-rtm-30846")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
+            modelBuilder.Entity("WBS.DAL.Authorization.Models.FieldComponent", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("FieldComponents");
+                });
+
+            modelBuilder.Entity("WBS.DAL.Authorization.Models.ObjectField", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("FieldName");
+
+                    b.Property<int>("ObjectTypeId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ObjectTypeId");
+
+                    b.ToTable("ObjectFields");
+
+                    b.HasData(
+                        new { Id = 1, FieldName = "Id", ObjectTypeId = 1 },
+                        new { Id = 2, FieldName = "DaiId", ObjectTypeId = 1 },
+                        new { Id = 3, FieldName = "DAI", ObjectTypeId = 1 },
+                        new { Id = 4, FieldName = "Data", ObjectTypeId = 1 },
+                        new { Id = 5, FieldName = "FileName", ObjectTypeId = 1 },
+                        new { Id = 6, FieldName = "Id", ObjectTypeId = 2 },
+                        new { Id = 7, FieldName = "Year", ObjectTypeId = 2 },
+                        new { Id = 8, FieldName = "Events", ObjectTypeId = 2 },
+                        new { Id = 9, FieldName = "Items", ObjectTypeId = 2 },
+                        new { Id = 10, FieldName = "Id", ObjectTypeId = 3 },
+                        new { Id = 11, FieldName = "Title", ObjectTypeId = 3 },
+                        new { Id = 12, FieldName = "Code", ObjectTypeId = 3 },
+                        new { Id = 13, FieldName = "CategoriesOfEquipment", ObjectTypeId = 3 },
+                        new { Id = 14, FieldName = "Id", ObjectTypeId = 4 },
+                        new { Id = 15, FieldName = "Title", ObjectTypeId = 4 },
+                        new { Id = 16, FieldName = "Code", ObjectTypeId = 4 },
+                        new { Id = 17, FieldName = "DepreciationPeriod", ObjectTypeId = 4 },
+                        new { Id = 18, FieldName = "CategoryGroupId", ObjectTypeId = 4 },
+                        new { Id = 19, FieldName = "CategoryGroup", ObjectTypeId = 4 },
+                        new { Id = 20, FieldName = "ItemsOfBudgetPlan", ObjectTypeId = 4 },
+                        new { Id = 21, FieldName = "Id", ObjectTypeId = 5 },
+                        new { Id = 22, FieldName = "Number", ObjectTypeId = 5 },
+                        new { Id = 23, FieldName = "CreationData", ObjectTypeId = 5 },
+                        new { Id = 24, FieldName = "LastModifiedData", ObjectTypeId = 5 },
+                        new { Id = 25, FieldName = "ReceiptTaskData", ObjectTypeId = 5 },
+                        new { Id = 26, FieldName = "DirectorApprovalDate", ObjectTypeId = 5 },
+                        new { Id = 27, FieldName = "DeliveryTime", ObjectTypeId = 5 },
+                        new { Id = 28, FieldName = "Subject", ObjectTypeId = 5 },
+                        new { Id = 29, FieldName = "ApprovalOfTechExpertIsRequired", ObjectTypeId = 5 },
+                        new { Id = 30, FieldName = "RationaleForInvestmentId", ObjectTypeId = 5 },
+                        new { Id = 31, FieldName = "RationaleForInvestment", ObjectTypeId = 5 },
+                        new { Id = 32, FieldName = "SitId", ObjectTypeId = 5 },
+                        new { Id = 33, FieldName = "Sit", ObjectTypeId = 5 },
+                        new { Id = 34, FieldName = "CommentForDirectorGeneral", ObjectTypeId = 5 },
+                        new { Id = 35, FieldName = "ResultCentreId", ObjectTypeId = 5 },
+                        new { Id = 36, FieldName = "ResultCentre", ObjectTypeId = 5 },
+                        new { Id = 37, FieldName = "TotalInvestment", ObjectTypeId = 5 },
+                        new { Id = 38, FieldName = "EstimatedOperationPeriod", ObjectTypeId = 5 },
+                        new { Id = 39, FieldName = "AdditionalSalesPerYear", ObjectTypeId = 5 },
+                        new { Id = 40, FieldName = "MarginOnAddedValue", ObjectTypeId = 5 },
+                        new { Id = 41, FieldName = "PeriodOfPayback", ObjectTypeId = 5 },
+                        new { Id = 42, FieldName = "ExtraAnnualCost", ObjectTypeId = 5 },
+                        new { Id = 43, FieldName = "NetMargin", ObjectTypeId = 5 },
+                        new { Id = 44, FieldName = "InternalRateOfReturn", ObjectTypeId = 5 },
+                        new { Id = 45, FieldName = "NetPresentValue", ObjectTypeId = 5 },
+                        new { Id = 46, FieldName = "SavingsPerYear", ObjectTypeId = 5 },
+                        new { Id = 47, FieldName = "ReasonForDAI", ObjectTypeId = 5 },
+                        new { Id = 48, FieldName = "DAIRequestsTechnicalService", ObjectTypeId = 5 },
+                        new { Id = 49, FieldName = "DAIRequestsProviders", ObjectTypeId = 5 },
+                        new { Id = 50, FieldName = "Id", ObjectTypeId = 6 },
+                        new { Id = 51, FieldName = "DaiId", ObjectTypeId = 6 },
+                        new { Id = 52, FieldName = "DAI", ObjectTypeId = 6 },
+                        new { Id = 53, FieldName = "ProviderId", ObjectTypeId = 6 },
+                        new { Id = 54, FieldName = "Provider", ObjectTypeId = 6 },
+                        new { Id = 55, FieldName = "Id", ObjectTypeId = 7 },
+                        new { Id = 56, FieldName = "DaiId", ObjectTypeId = 7 },
+                        new { Id = 57, FieldName = "DAI", ObjectTypeId = 7 },
+                        new { Id = 58, FieldName = "TechnicalServId", ObjectTypeId = 7 },
+                        new { Id = 59, FieldName = "TechnicalServ", ObjectTypeId = 7 },
+                        new { Id = 60, FieldName = "Id", ObjectTypeId = 8 },
+                        new { Id = 61, FieldName = "Date", ObjectTypeId = 8 },
+                        new { Id = 62, FieldName = "UserName", ObjectTypeId = 8 },
+                        new { Id = 63, FieldName = "Comment", ObjectTypeId = 8 },
+                        new { Id = 64, FieldName = "StatusId", ObjectTypeId = 8 },
+                        new { Id = 65, FieldName = "Status", ObjectTypeId = 8 },
+                        new { Id = 66, FieldName = "BudgetPlanId", ObjectTypeId = 8 },
+                        new { Id = 67, FieldName = "BudgetPlan", ObjectTypeId = 8 },
+                        new { Id = 68, FieldName = "EventQuarters", ObjectTypeId = 8 },
+                        new { Id = 69, FieldName = "EventId", ObjectTypeId = 9 },
+                        new { Id = 70, FieldName = "Event", ObjectTypeId = 9 },
+                        new { Id = 71, FieldName = "QuarterOfYearId", ObjectTypeId = 9 },
+                        new { Id = 72, FieldName = "QuarterOfYear", ObjectTypeId = 9 },
+                        new { Id = 73, FieldName = "Id", ObjectTypeId = 10 },
+                        new { Id = 74, FieldName = "Title", ObjectTypeId = 10 },
+                        new { Id = 75, FieldName = "Profile", ObjectTypeId = 10 },
+                        new { Id = 76, FieldName = "TypeOfFormat", ObjectTypeId = 10 },
+                        new { Id = 77, FieldName = "E1Limit", ObjectTypeId = 10 },
+                        new { Id = 78, FieldName = "E2Limit", ObjectTypeId = 10 },
+                        new { Id = 79, FieldName = "E3Limit", ObjectTypeId = 10 },
+                        new { Id = 80, FieldName = "DirectorOfFormatId", ObjectTypeId = 10 },
+                        new { Id = 81, FieldName = "DirectorOfFormat", ObjectTypeId = 10 },
+                        new { Id = 82, FieldName = "DirectorOfKYFormatId", ObjectTypeId = 10 },
+                        new { Id = 83, FieldName = "DirectorOfKYFormat", ObjectTypeId = 10 },
+                        new { Id = 84, FieldName = "KYFormatId", ObjectTypeId = 10 },
+                        new { Id = 85, FieldName = "KYFormat", ObjectTypeId = 10 },
+                        new { Id = 86, FieldName = "Sites", ObjectTypeId = 10 },
+                        new { Id = 87, FieldName = "Id", ObjectTypeId = 11 },
+                        new { Id = 88, FieldName = "SubjectOfInvestment", ObjectTypeId = 11 },
+                        new { Id = 89, FieldName = "DateOfDelivery", ObjectTypeId = 11 },
+                        new { Id = 90, FieldName = "Count", ObjectTypeId = 11 },
+                        new { Id = 91, FieldName = "Price", ObjectTypeId = 11 },
+                        new { Id = 92, FieldName = "Amount", ObjectTypeId = 11 },
+                        new { Id = 93, FieldName = "BudgetPlanId", ObjectTypeId = 11 },
+                        new { Id = 94, FieldName = "BudgetPlan", ObjectTypeId = 11 },
+                        new { Id = 95, FieldName = "CategoryOfEquipmentId", ObjectTypeId = 11 },
+                        new { Id = 96, FieldName = "CategoryOfEquipment", ObjectTypeId = 11 },
+                        new { Id = 97, FieldName = "ResultCenterId", ObjectTypeId = 11 },
+                        new { Id = 98, FieldName = "ResultCenter", ObjectTypeId = 11 },
+                        new { Id = 99, FieldName = "SiteId", ObjectTypeId = 11 },
+                        new { Id = 100, FieldName = "Site", ObjectTypeId = 11 },
+                        new { Id = 101, FieldName = "TypeOfInvestmentId", ObjectTypeId = 11 },
+                        new { Id = 102, FieldName = "TypeOfInvestment", ObjectTypeId = 11 },
+                        new { Id = 103, FieldName = "Id", ObjectTypeId = 12 },
+                        new { Id = 104, FieldName = "Title", ObjectTypeId = 12 },
+                        new { Id = 105, FieldName = "ProvidersTechnicalServices", ObjectTypeId = 12 },
+                        new { Id = 106, FieldName = "ProviderId", ObjectTypeId = 13 },
+                        new { Id = 107, FieldName = "Provider", ObjectTypeId = 13 },
+                        new { Id = 108, FieldName = "TechnicalServiceId", ObjectTypeId = 13 },
+                        new { Id = 109, FieldName = "TechnicalService", ObjectTypeId = 13 },
+                        new { Id = 110, FieldName = "Id", ObjectTypeId = 14 },
+                        new { Id = 111, FieldName = "Title", ObjectTypeId = 14 },
+                        new { Id = 112, FieldName = "EventQuarters", ObjectTypeId = 14 },
+                        new { Id = 113, FieldName = "Id", ObjectTypeId = 15 },
+                        new { Id = 114, FieldName = "Title", ObjectTypeId = 15 },
+                        new { Id = 115, FieldName = "Id", ObjectTypeId = 16 },
+                        new { Id = 116, FieldName = "Title", ObjectTypeId = 16 },
+                        new { Id = 117, FieldName = "Code", ObjectTypeId = 16 },
+                        new { Id = 118, FieldName = "ItemsOfBudgetplan", ObjectTypeId = 16 },
+                        new { Id = 119, FieldName = "Id", ObjectTypeId = 17 },
+                        new { Id = 120, FieldName = "Title", ObjectTypeId = 17 },
+                        new { Id = 121, FieldName = "FormatId", ObjectTypeId = 17 },
+                        new { Id = 122, FieldName = "Format", ObjectTypeId = 17 },
+                        new { Id = 123, FieldName = "KySitId", ObjectTypeId = 17 },
+                        new { Id = 124, FieldName = "KySit", ObjectTypeId = 17 },
+                        new { Id = 125, FieldName = "TechnicalExpertId", ObjectTypeId = 17 },
+                        new { Id = 126, FieldName = "TechnicalExpert", ObjectTypeId = 17 },
+                        new { Id = 127, FieldName = "DirectorOfSitId", ObjectTypeId = 17 },
+                        new { Id = 128, FieldName = "DirectorOfSit", ObjectTypeId = 17 },
+                        new { Id = 129, FieldName = "CreaterOfBudgetId", ObjectTypeId = 17 },
+                        new { Id = 130, FieldName = "CreaterOfBudget", ObjectTypeId = 17 },
+                        new { Id = 131, FieldName = "KyRegionId", ObjectTypeId = 17 },
+                        new { Id = 132, FieldName = "KyRegion", ObjectTypeId = 17 },
+                        new { Id = 133, FieldName = "OperationDirectorId", ObjectTypeId = 17 },
+                        new { Id = 134, FieldName = "OperationDirector", ObjectTypeId = 17 },
+                        new { Id = 135, FieldName = "ItemsOfBudgetPlan", ObjectTypeId = 17 },
+                        new { Id = 136, FieldName = "Id", ObjectTypeId = 18 },
+                        new { Id = 137, FieldName = "Title", ObjectTypeId = 18 },
+                        new { Id = 138, FieldName = "Id", ObjectTypeId = 19 },
+                        new { Id = 139, FieldName = "Title", ObjectTypeId = 19 },
+                        new { Id = 140, FieldName = "Id", ObjectTypeId = 20 },
+                        new { Id = 141, FieldName = "Title", ObjectTypeId = 20 },
+                        new { Id = 142, FieldName = "Code", ObjectTypeId = 20 },
+                        new { Id = 143, FieldName = "ExternalCode", ObjectTypeId = 20 },
+                        new { Id = 144, FieldName = "ItemsOfBudgetPlan", ObjectTypeId = 20 },
+                        new { Id = 145, FieldName = "AccessToken", ObjectTypeId = 21 },
+                        new { Id = 146, FieldName = "ExpiresIn", ObjectTypeId = 21 },
+                        new { Id = 147, FieldName = "Login", ObjectTypeId = 22 },
+                        new { Id = 148, FieldName = "Password", ObjectTypeId = 22 },
+                        new { Id = 149, FieldName = "Id", ObjectTypeId = 23 },
+                        new { Id = 150, FieldName = "Name", ObjectTypeId = 23 },
+                        new { Id = 151, FieldName = "Id", ObjectTypeId = 24 },
+                        new { Id = 152, FieldName = "FieldName", ObjectTypeId = 24 },
+                        new { Id = 153, FieldName = "ObjectTypeId", ObjectTypeId = 24 },
+                        new { Id = 154, FieldName = "ObjectType", ObjectTypeId = 24 },
+                        new { Id = 155, FieldName = "Id", ObjectTypeId = 25 },
+                        new { Id = 156, FieldName = "TypeName", ObjectTypeId = 25 },
+                        new { Id = 157, FieldName = "AssemblyName", ObjectTypeId = 25 },
+                        new { Id = 158, FieldName = "Id", ObjectTypeId = 26 },
+                        new { Id = 159, FieldName = "Token", ObjectTypeId = 26 },
+                        new { Id = 160, FieldName = "Expire", ObjectTypeId = 26 },
+                        new { Id = 161, FieldName = "Audience", ObjectTypeId = 26 },
+                        new { Id = 162, FieldName = "Id", ObjectTypeId = 27 },
+                        new { Id = 163, FieldName = "Title", ObjectTypeId = 27 },
+                        new { Id = 164, FieldName = "Routes", ObjectTypeId = 27 },
+                        new { Id = 165, FieldName = "UserRoles", ObjectTypeId = 27 },
+                        new { Id = 166, FieldName = "Id", ObjectTypeId = 28 },
+                        new { Id = 167, FieldName = "Label", ObjectTypeId = 28 },
+                        new { Id = 168, FieldName = "IsVisiableForAdd", ObjectTypeId = 28 },
+                        new { Id = 169, FieldName = "CanEditForAdd", ObjectTypeId = 28 },
+                        new { Id = 170, FieldName = "IsVisiableForEdit", ObjectTypeId = 28 },
+                        new { Id = 171, FieldName = "CanEditForEdit", ObjectTypeId = 28 },
+                        new { Id = 172, FieldName = "RoleId", ObjectTypeId = 28 },
+                        new { Id = 173, FieldName = "Role", ObjectTypeId = 28 },
+                        new { Id = 174, FieldName = "ObjectFieldId", ObjectTypeId = 28 },
+                        new { Id = 175, FieldName = "ObjectField", ObjectTypeId = 28 },
+                        new { Id = 176, FieldName = "FieldComponentId", ObjectTypeId = 28 },
+                        new { Id = 177, FieldName = "FieldComponent", ObjectTypeId = 28 },
+                        new { Id = 178, FieldName = "Id", ObjectTypeId = 29 },
+                        new { Id = 179, FieldName = "RoleId", ObjectTypeId = 29 },
+                        new { Id = 180, FieldName = "Role", ObjectTypeId = 29 },
+                        new { Id = 181, FieldName = "ObjectTypeId", ObjectTypeId = 29 },
+                        new { Id = 182, FieldName = "ObjectType", ObjectTypeId = 29 },
+                        new { Id = 183, FieldName = "AllowRead", ObjectTypeId = 29 },
+                        new { Id = 184, FieldName = "AllowWrite", ObjectTypeId = 29 },
+                        new { Id = 185, FieldName = "AllowCreate", ObjectTypeId = 29 },
+                        new { Id = 186, FieldName = "AllowDelete", ObjectTypeId = 29 },
+                        new { Id = 187, FieldName = "TokenString", ObjectTypeId = 30 },
+                        new { Id = 188, FieldName = "Id", ObjectTypeId = 31 },
+                        new { Id = 189, FieldName = "Login", ObjectTypeId = 31 },
+                        new { Id = 190, FieldName = "Password", ObjectTypeId = 31 },
+                        new { Id = 191, FieldName = "Fio", ObjectTypeId = 31 },
+                        new { Id = 192, FieldName = "JobPosition", ObjectTypeId = 31 },
+                        new { Id = 193, FieldName = "Department", ObjectTypeId = 31 },
+                        new { Id = 194, FieldName = "DeletionMark", ObjectTypeId = 31 },
+                        new { Id = 195, FieldName = "UserRoles", ObjectTypeId = 31 },
+                        new { Id = 196, FieldName = "Id", ObjectTypeId = 32 },
+                        new { Id = 197, FieldName = "UserId", ObjectTypeId = 32 },
+                        new { Id = 198, FieldName = "User", ObjectTypeId = 32 },
+                        new { Id = 199, FieldName = "RoleId", ObjectTypeId = 32 },
+                        new { Id = 200, FieldName = "Role", ObjectTypeId = 32 }
+                    );
+                });
+
             modelBuilder.Entity("WBS.DAL.Authorization.Models.ObjectType", b =>
                 {
                     b.Property<int>("Id")
@@ -52,7 +283,19 @@ namespace WBS.DAL.Migrations
                         new { Id = 17, AssemblyName = "WBS.DAL", TypeName = "WBS.DAL.Data.Models.Site" },
                         new { Id = 18, AssemblyName = "WBS.DAL", TypeName = "WBS.DAL.Data.Models.Status" },
                         new { Id = 19, AssemblyName = "WBS.DAL", TypeName = "WBS.DAL.Data.Models.TechnicalService" },
-                        new { Id = 20, AssemblyName = "WBS.DAL", TypeName = "WBS.DAL.Data.Models.TypeOfInvestment" }
+                        new { Id = 20, AssemblyName = "WBS.DAL", TypeName = "WBS.DAL.Data.Models.TypeOfInvestment" },
+                        new { Id = 21, AssemblyName = "WBS.DAL", TypeName = "WBS.DAL.Authorization.Models.AccessTokenData" },
+                        new { Id = 22, AssemblyName = "WBS.DAL", TypeName = "WBS.DAL.Authorization.Models.AuthRequest" },
+                        new { Id = 23, AssemblyName = "WBS.DAL", TypeName = "WBS.DAL.Authorization.Models.FieldComponent" },
+                        new { Id = 24, AssemblyName = "WBS.DAL", TypeName = "WBS.DAL.Authorization.Models.ObjectField" },
+                        new { Id = 25, AssemblyName = "WBS.DAL", TypeName = "WBS.DAL.Authorization.Models.ObjectType" },
+                        new { Id = 26, AssemblyName = "WBS.DAL", TypeName = "WBS.DAL.Authorization.Models.RefreshToken" },
+                        new { Id = 27, AssemblyName = "WBS.DAL", TypeName = "WBS.DAL.Authorization.Models.Role" },
+                        new { Id = 28, AssemblyName = "WBS.DAL", TypeName = "WBS.DAL.Authorization.Models.RolesObjectFields" },
+                        new { Id = 29, AssemblyName = "WBS.DAL", TypeName = "WBS.DAL.Authorization.Models.RolesObjectTypes" },
+                        new { Id = 30, AssemblyName = "WBS.DAL", TypeName = "WBS.DAL.Authorization.Models.TokenRequest" },
+                        new { Id = 31, AssemblyName = "WBS.DAL", TypeName = "WBS.DAL.Authorization.Models.User" },
+                        new { Id = 32, AssemblyName = "WBS.DAL", TypeName = "WBS.DAL.Authorization.Models.UserRoles" }
                     );
                 });
 
@@ -91,6 +334,39 @@ namespace WBS.DAL.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Roles");
+                });
+
+            modelBuilder.Entity("WBS.DAL.Authorization.Models.RolesObjectFields", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("id");
+
+                    b.Property<bool>("CanEditForAdd");
+
+                    b.Property<bool>("CanEditForEdit");
+
+                    b.Property<int>("FieldComponentId");
+
+                    b.Property<bool>("IsVisiableForAdd");
+
+                    b.Property<bool>("IsVisiableForEdit");
+
+                    b.Property<string>("Label");
+
+                    b.Property<int>("ObjectFieldId");
+
+                    b.Property<int>("RoleId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FieldComponentId");
+
+                    b.HasIndex("ObjectFieldId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("RolesObjectFields");
                 });
 
             modelBuilder.Entity("WBS.DAL.Authorization.Models.RolesObjectTypes", b =>
@@ -570,7 +846,7 @@ namespace WBS.DAL.Migrations
                         new { Id = 1, Title = "Проект" },
                         new { Id = 2, Title = "Редактирование" },
                         new { Id = 3, Title = "Действующий" },
-                        new { Id = 4, Title = "dfdsf" }
+                        new { Id = 4, Title = "Архив" }
                     );
                 });
 
@@ -600,6 +876,32 @@ namespace WBS.DAL.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("TypesOfInvestment");
+                });
+
+            modelBuilder.Entity("WBS.DAL.Authorization.Models.ObjectField", b =>
+                {
+                    b.HasOne("WBS.DAL.Authorization.Models.ObjectType", "ObjectType")
+                        .WithMany()
+                        .HasForeignKey("ObjectTypeId")
+                        .OnDelete(DeleteBehavior.SetNull);
+                });
+
+            modelBuilder.Entity("WBS.DAL.Authorization.Models.RolesObjectFields", b =>
+                {
+                    b.HasOne("WBS.DAL.Authorization.Models.FieldComponent", "FieldComponent")
+                        .WithMany()
+                        .HasForeignKey("FieldComponentId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.HasOne("WBS.DAL.Authorization.Models.ObjectField", "ObjectField")
+                        .WithMany()
+                        .HasForeignKey("ObjectFieldId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.HasOne("WBS.DAL.Authorization.Models.Role", "Role")
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.SetNull);
                 });
 
             modelBuilder.Entity("WBS.DAL.Authorization.Models.RolesObjectTypes", b =>

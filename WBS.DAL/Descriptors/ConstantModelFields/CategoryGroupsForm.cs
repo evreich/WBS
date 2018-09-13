@@ -15,3 +15,4 @@ namespace WBS.DAL.Descriptors.ConstantModelFields
             Code = ("Код", "code");
         }
     }
+}

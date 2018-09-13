@@ -22,6 +22,7 @@ namespace WBS.DAL.Authorization.Models
         /// </summary>
         [Column("routes")]
         public string Routes { get; set; }
+
         public List<UserRoles> UserRoles { get; set; }
     }
 }

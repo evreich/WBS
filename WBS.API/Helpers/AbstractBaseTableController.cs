@@ -133,8 +133,8 @@ namespace WBS.API.Helpers
             }
         }
 
-        [HttpGet("getDescriptor")]
-        public IActionResult GetDescriptor([FromServices] DescriptorOfFormGenerator descriptorCreator)
+        [HttpGet("getDescriptor/{isAddingForm}")]
+        public IActionResult GetDescriptor([FromRoute] bool isAddingForm, [FromServices] DescriptorOfFormGenerator descriptorCreator)
         {
             _logger.LogInformation(nameof(GetDescriptor));
             var roles = HttpContext.User.Claims.Where(claim => claim.Type == ClaimTypes.Role)
@@ -142,7 +142,7 @@ namespace WBS.API.Helpers
                 .ToList();
             try
             {
-                var descriptorJSON = DescriptorConverter.ConvertToJSON(descriptorCreator.CreateDescriptor<T>(roles));
+                var descriptorJSON = DescriptorConverter.ConvertToJSON(descriptorCreator.CreateDescriptor<T>(isAddingForm, roles));
                 return Ok(descriptorJSON);
             }
             catch (TypeAccessException)
