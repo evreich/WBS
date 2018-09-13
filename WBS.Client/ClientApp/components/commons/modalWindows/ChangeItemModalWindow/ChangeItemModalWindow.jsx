@@ -15,8 +15,6 @@ import HTTP_METHOD from 'constants/httpMethods';
 
 class ChangeItemModalWindow extends React.Component {
     submit = (values) => {
-        console.log(values);
-
         const { /*validate, */save, close, initialValues, currentPage, elementsPerPage } = this.props;
         //validate(values);
         //save(values);

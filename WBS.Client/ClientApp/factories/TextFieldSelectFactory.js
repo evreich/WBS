@@ -5,8 +5,13 @@ import PropTypes from 'prop-types';
 import TextFieldSelect from 'components/commons/textFields/TextFieldSelect';
 import selectItemPropType from 'propTypes/selectItem';
 import { getItemsForSelection, clearItemsForSelection } from 'actions/componentsActions';
+import getSelectItems from 'selectors/selectItemsSelectors';
 
-export default (route, component) => {
+export default (route,
+    componentName,
+    mapStateToProps = defaultMapStateToProps(componentName),
+    mapDispatchToProps = defaultMapDispatchToProps(route, componentName)
+) => {
     class Select extends React.Component {
         componentDidMount() {
             const { getItems } = this.props;
@@ -35,25 +40,20 @@ export default (route, component) => {
         items: []
     }
 
-    //TODO: reselect!!!
-    const mapStateToProps = state => (
-        state.components[component]
-            ? {
-                items: state.components[component].items &&
-                    state.components[component].items.map(elem => ({
-                        value: elem.id,
-                        text: elem.title
-                    }))
-            }
-            : {}
-    );
-
-    const mapDispatchToProps = (dispatch) => ({
-        getItems: () => dispatch(getItemsForSelection(route, component)),
-        clearItems: () => dispatch(clearItemsForSelection(component))
-    });
-
     return connect(mapStateToProps, mapDispatchToProps)(Select);
 }
 
 
+//TODO: reselect!!!
+const defaultMapStateToProps = componentName => state => (
+    state.components[componentName]
+        ? {
+            items: getSelectItems(componentName)(state)
+        }
+        : {}
+);
+
+const defaultMapDispatchToProps = (route, componentName) => (dispatch) => ({
+    getItems: () => dispatch(getItemsForSelection(route, componentName)),
+    clearItems: () => dispatch(clearItemsForSelection(componentName))
+});

@@ -6,7 +6,11 @@ import TextFieldMultiSelect from 'components/commons/textFields/TextFieldMultiSe
 import selectItemPropType from 'propTypes/selectItem';
 import { getItemsForSelection, clearItemsForSelection } from 'actions/componentsActions';
 
-export default (route, component) => {
+export default (route,
+    componentName,
+    mapStateToProps = defaultMapStateToProps(componentName),
+    mapDispatchToProps = defaultMapDispatchToProps(route, componentName)
+) => {
     class MultiSelect extends React.Component {
         componentDidMount() {
             const { getItems } = this.props;
@@ -35,19 +39,19 @@ export default (route, component) => {
         items: []
     }
 
-    //TODO: reselect!!!
-    const mapStateToProps = state => (
-        state.components[component]
-            ? { items: state.components[component].items }
-            : {}
-    );
-
-    const mapDispatchToProps = (dispatch) => ({
-        getItems: () => dispatch(getItemsForSelection(route, component)),
-        clearItems: () => dispatch(clearItemsForSelection(component))
-    });
-
     return connect(mapStateToProps, mapDispatchToProps)(MultiSelect);
 }
+
+//TODO: reselect!!!
+const defaultMapStateToProps = componentName => state => (
+    state.components[componentName]
+        ? { items: state.components[componentName].items }
+        : {}
+);
+
+const defaultMapDispatchToProps = (route, componentName) => (dispatch) => ({
+    getItems: () => dispatch(getItemsForSelection(route, componentName)),
+    clearItems: () => dispatch(clearItemsForSelection(componentName))
+});
 
 

@@ -145,7 +145,7 @@ const createWindowFields = {
     [commonFields.createrOfBudgetId.propName]: commonFields.createrOfBudgetId,
     [commonFields.kyRegionId.propName]: commonFields.kyRegionId,
     [commonFields.operationDirectorId.propName]: commonFields.operationDirectorId,
-    ...infoWindowModel
+    //...infoWindowModel
 };
 
 const editWindowFields = {

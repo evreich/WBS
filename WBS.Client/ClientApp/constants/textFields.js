@@ -6,6 +6,7 @@ import SiteSelect from 'containers/textFields/selects/SiteSelect';
 import TypeOfInvestmentSelect from 'containers/textFields/selects/TypeOfInvestmentSelect';
 
 import TechnicalServMultiSelect from 'containers/textFields/multiSelects/TechnicalServMultiSelect';
+import RoleMultiSelect from 'containers/textFields/multiSelects/RoleMultiSelect';
 
 import UserAutosuggestField from 'components/commons/textFields/UserAutosuggestField';
 import TextFieldMultiline from 'components/commons/textFields/TextFieldMultiline';
@@ -20,6 +21,7 @@ export default {
     'TypeOfInvestmentSelect': TypeOfInvestmentSelect,
 
     'TechnicalServMultiSelect': TechnicalServMultiSelect,
+    'RoleMultiSelect': RoleMultiSelect,
 
     'UserAutosuggestField': UserAutosuggestField,
     'TextFieldMultiline': TextFieldMultiline,
