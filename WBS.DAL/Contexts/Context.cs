@@ -48,6 +48,32 @@ namespace WBS.DAL
                 .Select((t, index) => new ObjectType() { AssemblyName = t.Assembly.GetName().Name, TypeName = t.FullName, Id = index+1 })
                 .ToArray();
             modelBuilder.Entity<ObjectType>().HasData(types);
+             
+            //инициализация пунктов меню
+            var menuItems = new MenuItem[] {new MenuItem { Id = 1, Text = "Документы", IconName = "FolderIcon" },
+                new MenuItem { Id = 2, Text = "Таблица разработки", IconName = "InsertDriveFileIcon", ParentId = 1, To = "/table" },
+                new MenuItem { Id = 3, Text = "Макет", IconName = "InsertDriveFileIcon", ParentId = 1, To = "/DateRangePicker" },
+                new MenuItem { Id = 4, Text = "Заявки на инвестиции", IconName = "InsertDriveFileIcon", ParentId = 1, To = "/DAIRequests" },
+                new MenuItem { Id = 5, Text = "Бюджетные планы", IconName = "DescriptionIcon", ParentId = 1, To = "/BudgetPlans" },
+                new MenuItem { Id = 6, Text = "Статистика", IconName = "TrendingUpIcon", ParentId = 1, To = "/Statistics" },
+                new MenuItem { Id = 7, Text = "Все обработанные мной заявки", IconName = "RestorePageIcon", ParentId = 1, To = "/DAIProcessedRequests" },
+                new MenuItem { Id = 8, Text = "Инструкции", IconName = "InfoOutlineIcon", ParentId = 1, To = "/DocLib" },
+                new MenuItem { Id = 9, Text = "Администрирование", IconName = "AccountBoxIcon" },
+                new MenuItem { Id = 10, Text = "Добавить пользователя", IconName = "ChromeReaderMode", ParentId = 9, To = "/signup" },
+                new MenuItem { Id = 11, Text = "Журнал изменений", IconName = "ChromeReaderMode", ParentId = 9, To = "/EventsHistory" },
+                new MenuItem { Id = 12, Text = "Проверка мониторинга системы", IconName = "AssessmentIcon", ParentId = 9, To = "/CheckDAIMonitoringSystem" },
+                new MenuItem { Id = 13, Text = "Справочники", IconName = "LibraryBooksIcon" },
+                new MenuItem { Id = 14, Text = "Ситы", IconName = "HomeIcon", ParentId = 13, To = "/Sits" },
+                new MenuItem { Id = 15, Text = "Пользователи", IconName = "AccountCircleIcon", ParentId = 13, To = "/Profiles" },
+                new MenuItem { Id = 16, Text = "Поставщики", IconName = "SupervisorAccountIcon", ParentId = 13, To = "/Providers" },
+                new MenuItem { Id = 17, Text = "Формат ситов", IconName = "DescriptionIcon", ParentId = 13, To = "/Formats" },
+                new MenuItem { Id = 18, Text = "Типы инвестиций", IconName = "TrendingUpIcon", ParentId = 13, To = "/TypeOfInvestments" },
+                new MenuItem { Id = 19, Text = "Центры результатов", IconName = "InsertDriveFileIcon", ParentId = 13, To = "/ResultCentres" },
+                new MenuItem { Id = 20, Text = "Группы категорий", IconName = "InsertDriveFileIcon", ParentId = 13, To = "/CategoryGroups" },
+                new MenuItem { Id = 21, Text = "Категории оборудования", IconName = "InsertDriveFileIcon", ParentId = 13, To = "/CategoriesOfEquipment" }
+            };
+            modelBuilder.Entity<MenuItem>().HasData(menuItems);
+
 
             //инициализация таблицы полей типов
             List<ObjectField> typeFields = new List<ObjectField>();
@@ -114,6 +140,8 @@ namespace WBS.DAL
         public DbSet<ObjectType> ObjectTypes { get; set; }
         public DbSet<FieldComponent> FieldComponents { get; set; }
         public DbSet<RolesObjectTypes> RolesObjectTypes { get; set; }
+        public DbSet<MenuItem> MenuItems { get; set; }
+        public DbSet<MenuItemRoles> MenuItemRoles { get; set; }
         public DbSet<ObjectField> ObjectFields { get; set; }
         public DbSet<RolesObjectFields> RolesObjectFields { get; set; }
     }
