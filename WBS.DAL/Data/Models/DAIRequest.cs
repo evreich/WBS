@@ -55,16 +55,12 @@ namespace WBS.DAL.Data.Models
         //Чистая приведенная стоимость
         public double NetPresentValue { get; set; }
         //Экономия средств в год
-        public double SavingsPerYear { get; set; }
-        
+        public double SavingsPerYear { get; set; }    
         //Причина заявки на инвестиции
         public string ReasonForDAI { get; set; }
 
-
-
         public List<DAIRequestsTechnicalService> DAIRequestsTechnicalService { get; set; }
         public List<DAIRequestsProvider> DAIRequestsProviders { get; set; }
-        
 
         public override string ToString()
         {

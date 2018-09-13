@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using WBS.DAL.Authorization.Models;
@@ -40,9 +42,22 @@ namespace WBS.DAL
                         new Status { Id = 4, Title = Constants.STATUS_BP_ARCHIVE }
                     );
 
+            modelBuilder.Entity<FieldComponent>().HasData(
+                    new FieldComponent { Id = 1, Name = "TextFieldPlaceholder" },
+                    new FieldComponent { Id = 2, Name = "CategoryGroupSelect" },
+                    new FieldComponent { Id = 3, Name = "CategoryOfEquipmentSelect" },
+                    new FieldComponent { Id = 4, Name = "FormatSelect" },
+                    new FieldComponent { Id = 5, Name = "ResultCenterSelect" },
+                    new FieldComponent { Id = 6, Name = "SiteSelect" },
+                    new FieldComponent { Id = 7, Name = "TypeOfInvestmentSelect" },
+                    new FieldComponent { Id = 8, Name = "TechnicalServMultiSelect" },
+                    new FieldComponent { Id = 9, Name = "UserAutosuggestField" },
+                    new FieldComponent { Id = 10, Name = "TextFieldMultiline" }
+                );
+
             //инициализация таблицы типов
             var types = Assembly.GetExecutingAssembly().GetTypes()
-                .Where(t => t.IsClass && t.Namespace == "WBS.DAL.Data.Models")
+                .Where(t => t.IsClass && (t.Namespace == "WBS.DAL.Data.Models" || t.Namespace == "WBS.DAL.Authorization.Models"))
                 .Select((t, index) => new ObjectType() { AssemblyName = t.Assembly.GetName().Name, TypeName = t.FullName, Id = index+1 })
                 .ToArray();
             modelBuilder.Entity<ObjectType>().HasData(types);
@@ -71,6 +86,22 @@ namespace WBS.DAL
                 new MenuItem { Id = 21, Text = "Категории оборудования", IconName = "InsertDriveFileIcon", ParentId = 13, To = "/CategoriesOfEquipment" }
             };
             modelBuilder.Entity<MenuItem>().HasData(menuItems);
+
+
+            //инициализация таблицы полей типов
+            List<ObjectField> typeFields = new List<ObjectField>();
+            int counter = 1;
+
+            Assembly.GetExecutingAssembly().GetTypes()
+                .Where(t => t.IsClass && (t.Namespace == "WBS.DAL.Data.Models" || t.Namespace == "WBS.DAL.Authorization.Models")).ToList()
+                .ForEach(x => x.GetProperties().ToList()
+                               .ForEach(f => typeFields.Add(new ObjectField()
+                               {
+                                   Id = counter++,
+                                   FieldName = f.Name,                                
+                                   ObjectTypeId = types.First(to => to.TypeName.Equals(x.FullName)).Id
+                               })));
+            modelBuilder.Entity<ObjectField>().HasData(typeFields.ToArray());
 
             //мультиключи для промежуточной таблицы EventQuarters
             modelBuilder.Entity<EventQuarter>().HasKey(c => new { c.EventId, c.QuarterOfYearId });
@@ -120,8 +151,11 @@ namespace WBS.DAL
         public DbSet<RationaleForInvestment> RationaleForInvestments { get; set; }
         public DbSet<Attachment> Attachments { get; set; }
         public DbSet<ObjectType> ObjectTypes { get; set; }
+        public DbSet<FieldComponent> FieldComponents { get; set; }
         public DbSet<RolesObjectTypes> RolesObjectTypes { get; set; }
         public DbSet<MenuItem> MenuItems { get; set; }
         public DbSet<MenuItemRoles> MenuItemRoles { get; set; }
+        public DbSet<ObjectField> ObjectFields { get; set; }
+        public DbSet<RolesObjectFields> RolesObjectFields { get; set; }
     }
 }
