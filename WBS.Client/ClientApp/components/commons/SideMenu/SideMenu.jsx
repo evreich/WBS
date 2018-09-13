@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import icons from './AvailableIcons';
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
 import Drawer from '@material-ui/core/Drawer';
@@ -9,19 +10,6 @@ import Toolbar from '@material-ui/core/Toolbar';
 import List from '@material-ui/core/List';
 import CardHeader from '@material-ui/core/CardHeader';
 import Avatar from '@material-ui/core/Avatar';
-import AccountBoxIcon from '@material-ui/icons/AccountBox';
-import FolderIcon from '@material-ui/icons/Folder';
-import DescriptionIcon from '@material-ui/icons/Description';
-import InsertDriveFileIcon from '@material-ui/icons/InsertDriveFile';
-import InfoOutlineIcon from '@material-ui/icons/InfoOutline';
-import TrendingUpIcon from '@material-ui/icons/TrendingUp';
-import RestorePageIcon from '@material-ui/icons/RestorePage'
-import ChromeReaderMode from '@material-ui/icons/ChromeReaderMode';
-import AssessmentIcon from '@material-ui/icons/Assessment';
-import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
-import HomeIcon from '@material-ui/icons/Home';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
@@ -66,6 +54,25 @@ class SideMenu extends Component {
         const { classes } = this.props;
         const { open, auth = {} } = this.state;
 
+        const menuItems = auth.availableMenuItems || [];
+
+        const renderMenuItem = (item) => {
+            if (item) {
+                const Icon = icons[item.iconName];
+                if (item.children && item.children.length > 0) {
+                    return <NavListItem key={item.id} text={item.text} icon={<Icon />}>
+                        {renderMenuItems(item.children)}
+                    </NavListItem>
+                }
+                else {
+                    return <NavListItem key={item.id} text={item.text} to={item.to} icon={<Icon />} className={item.parentId ? classes.nested : ''} />
+                }
+            }
+        }
+        const renderMenuItems = (items) => items.map(item => renderMenuItem(item));
+
+        const renderedMenu = renderMenuItems(menuItems);
+
         const drawer = (
             <Drawer
                 variant="persistent"
@@ -95,133 +102,7 @@ class SideMenu extends Component {
                 </div>
                 <Divider />
                 <List component="nav">
-                    <NavListItem
-                        text="Документы"
-                        icon={<FolderIcon />}
-                    >
-                        <NavListItem
-                            className={classes.nested}
-                            text="Таблица разработки"
-                            icon={<InsertDriveFileIcon />}
-                            to="/table"
-                        />
-                        <NavListItem
-                            className={classes.nested}
-                            text="Макет"
-                            icon={<InsertDriveFileIcon />}
-                            to="/DateRangePicker"
-                        />
-                        <NavListItem
-                            className={classes.nested}
-                            text="Заявки на инвестиции"
-                            icon={<InsertDriveFileIcon />}
-                            to="/DAIRequests"
-                        />
-                        <NavListItem
-                            className={classes.nested}
-                            text="Бюджетные планы"
-                            icon={<DescriptionIcon />}
-                            to="/BudgetPlans"
-                        />
-                        <NavListItem
-                            className={classes.nested}
-                            text="Статистика"
-                            icon={<TrendingUpIcon />}
-                            to="/Statistics"
-                        />
-                        <NavListItem
-                            className={classes.nested}
-                            text="Все обработанные мной заявки"
-                            icon={<RestorePageIcon />}
-                            to="/DAIProcessedRequests"
-                        />
-                        <NavListItem
-                            className={classes.nested}
-                            text="Инструкции"
-                            icon={<InfoOutlineIcon />}
-                            to="/DocLib"
-                        />
-                    </NavListItem>
-                    {
-                        auth.role === 'admin' &&
-                        <NavListItem
-                            text="Администрирование"
-                            icon={<AccountBoxIcon />}
-                        >
-                            <NavListItem
-                                className={classes.nested}
-                                text="Добавить пользователя"
-                                icon={<ChromeReaderMode />}
-                                to="/signup"
-                            />
-                            <NavListItem
-                                className={classes.nested}
-                                text="Журнал изменений"
-                                icon={<ChromeReaderMode />}
-                                to="/EventsHistory"
-                            />
-                            <NavListItem
-                                className={classes.nested}
-                                text="Проверка мониторинга системы"
-                                icon={<AssessmentIcon />}
-                                to="/CheckDAIMonitoringSystem"
-                            />
-                        </NavListItem>
-                    }
-                    <NavListItem
-                        text="Справочники"
-                        icon={<LibraryBooksIcon />}
-                    >
-                        <NavListItem
-                            className={classes.nested}
-                            text="Ситы"
-                            icon={<HomeIcon />}
-                            to="/Sits"
-                        />
-                        <NavListItem
-                            className={classes.nested}
-                            text="Пользователи"
-                            icon={<AccountCircleIcon />}
-                            to="/Profiles"
-                        />
-                        <NavListItem
-                            className={classes.nested}
-                            text="Поставщики"
-                            icon={<SupervisorAccountIcon />}
-                            to="/Providers"
-                        />
-                        <NavListItem
-                            className={classes.nested}
-                            text="Формат ситов"
-                            icon={<DescriptionIcon />}
-                            to="/Formats"
-                        />
-                        <NavListItem
-                            className={classes.nested}
-                            text="Типы инвестиций"
-                            icon={<TrendingUpIcon />}
-                            to="/TypesOfInvestments"
-                        />
-                        <NavListItem
-                            className={classes.nested}
-                            text="Центры результатов"
-                            icon={<InsertDriveFileIcon />}
-                            to="/ResultCentres"
-                        />
-                        <NavListItem
-                            className={classes.nested}
-                            text="Группы категорий"
-                            icon={<InsertDriveFileIcon />}
-                            to="/CategoryGroups"
-                        />
-                        <NavListItem
-                            className={classes.nested}
-                            text="Категории оборудования"
-                            icon={<InsertDriveFileIcon />}
-                            to="/CategoriesOfEquipment"
-                        />
-
-                    </NavListItem>
+                    {renderedMenu}
                 </List>
             </Drawer>
         );
