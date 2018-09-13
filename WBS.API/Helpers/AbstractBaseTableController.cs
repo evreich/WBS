@@ -133,16 +133,34 @@ namespace WBS.API.Helpers
             }
         }
 
-        [HttpGet("getDescriptor/{isAddingForm}")]
-        public IActionResult GetDescriptor([FromRoute] bool isAddingForm, [FromServices] DescriptorOfFormGenerator descriptorCreator)
+        [HttpGet("getDescriptorOnAdd")]
+        public IActionResult GetDescriptorOnAdd([FromServices] DescriptorOfFormGenerator descriptorCreator)
         {
-            _logger.LogInformation(nameof(GetDescriptor));
+            _logger.LogInformation(nameof(GetDescriptorOnAdd));
             var roles = HttpContext.User.Claims.Where(claim => claim.Type == ClaimTypes.Role)
                 .Select(claim => claim.Value)
                 .ToList();
             try
             {
-                var descriptorJSON = DescriptorConverter.ConvertToJSON(descriptorCreator.CreateDescriptor<T>(isAddingForm, roles));
+                var descriptorJSON = DescriptorConverter.ConvertToJSON(descriptorCreator.CreateDescriptor<T>(true, roles));
+                return Ok(descriptorJSON);
+            }
+            catch (TypeAccessException)
+            {
+                return Forbid("Отсутствует доступ к данному типу");
+            }
+        }
+
+        [HttpGet("getDescriptorOnEdit")]
+        public IActionResult GetDescriptorOnEdit([FromServices] DescriptorOfFormGenerator descriptorCreator)
+        {
+            _logger.LogInformation(nameof(GetDescriptorOnEdit));
+            var roles = HttpContext.User.Claims.Where(claim => claim.Type == ClaimTypes.Role)
+                .Select(claim => claim.Value)
+                .ToList();
+            try
+            {
+                var descriptorJSON = DescriptorConverter.ConvertToJSON(descriptorCreator.CreateDescriptor<T>(false, roles));
                 return Ok(descriptorJSON);
             }
             catch (TypeAccessException)
