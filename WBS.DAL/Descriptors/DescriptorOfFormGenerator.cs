@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using WBS.DAL.Cache;
 using WBS.DAL.Data.Interfaces;
 using System.Linq;
+using WBS.DAL.Models;
 using WBS.DAL.Authorization.Models;
 
 namespace WBS.DAL.Descriptors
