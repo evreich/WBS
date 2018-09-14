@@ -10,6 +10,7 @@ namespace WBS.DAL.Data.Models.ViewModels
         public CategoryGroupsViewModel()
         {
         }
+
         public CategoryGroupsViewModel(CategoryGroup categoryGroups)
         {
             Id = categoryGroups.Id;

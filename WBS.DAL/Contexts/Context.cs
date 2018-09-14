@@ -98,7 +98,7 @@ namespace WBS.DAL
                                .ForEach(f => typeFields.Add(new ObjectField()
                                {
                                    Id = counter++,
-                                   FieldName = f.Name,                                
+                                   FieldName = f.Name,
                                    ObjectTypeId = types.First(to => to.TypeName.Equals(x.FullName)).Id
                                })));
             modelBuilder.Entity<ObjectField>().HasData(typeFields.ToArray());
@@ -123,6 +123,19 @@ namespace WBS.DAL
                 .WithMany(provider => provider.DAIRequestsTechnicalService)
                 .OnDelete(DeleteBehavior.Cascade);
 
+            modelBuilder.Entity<RequestLine>()
+                .HasIndex(l => l.RequestId);
+
+            modelBuilder.Entity<RequestLine>()
+                .HasOne(rl => rl.ParentRequestLine)
+                .WithMany(rl => rl.RequestSubLines)
+                .HasForeignKey(rl => rl.ParentRequestLineId);
+
+            modelBuilder.Entity<RequestLine>()
+                .HasOne(rl => rl.ByWhoRequestLine)
+                .WithMany(rl => rl.OnAccountOfRequestLines)
+                .HasForeignKey(rl => rl.ByWhoRequestLineId);
+
             base.OnModelCreating(modelBuilder);
         }
 
@@ -142,7 +155,8 @@ namespace WBS.DAL
         public DbSet<EventQuarter> EventQuarters { get; set; }
         public DbSet<QuarterOfYear> QuarterOfYears { get; set; }
         public DbSet<Status> Statuses { get; set; }
-        public DbSet<ItemOfBudgetPlan> ItemOfBudgetPlans { get; set; }
+        public DbSet<BudgetLine> BudgetLines { get; set; }
+        public DbSet<RequestLine> RequestLines { get; set; }
         public DbSet<DAIRequest> DaiRequests { get; set; }
         public DbSet<TechnicalService> TechnicalServices { get; set; }
         public DbSet<DAIRequestsTechnicalService> DaiRequestTechnicalServices { get; set; }

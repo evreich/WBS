@@ -19,6 +19,7 @@ export const authorization = (login, password) => (dispatch) => {
                 payload: response
             })
         },
+        //TODO: error
         response => {
             response.json().then(result => {
                 console.log(result);

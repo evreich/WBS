@@ -8,21 +8,24 @@ const commonFields = {
         label: "Код",
         type: TypesOfColumnData.NUMBER,
         isVisible: true,
-        canEdit: true
+        canEdit: true,
+        fieldComponent: 'TextFieldMultiline'
     },
     title: {
         propName: "title",
         label: "Название",
         type: TypesOfColumnData.STRING,
         isVisible: true,
-        canEdit: true
+        canEdit: true,
+        fieldComponent: 'TextFieldPlaceholder'
     },
     externalCode: {
         propName: "externalCode",
         label: "Внешний код",
         type: TypesOfColumnData.NUMBER,
         isVisible: true,
-        canEdit: true
+        canEdit: true,
+        fieldComponent: 'TextFieldPlaceholder'
     }
 };
 
@@ -49,11 +52,11 @@ const tableHeaders = {
 const titleTable = "Типы инвестиции";
 const tableId = "TypesOfInvestment";
 
-export default { 
-    createWindowFields, 
-    editWindowFields, 
-    infoWindowModel, 
-    tableHeaders, 
+export default {
+    createWindowFields,
+    editWindowFields,
+    infoWindowModel,
+    tableHeaders,
     titleTable,
     tableId
 };

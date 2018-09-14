@@ -18,7 +18,7 @@ namespace WBS.DAL.Data.Models
         public int? CategoryGroupId { get; set; }
         public CategoryGroup CategoryGroup { get; set; }
 
-        public List<ItemOfBudgetPlan> ItemsOfBudgetPlan { get; set; }
+        public List<BudgetLine> BudgetLines { get; set; }
 
         public override string ToString()
         {
