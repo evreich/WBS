@@ -70,7 +70,7 @@ namespace WBS.API.Extensions
                     return serviceProvider.GetService(ipermissionType.MakeGenericType(type));
                 if (clientType == typeof(FormatDAL))
                     return serviceProvider.GetService(ipermissionType.MakeGenericType(type));
-                if (clientType == typeof(ItemsOfBudgetPlanDAL))
+                if (clientType == typeof(BudgetLineDAL))
                     return serviceProvider.GetService(ipermissionType.MakeGenericType(type));
                 if (clientType == typeof(ProviderDAL))
                     return serviceProvider.GetService(ipermissionType.MakeGenericType(type));
@@ -97,7 +97,7 @@ namespace WBS.API.Extensions
             services.AddTransient<IExtensionDALIQueryable<DAIRequest>, ExtensionDALIQueryableDAIRequest>();
             services.AddTransient<IExtensionDALIQueryable<Event>, ExtensionDALIQueryableEvent>();
             services.AddTransient<IExtensionDALIQueryable<Format>, ExtensionDALIQueryableFormat>();
-            services.AddTransient<IExtensionDALIQueryable<ItemOfBudgetPlan>, ExtensionDALIQueryableItemOfBudgetPlan>();
+            services.AddTransient<IExtensionDALIQueryable<BudgetLine>, ExtensionDALIQueryableBudgetLine>();
             services.AddTransient<IExtensionDALIQueryable<Provider>, ExtensionDALIQueryableProvider>();
             services.AddTransient<IExtensionDALIQueryable<Site>, ExtensionDALIQueryableSite>();
 
@@ -112,7 +112,7 @@ namespace WBS.API.Extensions
             services.AddTransient<ICRUD<DAIRequest>, DAIRequestDAL>();
             services.AddTransient<ICRUD<Event>, EventsDAL>();
             services.AddTransient<ICRUD<Format>, FormatDAL>();
-            services.AddTransient<ICRUD<ItemOfBudgetPlan>, ItemsOfBudgetPlanDAL>();
+            services.AddTransient<ICRUD<BudgetLine>, BudgetLineDAL>();
             services.AddTransient<ICRUD<Provider>, ProviderDAL>();
             services.AddTransient<ICRUD<RationaleForInvestment>, RationaleForInvestmentsDAL>();
             services.AddTransient<ICRUD<ResultCenter>, ResultCentresDAL>();

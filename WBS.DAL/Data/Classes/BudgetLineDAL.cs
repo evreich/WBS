@@ -11,9 +11,9 @@ using WBS.DAL.Layers;
 
 namespace WBS.DAL.Data.Classes
 {
-    public class ExtensionDALIQueryableItemOfBudgetPlan : IExtensionDALIQueryable<ItemOfBudgetPlan>
+    public class ExtensionDALIQueryableBudgetLine : IExtensionDALIQueryable<BudgetLine>
     {
-        public IQueryable<ItemOfBudgetPlan> GetItems(IQueryable<ItemOfBudgetPlan> query)
+        public IQueryable<BudgetLine> GetItems(IQueryable<BudgetLine> query)
         {
             return query
                 .Include(i => i.BudgetPlan)
@@ -24,36 +24,36 @@ namespace WBS.DAL.Data.Classes
         }
     }
 
-    public class ItemsOfBudgetPlanDAL : ICRUD<ItemOfBudgetPlan>
+    public class BudgetLineDAL : ICRUD<BudgetLine>
     {
-        ICRUD<ItemOfBudgetPlan> _bpItem_crud;
+        ICRUD<BudgetLine> _bpItem_crud;
 
-        public ItemsOfBudgetPlanDAL(GetCRUD getcrud, WBSContext context)
+        public BudgetLineDAL(GetCRUD getcrud, WBSContext context)
         {
-            _bpItem_crud = getcrud(typeof(ItemsOfBudgetPlanDAL), typeof(ItemOfBudgetPlan)) as ICRUD<ItemOfBudgetPlan>;
+            _bpItem_crud = getcrud(typeof(BudgetLineDAL), typeof(BudgetLine)) as ICRUD<BudgetLine>;
         }
 
-        public ItemOfBudgetPlan Create(ItemOfBudgetPlan item)
+        public BudgetLine Create(BudgetLine item)
         {
             return _bpItem_crud.Create(item);
         }
 
-        public ItemOfBudgetPlan Delete(object id)
+        public BudgetLine Delete(object id)
         {
             return _bpItem_crud.Delete(id);
         }
 
-        public IEnumerable<ItemOfBudgetPlan> Get()
+        public IEnumerable<BudgetLine> Get()
         {
             return _bpItem_crud.Get();
         }
 
-        public ItemOfBudgetPlan Get(object Id)
+        public BudgetLine Get(object Id)
         {
             return _bpItem_crud.Get(Id);
         }
 
-        public ItemOfBudgetPlan Update(ItemOfBudgetPlan item)
+        public BudgetLine Update(BudgetLine item)
         {
             return _bpItem_crud.Update(item);
         }

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace WBS.DAL.Data.Models.ViewModels
 {
-    public class ItemOfBudgetPlanViewModel : IViewModel<ItemOfBudgetPlan>
+    public class BudgetLineViewModel : IViewModel<BudgetLine>
     {
         public int Id { get; set; }
 
@@ -30,11 +30,11 @@ namespace WBS.DAL.Data.Models.ViewModels
         public int TypeOfInvestmentId { get; set; }
         public string TypeOfInvestment { get; set; }
 
-        public ItemOfBudgetPlanViewModel()
+        public BudgetLineViewModel()
         {
         }
 
-        public ItemOfBudgetPlanViewModel(ItemOfBudgetPlan item)
+        public BudgetLineViewModel(BudgetLine item)
         {
             Id = item.Id;
             SubjectOfInvestment = item.SubjectOfInvestment;
@@ -59,9 +59,9 @@ namespace WBS.DAL.Data.Models.ViewModels
             if (item.TypeOfInvestment != null)  TypeOfInvestment = item.TypeOfInvestment.Title;
         }
 
-        public ItemOfBudgetPlan CreateModel()
+        public BudgetLine CreateModel()
         {
-            return new ItemOfBudgetPlan()
+            return new BudgetLine()
             {
                 Id = this.Id,
                 SubjectOfInvestment = this.SubjectOfInvestment,
