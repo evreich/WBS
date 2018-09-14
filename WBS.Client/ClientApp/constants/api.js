@@ -7,7 +7,7 @@ export default {
     categoriesOfEquipment: `${root}/CategoriesOfEquipment/`,
     categoryGroups: `${root}/CategoryGroup/`,
     budgetPlan: `${root}/BudgetPlan/`,
-    itemsOfBudgetPlan: `${root}/ItemsOfBudgetPlan/`,
+    budgetLine: `${root}/BudgetLine/`,
     typesOfInvestments: `${root}/TypesOfInvestment/`,
     resultCentres: `${root}/ResultCentres/`,
     providers: `${root}/Provider/`,

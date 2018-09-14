@@ -85,7 +85,7 @@ namespace WBS.Tests.Tests
                     Id = i,
                     Year = 2017 - i,
                     Events = new List<Event>() { new Event { Id = i } },
-                    Items = new List<ItemOfBudgetPlan> { new ItemOfBudgetPlan { Id = i } }
+                    Items = new List<BudgetLine> { new BudgetLine { Id = i } }
                 });
             }
             return budgetPlansList;

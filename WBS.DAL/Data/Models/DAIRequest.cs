@@ -61,6 +61,7 @@ namespace WBS.DAL.Data.Models
 
         public List<DAIRequestsTechnicalService> DAIRequestsTechnicalService { get; set; }
         public List<DAIRequestsProvider> DAIRequestsProviders { get; set; }
+        public List<RequestLine> RequestLines { get; set; }
 
         public override string ToString()
         {

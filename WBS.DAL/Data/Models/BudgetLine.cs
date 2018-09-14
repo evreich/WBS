@@ -6,7 +6,7 @@ using WBS.DAL.Cache;
 
 namespace WBS.DAL.Data.Models
 {
-    public class ItemOfBudgetPlan: IBaseEntity
+    public class BudgetLine: IBaseEntity
     {
         public int Id { get; set; }
 
@@ -32,6 +32,8 @@ namespace WBS.DAL.Data.Models
 
         public int TypeOfInvestmentId { get; set; }
         public TypeOfInvestment TypeOfInvestment { get; set; }
+
+        public List<RequestLine> RequestLines { get; set; }
 
     }
 }

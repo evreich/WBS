@@ -15,9 +15,9 @@ namespace WBS.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ItemsOfBudgetPlanController : AbstractBaseTableController<ItemOfBudgetPlan, ItemOfBudgetPlanViewModel, ItemsOfBudgetPlanDAL>
+    public class BudgetLineController : AbstractBaseTableController<BudgetLine, BudgetLineViewModel, BudgetLineDAL>
     {
-        public ItemsOfBudgetPlanController(ICRUD<ItemOfBudgetPlan> baseDAL, ILogger<ItemsOfBudgetPlanController> logger)
+        public BudgetLineController(ICRUD<BudgetLine> baseDAL, ILogger<BudgetLineController> logger)
             : base(baseDAL, logger)
         {
 
@@ -32,10 +32,10 @@ namespace WBS.API.Controllers
                         .OrderBy(f => f.Id);
             var dataForPage = allData.Skip((currentPage) * pageSize)
                             .Take(pageSize)
-                            .Select(bp => new ItemOfBudgetPlanViewModel(bp));
+                            .Select(bp => new BudgetLineViewModel(bp));
 
             _logger.LogInformation("Getting information is completed");
-            return Ok(new DataWithPaginationViewModel<ItemOfBudgetPlanViewModel>
+            return Ok(new DataWithPaginationViewModel<BudgetLineViewModel>
             {
                 Data = dataForPage,
                 Pagination = new Pagination { CurrentPage = currentPage, ElementsPerPage = pageSize, ElementsCount = allData.Count() }
