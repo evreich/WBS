@@ -157,5 +157,6 @@ namespace WBS.DAL
         public DbSet<MenuItemRoles> MenuItemRoles { get; set; }
         public DbSet<ObjectField> ObjectFields { get; set; }
         public DbSet<RolesObjectFields> RolesObjectFields { get; set; }
+        public DbSet<ObjectPermission> ObjectPermissions { get; set; }
     }
 }
