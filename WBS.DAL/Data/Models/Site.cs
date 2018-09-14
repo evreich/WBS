@@ -34,7 +34,7 @@ namespace WBS.DAL.Data.Models
         public int? OperationDirectorId { get; set; }
         public User OperationDirector { get; set; }
 
-        public List<ItemOfBudgetPlan> ItemsOfBudgetPlan { get; set; }
+        public List<BudgetLine> BudgetLines { get; set; }
 
         public Site()
         {

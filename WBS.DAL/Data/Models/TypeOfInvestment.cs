@@ -14,7 +14,7 @@ namespace WBS.DAL.Data.Models
         public string ExternalCode { get; set; }
 
         //relationships
-        public List<ItemOfBudgetPlan> ItemsOfBudgetPlan { get; set; }
+        public List<BudgetLine> BudgetLines { get; set; }
 
         public override string ToString()
         {
