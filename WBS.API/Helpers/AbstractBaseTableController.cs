@@ -11,6 +11,7 @@ using WBS.DAL.Data.Helpers;
 using WBS.DAL.Data.Interfaces;
 using WBS.DAL.Data.Models.ViewModels;
 using WBS.DAL.Descriptors;
+using WBS.DAL.Enums;
 using WBS.DAL.Layers.Interfaces;
 
 namespace WBS.API.Helpers
@@ -142,7 +143,7 @@ namespace WBS.API.Helpers
                 .ToList();
             try
             {
-                var descriptorJSON = DescriptorConverter.ConvertToJSON(descriptorCreator.CreateDescriptor<T>(true, roles));
+                var descriptorJSON = DescriptorConverter.ConvertToJSON(descriptorCreator.CreateDescriptor<T>(TypeOfDescriptor.AddingForm, roles));
                 return Ok(descriptorJSON);
             }
             catch (TypeAccessException)
@@ -160,13 +161,49 @@ namespace WBS.API.Helpers
                 .ToList();
             try
             {
-                var descriptorJSON = DescriptorConverter.ConvertToJSON(descriptorCreator.CreateDescriptor<T>(false, roles));
+                var descriptorJSON = DescriptorConverter.ConvertToJSON(descriptorCreator.CreateDescriptor<T>(TypeOfDescriptor.EditForm, roles));
                 return Ok(descriptorJSON);
             }
             catch (TypeAccessException)
             {
                 return Forbid("Отсутствует доступ к данному типу");
             }
+        }
+
+        [HttpGet("getDescriptorOnRead")]
+        public IActionResult GetDescriptorOnRead([FromServices] DescriptorOfFormGenerator descriptorCreator)
+        {
+            _logger.LogInformation(nameof(GetDescriptorOnRead));
+            var roles = HttpContext.User.Claims.Where(claim => claim.Type == ClaimTypes.Role)
+                .Select(claim => claim.Value)
+                .ToList();
+            try
+            {
+                var descriptorJSON = DescriptorConverter.ConvertToJSON(descriptorCreator.CreateDescriptor<T>(TypeOfDescriptor.ReadForm, roles));
+                return Ok(descriptorJSON);
+            }
+            catch (TypeAccessException)
+            {
+                return Forbid("Отсутствует доступ к данному типу");
+            }
+        }
+
+        [HttpGet("getPermissionsForType")]
+        public virtual IActionResult GetPermissionsForType([FromServices] IPermissionsDAL permDAL)
+        {
+            _logger.LogInformation(nameof(GetDescriptorOnEdit));
+            var roles = HttpContext.User.Claims.Where(claim => claim.Type == ClaimTypes.Role)
+                .Select(claim => claim.Value)
+                .ToList();
+            var perms = permDAL.GetPermissionsForType(typeof(T).FullName, typeof(T).Assembly.GetName().Name, roles);
+
+            bool accessToCreate, accessToRead, accessToUpdate, accessToDelete;
+            accessToCreate = perms.Where(p => p.AllowCreate).Any();
+            accessToRead = perms.Where(p => p.AllowRead).Any();
+            accessToUpdate = perms.Where(p => p.AllowWrite).Any();
+            accessToDelete = perms.Where(p => p.AllowDelete).Any();
+
+            return Ok(new { accessToCreate, accessToRead, accessToUpdate, accessToDelete });
         }
     }
 }
