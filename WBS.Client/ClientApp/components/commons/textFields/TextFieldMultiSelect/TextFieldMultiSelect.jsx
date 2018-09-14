@@ -18,7 +18,7 @@ class TextFieldMultiSelect extends React.Component {
 
     render() {
         const { classes, items, input, label, meta: { touched, error } } = this.props;
-        const values = input.value !== "" ? input.value : []
+        const values = /*Array.isArray(input.value) ? input.value.map(item => item.id) : [];*/ input.value !== "" ? input.value : []
         return (
             <Fragment>
                 <FormControl className={classes.textField}>
@@ -27,12 +27,12 @@ class TextFieldMultiSelect extends React.Component {
                         multiple
                         {...input}
                         value={values}
-                        renderValue={selected => selected.map(id => items.filter(item => (item.id === id)).map(f => f.title)).reduce((prev, curr) => prev.concat(curr)).join(', ')}
+                        renderValue={selected => selected.map(id => items.filter(item => (item.id === id.id)).map(f => f.title)).reduce((prev, curr) => prev.concat(curr)).join(', ')}
                         className={classes.textField}
                     >
                         {items.map(item => (
-                            <MenuItem key={item.id} value={item.id}>
-                                <Checkbox checked={input.value && input.value.indexOf(item.id) > -1} />
+                            <MenuItem key={item.id} value={item}>
+                                <Checkbox checked={values && values.findIndex(val => val.id === item.id) > -1} />
                                 <ListItemText primary={item.title} />
                             </MenuItem>
                         ))}

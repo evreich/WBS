@@ -8,14 +8,16 @@ const commonFields = {
         label: "Название",
         type: TypesOfColumnData.STRING,
         isVisible: true,
-        canEdit: true
+        canEdit: true,
+        fieldComponent: 'TextFieldMultiline'
     },
     profiles: {
         propName: "profiles",
         label: "Профиль",
         type: TypesOfColumnData.ARRAY,
         isVisible: true,
-        canEdit: true
+        canEdit: true,
+        fieldComponent: 'TechnicalServMultiSelect'
     }
 };
 

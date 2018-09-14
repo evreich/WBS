@@ -1,6 +1,7 @@
 import DATA_TYPE from 'constants/contentTypes';
 import { getItem } from 'utils/localStorageTools';
 import SETTINGS from 'constants/settings';
+import REQUEST_METHOD from "constants/httpMethods";
 
 const defaultConfig = {
     contentType: DATA_TYPE.JSON_DATA
@@ -76,3 +77,25 @@ export default function request(config, onSuccess, onError) {
             onError && onError(error);
         });
 }
+
+export const GET = (currRoute, onSuccess, onError, params) => {
+    if (!currRoute) throw new Error("Can't resolve URI");
+
+    const queryPath = concatParamsToPath(params);
+    const allPath = queryPath ? `${currRoute}${queryPath}` : currRoute;
+    request(
+        {
+            method: REQUEST_METHOD.HTTP_GET,
+            route: allPath
+        },
+        data => onSuccess(data),
+        ex => onError(ex)
+    );
+};
+
+export const concatParamsToPath = queryParams =>
+    queryParams &&
+    Object.keys(queryParams).reduce(
+        (path, currKey) => (path = path.concat(currKey, "=", queryParams[currKey], ";")),
+        "?"
+    );
