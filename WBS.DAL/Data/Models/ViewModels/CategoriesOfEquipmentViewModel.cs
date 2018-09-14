@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace WBS.DAL.Data.Models.ViewModels
+﻿namespace WBS.DAL.Data.Models.ViewModels
 {
    
     public class CategoriesOfEquipmentViewModel : IViewModel<CategoryOfEquipment>

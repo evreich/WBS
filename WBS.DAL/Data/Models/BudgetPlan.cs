@@ -14,12 +14,12 @@ namespace WBS.DAL.Data.Models
 
         //relationships
         public List<Event> Events { get; set; }
-        public List<ItemOfBudgetPlan> Items { get; set; }
+        public List<BudgetLine> Items { get; set; }
 
         public BudgetPlan()
         {
             Events = new List<Event>();
-            Items = new List<ItemOfBudgetPlan>();
+            Items = new List<BudgetLine>();
         }
     }
 }

@@ -13,7 +13,7 @@ namespace WBS.DAL.Data.Models
         public string Code { get; set; }
 
         //relationships
-        public List<ItemOfBudgetPlan> ItemsOfBudgetplan { get; set; }
+        public List<BudgetLine> BudgetLines { get; set; }
        
         public override string ToString()
         {

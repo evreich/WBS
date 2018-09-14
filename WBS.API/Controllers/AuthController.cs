@@ -5,6 +5,7 @@ using WBS.API.Helpers;
 using WBS.DAL.Authorization;
 using WBS.DAL.Authorization.Classes;
 using WBS.DAL.Authorization.Models;
+using WBS.DAL.Data.Interfaces;
 
 namespace WBS.API.Controllers
 {
@@ -15,12 +16,14 @@ namespace WBS.API.Controllers
         private readonly IServiceProvider _provider;
         private readonly ProfilesDAL _profileDAL;
         private readonly RefreshTokenDAL _refreshTokenDAL;
+        private readonly IPermissionsDAL _permissionsDAL;
         private readonly ILogger<AuthController> _logger;
 
-        public AuthController(IServiceProvider provider, ProfilesDAL profileDAL, RefreshTokenDAL refreshTokenDAL, ILogger<AuthController> logger)
+        public AuthController(IServiceProvider provider, ProfilesDAL profileDAL, IPermissionsDAL permissionsDAL, RefreshTokenDAL refreshTokenDAL, ILogger<AuthController> logger)
         {
             _provider = provider;
             _profileDAL = profileDAL;
+            _permissionsDAL = permissionsDAL;
             _refreshTokenDAL = refreshTokenDAL;
             _logger = logger;
         }
@@ -29,7 +32,7 @@ namespace WBS.API.Controllers
         public IActionResult Login([FromBody]AuthRequest data)
         {
             _logger.LogInformation("Start login for user: '{login}'", data.Login);
-            var tokenData = new AuthUtils(_profileDAL, _refreshTokenDAL, _provider).CreateToken(data.Login, data.Password);
+            var tokenData = new AuthUtils(_profileDAL, _refreshTokenDAL, _permissionsDAL, _provider).CreateToken(data.Login, data.Password);
             _logger.LogInformation("User login is successful");
             return Ok(tokenData);
         }
@@ -46,7 +49,7 @@ namespace WBS.API.Controllers
             }
 
             _logger.LogInformation("Update Access Token start");
-            var tokenData = new AuthUtils(_profileDAL, _refreshTokenDAL, _provider).UpdateAccessToken(refreshToken);
+            var tokenData = new AuthUtils(_profileDAL, _refreshTokenDAL, _permissionsDAL, _provider).UpdateAccessToken(refreshToken);
             _logger.LogInformation("Update Access Token is successful");
             return Ok(tokenData);
         }

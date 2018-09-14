@@ -11,5 +11,6 @@ namespace WBS.DAL.Authorization.Models.ViewModels
         public string RefreshToken { get; set; }
         public string Username { get; set; }
         public string Roles { get; set; }
+        public List<MenuItem> AvailableMenuItems { get; set; }
     }
 }
