@@ -4,6 +4,7 @@ export default {
     //main paths to controllers
     auth: `${root}/auth/login`,
     token: `${root}/auth/token`,
+
     categoriesOfEquipment: `${root}/CategoriesOfEquipment/`,
     categoryGroups: `${root}/CategoryGroup/`,
     budgetPlan: `${root}/BudgetPlan/`,
@@ -15,6 +16,7 @@ export default {
     formats: `${root}/Format/`,
     profiles: `${root}/Profile/`,
     newRequests: `${root}/DAIRequest/`,
+    descriptors: `${root}/Descriptors/`,
 
     //ATTACHMENTS
     ATTACHMENT_CONTROLLER_URL: `${root}/Attachment`,
