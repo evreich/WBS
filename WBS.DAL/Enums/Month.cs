@@ -19,17 +19,17 @@ namespace WBS.DAL.Enums
         May = 5,
         [DisplayName("Июнь")]
         June = 6,
-        [DisplayName("Январь")]
+        [DisplayName("Июль")]
         July = 7,
-        [DisplayName("Январь")]
+        [DisplayName("Август")]
         August = 8,
-        [DisplayName("Январь")]
+        [DisplayName("Сентябрь")]
         September = 9,
-        [DisplayName("Январь")]
+        [DisplayName("Октябрь")]
         October = 10,
-        [DisplayName("Январь")]
+        [DisplayName("Ноябрь")]
         November = 11,
-        [DisplayName("Январь")]
+        [DisplayName("Декабрь")]
         December = 12
     }
 }
