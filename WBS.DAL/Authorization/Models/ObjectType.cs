@@ -19,5 +19,6 @@ namespace WBS.DAL.Authorization.Models
 
         List<ObjectField> ObjectFields = new List<ObjectField>();
         List<RolesObjectTypes> RolesObjectTypes = new List<RolesObjectTypes>();
+        List<ObjectPermission> ObjectPermissions = new List<ObjectPermission>();
     }
 }
