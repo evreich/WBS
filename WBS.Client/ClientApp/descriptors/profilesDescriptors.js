@@ -8,49 +8,56 @@ const commonFields = {
         label: "ФИО",
         type: TypesOfColumnData.STRING,
         isVisible: true,
-        canEdit: true
+        canEdit: true,
+        fieldComponent: 'TextFieldMultiline'
     },
     jobPosition: {
         propName: "jobPosition",
         label: "Должность",
         type: TypesOfColumnData.STRING,
         isVisible: true,
-        canEdit: true
+        canEdit: true,
+        fieldComponent: 'TextFieldMultiline'
     },
     department: {
         propName: "department",
         label: "Подразделение",
         type: TypesOfColumnData.STRING,
         isVisible: true,
-        canEdit: true
+        canEdit: true,
+        fieldComponent: 'TextFieldMultiline'
     },
     deletionMark: {
         propName: "deletionMark",
         label: "Помечено на удаление",
         type: TypesOfColumnData.BOOLEAN,
         isVisible: true,
-        canEdit: true
+        canEdit: true,
+        fieldComponent: ''
     },
     login: {
         propName: "login",
         label: "Логин",
         type: TypesOfColumnData.STRING,
         isVisible: true,
-        canEdit: true
+        canEdit: true,
+        fieldComponent: 'TextFieldPlaceholder'
     },
     password: {
         propName: "password",
         label: "Пароль",
         type: TypesOfColumnData.STRING,
         isVisible: true,
-        canEdit: true
+        canEdit: true,
+        fieldComponent: 'TextFieldPlaceholder'
     },
     roles: {
         propName: "roles",
         label: "Полномочия",
         type: TypesOfColumnData.ARRAY,
         isVisible: true,
-        canEdit: true
+        canEdit: true,
+        fieldComponent: 'RoleMultiSelect'
     }
 };
 

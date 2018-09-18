@@ -276,7 +276,7 @@ const Table = ({
                                 }
                                 initialValues={modalFormInitialValues}
                                 //descriptors={descriptors} - из стора?
-                                cancel={this.handleCloseChangeModalWindow}
+                                close={this.handleCloseChangeModalWindow}
                                 currentPage={currentPage}
                                 elementsPerPage={elementsPerPage}
                                 header={changeModalWindowTitle}

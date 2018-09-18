@@ -4,7 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using WBS.DAL.Authorization.Models;
+using WBS.DAL.Data.Helpers;
 using WBS.DAL.Data.Interfaces;
+using System.Linq.Dynamic.Core;
 
 namespace WBS.DAL.Data.Classes
 {
@@ -50,6 +52,23 @@ namespace WBS.DAL.Data.Classes
                     .Where(rot => rot.ObjectType.TypeName.Equals(typeName)
                     && rot.ObjectType.AssemblyName.Equals(assemblyName)
                     && roles.Contains(rot.Role.Title));
+        }
+
+        public IEnumerable<ObjectPermission> GetTypeCriterions(string typeName, string assemblyName)
+        {
+            return _context.ObjectPermissions
+                .Include(obp => obp.ObjectType)
+                .Where(obp => obp.ObjectType.TypeName.Equals(typeName) && obp.ObjectType.AssemblyName.Equals(assemblyName));
+        }
+
+        public bool CheckCriterions<T> (T item, IEnumerable<Delegate> expressionDelegates)
+        {
+            foreach (var _del in expressionDelegates)
+            {
+                if ((bool)_del.DynamicInvoke(item))
+                    return true;
+            }
+            return false;
         }
 
         public IEnumerable<RolesObjectFields> GetPermissionsForFields(string typeName, string assemblyName, List<string> roles)
