@@ -19,7 +19,7 @@ export const reducer = (state = initialState, action) => {
                 [action.component]: {
                     isFetching: false,
                     isFetched: true,
-                    items: action.data
+                    data: action.data
                 }
             }
         case TYPE.CLEAR_COMPONENT_DATA: {
@@ -27,6 +27,16 @@ export const reducer = (state = initialState, action) => {
             if (newState[action.component])
                 delete newState[action.component];
             return newState;
+        }
+        case TYPE.DESCRIPTORS_IS_FETCHED: {
+            return {
+                ...state,
+                [action.component]: {
+                    isFetching: false,
+                    isFetched: true,
+                    descriptors: action.data
+                }
+            }
         }
         default:
             return state;

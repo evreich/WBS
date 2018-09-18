@@ -9,8 +9,7 @@ namespace WBS.DAL.Data.Models.ViewModels
     {
         public int Id { get; set; }
         public string Title { get; set; }
-        public List<int> Profiles { get; set; }
-        public string ProfilesString { get; set; }
+        public List<TechnicalServiceViewModel> Profiles { get; set; }
 
         public ProviderViewModel(Provider provider)
         {
@@ -21,10 +20,7 @@ namespace WBS.DAL.Data.Models.ViewModels
 
                 if (provider.ProvidersTechnicalServices != null)
                 {
-                    Profiles = provider.ProvidersTechnicalServices.Select(p => p.TechnicalService.Id).ToList();
-
-                    var profilesTitles = provider.ProvidersTechnicalServices.Select(p => p.TechnicalService.Title).ToList();
-                    ProfilesString = String.Join(", ", profilesTitles);
+                    Profiles = provider.ProvidersTechnicalServices.Select(p => new TechnicalServiceViewModel(p.TechnicalService)).ToList();
                 }
             }
         }
@@ -39,7 +35,7 @@ namespace WBS.DAL.Data.Models.ViewModels
             {
                 Id = Id,
                 Title = Title,
-                ProvidersTechnicalServices = Profiles.Select(profileId => new ProvidersTechnicalService(Id, profileId)).ToList()
+                ProvidersTechnicalServices = Profiles.Select(elem => new ProvidersTechnicalService(Id, elem.Id)).ToList()
             };
         }
     }

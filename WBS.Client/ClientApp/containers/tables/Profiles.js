@@ -1,6 +1,7 @@
 import { connect } from "react-redux";
 
 import CreateTable from "factories/Table";
+import ModalWindow from "../modalWindows/ProfileModalWindow";
 import ProfileTableRow from "components/tableRows/ProfileTableRow";
 import {
     getTable,
@@ -50,6 +51,7 @@ export default connect(
     CreateTable({
         dataFiledsInfo: descriptors,
         RowComponent: ProfileTableRow,
-        title: TABLE
+        title: TABLE,
+        ChangeItemModalWindow: ModalWindow
     })
 );
