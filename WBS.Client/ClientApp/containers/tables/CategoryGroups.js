@@ -1,6 +1,7 @@
 import { connect } from "react-redux";
 
 import CreateTable from "factories/Table";
+import ModalWindow from "../modalWindows/CategoryGroupModalWindow";
 import {
     getTable,
     clearTable,
@@ -48,6 +49,7 @@ export default connect(
     CreateTable({
         dataFiledsInfo: descriptors,
         title: TABLE,
-        tableStyles: tableStyles
+        tableStyles: tableStyles,
+        ChangeItemModalWindow: ModalWindow
     })
 );

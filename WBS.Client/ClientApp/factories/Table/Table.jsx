@@ -40,6 +40,7 @@ const Table = ({
             constructor(props) {
                 super(props);
                 this.state = {
+                    updatingItemId: null,
                     modalWindowChangingIsOpening: false,
                     updatingDataItem: null,
                     changeModalWindowTitle: createTitleModalWindow,
@@ -68,8 +69,8 @@ const Table = ({
                 pagination: paginationPropType.isRequired,
                 deleteData: PropTypes.func,
                 queryParams: PropTypes.object,
-                showToolbar: PropTypes.bool,
-                modalFormInitialValues: PropTypes.object
+                showToolbar: PropTypes.bool
+                //modalFormInitialValues: PropTypes.object
             };
 
             static defaultProps = {
@@ -105,6 +106,7 @@ const Table = ({
                 clearUpdatingItem();
 
                 this.setState({
+                    updatingItemId: null,
                     modalWindowChangingIsOpening: false
                 });
             };
@@ -121,6 +123,7 @@ const Table = ({
                 setUpdatingItem(id);
 
                 this.setState({
+                    updatingItemId: id,
                     modalWindowChangingIsOpening: true,
                     //TODO: Если нет прав на редактирование?
                     changeModalWindowTitle: editTitleModalWindow
@@ -164,10 +167,11 @@ const Table = ({
                     pagination,
                     data,
                     changeData,
-                    modalFormInitialValues,
+                    //modalFormInitialValues,
                     showToolbar
                 } = this.props;
                 const {
+                    updatingItemId,
                     modalWindowChangingIsOpening,
                     updatingDataItem,
                     changeModalWindowTitle,
@@ -268,13 +272,14 @@ const Table = ({
                         {/* Модальные окна */}
                         {modalWindowChangingIsOpening &&
                             <ChangeItemModalWindow
+                                itemId={updatingItemId}
                                 save={changeData}
                                 formFields={
                                     updatingDataItem
                                         ? editWindowFields
                                         : createWindowFields
                                 }
-                                initialValues={modalFormInitialValues}
+                                //initialValues={modalFormInitialValues}
                                 //descriptors={descriptors} - из стора?
                                 close={this.handleCloseChangeModalWindow}
                                 currentPage={currentPage}

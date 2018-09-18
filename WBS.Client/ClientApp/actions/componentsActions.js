@@ -32,7 +32,7 @@ export function clearComponentData(component) {
 }
 
 export function getDataForModalForm(route, component, id) {
-    const params = { id };
+    //const params = { id };
     return (dispatch) => {
         dispatch({
             type: TYPE.REQUEST_IS_FETCHING,
@@ -50,7 +50,7 @@ export function getDataForModalForm(route, component, id) {
             //TODO:
         }
 
-        GET(route, onSuccess, onError, params);
+        GET(`${route}${id}`, onSuccess, onError/*, params*/);
     }
 
 /*
@@ -60,9 +60,9 @@ export function getDataForModalForm(route, component, id) {
     }*/
 }
 
-export function getDescriptorsForModalForm(component/*, id*/) {
+export function getDescriptorsForModalForm(component, objectType/*, id*/) {
     const params = {
-        component//,
+        objectType//,
         //id
     };
 

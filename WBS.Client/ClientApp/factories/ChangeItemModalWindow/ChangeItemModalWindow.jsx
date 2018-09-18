@@ -21,8 +21,9 @@ import {
 
 export default (route,
     componentName,
+    objectType,
     mapStateToProps = defaultMapStateToProps(componentName),
-    mapDispatchToProps = defaultMapDispatchToProps(route, componentName)
+    mapDispatchToProps = defaultMapDispatchToProps(route, componentName, objectType)
 ) => {
     class ChangeItemModalWindow extends React.Component {
         componentDidMount() {
@@ -133,12 +134,15 @@ export default (route,
 
 const defaultMapStateToProps = componentName => state => (
     state.components[componentName]
-        ? { initialValues: state.components[componentName].data }
+        ? {
+            initialValues: state.components[componentName].data,
+            descriptors: state.components[componentName].descriptors
+        }
         : {}
 );
 
-const defaultMapDispatchToProps = (route, componentName) => (dispatch) => ({
-    getInitialValues: () => dispatch(getDataForModalForm(route, componentName)),
-    getDescriptors: (id) => dispatch(getDescriptorsForModalForm(componentName, id)),
+const defaultMapDispatchToProps = (route, componentName, objectType) => (dispatch) => ({
+    getInitialValues: (id) => dispatch(getDataForModalForm(route, componentName, id)),
+    getDescriptors: (id) => dispatch(getDescriptorsForModalForm(componentName, objectType, id)),
     clearComponentData: () => dispatch(clearComponentData(componentName))
 });

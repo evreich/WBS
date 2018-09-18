@@ -11,15 +11,14 @@ export default {
     budgetLine: `${root}/BudgetLine/`,
     typesOfInvestments: `${root}/TypesOfInvestment/`,
     resultCentres: `${root}/ResultCentres/`,
-    permissions: `${root}/Permissions/`,
-    descriptors: `${root}/Descriptor/`,
     providers: `${root}/Provider/`,
     sits: `${root}/Site/`,
     formats: `${root}/Format/`,
     profiles: `${root}/Profile/`,
     newRequests: `${root}/DAIRequest/`,
 
-    descriptors: `${root}/Descriptors`,
+    descriptors: `${root}/Descriptor`,
+    permissions: `${root}/Permissions/`,
 
     //ATTACHMENTS
     ATTACHMENT_CONTROLLER_URL: `${root}/Attachment`,
