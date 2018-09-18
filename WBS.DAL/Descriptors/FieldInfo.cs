@@ -7,20 +7,20 @@ namespace WBS.DAL.Descriptors
 {
     public struct FieldInfo
     {
-        public string Label { get; set; }
-        public string Name { get; set; }
-        public bool IsVisiable { get; set; }
-        public bool CanEdit { get; set; }
-        public string FieldComponent { get; set; }
+        public string label { get; set; }
+        public string propName { get; set; }
+        public bool isVisible { get; set; }
+        public bool canEdit { get; set; }
+        public string fieldComponent { get; set; }
         //TODO: add validation prop
 
-        public FieldInfo(string label, string name, bool isVisiable, bool canEdit, string fieldComponent)
+        public FieldInfo(string label, string name, bool isVisible, bool canEdit, string fieldComponent)
         {
-            Label = label;
-            Name = name;
-            IsVisiable = isVisiable;
-            CanEdit = canEdit;
-            FieldComponent = fieldComponent;
+            this.label = label;
+            this.propName = name;
+            this.isVisible = isVisible;
+            this.canEdit = canEdit;
+            this.fieldComponent = fieldComponent;
         }
     }
 }
