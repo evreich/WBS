@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using WBS.DAL.Data.Interfaces;
+using WBS.DAL.Data.Models;
 
 namespace WBS.API.Controllers
 {
@@ -21,15 +22,16 @@ namespace WBS.API.Controllers
             _logger = logger;
         }
 
-        [HttpGet("GetPermissionsForType/{type}")]
-        public virtual IActionResult GetPermissionsForType([FromServices] IPermissionsDAL permDAL, string type)
+        [HttpGet]
+        public virtual IActionResult GetPermissionsForType([FromServices] IPermissionsDAL permDAL, [FromQuery] string objectType)
         {
             _logger.LogInformation(nameof(GetPermissionsForType));
             var roles = HttpContext.User.Claims.Where(claim => claim.Type == ClaimTypes.Role)
                 .Select(claim => claim.Value)
                 .ToList();
 
-            Type typeEntity = Type.GetType(type);
+            string assemblyQualifiedName = $"WBS.DAL.Data.Models.{objectType}, WBS.DAL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null";
+            Type typeEntity = Type.GetType(assemblyQualifiedName);
             var perms = permDAL.GetPermissionsForType(typeEntity.FullName, typeEntity.Assembly.GetName().Name, roles);
 
             bool accessToCreate, accessToRead, accessToUpdate, accessToDelete;

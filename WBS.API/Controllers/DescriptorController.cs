@@ -25,15 +25,16 @@ namespace WBS.API.Controllers
 
         [HttpGet]
         public IActionResult GetDescriptor([FromServices] DescriptorOfFormGenerator descriptorCreator, 
-            [FromQuery]string type, [FromQuery]int id = 0)
+            [FromQuery]string objectType, [FromQuery]int id = 0)
         {
             _logger.LogInformation(nameof(GetDescriptor));
             
             var roles = HttpContext.User.Claims.Where(claim => claim.Type == ClaimTypes.Role)
                 .Select(claim => claim.Value)
                 .ToList();
-       
-            Type typeEntity = Type.GetType(type);
+
+            string assemblyQualifiedName = $"WBS.DAL.Data.Models.{objectType}, WBS.DAL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null";
+            Type typeEntity = Type.GetType(assemblyQualifiedName);
             var targetOfForm = id == 0 ? TypeOfDescriptor.AddingForm : TypeOfDescriptor.EditForm;
 
             var descriptor = descriptorCreator.CreateDescriptor(typeEntity, targetOfForm, roles);
