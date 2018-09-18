@@ -103,6 +103,11 @@ namespace WBS.DAL
                                })));
             modelBuilder.Entity<ObjectField>().HasData(typeFields.ToArray());
 
+            //делаем поле логин уникальным
+            modelBuilder.Entity<User>()
+                .HasIndex(u => u.Login)
+                .IsUnique();
+
             //мультиключи для промежуточной таблицы EventQuarters
             modelBuilder.Entity<EventQuarter>().HasKey(c => new { c.EventId, c.QuarterOfYearId });
 
@@ -171,5 +176,6 @@ namespace WBS.DAL
         public DbSet<MenuItemRoles> MenuItemRoles { get; set; }
         public DbSet<ObjectField> ObjectFields { get; set; }
         public DbSet<RolesObjectFields> RolesObjectFields { get; set; }
+        public DbSet<ObjectPermission> ObjectPermissions { get; set; }
     }
 }

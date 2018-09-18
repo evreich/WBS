@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 using WBS.DAL.Cache;
+using WBS.DAL.Enums;
 
 namespace WBS.DAL.Data.Models
 {
@@ -16,6 +17,7 @@ namespace WBS.DAL.Data.Models
         public int Count { get; set; }
         public double Price { get; set; }
         public double Amount { get; set; }
+        public Month PlannedInvestmentDate { get; set; }
 
         //relationships
         public int BudgetPlanId { get; set; }

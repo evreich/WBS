@@ -10,5 +10,7 @@ namespace WBS.DAL.Data.Interfaces
         IEnumerable<RolesObjectTypes> GetPermissionsForType(string typeName, string assemblyName, List<string> roles);
         IEnumerable<MenuItem> GetPermissionsForMenuItems(List<string> roles);
         IEnumerable<RolesObjectFields> GetPermissionsForFields(string typeName, string assemblyName, List<string> roles);
+        IEnumerable<ObjectPermission> GetTypeCriterions(string typeName, string assemblyName);
+        Boolean CheckCriterions<T>(T item, IEnumerable<Delegate> expressionDelegates);
     }
 }
