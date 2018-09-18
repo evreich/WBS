@@ -5,7 +5,7 @@ const initialState = {};
 export const reducer = (state = initialState, action) => {
     const { type } = action;
     switch (type) {
-        case TYPE.COMPONENT_DATA_IS_FETCHING:
+        case TYPE.REQUEST_IS_FETCHING:
             return {
                 ...state,
                 [action.component]: {
@@ -13,7 +13,7 @@ export const reducer = (state = initialState, action) => {
                     isFetched: false
                 }
             }
-        case TYPE.COMPONENT_DATA_IS_FETCHED:
+        case TYPE.REQUEST_IS_FETCHED:
             return {
                 ...state,
                 [action.component]: {

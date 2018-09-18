@@ -74,10 +74,9 @@ namespace WBS.DAL.Layers.Classes
             return result;
         }
 
-        //TODO: ???
         public T Delete(object id)
         {
-            var item = _context.Set<T>().Where(b => b.Id == 1).FirstOrDefault();
+            var item = _context.Set<T>().Where(b => b.Id == (int)id).FirstOrDefault();
             if (item != null)
             {
                 _context.Set<T>().Remove(item);

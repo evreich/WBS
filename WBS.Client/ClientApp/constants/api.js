@@ -16,7 +16,8 @@ export default {
     formats: `${root}/Format/`,
     profiles: `${root}/Profile/`,
     newRequests: `${root}/DAIRequest/`,
-    descriptors: `${root}/Descriptors/`,
+
+    descriptors: `${root}/Descriptors`,
 
     //ATTACHMENTS
     ATTACHMENT_CONTROLLER_URL: `${root}/Attachment`,

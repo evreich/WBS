@@ -18,7 +18,6 @@ class TextFieldMultiSelect extends React.Component {
 
     render() {
         const { classes, items, input, label, meta: { touched, error } } = this.props;
-        //const values = /*Array.isArray(input.value) ? input.value.map(item => item.id) : [];*/ input.value !== "" ? input.value : [];
         const values = input.value === ""
             ? [] : Array.isArray(input.value)
                 ? input.value.map(JSON.stringify) : JSON.stringify(input.value)

@@ -4,13 +4,13 @@ import { GET } from 'utils/fetchUtil';
 export function getDescriptors(route, component, params) {
     return (dispatch) => {
         dispatch({
-            type: TYPE.COMPONENT_DATA_IS_FETCHING,
+            type: TYPE.REQUEST_IS_FETCHING,
             component
         })
 
         const onSuccess = (data) =>
             dispatch({
-                type: TYPE.COMPONENT_DATA_IS_FETCHED,
+                type: TYPE.REQUEST_IS_FETCHED,
                 component,
                 data
             });

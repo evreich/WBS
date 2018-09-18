@@ -68,7 +68,7 @@ export default (route,
                             {
                                 descriptors &&
                                 Object.values(descriptors).map(field => {
-                                    const { fieldComponent, propName, label } = field || {};
+                                    const { fieldComponent, propName, label, canEdit } = field || {};
                                     const component = fields[fieldComponent];
                                     return (
                                         <div key={propName}>
@@ -76,6 +76,7 @@ export default (route,
                                                 component={component}
                                                 name={propName}
                                                 label={label}
+                                                disabled={!canEdit}
                                             />
                                         </div>
                                     )
