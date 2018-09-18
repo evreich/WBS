@@ -56,20 +56,21 @@ const Table = ({
             }
 
             static propTypes = {
-                classes: PropTypes.object.isRequired,
                 getDataTable: PropTypes.func.isRequired,
-                //getDescriptors: PropTypes.func.isRequired,
+                getPermissions: PropTypes.func.isRequired,
                 clearTable: PropTypes.func.isRequired,
                 updateTable: PropTypes.func.isRequired,
                 changeData: PropTypes.func.isRequired,
                 setUpdatingItem: PropTypes.func.isRequired,
                 clearUpdatingItem: PropTypes.func.isRequired,
+                deleteData: PropTypes.func,
+
                 data: PropTypes.array.isRequired,
                 descriptors: PropTypes.array.isRequired,
                 pagination: paginationPropType.isRequired,
-                deleteData: PropTypes.func,
                 queryParams: PropTypes.object,
-                showToolbar: PropTypes.bool
+                showToolbar: PropTypes.bool,
+                classes: PropTypes.object.isRequired
                 //modalFormInitialValues: PropTypes.object
             };
 
@@ -86,12 +87,13 @@ const Table = ({
 
             //lifecycle hooks
             componentDidMount() {
-                const { getDataTable, queryParams } = this.props;
+                const { getDataTable, queryParams, getPermissions } = this.props;
                 //Получаем:
                 //дескрипторы на чтение и создание;
                 //доступ на CRUD операции над типом.
 
                 //Все кладем в редакс в tables -> конкр. таблица -> соотв поле
+                getPermissions();
                 getDataTable(undefined, undefined, queryParams);
             }
 

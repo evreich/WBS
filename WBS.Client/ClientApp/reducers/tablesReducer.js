@@ -35,6 +35,15 @@ export const reducer = (state = initialState, action) => {
             delete newState[action.title].updatingItem;
             return newState;
         }
+        case TYPE.PERMISSIONS_IS_FETCHED: {
+            return {
+                ...state,
+                [action.title]: {
+                    ...state[action.component],
+                    descriptors: action.descriptors
+                }
+            };
+        }
         default:
             return state;
     }

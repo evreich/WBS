@@ -18,7 +18,7 @@ export default {
     newRequests: `${root}/DAIRequest/`,
 
     descriptors: `${root}/Descriptor`,
-    permissions: `${root}/Permissions/`,
+    permissions: `${root}/Permissions`,
 
     //ATTACHMENTS
     ATTACHMENT_CONTROLLER_URL: `${root}/Attachment`,

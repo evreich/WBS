@@ -9,7 +9,8 @@ import {
     changeData,
     deleteData,
     setUpdatingItem,
-    clearUpdatingItem
+    clearUpdatingItem,
+    getPermissions
 } from 'actions/tablesActions';
 import { tableStyles } from 'stylesheets/tableLayoutAuto.css';
 import descriptors from "descriptors/categoryGroupsDescriptors";
@@ -39,7 +40,9 @@ const mapDispatchToProps = (dispatch) => ({
     changeData: (pageIndex, pageSize, method, data) => dispatch(changeData(pageIndex, pageSize, method, data, ROUTE, TABLE)),
     deleteData: (pageIndex, pageSize, data) => dispatch(deleteData(pageIndex, pageSize, data, ROUTE, TABLE)),
     setUpdatingItem: (updatingItemId) => dispatch(setUpdatingItem(updatingItemId, TABLE)),
-    clearUpdatingItem: () => dispatch(clearUpdatingItem(TABLE))
+    clearUpdatingItem: () => dispatch(clearUpdatingItem(TABLE)),
+    //TODO: oblectType?
+    getPermissions: () => dispatch(getPermissions(TABLE, "CategoryGroups"))
 });
 
 export default connect(
