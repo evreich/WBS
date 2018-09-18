@@ -26,9 +26,8 @@ namespace WBS.DAL.Descriptors
             return _permissionsDAL.GetPermissionsForType(typeName, assemblyName, roles).Any();
         }
 
-        public Descriptor CreateDescriptor<T> (TypeOfDescriptor typeOfDescriptor, List<string> roles) where T : IBaseEntity
+        public Descriptor CreateDescriptor (Type typeEntity, TypeOfDescriptor typeOfDescriptor, List<string> roles)
         {
-            Type typeEntity = typeof(T);
             string assemblyName = typeEntity.Assembly.GetName().Name;
             string typeName = typeEntity.FullName;
 
