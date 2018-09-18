@@ -8,14 +8,16 @@ const commonFields = {
         label: "Код",
         type: TypesOfColumnData.NUMBER,
         isVisible: true,
-        canEdit: true
+        canEdit: true,
+        fieldComponent: 'TextFieldMultiline'
     },
     title: {
         propName: "title",
         label: "Название",
         type: TypesOfColumnData.STRING,
         isVisible: true,
-        canEdit: true
+        canEdit: true,
+        fieldComponent: 'TextFieldPlaceholder'
     },
 };
 

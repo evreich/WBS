@@ -25,6 +25,7 @@
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="2.1.0" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="5.2.2" />
+    <PackageReference Include="System.Linq.Dynamic.Core" Version="1.0.8.18" />
   </ItemGroup>
 
   <ItemGroup>

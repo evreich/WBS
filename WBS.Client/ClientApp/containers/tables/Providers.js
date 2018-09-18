@@ -42,7 +42,6 @@ const mapDispatchToProps = (dispatch) => ({
     clearUpdatingItem: () => dispatch(clearUpdatingItem(TABLE))
 });
 
-//TODO: TableRow
 export default connect(
     mapStateToProps,
     mapDispatchToProps
