@@ -72,6 +72,8 @@ namespace WBS.API.Extensions
                     return serviceProvider.GetService(ipermissionType.MakeGenericType(type));
                 if (clientType == typeof(BudgetLineDAL))
                     return serviceProvider.GetService(ipermissionType.MakeGenericType(type));
+                if (clientType == typeof(RequestLineDAL))
+                    return serviceProvider.GetService(ipermissionType.MakeGenericType(type));
                 if (clientType == typeof(ProviderDAL))
                     return serviceProvider.GetService(ipermissionType.MakeGenericType(type));
                 if (clientType == typeof(RationaleForInvestmentsDAL))
@@ -98,6 +100,7 @@ namespace WBS.API.Extensions
             services.AddTransient<IExtensionDALIQueryable<Event>, ExtensionDALIQueryableEvent>();
             services.AddTransient<IExtensionDALIQueryable<Format>, ExtensionDALIQueryableFormat>();
             services.AddTransient<IExtensionDALIQueryable<BudgetLine>, ExtensionDALIQueryableBudgetLine>();
+            services.AddTransient<IExtensionDALIQueryable<RequestLine>, ExtensionDALIQueryableRequestLine>();
             services.AddTransient<IExtensionDALIQueryable<Provider>, ExtensionDALIQueryableProvider>();
             services.AddTransient<IExtensionDALIQueryable<Site>, ExtensionDALIQueryableSite>();
 
@@ -113,6 +116,7 @@ namespace WBS.API.Extensions
             services.AddTransient<ICRUD<Event>, EventsDAL>();
             services.AddTransient<ICRUD<Format>, FormatDAL>();
             services.AddTransient<ICRUD<BudgetLine>, BudgetLineDAL>();
+            services.AddTransient<ICRUD<RequestLine>, RequestLineDAL>();
             services.AddTransient<ICRUD<Provider>, ProviderDAL>();
             services.AddTransient<ICRUD<RationaleForInvestment>, RationaleForInvestmentsDAL>();
             services.AddTransient<ICRUD<ResultCenter>, ResultCentresDAL>();
