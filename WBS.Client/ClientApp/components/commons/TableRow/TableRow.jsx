@@ -20,6 +20,7 @@ const TableRow = props => {
                     {transformDataForRender(row[elem.propName], elem.type)}
                 </MuiTableCell>
             ))}
+
         </MuiTableRow>
     );
 };

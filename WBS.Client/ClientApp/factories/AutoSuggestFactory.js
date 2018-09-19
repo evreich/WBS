@@ -2,38 +2,41 @@
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import TextFieldSelect from 'components/commons/textFields/TextFieldSelect';
+import AutosuggestField from 'components/commons/textFields/AutosuggestField';
 import selectItemPropType from 'propTypes/selectItem';
 import { getItemsForSelection, clearItemsForSelection } from 'actions/componentsActions';
-import getSelectItems from 'selectors/selectItemsSelectors';
+import getSelectItems from 'selectors/usersItemsSelectors';
+
+
+class Select extends React.Component {
+    componentWillUnmount() {
+        const { clearItems } = this.props;
+        clearItems();
+    }
+    render() {
+        const { suggestions, getItems, clearItems, ...other } = this.props;
+        const a = 1;
+        console.log(a);
+        return <AutosuggestField
+            suggestions={suggestions ? suggestions : []}
+            getItems={getItems}
+            clearItems={clearItems}
+            {...other} />
+    }
+}
+
 
 export default (route,
     componentName,
     mapStateToProps = defaultMapStateToProps(componentName),
     mapDispatchToProps = defaultMapDispatchToProps(route, componentName)
 ) => {
-    class Select extends React.Component {
-        componentDidMount() {
-            const { getItems } = this.props;
-            getItems();
-        }
-
-        componentWillUnmount() {
-            const { clearItems } = this.props;
-            clearItems();
-        }
-
-        render() {
-            const { items, ...other } = this.props;
-            return <TextFieldSelect items={items} {...other} />
-        }
-
-    }
 
     Select.propTypes = {
         getItems: PropTypes.func.isRequired,
         clearItems: PropTypes.func.isRequired,
-        items: PropTypes.arrayOf(selectItemPropType)
+        items: PropTypes.arrayOf(selectItemPropType),
+        suggestions: PropTypes.array
     }
 
     Select.defaultProps = {
@@ -48,12 +51,12 @@ export default (route,
 const defaultMapStateToProps = componentName => state => (
     state.components[componentName]
         ? {
-            items: getSelectItems(componentName)(state)
+            suggestions: getSelectItems(componentName)(state)
         }
         : {}
 );
 
 const defaultMapDispatchToProps = (route, componentName) => (dispatch) => ({
-    getItems: () => dispatch(getItemsForSelection(route, componentName)),
+    getItems: (query, count) => dispatch(getItemsForSelection(route, componentName, { query, count})),
     clearItems: () => dispatch(clearItemsForSelection(componentName))
 });

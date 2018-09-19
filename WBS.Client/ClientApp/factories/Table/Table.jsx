@@ -26,10 +26,7 @@ const editTitleModalWindow = "Редактирование";
 
 const Table = ({
     dataFiledsInfo,
-    AddItemDialogBodyComponent,
-    ChangeItemDialogBodyComponent,
     RowComponent = CommonTableRow,
-    //InformationModalWindow = CommonInformationModalWindow,
     ChangeItemModalWindow = CommonChangeItemModalWindow,
     isNeedFillEmptyRow = true,
     isNeedTableFooter = true,
@@ -40,6 +37,7 @@ const Table = ({
             constructor(props) {
                 super(props);
                 this.state = {
+                    updatingItemId: null,
                     modalWindowChangingIsOpening: false,
                     updatingDataItem: null,
                     changeModalWindowTitle: createTitleModalWindow,
@@ -55,21 +53,22 @@ const Table = ({
             }
 
             static propTypes = {
-                classes: PropTypes.object.isRequired,
                 getDataTable: PropTypes.func.isRequired,
-                //getDescriptors: PropTypes.func.isRequired,
+                getPermissions: PropTypes.func.isRequired,
                 clearTable: PropTypes.func.isRequired,
                 updateTable: PropTypes.func.isRequired,
                 changeData: PropTypes.func.isRequired,
                 setUpdatingItem: PropTypes.func.isRequired,
                 clearUpdatingItem: PropTypes.func.isRequired,
+                deleteData: PropTypes.func,
+
                 data: PropTypes.array.isRequired,
                 descriptors: PropTypes.array.isRequired,
                 pagination: paginationPropType.isRequired,
-                deleteData: PropTypes.func,
                 queryParams: PropTypes.object,
                 showToolbar: PropTypes.bool,
-                modalFormInitialValues: PropTypes.object
+                classes: PropTypes.object.isRequired
+                //modalFormInitialValues: PropTypes.object
             };
 
             static defaultProps = {
@@ -85,8 +84,13 @@ const Table = ({
 
             //lifecycle hooks
             componentDidMount() {
-                const { getDataTable, queryParams } = this.props;
-                //дескрипторы тоже где-то тут приходят
+                const { getDataTable, queryParams, getPermissions } = this.props;
+                //Получаем:
+                //дескрипторы на чтение и создание;
+                //доступ на CRUD операции над типом.
+
+                //Все кладем в редакс в tables -> конкр. таблица -> соотв поле
+                getPermissions();
                 getDataTable(undefined, undefined, queryParams);
             }
 
@@ -101,6 +105,7 @@ const Table = ({
                 clearUpdatingItem();
 
                 this.setState({
+                    updatingItemId: null,
                     modalWindowChangingIsOpening: false
                 });
             };
@@ -117,6 +122,7 @@ const Table = ({
                 setUpdatingItem(id);
 
                 this.setState({
+                    updatingItemId: id,
                     modalWindowChangingIsOpening: true,
                     //TODO: Если нет прав на редактирование?
                     changeModalWindowTitle: editTitleModalWindow
@@ -160,12 +166,12 @@ const Table = ({
                     pagination,
                     data,
                     changeData,
-                    modalFormInitialValues,
+                    //modalFormInitialValues,
                     showToolbar
                 } = this.props;
                 const {
+                    updatingItemId,
                     modalWindowChangingIsOpening,
-                    updatingDataItem,
                     changeModalWindowTitle,
                     dataFiledsCount
                 } = this.state;
@@ -211,18 +217,10 @@ const Table = ({
                 );
 
                 const {
-                    // infoWindowModel,
-                    createWindowFields,
-                    editWindowFields,
                     tableHeaders,
                     titleTable,
                     tableId
                 } = dataFiledsInfo;
-
-                const isExistsDialogBodies =
-                    AddItemDialogBodyComponent && ChangeItemDialogBodyComponent
-                        ? true
-                        : false;
 
                 return (
                     <>
@@ -264,28 +262,13 @@ const Table = ({
                         {/* Модальные окна */}
                         {modalWindowChangingIsOpening &&
                             <ChangeItemModalWindow
+                                itemId={updatingItemId}
                                 save={changeData}
-                                formFields={
-                                    updatingDataItem
-                                        ? editWindowFields
-                                        : createWindowFields
-                                }
-                                initialValues={modalFormInitialValues}
-                                //descriptors={descriptors} - из стора?
                                 close={this.handleCloseChangeModalWindow}
                                 currentPage={currentPage}
                                 elementsPerPage={elementsPerPage}
                                 header={changeModalWindowTitle}
-                            >
-                                {/*отправляем тело диалогового окна в качестве children */}
-                                {isExistsDialogBodies ? (
-                                    updatingDataItem ? (
-                                        <ChangeItemDialogBodyComponent />
-                                    ) : (
-                                            <AddItemDialogBodyComponent />
-                                        )
-                                ) : null}
-                            </ChangeItemModalWindow>
+                            />
                         }
                     </>
                 );

@@ -1,6 +1,7 @@
 import { connect } from "react-redux";
 
 import CreateTable from "factories/Table";
+import ModalWindow from "../modalWindows/ProfileModalWindow";
 import ProfileTableRow from "components/tableRows/ProfileTableRow";
 import {
     getTable,
@@ -8,11 +9,13 @@ import {
     updateTable,
     changeData,
     setUpdatingItem,
-    clearUpdatingItem
+    clearUpdatingItem,
+    getPermissions
 } from "actions/tablesActions";
 import { markOnDeleteData } from 'actions/profileActions';
 import descriptors from "descriptors/profilesDescriptors";
 import api from 'constants/api';
+import objectTypes from 'constants/objectTypes';
 
 const TABLE = "profiles";
 const ROUTE = api.profiles;
@@ -39,7 +42,8 @@ const mapDispatchToProps = dispatch => ({
     changeData: (pageIndex, pageSize, method, data) => dispatch(changeData(pageIndex, pageSize, method, data, ROUTE, TABLE)),
     deleteData: (pageIndex, pageSize, data) => dispatch(markOnDeleteData(pageIndex, pageSize, data, ROUTE, ROUTE_MARK_ON_DELETE_PROFILE, TABLE)),
     setUpdatingItem: (updatingItemId) => dispatch(setUpdatingItem(updatingItemId, TABLE)),
-    clearUpdatingItem: () => dispatch(clearUpdatingItem(TABLE))
+    clearUpdatingItem: () => dispatch(clearUpdatingItem(TABLE)),
+    getPermissions: () => dispatch(getPermissions(TABLE, objectTypes.profile))
 });
 
 //TODO: TableRow
@@ -50,6 +54,7 @@ export default connect(
     CreateTable({
         dataFiledsInfo: descriptors,
         RowComponent: ProfileTableRow,
-        title: TABLE
+        title: TABLE,
+        ChangeItemModalWindow: ModalWindow
     })
 );

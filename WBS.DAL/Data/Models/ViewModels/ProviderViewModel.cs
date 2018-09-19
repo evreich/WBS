@@ -5,7 +5,7 @@ using System.Text;
 
 namespace WBS.DAL.Data.Models.ViewModels
 {
-    public class ProviderViewModel: IViewModel<Provider>
+    public class ProviderViewModel : IViewModel<Provider>
     {
         public int Id { get; set; }
         public string Title { get; set; }
@@ -13,7 +13,7 @@ namespace WBS.DAL.Data.Models.ViewModels
 
         public ProviderViewModel(Provider provider)
         {
-            if(provider != null)
+            if (provider != null)
             {
                 Id = provider.Id;
                 Title = provider.Title;
@@ -22,7 +22,7 @@ namespace WBS.DAL.Data.Models.ViewModels
                 {
                     Profiles = provider.ProvidersTechnicalServices.Select(p => new TechnicalServiceViewModel(p.TechnicalService)).ToList();
                 }
-            }         
+            }
         }
 
         public ProviderViewModel()

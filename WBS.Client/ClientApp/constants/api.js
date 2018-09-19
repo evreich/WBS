@@ -4,6 +4,7 @@ export default {
     //main paths to controllers
     auth: `${root}/auth/login`,
     token: `${root}/auth/token`,
+
     categoriesOfEquipment: `${root}/CategoriesOfEquipment/`,
     categoryGroups: `${root}/CategoryGroup/`,
     budgetPlan: `${root}/BudgetPlan/`,
@@ -15,6 +16,9 @@ export default {
     formats: `${root}/Format/`,
     profiles: `${root}/Profile/`,
     newRequests: `${root}/DAIRequest/`,
+
+    descriptors: `${root}/Descriptor`,
+    permissions: `${root}/Permissions`,
 
     //ATTACHMENTS
     ATTACHMENT_CONTROLLER_URL: `${root}/Attachment`,
@@ -29,7 +33,7 @@ export default {
     typesOfInvestmentSelection: `${root}/TypesOfInvestment/typesofinvestmentSelection/`,
     technicalServsSelection: `${root}/TechnicalService/technicalServsSelection/`,
     formatsSelection: `${root}/Format/formatsSelection/`,
-    filteredProfilesForSelect: `${root}/Profile/usersSelection/`,
+    filteredProfilesForSelect: `${root}/Profile/usersSelection`,
     rolesSelection: `${root}/Profile/rolesSelection/`,
     investmentRationaleSelection: `${root}/RationaleForInvestment/investmentRationaleSelection/`,
 

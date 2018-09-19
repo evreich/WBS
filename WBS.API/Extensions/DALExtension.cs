@@ -47,8 +47,6 @@ namespace WBS.API.Extensions
                     else
                         return serviceProvider.GetService(ipermissionType.MakeGenericType(type));
                 }
-                if (clientType == typeof(UserRolesDAL))
-                    return serviceProvider.GetService(ipermissionType.MakeGenericType(type));
                 if (clientType == typeof(RolesDAL))
                     return serviceProvider.GetService(icacheType.MakeGenericType(type));
                 if (clientType == typeof(AttachmentDAL))
@@ -71,6 +69,8 @@ namespace WBS.API.Extensions
                 if (clientType == typeof(FormatDAL))
                     return serviceProvider.GetService(ipermissionType.MakeGenericType(type));
                 if (clientType == typeof(BudgetLineDAL))
+                    return serviceProvider.GetService(ipermissionType.MakeGenericType(type));
+                if (clientType == typeof(RequestLineDAL))
                     return serviceProvider.GetService(ipermissionType.MakeGenericType(type));
                 if (clientType == typeof(ProviderDAL))
                     return serviceProvider.GetService(ipermissionType.MakeGenericType(type));
@@ -98,12 +98,13 @@ namespace WBS.API.Extensions
             services.AddTransient<IExtensionDALIQueryable<Event>, ExtensionDALIQueryableEvent>();
             services.AddTransient<IExtensionDALIQueryable<Format>, ExtensionDALIQueryableFormat>();
             services.AddTransient<IExtensionDALIQueryable<BudgetLine>, ExtensionDALIQueryableBudgetLine>();
+            services.AddTransient<IExtensionDALIQueryable<RequestLine>, ExtensionDALIQueryableRequestLine>();
             services.AddTransient<IExtensionDALIQueryable<Provider>, ExtensionDALIQueryableProvider>();
             services.AddTransient<IExtensionDALIQueryable<Site>, ExtensionDALIQueryableSite>();
 
             // levels extentions
             services.AddTransient<ICRUD<User>, ProfilesDAL>();
-            services.AddTransient<ICRUD<UserRoles>, UserRolesDAL>();
+            services.AddTransient<ICRUD<UserRoles>, BaseDAL<UserRoles>>();
             services.AddTransient<ICRUD<Role>, RolesDAL>();
             services.AddTransient<ICRUD<BudgetPlan>, BudgetPlanDAL>();
             services.AddTransient<ICRUD<Attachment>, AttachmentDAL>();
@@ -113,6 +114,7 @@ namespace WBS.API.Extensions
             services.AddTransient<ICRUD<Event>, EventsDAL>();
             services.AddTransient<ICRUD<Format>, FormatDAL>();
             services.AddTransient<ICRUD<BudgetLine>, BudgetLineDAL>();
+            services.AddTransient<ICRUD<RequestLine>, RequestLineDAL>();
             services.AddTransient<ICRUD<Provider>, ProviderDAL>();
             services.AddTransient<ICRUD<RationaleForInvestment>, RationaleForInvestmentsDAL>();
             services.AddTransient<ICRUD<ResultCenter>, ResultCentresDAL>();

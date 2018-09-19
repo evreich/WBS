@@ -1,6 +1,7 @@
 import { connect } from "react-redux";
 
 import CreateTable from "factories/Table";
+import ModalWindow from "../modalWindows/ResultCentreModalWindow";
 import {
     getTable,
     clearTable,
@@ -8,11 +9,13 @@ import {
     changeData,
     deleteData,
     setUpdatingItem,
-    clearUpdatingItem
+    clearUpdatingItem,
+    getPermissions
 } from 'actions/tablesActions';
 import { tableStyles } from 'stylesheets/tableLayoutAuto.css';
 import descriptors from "descriptors/resultCentresDescriptors";
 import api from 'constants/api';
+import objectTypes from 'constants/objectTypes';
 
 const TABLE = "resultCentres";
 const ROUTE = api.resultCentres;
@@ -38,7 +41,8 @@ const mapDispatchToProps = (dispatch) => ({
     changeData: (pageIndex, pageSize, method, data) => dispatch(changeData(pageIndex, pageSize, method, data, ROUTE, TABLE)),
     deleteData: (pageIndex, pageSize, data) => dispatch(deleteData(pageIndex, pageSize, data, ROUTE, TABLE)),
     setUpdatingItem: (updatingItemId) => dispatch(setUpdatingItem(updatingItemId, TABLE)),
-    clearUpdatingItem: () => dispatch(clearUpdatingItem(TABLE))
+    clearUpdatingItem: () => dispatch(clearUpdatingItem(TABLE)),
+    getPermissions: () => dispatch(getPermissions(TABLE, objectTypes.resultCenter))
 });
 
 export default connect(
@@ -48,6 +52,7 @@ export default connect(
     CreateTable({
         dataFiledsInfo: descriptors,
         title: TABLE,
-        tableStyles: tableStyles
+    tableStyles: tableStyles,
+    ChangeItemModalWindow: ModalWindow
     })
 );

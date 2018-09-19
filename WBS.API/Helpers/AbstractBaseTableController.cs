@@ -11,6 +11,7 @@ using WBS.DAL.Data.Helpers;
 using WBS.DAL.Data.Interfaces;
 using WBS.DAL.Data.Models.ViewModels;
 using WBS.DAL.Descriptors;
+using WBS.DAL.Enums;
 using WBS.DAL.Layers.Interfaces;
 
 namespace WBS.API.Helpers
@@ -24,6 +25,18 @@ namespace WBS.API.Helpers
         {
             _baseDAL = baseDAL as V;
             _logger = logger;
+        }
+
+        [HttpGet("{id}")]
+        [Authorize]
+        public virtual IActionResult Get(int id)
+        {
+            _logger.LogInformation("Getting information is started");
+
+            var item = _baseDAL.Get(id);
+
+            _logger.LogInformation("Getting information is completed");
+            return Ok(item);
         }
 
         [HttpGet("{currentPage}/{pageSize}")]
@@ -130,42 +143,6 @@ namespace WBS.API.Helpers
                 string error = "Data cant be founded on this ID";
                 _logger.LogInformation(error);
                 return BadRequest(new ResponseError(error));
-            }
-        }
-
-        [HttpGet("getDescriptorOnAdd")]
-        public IActionResult GetDescriptorOnAdd([FromServices] DescriptorOfFormGenerator descriptorCreator)
-        {
-            _logger.LogInformation(nameof(GetDescriptorOnAdd));
-            var roles = HttpContext.User.Claims.Where(claim => claim.Type == ClaimTypes.Role)
-                .Select(claim => claim.Value)
-                .ToList();
-            try
-            {
-                var descriptorJSON = DescriptorConverter.ConvertToJSON(descriptorCreator.CreateDescriptor<T>(true, roles));
-                return Ok(descriptorJSON);
-            }
-            catch (TypeAccessException)
-            {
-                return Forbid("Отсутствует доступ к данному типу");
-            }
-        }
-
-        [HttpGet("getDescriptorOnEdit")]
-        public IActionResult GetDescriptorOnEdit([FromServices] DescriptorOfFormGenerator descriptorCreator)
-        {
-            _logger.LogInformation(nameof(GetDescriptorOnEdit));
-            var roles = HttpContext.User.Claims.Where(claim => claim.Type == ClaimTypes.Role)
-                .Select(claim => claim.Value)
-                .ToList();
-            try
-            {
-                var descriptorJSON = DescriptorConverter.ConvertToJSON(descriptorCreator.CreateDescriptor<T>(false, roles));
-                return Ok(descriptorJSON);
-            }
-            catch (TypeAccessException)
-            {
-                return Forbid("Отсутствует доступ к данному типу");
             }
         }
     }

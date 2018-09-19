@@ -8,7 +8,7 @@ import TypeOfInvestmentSelect from 'containers/textFields/selects/TypeOfInvestme
 import TechnicalServMultiSelect from 'containers/textFields/multiSelects/TechnicalServMultiSelect';
 import RoleMultiSelect from 'containers/textFields/multiSelects/RoleMultiSelect';
 
-import UserAutosuggestField from 'components/commons/textFields/UserAutosuggestField';
+import UserAutosuggestField from 'containers/textFields/UsersAutoSuggest';
 import TextFieldMultiline from 'components/commons/textFields/TextFieldMultiline';
 import TextFieldPlaceholder from 'components/commons/textFields/TextFieldPlaceholder';
 
