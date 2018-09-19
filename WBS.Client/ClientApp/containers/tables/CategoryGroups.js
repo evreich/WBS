@@ -9,11 +9,13 @@ import {
     changeData,
     deleteData,
     setUpdatingItem,
-    clearUpdatingItem
+    clearUpdatingItem,
+    getPermissions
 } from 'actions/tablesActions';
 import { tableStyles } from 'stylesheets/tableLayoutAuto.css';
 import descriptors from "descriptors/categoryGroupsDescriptors";
 import api from 'constants/api';
+import objectTypes from 'constants/objectTypes';
 
 const TABLE = "categoryGroups";
 const ROUTE = api.categoryGroups;
@@ -39,7 +41,8 @@ const mapDispatchToProps = (dispatch) => ({
     changeData: (pageIndex, pageSize, method, data) => dispatch(changeData(pageIndex, pageSize, method, data, ROUTE, TABLE)),
     deleteData: (pageIndex, pageSize, data) => dispatch(deleteData(pageIndex, pageSize, data, ROUTE, TABLE)),
     setUpdatingItem: (updatingItemId) => dispatch(setUpdatingItem(updatingItemId, TABLE)),
-    clearUpdatingItem: () => dispatch(clearUpdatingItem(TABLE))
+    clearUpdatingItem: () => dispatch(clearUpdatingItem(TABLE)),
+    getPermissions: () => dispatch(getPermissions(TABLE, objectTypes.categoryGroup))
 });
 
 export default connect(

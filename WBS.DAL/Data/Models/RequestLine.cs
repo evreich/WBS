@@ -12,6 +12,13 @@ namespace WBS.DAL.Data.Models
     {
         public int Id { get; set; }
 
+        public string Title { get; set; }
+        public double Price { get; set; }
+        public double OldPrice { get; set; }
+        public int Quantity { get; set; }
+        public int OldQuantity { get; set; }
+        public int Amortization { get; set; }
+
         //relationships
         public int RequestId { get; set; }
         public DAIRequest Request { get; set; }
