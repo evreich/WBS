@@ -152,7 +152,7 @@ namespace WBS.API.Controllers
             return Ok(result);
         }
 
-        [HttpGet("usersSelection/{query}/{count}")]
+        [HttpGet("usersSelection")]
         public IActionResult GetProfilesForSelection(string query = "", int? count = null)
         {
             _logger.LogInformation(nameof(GetProfilesForSelection));
