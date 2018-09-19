@@ -10,6 +10,8 @@ export default {
     budgetLine: `${root}/BudgetLine/`,
     typesOfInvestments: `${root}/TypesOfInvestment/`,
     resultCentres: `${root}/ResultCentres/`,
+    permissions: `${root}/Permissions/`,
+    descriptors: `${root}/Descriptor/`,
     providers: `${root}/Provider/`,
     sits: `${root}/Site/`,
     formats: `${root}/Format/`,
@@ -29,7 +31,7 @@ export default {
     typesOfInvestmentSelection: `${root}/TypesOfInvestment/typesofinvestmentSelection/`,
     technicalServsSelection: `${root}/TechnicalService/technicalServsSelection/`,
     formatsSelection: `${root}/Format/formatsSelection/`,
-    filteredProfilesForSelect: `${root}/Profile/usersSelection/`,
+    filteredProfilesForSelect: `${root}/Profile/usersSelection`,
     rolesSelection: `${root}/Profile/rolesSelection/`,
     investmentRationaleSelection: `${root}/RationaleForInvestment/investmentRationaleSelection/`,
 
