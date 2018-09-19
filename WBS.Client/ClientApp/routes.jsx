@@ -6,7 +6,7 @@ import Authorization from 'containers/AuthorizationContainer/AuthorizationContai
 import Home from './components/Home';
 import CategoriesOfEquipment from 'containers/tables/CategoriesOfEquipment';
 import CategoryGroups from 'containers/tables/CategoryGroups'
-import BudgetPlans from 'containers/tables/BudgetPlans';
+import BudgetPlans from 'containers/tables/BudgetPlans/BudgetPlans';
 import TypesOfInvestments from 'containers/tables/TypesOfInvestments';
 import ResultCentres from 'containers/tables/ResultCentres';
 import Providers from 'containers/tables/Providers';
@@ -19,7 +19,7 @@ const routes = (
     <Layout>
         <Route exact path="/" component={Authorization} />
         <Route path="/CategoriesOfEquipment" component={CategoriesOfEquipment} /> 
-        {<Route path="/BudgetPlans" component={BudgetPlans} //}
+        <Route path="/BudgetPlans" component={BudgetPlans} />
         <Route path="/CategoryGroups" component={CategoryGroups} />
         <Route path="/TypesOfInvestments" component={TypesOfInvestments} />
         <Route path="/ResultCentres" component={ResultCentres} />

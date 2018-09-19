@@ -2,9 +2,12 @@
 
 import CreateTable from "factories/Table";
 import { getTable, clearTable, updateTable, changeData } from 'actions/tablesActions';
+import descriptors from "descriptors/BudgetPlanDescriptors";
+import api from 'constants/api';
+import TableRow from "./BudgetPlanTableRow";
 
 const TABLE = "budgetPlans";
-const ROUTE = document.api.budgetPlan;
+const ROUTE = api.budgetPlan;
 
 const mapStateToProps = state =>
     (state.tables[TABLE] ?
@@ -21,25 +24,15 @@ const mapDispatchToProps = (dispatch) => ({
     changeData: (pageIndex, pageSize, method, data) => dispatch(changeData(pageIndex, pageSize, method, data, ROUTE, TABLE)),
 });
 
-const BudgetPlansContainer = (
-    dataFields,
-    DialogBody,
-    TableRow,
-    InformationModalWindow
-) =>
-    connect(
+const BudgetPlansContainer = connect(
         mapStateToProps,
         mapDispatchToProps
     )(
-        CreateTable({
-            dataFiledsInfo: dataFields,
-            AddItemDialogBodyComponent: DialogBody,
-            ChangeItemDialogBodyComponent: DialogBody,
-            RowComponent: TableRow,
-            InformationModalWindow,
-            isNeedFillEmptyRow: false,
-            isNeedTableFooter: false
+    CreateTable({
+        dataFiledsInfo: descriptors,
+        title: TABLE,
+        RowComponent: TableRow
         })
-        );
+    );
 
 export default BudgetPlansContainer;

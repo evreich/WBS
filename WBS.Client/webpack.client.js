@@ -6,7 +6,7 @@ const autoprefixer = require('autoprefixer');
 
 module.exports = prod => ({
     entry: {
-        bundle: path.resolve(__dirname, 'ClientApp-old/boot-client.jsx'),
+        bundle: path.resolve(__dirname, 'ClientApp/boot-client.jsx'),
     },
 
     output: {
@@ -17,7 +17,7 @@ module.exports = prod => ({
 
     resolve: {
         extensions: ['.js', '.jsx'],
-        modules: [path.resolve(__dirname, 'ClientApp-old'), "node_modules"],
+        modules: [path.resolve(__dirname, 'ClientApp'), "node_modules"],
     },
 
     devtool: prod ? undefined : 'inline-source-map',
