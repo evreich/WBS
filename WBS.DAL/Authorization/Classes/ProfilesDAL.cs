@@ -117,7 +117,7 @@ namespace WBS.DAL.Authorization
             {
                 foreach(var ur in userRoles)
                 {
-                    _user_roles_crud.Delete(ur);
+                    _user_roles_crud.Delete(ur.Id);
                 }
             }
         }
