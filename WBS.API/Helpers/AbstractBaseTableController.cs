@@ -27,6 +27,18 @@ namespace WBS.API.Helpers
             _logger = logger;
         }
 
+        [HttpGet("{id}")]
+        [Authorize]
+        public virtual IActionResult Get(int id)
+        {
+            _logger.LogInformation("Getting information is started");
+
+            var item = _baseDAL.Get(id);
+
+            _logger.LogInformation("Getting information is completed");
+            return Ok(item);
+        }
+
         [HttpGet("{currentPage}/{pageSize}")]
         [Authorize]
         public virtual IActionResult Get(int currentPage = 0, int pageSize = 5)

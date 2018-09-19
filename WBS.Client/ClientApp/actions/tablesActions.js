@@ -1,7 +1,8 @@
 import TYPE from 'constants/actionTypes';
-import request from 'utils/fetchUtil';
+import request, { GET } from 'utils/fetchUtil';
 import REQUEST_METHOD from 'constants/httpMethods';
 import { concatParamsToPath } from 'utils/apiRequestUtil';
+import api from 'constants/api';
 
 export function receiveTable(data, title) {
     return {
@@ -56,14 +57,14 @@ export function getTable(currentPage = 0, elementsPerPage = 5, route, title, que
         const queryPath = concatParamsToPath(queryParams);
         const commonPath = `${currentPage}/${elementsPerPage}`;
         const allPath = queryPath ? queryPath.concat(commonPath) : commonPath
-        
+
         request(
             {
                 method: REQUEST_METHOD.HTTP_GET,
                 route: route + allPath,
-            }, 
+            },
             (data) => {
-                if(!title) throw new Error("Title is undefined");
+                if (!title) throw new Error("Title is undefined");
 
                 dispatch(receiveTable(data, title))
             },
@@ -83,7 +84,7 @@ export function changeData(currentPage = 0, elementsPerPage = 5, method, data, r
                 method,
                 route,
                 data
-            }, 
+            },
             () => dispatch(getTable(currentPage, elementsPerPage, route, title)),
             (ex) => dispatch(errorsReceive(ex))
         );
@@ -100,10 +101,34 @@ export function deleteData(currentPage = 0, elementsPerPage = 5, id, route, titl
             {
                 method: REQUEST_METHOD.HTTP_DELETE,
                 route: route + `${id}/`,
-            }, 
+            },
             () => dispatch(getTable(currentPage, elementsPerPage, route, title)),
             (ex) => dispatch(errorsReceive(ex))
         );
 
+    }
+}
+
+export function getPermissions(title, objectType) {
+    const params = { objectType };
+
+    return (dispatch) => {
+        /*dispatch({
+            type: TYPE.REQUEST_IS_FETCHING,
+            title
+        })*/
+
+        const onSuccess = (permissions) =>
+            dispatch({
+                type: TYPE.PERMISSIONS_IS_FETCHED,
+                title,
+                permissions
+            });
+
+        const onError = (/*error*/) => {
+            //TODO:
+        }
+
+        GET(api.permissions, onSuccess, onError, params);
     }
 }

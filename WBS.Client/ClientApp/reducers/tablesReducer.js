@@ -7,7 +7,10 @@ export const reducer = (state = initialState, action) => {
         case TYPE.GET_TABLE_SUCCESS: {
             return {
                 ...state,
-                [action.title]: action.data
+                [action.title]: {
+                    ...state[action.title],
+                    ...action.data
+                }
             };
         }
         case TYPE.GET_TABLE_ERROR: {
@@ -34,6 +37,15 @@ export const reducer = (state = initialState, action) => {
             let newState = { ...state };
             delete newState[action.title].updatingItem;
             return newState;
+        }
+        case TYPE.PERMISSIONS_IS_FETCHED: {
+            return {
+                ...state,
+                [action.title]: {
+                    ...state[action.title],
+                    permissions: action.permissions
+                }
+            };
         }
         default:
             return state;
