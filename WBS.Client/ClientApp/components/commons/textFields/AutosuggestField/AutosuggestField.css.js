@@ -1,4 +1,4 @@
-export const styles = theme => ({
+export default theme => ({
     container: {
         flexGrow: 1,
         position: "relative"

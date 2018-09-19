@@ -31,7 +31,7 @@ export default {
     typesOfInvestmentSelection: `${root}/TypesOfInvestment/typesofinvestmentSelection/`,
     technicalServsSelection: `${root}/TechnicalService/technicalServsSelection/`,
     formatsSelection: `${root}/Format/formatsSelection/`,
-    filteredProfilesForSelect: `${root}/Profile/usersSelection/`,
+    filteredProfilesForSelect: `${root}/Profile/usersSelection`,
     rolesSelection: `${root}/Profile/rolesSelection/`,
     investmentRationaleSelection: `${root}/RationaleForInvestment/investmentRationaleSelection/`,
 
