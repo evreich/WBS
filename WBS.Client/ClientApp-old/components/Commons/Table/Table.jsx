@@ -262,7 +262,7 @@ const СreateTable = ({
                         : false;
 
                 return (
-                    <>
+                    <div>
                         <Paper className={classes.root} id={tableId}>
                             {/*Таблица*/}
                             {showToolbar && (
@@ -342,7 +342,7 @@ const СreateTable = ({
                                     )
                             ) : null}
                         </ChangeItemModalWindow>
-                    </>
+                        </div>
                 );
             }
         }

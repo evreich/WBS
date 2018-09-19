@@ -1,12 +1,12 @@
-import { connect } from "react-redux";
+﻿import { connect } from "react-redux";
 
-import CreateTable from "components/Commons/Table";
-import { getTable, clearTable, updateTable, changeData, deleteData } from '../tablesActions';
+import CreateTable from "factories/Table";
+import { getTable, clearTable, updateTable, changeData } from 'actions/tablesActions';
 
-const TABLE = "categoriesOfEquipment";
-const ROUTE = document.api ? document.api.categoriesOfEquipment : undefined;
+const TABLE = "budgetPlans";
+const ROUTE = document.api.budgetPlan;
 
-const mapStateToProps = state => 
+const mapStateToProps = state =>
     (state.tables[TABLE] ?
         {
             ...state.tables[TABLE]
@@ -19,10 +19,14 @@ const mapDispatchToProps = (dispatch) => ({
     clearTable: () => dispatch(clearTable(TABLE)),
     updateTable: (data) => dispatch(updateTable(data, TABLE)),
     changeData: (pageIndex, pageSize, method, data) => dispatch(changeData(pageIndex, pageSize, method, data, ROUTE, TABLE)),
-    deleteData: (pageIndex, pageSize, data) => dispatch(deleteData(pageIndex, pageSize, data, ROUTE, TABLE))
 });
 
-const CategoriesOfEquipmentContainer = (dataFields, DialogBody) => 
+const BudgetPlansContainer = (
+    dataFields,
+    DialogBody,
+    TableRow,
+    InformationModalWindow
+) =>
     connect(
         mapStateToProps,
         mapDispatchToProps
@@ -31,9 +35,11 @@ const CategoriesOfEquipmentContainer = (dataFields, DialogBody) =>
             dataFiledsInfo: dataFields,
             AddItemDialogBodyComponent: DialogBody,
             ChangeItemDialogBodyComponent: DialogBody,
-            title: TABLE
+            RowComponent: TableRow,
+            InformationModalWindow,
+            isNeedFillEmptyRow: false,
+            isNeedTableFooter: false
         })
-    );
+        );
 
-
-export default CategoriesOfEquipmentContainer;
+export default BudgetPlansContainer;
