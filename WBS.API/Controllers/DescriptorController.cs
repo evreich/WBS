@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
@@ -33,8 +34,12 @@ namespace WBS.API.Controllers
                 .Select(claim => claim.Value)
                 .ToList();
 
-            string assemblyQualifiedName = $"WBS.DAL.Data.Models.{objectType}, WBS.DAL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null";
-            Type typeEntity = Type.GetType(assemblyQualifiedName);
+            var dalAssembly = Assembly.Load(Assembly.GetExecutingAssembly().GetReferencedAssemblies()
+                .FirstOrDefault(a => a.Name == "WBS.DAL"));
+            var modelsTypes = dalAssembly.GetTypes().Where(type => type.Namespace == "WBS.DAL.Data.Models" || 
+                                                                   type.Namespace == "WBS.DAL.Authorization.Models");
+
+            Type typeEntity = modelsTypes.FirstOrDefault(type => type.Name == objectType);
             var targetOfForm = id == 0 ? TypeOfDescriptor.AddingForm : TypeOfDescriptor.EditForm;
 
             var descriptor = descriptorCreator.CreateDescriptor(typeEntity, targetOfForm, roles);
