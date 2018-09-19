@@ -18,7 +18,22 @@ class TextFieldMultiSelect extends React.Component {
 
     render() {
         const { classes, items, input, label, meta: { touched, error } } = this.props;
-        const values = /*Array.isArray(input.value) ? input.value.map(item => item.id) : [];*/ input.value !== "" ? input.value : []
+        const values = input.value === ""
+            ? [] : Array.isArray(input.value)
+                ? input.value.map(JSON.stringify) : JSON.stringify(input.value)
+
+        const parse = event => {
+            const val = event.target.value;
+            return Array.isArray(val) ? val.map(JSON.parse) : JSON.parse(val);
+        }
+
+        const getRenderValue = selected => selected
+            .map(elem => items
+                .filter(item => (item.id === JSON.parse(elem).id))
+                .map(f => f.title))
+            .reduce((prev, curr) => prev
+                .concat(curr)).join(', ');
+
         return (
             <Fragment>
                 <FormControl className={classes.textField}>
@@ -27,12 +42,18 @@ class TextFieldMultiSelect extends React.Component {
                         multiple
                         {...input}
                         value={values}
-                        renderValue={selected => selected.map(id => items.filter(item => (item.id === id.id)).map(f => f.title)).reduce((prev, curr) => prev.concat(curr)).join(', ')}
+                        renderValue={selected => getRenderValue(selected)}
                         className={classes.textField}
+                        onChange={event => input.onChange(parse(event))}
+
                     >
                         {items.map(item => (
-                            <MenuItem key={item.id} value={item}>
-                                <Checkbox checked={values && values.findIndex(val => val.id === item.id) > -1} />
+                            <MenuItem key={item.id} value={JSON.stringify(item)}>
+                                <Checkbox
+                                    checked={Array.isArray(values)
+                                        && values.length > 0
+                                        && input.value.findIndex(val => val.id === item.id) > -1}
+                                />
                                 <ListItemText primary={item.title} />
                             </MenuItem>
                         ))}

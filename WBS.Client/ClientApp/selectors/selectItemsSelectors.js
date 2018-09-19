@@ -5,8 +5,8 @@ const getComponent = componentName => state => state.components[componentName];
 const getSelectItems = componentName =>
     createSelector(
         [getComponent(componentName)],
-        (component) => component.items &&
-            component.items.map(elem => ({
+        (component) => component.data &&
+            component.data.map(elem => ({
                 value: elem.id,
                 text: elem.title
             }))
