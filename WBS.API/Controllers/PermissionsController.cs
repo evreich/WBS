@@ -32,7 +32,7 @@ namespace WBS.API.Controllers
                 .ToList();
 
             var dalAssembly = Assembly.Load(Assembly.GetExecutingAssembly().GetReferencedAssemblies()
-                .FirstOrDefault(a => a.FullName == "WBS.DAL"));
+                .FirstOrDefault(a => a.Name == "WBS.DAL"));
             var modelsTypes = dalAssembly.GetTypes().Where(type => type.Namespace == "WBS.DAL.Data.Models" ||
                                                                    type.Namespace == "WBS.DAL.Authorization.Models");
 

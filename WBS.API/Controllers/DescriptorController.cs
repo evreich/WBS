@@ -26,7 +26,7 @@ namespace WBS.API.Controllers
 
         [HttpGet]
         public IActionResult GetDescriptor([FromServices] DescriptorOfFormGenerator descriptorCreator, 
-            [FromRoute]string objectType, [FromRoute]int id = 0)
+            [FromQuery]string objectType, [FromQuery]int id = 0)
         {
             _logger.LogInformation(nameof(GetDescriptor));
             
@@ -35,7 +35,7 @@ namespace WBS.API.Controllers
                 .ToList();
 
             var dalAssembly = Assembly.Load(Assembly.GetExecutingAssembly().GetReferencedAssemblies()
-                .FirstOrDefault(a => a.FullName == "WBS.DAL"));
+                .FirstOrDefault(a => a.Name == "WBS.DAL"));
             var modelsTypes = dalAssembly.GetTypes().Where(type => type.Namespace == "WBS.DAL.Data.Models" || 
                                                                    type.Namespace == "WBS.DAL.Authorization.Models");
 
