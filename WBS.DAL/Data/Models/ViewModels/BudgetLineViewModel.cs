@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using WBS.DAL.Enums;
 
 namespace WBS.DAL.Data.Models.ViewModels
 {
@@ -9,7 +10,7 @@ namespace WBS.DAL.Data.Models.ViewModels
         public int Id { get; set; }
 
         public string SubjectOfInvestment { get; set; }
-        public string DateOfDelivery { get; set; }
+        public Month PlannedInvestmentDate { get; set; }
         public int Count { get; set; }
         public double Price { get; set; }
         public double Amount { get; set; }
@@ -38,7 +39,7 @@ namespace WBS.DAL.Data.Models.ViewModels
         {
             Id = item.Id;
             SubjectOfInvestment = item.SubjectOfInvestment;
-            DateOfDelivery = item.DateOfDelivery.ToString("MM-dd-yyyy");
+            PlannedInvestmentDate = item.PlannedInvestmentDate;
             Count = item.Count;
             Price = item.Price;
             Amount = item.Amount;
@@ -65,7 +66,7 @@ namespace WBS.DAL.Data.Models.ViewModels
             {
                 Id = this.Id,
                 SubjectOfInvestment = this.SubjectOfInvestment,
-                DateOfDelivery = DateTime.Parse(this.DateOfDelivery),
+                PlannedInvestmentDate = this.PlannedInvestmentDate,
                 Count = this.Count,
                 Price = this.Price,
                 Amount = this.Amount,

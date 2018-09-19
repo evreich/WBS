@@ -22,7 +22,6 @@ namespace WBS.DBSeed
                 connection.Open();
                 try
                 {
-
                     login = user["UserName"].ToString();
 
                     if (login == null)
