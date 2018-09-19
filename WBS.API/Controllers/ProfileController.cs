@@ -17,7 +17,7 @@ namespace WBS.API.Controllers
 {
     [Produces("application/json")]
     [Route("api/[controller]")]
-    [Authorize(Roles = "admin")]
+    [Authorize(Roles = "Администратор")]
     public class ProfileController : Controller
     {
         private readonly IServiceProvider _provider;
@@ -152,7 +152,7 @@ namespace WBS.API.Controllers
             return Ok(result);
         }
 
-        [HttpGet("usersSelection/{query}/{count}")]
+        [HttpGet("usersSelection")]
         public IActionResult GetProfilesForSelection(string query = "", int? count = null)
         {
             _logger.LogInformation(nameof(GetProfilesForSelection));
