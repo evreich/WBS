@@ -10,6 +10,12 @@ const styles = ( /*theme*/ ) => ({
     },
     iconSmall: {
         fontSize: 5,
+        width: '18px', 
+        height: '18px'
+    },
+    small: {
+        width: '30px', 
+        height: '30px'
     },
 })
 
