@@ -86,7 +86,11 @@ const Table = ({
             //lifecycle hooks
             componentDidMount() {
                 const { getDataTable, queryParams } = this.props;
-                //дескрипторы тоже где-то тут приходят
+                //Получаем:
+                //дескрипторы на чтение и создание;
+                //доступ на CRUD операции над типом.
+
+                //Все кладем в редакс в tables -> конкр. таблица -> соотв поле
                 getDataTable(undefined, undefined, queryParams);
             }
 

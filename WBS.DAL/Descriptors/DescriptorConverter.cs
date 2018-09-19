@@ -10,7 +10,7 @@ namespace WBS.DAL.Descriptors
     {
         public static string ConvertToJSON(Descriptor descriptor)
         {
-            var fields = descriptor.FormFields.ToDictionary(field => field.Name);
+            var fields = descriptor.FormFields.ToDictionary(field => field.propName);
             return JsonConvert.SerializeObject(fields);
         }
     }

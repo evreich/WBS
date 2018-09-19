@@ -10,6 +10,8 @@ export default {
     budgetLine: `${root}/BudgetLine/`,
     typesOfInvestments: `${root}/TypesOfInvestment/`,
     resultCentres: `${root}/ResultCentres/`,
+    permissions: `${root}/Permissions/`,
+    descriptors: `${root}/Descriptor/`,
     providers: `${root}/Provider/`,
     sits: `${root}/Site/`,
     formats: `${root}/Format/`,
