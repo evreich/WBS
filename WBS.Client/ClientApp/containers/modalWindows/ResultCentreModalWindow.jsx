@@ -2,6 +2,6 @@
 import api from 'constants/api';
 import objectTypes from 'constants/objectTypes';
 
-const COMPONENT = 'ProfileModalWindow';
+const COMPONENT = 'ResultCentreModalWindow';
 
-export default modalWindowFactory(api.categoryGroups, COMPONENT, objectTypes.profile);
+export default modalWindowFactory(api.categoryGroups, COMPONENT, objectTypes.resultCenter);

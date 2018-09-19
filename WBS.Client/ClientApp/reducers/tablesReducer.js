@@ -7,7 +7,10 @@ export const reducer = (state = initialState, action) => {
         case TYPE.GET_TABLE_SUCCESS: {
             return {
                 ...state,
-                [action.title]: action.data
+                [action.title]: {
+                    ...state[action.title],
+                    ...action.data
+                }
             };
         }
         case TYPE.GET_TABLE_ERROR: {
@@ -39,8 +42,8 @@ export const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 [action.title]: {
-                    ...state[action.component],
-                    descriptors: action.descriptors
+                    ...state[action.title],
+                    permissions: action.permissions
                 }
             };
         }

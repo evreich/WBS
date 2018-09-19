@@ -26,10 +26,7 @@ const editTitleModalWindow = "Редактирование";
 
 const Table = ({
     dataFiledsInfo,
-    AddItemDialogBodyComponent,
-    ChangeItemDialogBodyComponent,
     RowComponent = CommonTableRow,
-    //InformationModalWindow = CommonInformationModalWindow,
     ChangeItemModalWindow = CommonChangeItemModalWindow,
     isNeedFillEmptyRow = true,
     isNeedTableFooter = true,
@@ -175,7 +172,6 @@ const Table = ({
                 const {
                     updatingItemId,
                     modalWindowChangingIsOpening,
-                    updatingDataItem,
                     changeModalWindowTitle,
                     dataFiledsCount
                 } = this.state;
@@ -221,18 +217,10 @@ const Table = ({
                 );
 
                 const {
-                    // infoWindowModel,
-                    createWindowFields,
-                    editWindowFields,
                     tableHeaders,
                     titleTable,
                     tableId
                 } = dataFiledsInfo;
-
-                const isExistsDialogBodies =
-                    AddItemDialogBodyComponent && ChangeItemDialogBodyComponent
-                        ? true
-                        : false;
 
                 return (
                     <>
@@ -276,27 +264,11 @@ const Table = ({
                             <ChangeItemModalWindow
                                 itemId={updatingItemId}
                                 save={changeData}
-                                formFields={
-                                    updatingDataItem
-                                        ? editWindowFields
-                                        : createWindowFields
-                                }
-                                //initialValues={modalFormInitialValues}
-                                //descriptors={descriptors} - из стора?
                                 close={this.handleCloseChangeModalWindow}
                                 currentPage={currentPage}
                                 elementsPerPage={elementsPerPage}
                                 header={changeModalWindowTitle}
-                            >
-                                {/*отправляем тело диалогового окна в качестве children */}
-                                {isExistsDialogBodies ? (
-                                    updatingDataItem ? (
-                                        <ChangeItemDialogBodyComponent />
-                                    ) : (
-                                            <AddItemDialogBodyComponent />
-                                        )
-                                ) : null}
-                            </ChangeItemModalWindow>
+                            />
                         }
                     </>
                 );

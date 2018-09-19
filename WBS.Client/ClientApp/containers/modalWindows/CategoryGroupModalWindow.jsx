@@ -1,7 +1,7 @@
 ﻿import modalWindowFactory from 'factories/ChangeItemModalWindow';
 import api from 'constants/api';
+import objectTypes from 'constants/objectTypes';
 
 const COMPONENT = 'CategoryGroupModalWindow';
-const OBJECT_TYPE = 'CategoryGroup';
 
-export default modalWindowFactory(api.categoryGroups, COMPONENT, OBJECT_TYPE);
+export default modalWindowFactory(api.categoryGroups, COMPONENT, objectTypes.categoryGroup);

@@ -15,6 +15,7 @@ import {
 import { tableStyles } from 'stylesheets/tableLayoutAuto.css';
 import descriptors from "descriptors/categoryGroupsDescriptors";
 import api from 'constants/api';
+import objectTypes from 'constants/objectTypes';
 
 const TABLE = "categoryGroups";
 const ROUTE = api.categoryGroups;
@@ -41,8 +42,7 @@ const mapDispatchToProps = (dispatch) => ({
     deleteData: (pageIndex, pageSize, data) => dispatch(deleteData(pageIndex, pageSize, data, ROUTE, TABLE)),
     setUpdatingItem: (updatingItemId) => dispatch(setUpdatingItem(updatingItemId, TABLE)),
     clearUpdatingItem: () => dispatch(clearUpdatingItem(TABLE)),
-    //TODO: oblectType?
-    getPermissions: () => dispatch(getPermissions(TABLE, "CategoryGroups"))
+    getPermissions: () => dispatch(getPermissions(TABLE, objectTypes.categoryGroup))
 });
 
 export default connect(
