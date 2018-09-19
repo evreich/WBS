@@ -98,7 +98,7 @@ namespace WBS.DAL
                                .ForEach(f => typeFields.Add(new ObjectField()
                                {
                                    Id = counter++,
-                                   FieldName = f.Name,
+                                   FieldName = Char.ToLowerInvariant(f.Name[0]) + f.Name.Substring(1),
                                    ObjectTypeId = types.First(to => to.TypeName.Equals(x.FullName)).Id
                                })));
             modelBuilder.Entity<ObjectField>().HasData(typeFields.ToArray());

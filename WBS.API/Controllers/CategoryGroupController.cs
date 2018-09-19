@@ -25,7 +25,7 @@ namespace WBS.API.Controllers
         }
 
         [HttpGet("categoriesSelection")]
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "Администратор")]
         public IActionResult GetCategoriesForSelection()
         {
             _logger.LogInformation(nameof(GetCategoriesForSelection));

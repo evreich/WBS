@@ -22,7 +22,7 @@ namespace WBS.API.Controllers
 
 
         [HttpGet("categoriesOfEquipSelection")]
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "Администратор")]
         public IActionResult GetCategoriesOfEquipForSelection()
         {
             _logger.LogInformation(nameof(GetCategoriesOfEquipForSelection));

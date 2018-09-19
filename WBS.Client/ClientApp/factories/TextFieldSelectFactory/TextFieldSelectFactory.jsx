@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 import TextFieldSelect from 'components/commons/textFields/TextFieldSelect';
 import selectItemPropType from 'propTypes/selectItem';
-import { getItemsForSelection, clearItemsForSelection } from 'actions/componentsActions';
+import { getItemsForSelection, clearComponentData } from 'actions/componentsActions';
 import getSelectItems from 'selectors/selectItemsSelectors';
 
 export default (route,
@@ -55,5 +55,5 @@ const defaultMapStateToProps = componentName => state => (
 
 const defaultMapDispatchToProps = (route, componentName) => (dispatch) => ({
     getItems: () => dispatch(getItemsForSelection(route, componentName)),
-    clearItems: () => dispatch(clearItemsForSelection(componentName))
+    clearItems: () => dispatch(clearComponentData(componentName))
 });
