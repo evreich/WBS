@@ -2,7 +2,7 @@
 
 import CreateTable from "factories/Table";
 import {
-    getTable, clearTable, updateTable, changeData, getPermissions } from 'actions/tablesActions';
+    getTable, clearTable, updateTable, changeData, getPermissions, clearUpdatingItem } from 'actions/tablesActions';
 import descriptors from "descriptors/BudgetPlanDescriptors";
 import api from 'constants/api';
 import TableRow from "./BudgetPlanTableRow";
@@ -25,7 +25,8 @@ const mapDispatchToProps = (dispatch) => ({
     clearTable: () => dispatch(clearTable(TABLE)),
     updateTable: (data) => dispatch(updateTable(data, TABLE)),
     changeData: (pageIndex, pageSize, method, data) => dispatch(changeData(pageIndex, pageSize, method, data, ROUTE, TABLE)),
-    getPermissions: () => dispatch(getPermissions(TABLE, objectTypes.budgetPlan))
+    getPermissions: () => dispatch(getPermissions(TABLE, objectTypes.budgetPlan)),
+    clearUpdatingItem: () => dispatch(clearUpdatingItem(TABLE))
 });
 
 const BudgetPlansContainer = connect(
