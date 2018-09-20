@@ -11,9 +11,9 @@ const commonFields = {
         canEdit: true,
         fieldComponent: 'TextFieldMultiline'
     },
-    profiles: {
-        propName: "profiles",
-        label: "Профиль",
+    providersTechnicalServices: {
+        propName: "providersTechnicalServices",
+        label: "Тех службы",
         type: TypesOfColumnData.ARRAY,
         isVisible: true,
         canEdit: true,
@@ -23,7 +23,7 @@ const commonFields = {
 
 const createWindowFields = {
     [commonFields.title.propName]: commonFields.title,
-    [commonFields.profiles.propName]: commonFields.profiles,
+    [commonFields.providersTechnicalServices.propName]: commonFields.providersTechnicalServices,
 }
 
 const editWindowFields = {
@@ -36,7 +36,7 @@ const infoWindowModel = {
 
 const tableHeaders = {
     [commonFields.title.propName]: commonFields.title,
-    [commonFields.profiles.propName]: commonFields.profiles,
+    [commonFields.providersTechnicalServices.propName]: commonFields.providersTechnicalServices,
 };
 
 const titleTable = "Поставщики";

@@ -7,5 +7,6 @@ namespace WBS.DAL.Layers.Interfaces
 {
     public interface IDAL<T> : ICRUD<T> where T: class, IBaseEntity
     {
+
     }
 }

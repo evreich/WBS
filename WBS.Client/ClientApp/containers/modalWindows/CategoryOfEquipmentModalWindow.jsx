@@ -4,4 +4,4 @@ import objectTypes from 'constants/objectTypes';
 
 const COMPONENT = 'CategoryOfEquipmentModalWindow';
 
-export default modalWindowFactory(api.categoryGroups, COMPONENT, objectTypes.categoryOfEquipment);
+export default modalWindowFactory(api.categoriesOfEquipment, COMPONENT, objectTypes.categoryOfEquipment);
