@@ -111,8 +111,6 @@ namespace WBS.DAL
             //мультиключи для промежуточной таблицы EventQuarters
             modelBuilder.Entity<EventQuarter>().HasKey(c => new { c.EventId, c.QuarterOfYearId });
 
-            modelBuilder.Entity<ProvidersTechnicalService>().HasKey(c => new { c.ProviderId, c.TechnicalServiceId });
-
             modelBuilder.Entity<ProvidersTechnicalService>()
                 .HasOne(p_ts => p_ts.Provider)
                 .WithMany(provider => provider.ProvidersTechnicalServices)

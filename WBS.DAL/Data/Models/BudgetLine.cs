@@ -13,7 +13,6 @@ namespace WBS.DAL.Data.Models
 
         [MaxLength(200)]
         public string SubjectOfInvestment { get; set; }
-        public DateTime DateOfDelivery { get; set; }
         public int Count { get; set; }
         public double Price { get; set; }
         public double Amount { get; set; }

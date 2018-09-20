@@ -37,10 +37,12 @@ namespace DbSeed
                     (16, 'Руководитель технической службы (Equipment)'),
                     (17, 'Cлужба поддержки'),
                     (18, 'Ответственные за ситы'),
-                    (19, 'Контролер бюджета')";
+                    (19, 'Контролер бюджета'),
+                    (20, 'Служба ИТ Поддержки')";
 
         //Связывание ролей и пользователей
-        public const string InsertUserRoles = "INSERT INTO public.\"UserRoles\"(\"UserId\", \"RoleId\") VALUES ((SELECT \"id\" FROM public.\"Profiles\" WHERE \"login\" = @Login), (SELECT \"id\" FROM public.\"Roles\" WHERE \"title\" = @RoleName))";
+        public const string InsertUserRoles = "INSERT INTO public.\"UserRoles\"(\"UserId\", \"RoleId\") " +
+            "VALUES ((SELECT \"id\" FROM public.\"Profiles\" WHERE \"login\" = @Login), (SELECT \"id\" FROM public.\"Roles\" WHERE \"title\" = @RoleName))";
 
         //Запрос на заполнение таблицы Типы инвестиций
         public const string InsertTypesOfInvestment = "INSERT INTO public.\"TypesOfInvestment\" (\"Title\", \"Code\", \"ExternalCode\")" +
@@ -77,7 +79,8 @@ namespace DbSeed
 
         //Запрос на заполнение Строки бюджетных планов
         public const string InsertBudgetLines = "INSERT INTO public.\"BudgetLines\"(\"SubjectOfInvestment\",\"PlannedInvestmentDate\",\"Count\",\"Price\",\"Amount\"," +
-            "\"BudgetPlanId\",\"CategoryOfEquipmentId\",\"ResultCenterId\",\"SiteId\",\"TypeOfInvestmentId\") VALUES(@SubjectOfInvestment,@DateOfDelivery, @Count, @Price,@Amount," +
+            "\"BudgetPlanId\",\"CategoryOfEquipmentId\",\"ResultCenterId\",\"SiteId\",\"TypeOfInvestmentId\") " +
+            "VALUES(@SubjectOfInvestment, @DateOfDelivery, @Count, @Price , @Amount," +
             "(SELECT \"Id\" FROM \"BudgetPlans\" WHERE \"Year\" = @BudgetPlanYear)," +
             "(SELECT \"Id\" FROM \"CategoriesOfEquipment\" WHERE \"Title\" = @CategoryOfEquipmentTitle)," +
             "(SELECT \"Id\" FROM \"ResultCentres\" WHERE \"Title\" = @ResultCenterTitle)," +
@@ -95,9 +98,31 @@ namespace DbSeed
             "(SELECT \"id\" FROM public.\"Profiles\" Where \"login\" = @KYRegionLogin)," +
             "(SELECT \"id\" FROM public.\"Profiles\" Where \"login\" = @OperationDirectorLogin)" +
             ")";
+        //Запрос на заполнение MenuItemRoles
+        public const string InsertMenuItemRoles = "INSERT INTO public.\"MenuItemRoles\"(\"RoleId\", \"MenuItemId\") " +
+            "VALUES (" +
+            "(SELECT \"id\" FROM public.\"Roles\" WHERE \"title\" = @RoleTitle)," +
+            "(SELECT \"Id\" FROM \"MenuItems\" WHERE \"Text\" = @MenuTitle))";
+
+        //Запрос на заполнение RolesObjectTypes
+        public const string InsertRolesObjectTypes = "INSERT INTO public.\"RolesObjectTypes\"(\"RoleId\", \"ObjectTypeId\", \"AllowRead\", \"AllowWrite\", \"AllowCreate\", \"AllowDelete\")" +
+            "VALUES (" +
+            "(SELECT \"id\" FROM public.\"Roles\" WHERE \"title\" = @RoleTitle)," +
+            "(SELECT \"Id\" FROM public.\"ObjectTypes\" WHERE \"TypeName\" LIKE @ObjectTitle)," +
+            "@AllowRead," +
+            "@AllowWrite," +
+            "@AllowCreate," +
+            "@AllowDelete)";
+        //Запрос на заполнение ObjectPermission
+        public const string InsertObjectPermissions = "INSERT INTO public.\"ObjectPermissions\"(\"Criteria\", \"ObjectTypeId\", \"AllowRead\", \"AllowWrite\", \"AllowCreate\", \"AllowDelete\")" +
+            "VALUES ('BudgetPlan.Events.Aggregate((max, next) => next.Date > max.Date ? next : max).Status.Title == \"Проект\"', 11, true, true, true, true)," +
+                    "('BudgetPlan.Events.Aggregate((max, next) => next.Date > max.Date ? next : max).Status.Title == \"Редактирование\"', 11, true, true, true, true)";
+
         //Удаление данных из таблиц
         public const string DeleteCmd =
             "DELETE FROM public.\"UserRoles\";" +
+            "DELETE FROM public.\"MenuItemRoles\";" +
+            "DELETE FROM public.\"RolesObjectTypes\";" +
             "DELETE FROM public.\"Providers\";" +
             "DELETE FROM public.\"CategoryGroups\";" +
             "DELETE FROM public.\"Roles\";" +
@@ -108,7 +133,8 @@ namespace DbSeed
             "DELETE FROM public.\"CategoriesOfEquipment\";" +
             "DELETE FROM public.\"TypesOfInvestment\";" +
             "DELETE FROM public.\"Profiles\";" +
-            "DELETE FROM public.\"Sites\"";
+            "DELETE FROM public.\"Sites\"" +
+            "DELETE FROM public.\"ObjectPermissions\"";
 
     }
 }

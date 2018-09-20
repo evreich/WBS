@@ -24,6 +24,9 @@ namespace DbSeed
         static void Main(string[] args)
         {
             UserRole userRole = new UserRole();
+            Providers providers = new Providers();
+            TypesOfInvestment typesOfInvestment = new TypesOfInvestment();
+
             using (ClientContext cc = new ClientContext("http://192.168.88.69:3333"))
             {
 
@@ -40,51 +43,26 @@ namespace DbSeed
 
                     //Получение таблицы Поставщики
                     List list = web.Lists.GetByTitle("Поставщики");
-
                     CamlQuery caml = new CamlQuery();
 
-                    //Получение столбцов таблицы Поставщики
+                    //Получение полей таблицы Поставщики
                     ListItemCollection items = list.GetItems(caml);
                     cc.Load(items);
-
                     cc.ExecuteQuery();
 
-                    //Изменение команды
-                    cmd.CommandText = Constants.InsertProviders;
-                    Console.WriteLine("Заполнение данных Providers...");
-
                     //Заполнение таблицы поставщиков
-                    foreach (ListItem item in items)
-                    {
-                        cmd.Parameters.Add("@Title", NpgsqlDbType.Text).Value = item["Title"].ToString();
-                        Console.WriteLine(item["Title"]);
-                        cmd.ExecuteNonQuery();
-                        cmd.Parameters.Clear();
-                    }
+                    providers.FillProvider(items);
 
                     //Получение таблицы Типы инвестиций
                     list = web.Lists.GetByTitle("Типы инвестиций");
 
-                    //Получение данных таблицы Поставщики
+                    //Получение полей таблицы Поставщики
                     items = list.GetItems(caml);
                     cc.Load(items);
-
                     cc.ExecuteQuery();
 
-                    cmd.CommandText = Constants.InsertTypesOfInvestment;
-
-                    Console.WriteLine("Заполнение данных Типы инвестиций...");
-
-                    //Заполнение таблицы поставщиков
-                    foreach (ListItem item in items)
-                    {
-                        Console.WriteLine(item.FieldValues["Title"]);
-                        cmd.Parameters.Add("@Title", NpgsqlDbType.Text).Value = item["Title"].ToString();
-                        cmd.Parameters.Add("@Code", NpgsqlDbType.Text).Value = item["Code"].ToString();
-                        cmd.Parameters.Add("@ExternalCode", NpgsqlDbType.Text).Value = item["CodeExternal"].ToString();
-                        cmd.ExecuteNonQuery();
-                        cmd.Parameters.Clear();
-                    }
+                    //Заполнение таблицы Типы инвестиций
+                    typesOfInvestment.FillTypeOfInvestment(items);
 
                     //Получение таблицы Группы категорий
                     list = web.Lists.GetByTitle("Группы категорий");
@@ -158,7 +136,7 @@ namespace DbSeed
                     Array arrayRoles;
 
                     foreach (var item in items)
-                    { 
+                    {
                         try
                         {
                             cmd.CommandText = Constants.InsertProfiles;
@@ -166,12 +144,6 @@ namespace DbSeed
                             ListItem itm = userInformationList.GetItemById(userValue.LookupId);
                             cc.Load(itm);
                             cc.ExecuteQuery();
-
-                            //Если пользователь удалён, пропускаем итерацию
-                            //if (Convert.ToBoolean(item["IsDeleted"]) == true)
-                            //{
-                            //    continue;
-                            //}
 
                             login = itm["UserName"].ToString();
 
@@ -216,13 +188,6 @@ namespace DbSeed
                             arrayRoles = (Array)item["DAIRoles"];
                             userRole.FillUserRole(login, arrayRoles);
                             cmd.Parameters.Clear();
-                            //foreach (var role in arrayRoles)
-                            //{
-                            //    cmd.Parameters.Add("@Login", NpgsqlDbType.Text).Value = login;
-                            //    cmd.Parameters.Add("@RoleName", NpgsqlDbType.Text).Value = role.ToString();
-                            //    cmd.ExecuteNonQuery();
-                            //    cmd.Parameters.Clear();
-                            //}
                         }
                         catch (Exception e)
                         {
@@ -233,7 +198,7 @@ namespace DbSeed
 
                     //получение таблицы Центры результата
                     list = web.Lists.GetByTitle("Центры результата");
-                    //получение данных таблицы
+                    //получение полей таблицы
                     items = list.GetItems(caml);
                     cc.Load(items);
 
@@ -253,7 +218,7 @@ namespace DbSeed
                             cmd.Prepare();
                             cmd.ExecuteNonQuery();
                         }
-                        catch(Exception e)
+                        catch (Exception e)
                         {
                             Console.WriteLine(e.Message);
                         }
@@ -262,7 +227,7 @@ namespace DbSeed
                     //Получение таблицы Формат ситов
                     list = web.Lists.GetByTitle("Формат ситов");
 
-                    //Получение данных таблицы Формат ситов
+                    //Получение полей таблицы Формат ситов
                     items = list.GetItems(caml);
                     cc.Load(items);
 
@@ -404,7 +369,7 @@ namespace DbSeed
                             cc.ExecuteQuery();
 
                             AddUser user = new AddUser();
-                            user.FillUsers(SiteDirector,"Директор Сита", "Администратор");
+                            user.FillUsers(SiteDirector, "Директор Сита", "Администратор");
                             user.FillUsers(SiteKY, "КУ Сита", "Администратор");
                             user.FillUsers(SiteTechExp, "Технический эксперт", "Администратор");
                             user.FillUsers(SiteKYRegional, "КУ региональный", "Администратор");
@@ -447,7 +412,7 @@ namespace DbSeed
                             {
                                 SiteOperatingDirLogin = SiteOperatingDir["Name"].ToString();
                             }
-                            if(FormatLookup.LookupValue == null || item["Title"].ToString() == null || SiteKYLogin ==null || SiteTechExpLogin == null || SiteDirectorLogin == null || SiteCreaterOfBudgetLogin ==null || SiteKYRegionalLogin == null || SiteOperatingDirLogin == null)
+                            if (FormatLookup.LookupValue == null || item["Title"].ToString() == null || SiteKYLogin == null || SiteTechExpLogin == null || SiteDirectorLogin == null || SiteCreaterOfBudgetLogin == null || SiteKYRegionalLogin == null || SiteOperatingDirLogin == null)
                             {
                                 Console.WriteLine("Значение - null");
                             }
@@ -592,11 +557,23 @@ namespace DbSeed
 
                             cmd.ExecuteNonQuery();
                         }
-                        catch(Exception e)
+                        catch (Exception e)
                         {
                             Console.WriteLine(e.Message);
                         }
                     }
+
+                    //Заполнение MenuItemRoles
+                    MenuItemRoles menuItemRoles = new MenuItemRoles();
+                    menuItemRoles.FillMenuItemRoles();
+
+                    //Заполнение RolesObjectTypes
+                    RolesObjectTypes rolesObjectTypes = new RolesObjectTypes();
+                    rolesObjectTypes.FillRolesObjectTypes();
+
+                    //Заполнение ObjectPermission
+                    cmd.CommandText = Constants.InsertObjectPermissions;
+                    cmd.ExecuteNonQuery();
 
                     connection.Close();
                     Console.WriteLine("Заполнение окончено");

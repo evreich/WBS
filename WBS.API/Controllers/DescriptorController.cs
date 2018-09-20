@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using WBS.API.Helpers;
 using WBS.DAL.Data.Interfaces;
 using WBS.DAL.Descriptors;
 using WBS.DAL.Enums;
@@ -34,17 +35,28 @@ namespace WBS.API.Controllers
                 .Select(claim => claim.Value)
                 .ToList();
 
-            var dalAssembly = Assembly.Load(Assembly.GetExecutingAssembly().GetReferencedAssemblies()
-                .FirstOrDefault(a => a.Name == "WBS.DAL"));
-            var modelsTypes = dalAssembly.GetTypes().Where(type => type.Namespace == "WBS.DAL.Data.Models" || 
-                                                                   type.Namespace == "WBS.DAL.Authorization.Models");
+            if (roles == null || roles.Count() == 0)
+                return BadRequest(new ResponseError("Роли пользователя отсутствуют"));
 
-            Type typeEntity = modelsTypes.FirstOrDefault(type => type.Name == objectType);
-            var targetOfForm = id == 0 ? TypeOfDescriptor.AddingForm : TypeOfDescriptor.EditForm;
-
-            var descriptor = descriptorCreator.CreateDescriptor(typeEntity, targetOfForm, roles);
+            Type typeEntity;
             try
             {
+                var dalAssembly = Assembly.Load(Assembly.GetExecutingAssembly().GetReferencedAssemblies()
+                    .FirstOrDefault(a => a.Name == "WBS.DAL"));
+                var modelsTypes = dalAssembly.GetTypes().Where(type => type.Namespace == "WBS.DAL.Data.Models" ||
+                                                                       type.Namespace == "WBS.DAL.Authorization.Models");
+                typeEntity = modelsTypes.FirstOrDefault(type => type.Name == objectType);
+            }
+            catch(ArgumentNullException)
+            {
+                return BadRequest(new ResponseError("Данный тип не является частью системы."));
+            }
+
+            var targetOfForm = id == 0 ? TypeOfDescriptor.AddingForm : TypeOfDescriptor.EditForm;
+            try
+            {
+                var descriptor = descriptorCreator.CreateDescriptor(typeEntity, targetOfForm, roles);
+
                 var descriptorJSON = DescriptorConverter.ConvertToJSON(descriptor);
                 return Ok(descriptorJSON);
             }

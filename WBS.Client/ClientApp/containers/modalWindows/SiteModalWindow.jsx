@@ -4,4 +4,4 @@ import objectTypes from 'constants/objectTypes';
 
 const COMPONENT = 'SiteModalWindow';
 
-export default modalWindowFactory(api.categoryGroups, COMPONENT, objectTypes.site);
+export default modalWindowFactory(api.sits, COMPONENT, objectTypes.site);

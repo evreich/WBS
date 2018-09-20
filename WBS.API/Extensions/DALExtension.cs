@@ -47,8 +47,6 @@ namespace WBS.API.Extensions
                     else
                         return serviceProvider.GetService(ipermissionType.MakeGenericType(type));
                 }
-                if (clientType == typeof(UserRolesDAL))
-                    return serviceProvider.GetService(ipermissionType.MakeGenericType(type));
                 if (clientType == typeof(RolesDAL))
                     return serviceProvider.GetService(icacheType.MakeGenericType(type));
                 if (clientType == typeof(AttachmentDAL))
@@ -106,7 +104,6 @@ namespace WBS.API.Extensions
 
             // levels extentions
             services.AddTransient<ICRUD<User>, ProfilesDAL>();
-            services.AddTransient<ICRUD<UserRoles>, UserRolesDAL>();
             services.AddTransient<ICRUD<Role>, RolesDAL>();
             services.AddTransient<ICRUD<BudgetPlan>, BudgetPlanDAL>();
             services.AddTransient<ICRUD<Attachment>, AttachmentDAL>();
@@ -123,6 +120,9 @@ namespace WBS.API.Extensions
             services.AddTransient<ICRUD<Site>, SiteDAL>();
             services.AddTransient<ICRUD<TechnicalService>, TechnicalServiceDAL>();
             services.AddTransient<ICRUD<TypeOfInvestment>, TypesOfInvestmentDAL>();
+
+            services.AddTransient<ICRUD<UserRoles>, BaseDAL<UserRoles>>();
+            services.AddTransient<ICRUD<ProvidersTechnicalService>, BaseDAL<ProvidersTechnicalService>>();
 
             services.AddTransient<IPermissionsDAL, PermissionsDAL>();
 

@@ -36,7 +36,7 @@ namespace WBS.API.Helpers
             var item = _baseDAL.Get(id);
 
             _logger.LogInformation("Getting information is completed");
-            return Ok(item);
+            return Ok((U)Activator.CreateInstance(typeof(U), item));
         }
 
         [HttpGet("{currentPage}/{pageSize}")]
