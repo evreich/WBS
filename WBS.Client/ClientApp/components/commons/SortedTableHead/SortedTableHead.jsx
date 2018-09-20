@@ -53,8 +53,7 @@ const SortedTableHead = props => {
                         ),
                         this
                     )}
-                    <TableCell>
-                    </TableCell>
+                    <TableCell/>
             </TableRow>
         </TableHead>
     );

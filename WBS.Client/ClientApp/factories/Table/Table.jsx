@@ -33,7 +33,7 @@ const Table = ({
     tableStyles = {}
 }) =>
     withStyles(() => ({ ...styles, ...tableStyles }))(
-        class Table extends React.PureComponent {
+        class Table extends React.Component {
             constructor(props) {
                 super(props);
                 this.state = {
@@ -65,8 +65,8 @@ const Table = ({
                 pagination: paginationPropType.isRequired,
                 queryParams: PropTypes.object,
                 showToolbar: PropTypes.bool,
-                classes: PropTypes.object.isRequired
-                //modalFormInitialValues: PropTypes.object
+                classes: PropTypes.object.isRequired,
+                accessToCreate: PropTypes.bool
             };
 
             static defaultProps = {
@@ -76,6 +76,7 @@ const Table = ({
                     elementsCount: 0
                 },
                 data: [],
+                accessToCreate: false,
                 showToolbar: true
             };
 
@@ -89,6 +90,11 @@ const Table = ({
                 //Все кладем в редакс в tables -> конкр. таблица -> соотв поле
                 getPermissions();
                 getDataTable(undefined, undefined, queryParams);
+            }
+
+            componentWillReceiveProps(newProps) {
+                console.log(newProps);
+                return true;
             }
 
             componentWillUnmount() {
@@ -163,7 +169,7 @@ const Table = ({
                     pagination,
                     data,
                     changeData,
-                    //modalFormInitialValues,
+                    accessToCreate,
                     showToolbar
                 } = this.props;
                 const {
@@ -225,6 +231,7 @@ const Table = ({
                             {/*Таблица*/}
                             {showToolbar && (
                                 <TableToolbar
+                                    accessToCreate={accessToCreate}
                                     onCreate={this.handleOpenOnCreateChangeModalWindow}
                                     title={title}
                                 />
@@ -245,7 +252,8 @@ const Table = ({
                                                 row={row}
                                                 displayedColumns={Object.values(columns)}
                                                 classes={classes}
-                                                handleInfoButtonClick={() => this.handleOpenOnEditChangeModalWindow(row.id)}
+                                                handleEditButtonClick={() => this.handleOpenOnEditChangeModalWindow(row.id)}
+                                                handleDeleteButtonClick={this.handleDeleteButtonClick}
                                             />
                                         ))}
                                     {this.fillingEmptyRows(emptyRows)}

@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import PropTypes from "prop-types";
 
 import MuiTableCell from "@material-ui/core/TableCell";
@@ -14,12 +14,18 @@ import { columnHeaderPropType } from 'propTypes';
 import styles from 'stylesheets/button.css';
 
 const TableRow = props => {
-    const { row, classes, displayedColumns, handleInfoButtonClick } = props;
-console.log(classes);
+    const { row, classes, displayedColumns, handleEditButtonClick, handleDeleteButtonClick } = props;
+    const { permissions } = row || {};
+
+    const onEditClick = () => handleEditButtonClick(row);
+    const onDeleteClick = () => {
+        if (window.confirm('Вы уверены?'))
+            handleDeleteButtonClick(row.id);
+    };
+
     return (
         <MuiTableRow
             className={classes.rowHover}
-            onClick={() => handleInfoButtonClick(row)}
         >
             {displayedColumns && displayedColumns.map(elem => (
                 <MuiTableCell key={elem.field} className={classes.cell}>
@@ -30,12 +36,22 @@ console.log(classes);
                 <IconButton className={classes.small}>
                     <VisibilityIcon />
                 </IconButton>
-                <IconButton className={classes.small}>
-                    <BorderColorIcon className={classes.iconSmall}/>
-                </IconButton>
-                <IconButton className={classes.small}>
-                    <DeleteIcon className={classes.iconSmall}/>
-                </IconButton>
+                {
+                    permissions.accessToUpdate &&
+                    <IconButton className={classes.small}>
+                        <BorderColorIcon
+                            className={classes.iconSmall}
+                            onClick={onEditClick} />
+                    </IconButton>
+                }
+                {
+                    permissions.accessToDelete &&
+                    <IconButton className={classes.small}>
+                        <DeleteIcon
+                            className={classes.iconSmall}
+                            onClick={onDeleteClick} />
+                    </IconButton>
+                }
             </MuiTableCell>
         </MuiTableRow>
     );
@@ -44,7 +60,8 @@ console.log(classes);
 TableRow.propTypes = {
     classes: PropTypes.object.isRequired,
     row: PropTypes.object.isRequired,
-    handleInfoButtonClick: PropTypes.func,
+    handleEditButtonClick: PropTypes.func,
+    handleDeleteButtonClick: PropTypes.func,
     displayedColumns: PropTypes.arrayOf(columnHeaderPropType).isRequired
 };
 

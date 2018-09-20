@@ -2,7 +2,7 @@ import { connect } from "react-redux";
 
 import CreateTable from "factories/Table";
 import ModalWindow from "../modalWindows/ProviderModalWindow";
-import ProviderTableRow from "components/tableRows/ProviderTableRow";
+//import ProviderTableRow from "components/tableRows/ProviderTableRow";
 import {
     getTable,
     clearTable,
@@ -24,7 +24,18 @@ const ROUTE = api.providers;
 const mapStateToProps = state => {
     const props = (state.tables[TABLE] ?
         {
-            ...state.tables[TABLE],
+            //...state.tables[TABLE],
+            data: state.tables[TABLE].data.map(item => ({
+                ...item,
+                permissions: { ...state.tables[TABLE].permissions },
+                profiles: item.profiles.map(p => p.title).join(", ")
+            })),
+            pagination: state.tables[TABLE].pagination,
+            accessToCreate: true
+            /*data: state.tables[TABLE].data.map(item => ({ ...item, permissions: { ...state.tables[TABLE].permissions} })),
+            pagination: state.tables[TABLE].pagination,
+            accessToCreate: state.tables[TABLE].permissions.accessToCreate*/
+
             //TODO: send server error in form from redux store
             //errors: state.tables[TABLE].errors
         } : {});
@@ -54,7 +65,7 @@ export default connect(
         metaData,
         title: TABLE,
         tableStyles: tableStyles,
-        RowComponent: ProviderTableRow,
+        //RowComponent: ProviderTableRow,
         ChangeItemModalWindow: ModalWindow
     })
 );
