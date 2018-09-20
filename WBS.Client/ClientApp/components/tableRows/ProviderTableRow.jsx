@@ -9,7 +9,7 @@ const ProviderTableRow = (props) => {
     return(        
         <TableRow className={classes.rowHover} onClick={() => handleInfoButtonClick(row)}>                  
             <TableCell className={classes.cell}> {row.title}</TableCell>  
-            <TableCell className={classes.cell}> {row.profiles.map(item => item.title).join(", ")}</TableCell>                            
+            <TableCell className={classes.cell}> {row.providersTechnicalServices.map(item => item.title).join(", ")}</TableCell>                            
         </TableRow>         
         )
 }

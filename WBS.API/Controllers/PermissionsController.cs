@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using WBS.API.Helpers;
 using WBS.DAL.Data.Interfaces;
 using WBS.DAL.Data.Models;
 
@@ -31,12 +32,20 @@ namespace WBS.API.Controllers
                 .Select(claim => claim.Value)
                 .ToList();
 
-            var dalAssembly = Assembly.Load(Assembly.GetExecutingAssembly().GetReferencedAssemblies()
-                .FirstOrDefault(a => a.Name == "WBS.DAL"));
-            var modelsTypes = dalAssembly.GetTypes().Where(type => type.Namespace == "WBS.DAL.Data.Models" ||
-                                                                   type.Namespace == "WBS.DAL.Authorization.Models");
+            Type typeEntity;
+            try
+            {
+                var dalAssembly = Assembly.Load(Assembly.GetExecutingAssembly().GetReferencedAssemblies()
+                    .FirstOrDefault(a => a.Name == "WBS.DAL"));
+                var modelsTypes = dalAssembly.GetTypes().Where(type => type.Namespace == "WBS.DAL.Data.Models" ||
+                                                                       type.Namespace == "WBS.DAL.Authorization.Models");
+                typeEntity = modelsTypes.FirstOrDefault(type => type.Name == objectType);
+            }
+            catch (ArgumentNullException)
+            {
+                return BadRequest(new ResponseError("Данный тип не является частью системы."));
+            }
 
-            Type typeEntity = modelsTypes.FirstOrDefault(type => type.Name == objectType);
             var perms = permDAL.GetPermissionsForType(typeEntity.FullName, typeEntity.Assembly.GetName().Name, roles);
 
             bool accessToCreate, accessToRead, accessToUpdate, accessToDelete;

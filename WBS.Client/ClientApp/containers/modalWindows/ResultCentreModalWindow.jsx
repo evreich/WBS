@@ -4,4 +4,4 @@ import objectTypes from 'constants/objectTypes';
 
 const COMPONENT = 'ResultCentreModalWindow';
 
-export default modalWindowFactory(api.categoryGroups, COMPONENT, objectTypes.resultCenter);
+export default modalWindowFactory(api.resultCentres, COMPONENT, objectTypes.resultCenter);
