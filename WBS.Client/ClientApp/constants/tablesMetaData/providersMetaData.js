@@ -8,8 +8,8 @@ export default {
             sortable: true
         },
         {
-            header: 'Профиль',
-            field: 'profiles',
+            header: 'Тех. службы',
+            field: 'providersTechnicalServices',
             sortable: true
         }
     ]
