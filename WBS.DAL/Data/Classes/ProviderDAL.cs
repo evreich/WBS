@@ -21,10 +21,12 @@ namespace WBS.DAL
     public class ProviderDAL : ICRUD<Provider>
     {
         ICRUD<Provider> _providers_crud;
+        ICRUD<ProvidersTechnicalService> _providers_techServs_crud;
 
-        public ProviderDAL(GetCRUD getcrud)
+        public ProviderDAL(GetCRUD getcrud, ICRUD<ProvidersTechnicalService> providers_techServs_crud)
         {
             _providers_crud = getcrud(typeof(ProviderDAL), typeof(Provider)) as ICRUD<Provider>;
+            _providers_techServs_crud = providers_techServs_crud;
         }
 
         public Provider Create(Provider item)
@@ -49,6 +51,12 @@ namespace WBS.DAL
 
         public Provider Update(Provider item)
         {
+            //чистим свзяанные сущности
+            _providers_crud.Get(item.Id).ProvidersTechnicalServices
+                .ForEach(elem => _providers_techServs_crud.Delete(elem.Id));
+            //добавляем новые сущности в связь
+            item.ProvidersTechnicalServices.ForEach(elem => _providers_techServs_crud.Create(elem));
+
             return _providers_crud.Update(item);
         }
     }

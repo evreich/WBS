@@ -21,14 +21,6 @@ namespace WBS.API.Controllers
         {
         }
 
-        [HttpGet("{id}")]
-        [Authorize]
-        public IActionResult Get(int id)
-        {
-            _logger.LogInformation("Get provider, ID: '{id}", id);
-            return Ok(_baseDAL.Get(id));
-        }
-
         [HttpGet("{title}/{currentPage}/{pageSize}")]
         [Authorize]
         public IActionResult Get(int currentPage = 0, int pageSize = 5, string title = "", string techServs ="")

@@ -15,7 +15,7 @@ namespace WBS.DAL.Data.Models
 
         [Column("title")]
         public string Title { get; set; }
-     
+
         public List<ProvidersTechnicalService> ProvidersTechnicalServices { get; set; }
 
         public Provider()

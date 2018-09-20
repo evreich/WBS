@@ -4,4 +4,4 @@ import objectTypes from 'constants/objectTypes';
 
 const COMPONENT = 'ProfileModalWindow';
 
-export default modalWindowFactory(api.categoryGroups, COMPONENT, objectTypes.profile);
+export default modalWindowFactory(api.profiles, COMPONENT, objectTypes.profile);
