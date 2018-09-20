@@ -7,7 +7,7 @@ import TableRow from "@material-ui/core/TableRow";
 import TableSortLabel from "@material-ui/core/TableSortLabel";
 import Tooltip from "@material-ui/core/Tooltip";
 
-import TypesOfColumnData from "constants/typesOfColumnData";
+//import TypesOfColumnData from "constants/typesOfColumnData";
 import { columnHeaderPropType } from "propTypes";
 
 const SortedTableHead = props => {
@@ -26,27 +26,27 @@ const SortedTableHead = props => {
                         column => (
                             <TableCell
                                 className={classes.cell}
-                                key={column.propName}
+                                key={column.field}
                                 sortDirection={
-                                    orderBy === column.propName ? order : false
+                                    orderBy === column.field ? order : false
                                 }
                             >
                                 <Tooltip
                                     title="Sort"
-                                    placement={
+                                    /*placement={
                                         column.type === TypesOfColumnData.NUMBER
                                             ? "bottom-end"
                                             : "bottom-start"
-                                    }
+                                    }*/
                                     enterDelay={300}
                                 >
                                     <TableSortLabel
                                         style={classes.label}
-                                        active={orderBy === column.propName}
+                                        active={orderBy === column.field}
                                         direction={order}
-                                        onClick={handleColumnSortClick(column.propName)}
+                                        onClick={handleColumnSortClick(column.field)}
                                     >
-                                        {column.label}
+                                        {column.header}
                                     </TableSortLabel>
                                 </Tooltip>
                             </TableCell>

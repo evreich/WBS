@@ -13,7 +13,7 @@ import {
     getPermissions
 } from "actions/tablesActions";
 import { markOnDeleteData } from 'actions/profileActions';
-import descriptors from "descriptors/profilesDescriptors";
+import metaData from 'constants/tablesMetaData/profilesMetaData'
 import api from 'constants/api';
 import objectTypes from 'constants/objectTypes';
 
@@ -52,7 +52,7 @@ export default connect(
     mapDispatchToProps
 )(
     CreateTable({
-        dataFiledsInfo: descriptors,
+        metaData,
         RowComponent: ProfileTableRow,
         title: TABLE,
         ChangeItemModalWindow: ModalWindow

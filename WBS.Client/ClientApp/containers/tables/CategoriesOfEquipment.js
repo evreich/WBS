@@ -12,7 +12,7 @@ import {
     clearUpdatingItem,
     getPermissions
 } from 'actions/tablesActions';
-import descriptors from "descriptors/categoriesOfEquipmentDescriptors";
+import metaData from 'constants/tablesMetaData/categoriesOfEquipmentMetaData'
 import api from 'constants/api';
 import objectTypes from 'constants/objectTypes';
 
@@ -49,8 +49,8 @@ export default connect(
     mapDispatchToProps
 )(
     CreateTable({
-        dataFiledsInfo: descriptors,
-    title: TABLE,
-    ChangeItemModalWindow: ModalWindow
+        metaData,
+        title: TABLE,
+        ChangeItemModalWindow: ModalWindow
     })
 ); 

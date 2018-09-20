@@ -25,7 +25,7 @@ const createTitleModalWindow = "Создание";
 const editTitleModalWindow = "Редактирование";
 
 const Table = ({
-    dataFiledsInfo,
+    metaData,
     RowComponent = CommonTableRow,
     ChangeItemModalWindow = CommonChangeItemModalWindow,
     isNeedFillEmptyRow = true,
@@ -41,8 +41,7 @@ const Table = ({
                     modalWindowChangingIsOpening: false,
                     updatingDataItem: null,
                     changeModalWindowTitle: createTitleModalWindow,
-                    dataFiledsCount: Object.keys(dataFiledsInfo.tableHeaders)
-                        .length
+                    columnsCount: Object.keys(metaData.columns).length
                 };
 
                 //TODO
@@ -63,7 +62,6 @@ const Table = ({
                 deleteData: PropTypes.func,
 
                 data: PropTypes.array.isRequired,
-                descriptors: PropTypes.array.isRequired,
                 pagination: paginationPropType.isRequired,
                 queryParams: PropTypes.object,
                 showToolbar: PropTypes.bool,
@@ -78,7 +76,6 @@ const Table = ({
                     elementsCount: 0
                 },
                 data: [],
-                descriptors: [],
                 showToolbar: true
             };
 
@@ -156,7 +153,7 @@ const Table = ({
             fillingEmptyRows = emptyRows =>
                 emptyRows > 0 && (
                     <MuiTableRow style={{ height: 48 * emptyRows }}>
-                        <MuiTableCell colSpan={this.state.dataFiledsCount} />
+                        <MuiTableCell colSpan={this.state.columnsCount} />
                     </MuiTableRow>
                 );
 
@@ -173,7 +170,7 @@ const Table = ({
                     updatingItemId,
                     modalWindowChangingIsOpening,
                     changeModalWindowTitle,
-                    dataFiledsCount
+                    columnsCount
                 } = this.state;
                 const {
                     currentPage,
@@ -195,7 +192,7 @@ const Table = ({
                     <MuiTableRow>
                         <MuiTablePagination
                             className={classes.footer}
-                            colSpan={dataFiledsCount}
+                            colSpan={columnsCount}
                             count={elementsCount}
                             rowsPerPage={elementsPerPage}
                             page={currentPage}
@@ -217,19 +214,19 @@ const Table = ({
                 );
 
                 const {
-                    tableHeaders,
-                    titleTable,
-                    tableId
-                } = dataFiledsInfo;
+                    columns,
+                    title,
+                    id
+                } = metaData;
 
                 return (
                     <>
-                        <Paper className={classes.root} id={tableId}>
+                        <Paper className={classes.root} id={id}>
                             {/*Таблица*/}
                             {showToolbar && (
                                 <TableToolbar
                                     onCreate={this.handleOpenOnCreateChangeModalWindow}
-                                    title={titleTable}
+                                    title={title}
                                 />
                             )}
                             <MuiTable className={classes.table}>
@@ -238,7 +235,7 @@ const Table = ({
                                     order={this.sortingData.sort}
                                     orderBy={this.sortingData.sortBy}
                                     onRequestSort={this.handleSortByHeaderClick}
-                                    columnHeaders={Object.values(tableHeaders)}
+                                    columnHeaders={Object.values(columns)}
                                 />
                                 <MuiTableBody>
                                     {data &&
@@ -246,7 +243,7 @@ const Table = ({
                                             <RowComponent
                                                 key={row.id}
                                                 row={row}
-                                                displayedColumns={Object.values(tableHeaders)}
+                                                displayedColumns={Object.values(columns)}
                                                 classes={classes}
                                                 handleInfoButtonClick={() => this.handleOpenOnEditChangeModalWindow(row.id)}
                                             />

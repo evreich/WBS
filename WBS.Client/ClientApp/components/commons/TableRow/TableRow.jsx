@@ -16,8 +16,8 @@ const TableRow = props => {
             onClick={() => handleInfoButtonClick(row)}
         >
             {displayedColumns && displayedColumns.map(elem => (
-                <MuiTableCell key={elem.propName} className={classes.cell}>
-                    {transformDataForRender(row[elem.propName], elem.type)}
+                <MuiTableCell key={elem.field} className={classes.cell}>
+                    {transformDataForRender(row[elem.field], elem.type)}
                 </MuiTableCell>
             ))}
 

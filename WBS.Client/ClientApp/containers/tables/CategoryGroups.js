@@ -13,7 +13,7 @@ import {
     getPermissions
 } from 'actions/tablesActions';
 import { tableStyles } from 'stylesheets/tableLayoutAuto.css';
-import descriptors from "descriptors/categoryGroupsDescriptors";
+import metaData from 'constants/tablesMetaData/categoryGroupsMetaData'
 import api from 'constants/api';
 import objectTypes from 'constants/objectTypes';
 
@@ -50,7 +50,7 @@ export default connect(
     mapDispatchToProps
 )(
     CreateTable({
-        dataFiledsInfo: descriptors,
+        metaData,
         title: TABLE,
         tableStyles: tableStyles,
         ChangeItemModalWindow: ModalWindow
