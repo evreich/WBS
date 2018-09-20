@@ -2,7 +2,7 @@
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import TextFieldSelect from 'components/commons/textFields/TextFieldSelect';
+import TextFieldSelect from 'components/commons/textFields/TextFieldSelect/TextFieldSelect';
 import selectItemPropType from 'propTypes/selectItem';
 import { getItemsForSelection, clearComponentData } from 'actions/componentsActions';
 import getSelectItems from 'selectors/selectItemsSelectors';

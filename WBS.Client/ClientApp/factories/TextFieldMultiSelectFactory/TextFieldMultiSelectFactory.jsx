@@ -2,7 +2,7 @@
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import TextFieldMultiSelect from 'components/commons/textFields/TextFieldMultiSelect';
+import TextFieldMultiSelect from 'components/commons/textFields/TextFieldMultiSelect/TextFieldMultiSelect';
 import selectItemPropType from 'propTypes/selectItem';
 import { getItemsForSelection, clearComponentData } from 'actions/componentsActions';
 

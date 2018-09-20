@@ -7,5 +7,6 @@
     resultCenter:'ResultCenter',
     site: 'Site',
     typeOfInvestment: 'TypeOfInvestment',
-    profile: 'User'
+    profile: 'User',
+    budgetPlan: 'BudgetPlan'
 }

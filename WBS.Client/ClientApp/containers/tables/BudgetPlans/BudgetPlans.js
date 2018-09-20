@@ -1,10 +1,13 @@
 ﻿import { connect } from "react-redux";
 
 import CreateTable from "factories/Table";
-import { getTable, clearTable, updateTable, changeData } from 'actions/tablesActions';
+import {
+    getTable, clearTable, updateTable, changeData, getPermissions } from 'actions/tablesActions';
 import descriptors from "descriptors/BudgetPlanDescriptors";
 import api from 'constants/api';
 import TableRow from "./BudgetPlanTableRow";
+import objectTypes from 'constants/objectTypes';
+import ModalWindow from "../../modalWindows/BudgetPlanModalWindow";
 
 const TABLE = "budgetPlans";
 const ROUTE = api.budgetPlan;
@@ -22,6 +25,7 @@ const mapDispatchToProps = (dispatch) => ({
     clearTable: () => dispatch(clearTable(TABLE)),
     updateTable: (data) => dispatch(updateTable(data, TABLE)),
     changeData: (pageIndex, pageSize, method, data) => dispatch(changeData(pageIndex, pageSize, method, data, ROUTE, TABLE)),
+    getPermissions: () => dispatch(getPermissions(TABLE, objectTypes.budgetPlan))
 });
 
 const BudgetPlansContainer = connect(
@@ -31,7 +35,8 @@ const BudgetPlansContainer = connect(
     CreateTable({
         dataFiledsInfo: descriptors,
         title: TABLE,
-        RowComponent: TableRow
+        RowComponent: TableRow,
+        ChangeItemModalWindow: ModalWindow
         })
     );
 
