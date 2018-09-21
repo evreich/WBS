@@ -10,6 +10,8 @@ using WBS.DAL.Data.Helpers;
 using WBS.DAL.Layers.Interfaces;
 using WBS.DAL.Data.Classes;
 using WBS.DAL.Layers.Classes;
+using WBS.DAL.Enums;
+using System;
 
 namespace WBS.API.Controllers
 {
@@ -41,6 +43,21 @@ namespace WBS.API.Controllers
                 Pagination = new Pagination { CurrentPage = currentPage, ElementsPerPage = pageSize, ElementsCount = allData.Count() }
             });
         }
-         
+
+        [HttpGet("monthsSelection")]
+        [Authorize]
+        public IActionResult GetMonthsForSelection()
+        {
+            _logger.LogInformation(nameof(GetMonthsForSelection));
+            var result = Enum.GetValues(typeof(Month))
+                        .Cast<Month>()
+                        .Select(m => new 
+                        {
+                            Id = ((int)m).ToString(),
+                            Title = m.GetEnumDisplayName()
+                        });
+            _logger.LogInformation("Getting information is succesful");
+            return Ok(result);
+        }
     }
 }
