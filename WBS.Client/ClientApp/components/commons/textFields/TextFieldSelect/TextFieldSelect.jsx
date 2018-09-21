@@ -10,10 +10,12 @@ import styles from 'stylesheets/textField.css'
 // компонент выпадающий список TextFieldSelect
 // ожидаемый вх.параметр items должен представлять собой массив обьектов вида {value, text}
 const TextFieldSelect = (props) => {
-    const { classes, items, input, label, disabled = false, style, meta: { touched, error } } = props;
+    const { classes, items, input, label, disabled = false, style, selectionChanged, value, meta: { touched, error } = {} } = props;
     return (
         <Fragment>
             <TextField
+                onChange={selectionChanged}
+                value={value}
                 {...input}
                 select
                 className={classes.textField}
@@ -46,6 +48,11 @@ TextFieldSelect.propTypes = {
     meta: PropTypes.object,
     style: PropTypes.object,
     disabled: PropTypes.bool,
+    selectionChanged: PropTypes.func,
+    value: PropTypes.oneOfType([
+        PropTypes.number,
+        PropTypes.string
+    ])
 };
 
 export default withStyles(styles)(TextFieldSelect);
