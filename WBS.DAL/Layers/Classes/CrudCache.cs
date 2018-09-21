@@ -6,6 +6,7 @@ using WBS.DAL.Data.Interfaces;
 using WBS.DAL.Layers.Interfaces;
 using System.Linq;
 using WBS.DAL.Cache;
+using WBS.DAL.Data.Helpers;
 
 namespace WBS.DAL.Layers.Classes
 {
@@ -68,6 +69,26 @@ namespace WBS.DAL.Layers.Classes
                     _cache.Set(key, requested, _expiration);
             }
             return requested;
+        }
+
+        public virtual IEnumerable<T> Get(List<Filter> filters, Sort sort)
+        {
+            var key = GenerateKey(_allIdentifier);
+            var requested = _cache.Get<IEnumerable<T>>(key);
+            if (requested == null)
+            {
+                requested = _crud.Get();
+                if (requested != null && requested.Any())
+                    _cache.Set(key, requested.ToList(), _expiration);
+            }
+            return Filter(requested, filters, sort);
+        }
+
+        private IEnumerable<T> Filter(IEnumerable<T> data, List<Filter> filters, Sort sort)
+        {
+            var res = QueryHelper.ApplyConditions(data, filters);
+            res = QueryHelper.ApplySort(data, sort);
+            return res;
         }
 
         public T Update(T item)
