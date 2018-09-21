@@ -2,10 +2,10 @@
 
 import CreateTable from "factories/Table";
 import {
-    getTable, clearTable, updateTable, changeData, getPermissions, clearUpdatingItem } from 'actions/tablesActions';
+    getTable, clearTable, updateTable, changeData, getPermissions, clearUpdatingItem, setUpdatingItem } from 'actions/tablesActions';
 import descriptors from "descriptors/BudgetPlanDescriptors";
 import api from 'constants/api';
-import TableRow from "./BudgetPlanTableRow";
+import TableRow from "containers/rows/BudgetPlansTableRowContainer";
 import objectTypes from 'constants/objectTypes';
 import ModalWindow from "../../modalWindows/BudgetPlanModalWindow";
 
@@ -26,6 +26,7 @@ const mapDispatchToProps = (dispatch) => ({
     updateTable: (data) => dispatch(updateTable(data, TABLE)),
     changeData: (pageIndex, pageSize, method, data) => dispatch(changeData(pageIndex, pageSize, method, data, ROUTE, TABLE)),
     getPermissions: () => dispatch(getPermissions(TABLE, objectTypes.budgetPlan)),
+    setUpdatingItem: (updatingItemId) => dispatch(setUpdatingItem(updatingItemId, TABLE)),
     clearUpdatingItem: () => dispatch(clearUpdatingItem(TABLE))
 });
 

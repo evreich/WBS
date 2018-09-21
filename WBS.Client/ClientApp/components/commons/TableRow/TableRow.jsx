@@ -4,8 +4,8 @@ import PropTypes from "prop-types";
 import MuiTableCell from "@material-ui/core/TableCell";
 import MuiTableRow from "@material-ui/core/TableRow";
 
-import transformDataForRender from 'utils/transormDataForRender';
 import { columnHeaderPropType } from 'propTypes';
+import transformDataForRender from 'utils/transormDataForRender';
 
 const TableRow = props => {
     const { row, classes, displayedColumns, handleInfoButtonClick } = props;

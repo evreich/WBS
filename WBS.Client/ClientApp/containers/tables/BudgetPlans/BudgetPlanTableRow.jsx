@@ -9,9 +9,9 @@ import IconButton from '@material-ui/core/IconButton';
 
 const BudgetPlanTableRow = (props) => {
     //TODO: реализовать открытие модальных окон на нажатие по соотв кнопкам
-    const { row, classes, handleInfoButtonClick } = props
+    const { row, classes, setUpdatingItem } = props
     return (
-        <TableRow className={classes.rowHover} onClick={() => handleInfoButtonClick(row)}>
+        <TableRow className={classes.rowHover} onClick={() => setUpdatingItem(row.id)}>
             <TableCell className={classes.cell} >{row.year}</TableCell>
             <TableCell className={classes.cell} >{row.status}</TableCell>
             <TableCell className={classes.cell} >
@@ -31,7 +31,7 @@ const BudgetPlanTableRow = (props) => {
 BudgetPlanTableRow.propTypes = {
     classes: PropTypes.object.isRequired,
     row: PropTypes.object.isRequired,
-    handleInfoButtonClick: PropTypes.func,
+    setUpdatingItem: PropTypes.func.isRequired
 }
 
 export default BudgetPlanTableRow;

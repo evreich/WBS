@@ -244,11 +244,11 @@ const Table = ({
                                     {data &&
                                         data.map(row => (
                                             <RowComponent
-                                                key={row.id}
-                                                row={row}
-                                                displayedColumns={Object.values(tableHeaders)}
-                                                classes={classes}
-                                                handleInfoButtonClick={() => this.handleOpenOnEditChangeModalWindow(row.id)}
+                                        key={row.id}
+                                        row={row}
+                                        displayedColumns={Object.values(tableHeaders)}
+                                        classes={classes}
+                                        handleInfoButtonClick={() => this.handleOpenOnEditChangeModalWindow(row.id)}
                                             />
                                         ))}
                                     {this.fillingEmptyRows(emptyRows)}
