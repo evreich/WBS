@@ -22,13 +22,13 @@ const TABLE = "providers";
 const ROUTE = api.providers;
 
 const mapStateToProps = state => {
-    const props = (state.tables[TABLE] ?
+    const props = (state.tables[TABLE] && state.tables[TABLE].data && state.tables[TABLE].permissions ?
         {
             //...state.tables[TABLE],
             data: state.tables[TABLE].data.map(item => ({
                 ...item,
                 permissions: { ...state.tables[TABLE].permissions },
-                profiles: item.profiles.map(p => p.title).join(", ")
+                providersTechnicalServices: item.providersTechnicalServices.map(p => p.title).join(", ")
             })),
             pagination: state.tables[TABLE].pagination,
             accessToCreate: true

@@ -33,7 +33,7 @@ const Table = ({
     tableStyles = {}
 }) =>
     withStyles(() => ({ ...styles, ...tableStyles }))(
-        class Table extends React.Component {
+        class Table extends React.PureComponent {
             constructor(props) {
                 super(props);
                 this.state = {
