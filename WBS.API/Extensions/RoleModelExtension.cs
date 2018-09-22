@@ -1,10 +1,8 @@
 ﻿using System;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
-using WBS.DAL;
 using WBS.DAL.Authorization;
 using WBS.DAL.Authorization.Classes;
 

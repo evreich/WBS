@@ -23,7 +23,7 @@ namespace WBS.API.Controllers
         {
         }
 
-        [HttpGet("{currentPage}/{pageSize}")]
+        /*[HttpGet("{currentPage}/{pageSize}")]
         [Authorize]
         public override IActionResult Get(int currentPage = 0, int pageSize = 5)
         {
@@ -41,7 +41,7 @@ namespace WBS.API.Controllers
                 Data = dataForPage,
                 Pagination = new Pagination { CurrentPage = currentPage, ElementsPerPage = pageSize, ElementsCount = allData.Count() }
             });
-        }
+        }*/
 
         [HttpPost]
         [Authorize]

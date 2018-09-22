@@ -1,8 +1,6 @@
 ﻿using System;
-using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using WBS.DAL.Cache;
 using WBS.DAL.Layers;
 
 namespace WBS.API.Extensions

@@ -56,7 +56,7 @@ namespace WBS.DAL.Layers.Classes
             }
         }
 
-        public virtual IEnumerable<T> Get(List<Filter> filters, Sort sort)
+        public IEnumerable<T> Get(List<Filter> filters, Sort sort)
         {
             IEnumerable<T> data = this.Get();
             data = QueryHelper.ApplyConditions(data, filters);

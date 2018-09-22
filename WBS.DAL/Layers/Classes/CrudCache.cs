@@ -71,7 +71,7 @@ namespace WBS.DAL.Layers.Classes
             return requested;
         }
 
-        public virtual IEnumerable<T> Get(List<Filter> filters, Sort sort)
+        public IEnumerable<T> Get(List<Filter> filters, Sort sort)
         {
             var key = GenerateKey(_allIdentifier);
             var requested = _cache.Get<IEnumerable<T>>(key);

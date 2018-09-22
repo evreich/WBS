@@ -50,7 +50,8 @@ export function getDataForModalForm(route, component, id) {
             //TODO:
         }
 
-        GET(`${route}${id}`, onSuccess, onError/*, params*/);
+        setTimeout(() => GET(`${route}${id}`, onSuccess, onError/*, params*/), 5000)
+        
     }
 }
 
@@ -76,7 +77,8 @@ export function getDescriptorsForModalForm(component, objectType, id) {
             //TODO:
         }
 
-        GET(api.descriptors, onSuccess, onError, params);
+        setTimeout(() => GET(api.descriptors, onSuccess, onError, params), 5000)
+        //GET(api.descriptors, onSuccess, onError, params);
     }
 }
 

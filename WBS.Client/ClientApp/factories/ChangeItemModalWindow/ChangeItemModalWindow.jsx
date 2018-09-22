@@ -9,6 +9,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Button from "@material-ui/core/Button";
 import { withStyles } from '@material-ui/core/styles';
+import { BeatLoader } from 'react-spinners';
 
 import styles from './ChangeItemModalWindow.css';
 import fields from 'constants/textFields';
@@ -67,7 +68,8 @@ export default (route,
                     <DialogContent>
                         {
                             loading ?
-                                <>{"loading"}</>
+                                <BeatLoader isLoading={true}
+                                    color={'#123abc'} />
                                 : <form onSubmit={handleSubmit(this.submit)}>
                                     {
                                         descriptors &&

@@ -12,7 +12,7 @@ namespace WBS.DAL.Layers.Interfaces
         T Delete(object id);
         T Create(T item);
         IEnumerable<T> Get();
-        IEnumerable<T> Get(List<Filter> filters, Sort sort);
+       // IEnumerable<T> Get(List<Filter> filters, Sort sort);
         T Get(object Id);
     }
 }
