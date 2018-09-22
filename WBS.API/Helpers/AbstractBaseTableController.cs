@@ -60,8 +60,7 @@ namespace WBS.API.Helpers
             });
         }
         
-        /*
-         * Обобщенный метод с учетом фильтрации и сортировки
+        //Обобщенный метод с учетом фильтрации и сортировки
         [HttpGet]
         [Authorize]
         public virtual IActionResult Get(int currentPage = 0, int pageSize = 5, string filters = null, string sort = null) //as query params
@@ -69,10 +68,12 @@ namespace WBS.API.Helpers
             _logger.LogInformation("Getting information is started");
 
             //TODO: реализовать необходимые преобразования, в зависимости от того, в каком виде данные придут с клиента
-            List<Filter> filtersList = ParseFilters(filters);
-            Sort sortObj = ParseSort(sort);
+            //List<Filter> filtersList = ParseFilters(filters);
+            //Sort sortObj = ParseSort(sort);
 
-            var allData = _dal.Find(filtersList, sortObj);
+            List<Filter> filtersList = new List<Filter>();
+            Sort sortObj = new Sort();
+            var allData = _baseDAL.Get(filtersList, sortObj);
             
             var dataForPage = allData.Skip((currentPage) * pageSize)
                             .Take(pageSize)
@@ -86,7 +87,6 @@ namespace WBS.API.Helpers
                 Pagination = new Pagination { CurrentPage = currentPage, ElementsPerPage = pageSize, ElementsCount = allData.Count() }
             });
         }
-*/
 
         [HttpPut]
         [Authorize]
