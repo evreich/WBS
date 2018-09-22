@@ -36,6 +36,7 @@ export default {
     filteredProfilesForSelect: `${root}/Profile/usersSelection`,
     rolesSelection: `${root}/Profile/rolesSelection/`,
     investmentRationaleSelection: `${root}/RationaleForInvestment/investmentRationaleSelection/`,
+    monthSelection: `${root}/BudgetLine/monthsSelection/`,
 
     markProfileForDeletion: `${root}/Profile/markForDeletion/`
 };
