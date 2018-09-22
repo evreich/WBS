@@ -14,7 +14,7 @@ const SortedTableHead = props => {
     const { columnHeaders, order, orderBy, classes } = props;
 
     const handleColumnSortClick = sortColumnId => () => {
-        const onRequestSort = props.onRequestSort;
+        const { onRequestSort } = props;
         onRequestSort(sortColumnId);
     };
 
@@ -32,7 +32,7 @@ const SortedTableHead = props => {
                                 }
                             >
                                 <Tooltip
-                                    title="Sort"
+                                    title="Сортировать"
                                     /*placement={
                                         column.type === TypesOfColumnData.NUMBER
                                             ? "bottom-end"
@@ -40,20 +40,25 @@ const SortedTableHead = props => {
                                     }*/
                                     enterDelay={300}
                                 >
-                                    <TableSortLabel
-                                        style={classes.label}
-                                        active={orderBy === column.field}
-                                        direction={order}
-                                        onClick={handleColumnSortClick(column.field)}
-                                    >
-                                        {column.header}
-                                    </TableSortLabel>
+                                    {
+                                        column.sortable ? (
+                                            <TableSortLabel
+                                                style={classes.label}
+                                                active={orderBy === column.field}
+                                                direction={order}
+                                                onClick={handleColumnSortClick(column.field)}
+                                            >
+                                                {column.header}
+                                            </TableSortLabel>
+                                        )
+                                            : <>{column.header}</>
+                                    }
                                 </Tooltip>
                             </TableCell>
                         ),
                         this
                     )}
-                    <TableCell/>
+                <TableCell />
             </TableRow>
         </TableHead>
     );

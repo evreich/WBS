@@ -1,6 +1,7 @@
 export default {
     id: 'TypesOfInvestment',
     title: 'Типы инвестиции',
+    showViewIcon: false,
     columns: [
         {
             header: 'Код',

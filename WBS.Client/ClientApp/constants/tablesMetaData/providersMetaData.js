@@ -1,6 +1,7 @@
 export default {
     id: 'Providers',
     title: 'Поставщики',
+    showViewIcon: false,
     columns: [
         {
             header: 'Название',

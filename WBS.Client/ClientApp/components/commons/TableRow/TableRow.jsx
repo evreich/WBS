@@ -14,7 +14,7 @@ import { columnHeaderPropType } from 'propTypes';
 import styles from 'stylesheets/button.css';
 
 const TableRow = props => {
-    const { row, classes, displayedColumns, handleEditButtonClick, handleDeleteButtonClick } = props;
+    const { row, classes, displayedColumns, showViewIcon, handleEditButtonClick, handleDeleteButtonClick } = props;
     const { permissions } = row || {};
 
     const onEditClick = () => handleEditButtonClick(row);
@@ -32,10 +32,12 @@ const TableRow = props => {
                     {transformDataForRender(row[elem.field], elem.type)}
                 </MuiTableCell>
             ))}
-            <MuiTableCell className={classes.cell}>
-                <IconButton className={classes.small}>
-                    <VisibilityIcon />
-                </IconButton>
+            <MuiTableCell className={classes.actionsCell}>
+                {showViewIcon &&
+                    <IconButton className={classes.small}>
+                        <VisibilityIcon />
+                    </IconButton>
+                }
                 {
                     permissions.accessToUpdate &&
                     <IconButton className={classes.small}>
@@ -60,9 +62,12 @@ const TableRow = props => {
 TableRow.propTypes = {
     classes: PropTypes.object.isRequired,
     row: PropTypes.object.isRequired,
+    displayedColumns: PropTypes.arrayOf(columnHeaderPropType).isRequired,
+
     handleEditButtonClick: PropTypes.func,
     handleDeleteButtonClick: PropTypes.func,
-    displayedColumns: PropTypes.arrayOf(columnHeaderPropType).isRequired
+
+    showViewIcon: PropTypes.bool
 };
 
 export default withStyles(styles)(TableRow);

@@ -1,6 +1,7 @@
 export default {
     id: 'ResultCentres',
     title: 'Центры результатов',
+    showViewIcon: false,
     columns: [
         {
             header: 'Код',

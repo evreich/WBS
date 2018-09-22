@@ -12,34 +12,39 @@ import Tooltip from '@material-ui/core/Tooltip';
 import { toolbarStyles } from './TableToolbar.css';
 
 let TableToolbar = props => {
-    const {classes, onCreate, title } = props;
-  
+    const { classes, onCreate, title, accessToCreate = false } = props;
+
     return (
-      <Toolbar
-        className={classNames(classes.root, {
-          [classes.highlight]: false,
-        })}
-      >
-        <div className={classes.title}>
-          <Typography variant="title">{title}</Typography>
-        </div>
-        <div className={classes.spacer} />
-        <div className={classes.actions}>
-          <Tooltip title="Add new">
-            <Button variant="flat" size="small" onClick={onCreate} style={{ marginRight: 10, color: "green" }} aria-label="Create new">
-              Создать&nbsp;
-              <AddCircleOutlineIcon />
-            </Button>
-          </Tooltip>
-        </div>
-      </Toolbar>
+        <Toolbar
+            className={classNames(classes.root, {
+                [classes.highlight]: false,
+            })}
+        >
+            <div className={classes.title}>
+                <Typography variant="title">{title}</Typography>
+            </div>
+            <div className={classes.spacer} />
+            <div className={classes.actions}>{
+                accessToCreate && (
+                    <Tooltip title="Создать">
+                        <Button variant="flat" size="small" onClick={onCreate} style={{ marginRight: 10, color: "green" }} aria-label="Создать">
+                            Создать&nbsp;
+                            <AddCircleOutlineIcon />
+                        </Button>
+                    </Tooltip>
+                )
+            }
+            </div>
+        </Toolbar>
     );
-  };
-  
-  TableToolbar.propTypes = {
-    title: PropTypes.string,
+};
+
+TableToolbar.propTypes = {
     classes: PropTypes.object.isRequired,
     onCreate: PropTypes.func.isRequired,
-  };
-  
-  export default withStyles(toolbarStyles)(TableToolbar);
+
+    title: PropTypes.string,
+    accessToCreate: PropTypes.bool
+};
+
+export default withStyles(toolbarStyles)(TableToolbar);

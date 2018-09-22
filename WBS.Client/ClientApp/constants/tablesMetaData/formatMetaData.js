@@ -1,6 +1,7 @@
 export default {
     id: 'Format',
     title: 'Форматы ситов',
+    showViewIcon: false,
     columns: [
         {
             header: 'Название',

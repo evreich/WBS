@@ -10,6 +10,9 @@ export const styles = {
     cell: {
         padding: "4px 16px 4px 14px"
     },
+    actionsCell: {
+        width: "90px"
+    },
     table: {
         minWidth: 800,
         tableLayout: "fixed"

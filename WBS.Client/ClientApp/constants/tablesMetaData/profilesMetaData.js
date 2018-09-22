@@ -1,6 +1,7 @@
 export default {
     id: 'Profiles',
     title: 'Пользователи',
+    showViewIcon: false,
     columns: [
         {
             header: 'ФИО',

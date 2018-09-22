@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <Folder Include="ClientApp-old\containers\home\" />
+    <Folder Include="ClientApp\components\tableRows\" />
     <Folder Include="ClientApp\services\" />
     <Folder Include="wwwroot\" />
     <Folder Include="wwwroot\dist\" />

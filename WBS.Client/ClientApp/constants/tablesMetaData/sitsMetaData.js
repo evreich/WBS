@@ -1,6 +1,7 @@
 export default {
     id: 'Sits',
     title: 'Ситы',
+    showViewIcon: false,
     columns: [
         {
             header: 'Название',

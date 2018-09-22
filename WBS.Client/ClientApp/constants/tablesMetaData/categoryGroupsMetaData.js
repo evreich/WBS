@@ -1,6 +1,7 @@
 ﻿export default {
     id: 'CategoryGroups',
     title: 'Группы категорий',
+    showViewIcon: false,
     columns: [
         {
             header: 'Код',

@@ -41,7 +41,7 @@ const Table = ({
                     modalWindowChangingIsOpening: false,
                     updatingDataItem: null,
                     changeModalWindowTitle: createTitleModalWindow,
-                    columnsCount: Object.keys(metaData.columns).length
+                    columnsCount: Object.keys(metaData.columns).length + 1
                 };
 
                 //TODO
@@ -92,11 +92,6 @@ const Table = ({
                 getDataTable(undefined, undefined, queryParams);
             }
 
-            componentWillReceiveProps(newProps) {
-                console.log(newProps);
-                return true;
-            }
-
             componentWillUnmount() {
                 const clearTable = this.props.clearTable;
                 clearTable();
@@ -127,7 +122,6 @@ const Table = ({
                 this.setState({
                     updatingItemId: id,
                     modalWindowChangingIsOpening: true,
-                    //TODO: Если нет прав на редактирование?
                     changeModalWindowTitle: editTitleModalWindow
                 });
             };
@@ -154,7 +148,22 @@ const Table = ({
                 );
             };
 
-            handleSortByHeaderClick = () => { };
+            handleSortByHeaderClick = (propertyName) => {
+                const { getDataTable, pagination } = this.props;
+                const direction = this.sortingData.sortBy === propertyName && this.sortingData.sort === "asc"
+                    ? "desc"
+                    : "asc";
+                const sort = {
+                    propertyName,
+                    direction
+                };
+                getDataTable(pagination.currentPage, event.target.value, { sort: sort });
+
+                this.sortingData = {
+                    sortBy: propertyName,
+                    sort: direction
+                }
+            };
 
             fillingEmptyRows = emptyRows =>
                 emptyRows > 0 && (
@@ -222,7 +231,8 @@ const Table = ({
                 const {
                     columns,
                     title,
-                    id
+                    id,
+                    showViewIcon
                 } = metaData;
 
                 return (
@@ -251,11 +261,13 @@ const Table = ({
                                                 key={row.id}
                                                 row={row}
                                                 displayedColumns={Object.values(columns)}
+                                                showViewIcon={showViewIcon}
                                                 classes={classes}
                                                 handleEditButtonClick={() => this.handleOpenOnEditChangeModalWindow(row.id)}
                                                 handleDeleteButtonClick={this.handleDeleteButtonClick}
                                             />
-                                        ))}
+                                        ))
+                                    }
                                     {this.fillingEmptyRows(emptyRows)}
                                 </MuiTableBody>
 

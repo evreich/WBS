@@ -1,6 +1,7 @@
 export default {
     id: 'CategoriesOfEquipment',
     title: 'Категории оборудования',
+    showViewIcon: false,
     columns: [
         {
             header: 'Группа категории',

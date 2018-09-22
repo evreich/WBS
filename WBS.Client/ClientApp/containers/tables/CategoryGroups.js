@@ -16,26 +16,23 @@ import { tableStyles } from 'stylesheets/tableLayoutAuto.css';
 import metaData from 'constants/tablesMetaData/categoryGroupsMetaData'
 import api from 'constants/api';
 import objectTypes from 'constants/objectTypes';
+import { getTableData } from 'selectors/tableSelectors';
 
 const TABLE = "categoryGroups";
 const ROUTE = api.categoryGroups;
 
-const mapStateToProps = state => {
-    const props = (state.tables[TABLE] ?
+const mapStateToProps = state => (
+    state.tables[TABLE] ?
         {
-            ...state.tables[TABLE],
-            //TODO: send server error in form from redux store
-            //errors: state.tables[TABLE].errors
-        } : {});
-    if (state.tables[TABLE] && state.tables[TABLE].updatingItem)
-        props.modalFormInitialValues = state.tables[TABLE].data
-            .find((item) => item.id === state.tables[TABLE].updatingItem)
-    return props;
-}
+            data: getTableData(TABLE)(state),
+            pagination: state.tables[TABLE].pagination || {},
+            accessToCreate: state.tables[TABLE].permissions ? state.tables[TABLE].permissions.accessToCreate : false
+        } : {}
+);
 
 //TODO: повторяется одно и то же - вынести?
 const mapDispatchToProps = (dispatch) => ({
-    getDataTable: (pageIndex, pageSize) => dispatch(getTable(pageIndex, pageSize, ROUTE, TABLE)),
+    getDataTable: (pageIndex, pageSize, queryParams) => dispatch(getTable(pageIndex, pageSize, ROUTE, TABLE, queryParams)),
     clearTable: () => dispatch(clearTable(TABLE)),
     updateTable: (data) => dispatch(updateTable(data, TABLE)),
     changeData: (pageIndex, pageSize, method, data) => dispatch(changeData(pageIndex, pageSize, method, data, ROUTE, TABLE)),
