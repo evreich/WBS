@@ -69,7 +69,7 @@ namespace WBS.API.Helpers
 
             List<Filter> filtersList = new List<Filter>();
             Sort sortObj = new Sort();
-            var allData = new List<T>();//_baseDAL.Get(filtersList, sortObj);
+            var allData = _baseDAL.Get(filtersList, sortObj);
             
             var dataForPage = allData.Skip((currentPage) * pageSize)
                             .Take(pageSize)
