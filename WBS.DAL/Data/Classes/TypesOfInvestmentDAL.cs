@@ -8,6 +8,7 @@ using WBS.DAL.Data.Models;
 using WBS.DAL.Data.Interfaces;
 using WBS.DAL.Layers.Interfaces;
 using WBS.DAL.Layers;
+using WBS.DAL.Data.Helpers;
 
 namespace WBS.DAL
 {
@@ -38,6 +39,11 @@ namespace WBS.DAL
         public TypeOfInvestment Get(object id)
         {
             return _types_of_inv_crud.Get(id);
+        }
+
+        public IEnumerable<TypeOfInvestment> Get(List<Filter> filters, Sort sort)
+        {
+            return _types_of_inv_crud.Get(filters, sort);
         }
 
         public TypeOfInvestment Update(TypeOfInvestment item)

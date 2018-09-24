@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using WBS.DAL.Data.Interfaces;
 using WBS.DAL.Layers.Interfaces;
 using WBS.DAL.Layers;
+using WBS.DAL.Data.Helpers;
 
 namespace WBS.DAL.Data.Classes
 {
@@ -80,6 +81,11 @@ namespace WBS.DAL.Data.Classes
         public BudgetPlan Get(object Id)
         {
             return _bp_crud.Get(Id);
+        }
+
+        public IEnumerable<BudgetPlan> Get(List<Filter> filters, Sort sort)
+        {
+            return _bp_crud.Get(filters, sort);
         }
     }
 }

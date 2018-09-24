@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using WBS.DAL.Data.Interfaces;
 using WBS.DAL.Layers.Interfaces;
 using WBS.DAL.Layers;
+using WBS.DAL.Data.Helpers;
 
 namespace WBS.DAL.Data.Classes
 {
@@ -26,36 +27,41 @@ namespace WBS.DAL.Data.Classes
 
     public class BudgetLineDAL : ICRUD<BudgetLine>
     {
-        ICRUD<BudgetLine> _bpItem_crud;
+        ICRUD<BudgetLine> _budgetLine_crud;
 
         public BudgetLineDAL(GetCRUD getcrud, WBSContext context)
         {
-            _bpItem_crud = getcrud(typeof(BudgetLineDAL), typeof(BudgetLine)) as ICRUD<BudgetLine>;
+            _budgetLine_crud = getcrud(typeof(BudgetLineDAL), typeof(BudgetLine)) as ICRUD<BudgetLine>;
         }
 
         public BudgetLine Create(BudgetLine item)
         {
-            return _bpItem_crud.Create(item);
+            return _budgetLine_crud.Create(item);
         }
 
         public BudgetLine Delete(object id)
         {
-            return _bpItem_crud.Delete(id);
+            return _budgetLine_crud.Delete(id);
         }
 
         public IEnumerable<BudgetLine> Get()
         {
-            return _bpItem_crud.Get();
+            return _budgetLine_crud.Get();
         }
 
         public BudgetLine Get(object Id)
         {
-            return _bpItem_crud.Get(Id);
+            return _budgetLine_crud.Get(Id);
+        }
+
+        public IEnumerable<BudgetLine> Get(List<Filter> filters, Sort sort)
+        {
+            return _budgetLine_crud.Get(filters, sort);
         }
 
         public BudgetLine Update(BudgetLine item)
         {
-            return _bpItem_crud.Update(item);
+            return _budgetLine_crud.Update(item);
         }
     }
 }

@@ -9,6 +9,7 @@ using WBS.DAL.Authorization.Models.ViewModels;
 using WBS.DAL.Data.Interfaces;
 using WBS.DAL.Layers.Interfaces;
 using WBS.DAL.Layers;
+using WBS.DAL.Data.Helpers;
 
 namespace WBS.DAL.Authorization
 {
@@ -189,6 +190,11 @@ namespace WBS.DAL.Authorization
         public User Get(object id)
         {
             return _users_crud.Get(id);
+        }
+
+        public IEnumerable<User> Get(List<Filter> filters, Sort sort)
+        {
+            return _users_crud.Get(filters, sort);
         }
     }
 }
