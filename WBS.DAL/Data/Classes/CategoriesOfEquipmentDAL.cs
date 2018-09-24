@@ -8,6 +8,7 @@ using WBS.DAL.Data.Models;
 using WBS.DAL.Data.Interfaces;
 using WBS.DAL.Layers.Interfaces;
 using WBS.DAL.Layers;
+using WBS.DAL.Data.Helpers;
 
 namespace WBS.DAL
 {
@@ -46,6 +47,11 @@ namespace WBS.DAL
         public CategoryOfEquipment Get(object id)
         {
             return _categories_of_equipment_crud.Get(id);
+        }
+
+        public IEnumerable<CategoryOfEquipment> Get(List<Filter> filters, Sort sort)
+        {
+            return _categories_of_equipment_crud.Get(filters, sort);
         }
 
         public CategoryOfEquipment Update(CategoryOfEquipment item)

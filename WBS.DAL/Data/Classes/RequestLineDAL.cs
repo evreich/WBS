@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using WBS.DAL.Data.Helpers;
 using WBS.DAL.Data.Interfaces;
 using WBS.DAL.Data.Models;
 using WBS.DAL.Layers;
@@ -51,6 +52,11 @@ namespace WBS.DAL.Data.Classes
         public RequestLine Get(object id)
         {
             return _requestLine_crud.Get(id);
+        }
+
+        public IEnumerable<RequestLine> Get(List<Filter> filters, Sort sort)
+        {
+            return _requestLine_crud.Get(filters, sort);
         }
 
         public RequestLine Update(RequestLine item)

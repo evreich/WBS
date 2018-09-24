@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using WBS.DAL.Authorization.Models;
+using WBS.DAL.Data.Helpers;
 using WBS.DAL.Layers;
 using WBS.DAL.Layers.Interfaces;
 
@@ -34,6 +35,11 @@ namespace WBS.DAL.Data.Classes
         public Role Get(object id)
         {
             return _roles_crud.Get(id);
+        }
+
+        public IEnumerable<Role> Get(List<Filter> filters, Sort sort)
+        {
+            return _roles_crud.Get(filters, sort);
         }
 
         public Role Update(Role item)

@@ -7,6 +7,7 @@ using WBS.DAL.Data.Interfaces;
 using WBS.DAL.Layers.Interfaces;
 using WBS.DAL.Layers;
 using WBS.DAL.Data.Models;
+using WBS.DAL.Data.Helpers;
 
 namespace WBS.DAL
 {
@@ -47,6 +48,11 @@ namespace WBS.DAL
         public Provider Get(object id)
         {
             return _providers_crud.Get(id);
+        }
+
+        public IEnumerable<Provider> Get(List<Filter> filters, Sort sort)
+        {
+            return _providers_crud.Get(filters, sort);
         }
 
         public Provider Update(Provider item)

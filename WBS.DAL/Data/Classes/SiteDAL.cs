@@ -8,6 +8,7 @@ using WBS.DAL.Data.Models;
 using WBS.DAL.Data.Interfaces;
 using WBS.DAL.Layers.Interfaces;
 using WBS.DAL.Layers;
+using WBS.DAL.Data.Helpers;
 
 namespace WBS.DAL
 {
@@ -52,6 +53,11 @@ namespace WBS.DAL
         public Site Get(object id)
         {
             return _sites_crud.Get(id);
+        }
+
+        public IEnumerable<Site> Get(List<Filter> filters, Sort sort)
+        {
+            return _sites_crud.Get(filters, sort);
         }
 
         public Site Update(Site item)
