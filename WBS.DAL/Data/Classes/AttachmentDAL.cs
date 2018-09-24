@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using WBS.DAL.Cache;
+using WBS.DAL.Data.Helpers;
 using WBS.DAL.Data.Interfaces;
 using WBS.DAL.Data.Models;
 using WBS.DAL.Layers;
@@ -45,6 +46,11 @@ namespace WBS.DAL.Data.Classes
         public Attachment Get(object id)
         {
             return _attachments_crud.Get(id);
+        }
+
+        public IEnumerable<Attachment> Get(List<Filter> filters, Sort sort)
+        {
+            return _attachments_crud.Get(filters, sort);
         }
 
         public Attachment Update(Attachment item)

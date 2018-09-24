@@ -8,6 +8,7 @@ using WBS.DAL.Data.Models;
 using WBS.DAL.Data.Interfaces;
 using WBS.DAL.Layers.Interfaces;
 using WBS.DAL.Layers;
+using WBS.DAL.Data.Helpers;
 
 namespace WBS.DAL
 {
@@ -38,6 +39,11 @@ namespace WBS.DAL
         public ResultCenter Get(object id)
         {
             return _result_centers_crud.Get(id);
+        }
+
+        public IEnumerable<ResultCenter> Get(List<Filter> filters, Sort sort)
+        {
+            return _result_centers_crud.Get(filters, sort);
         }
 
         public ResultCenter Update(ResultCenter item)

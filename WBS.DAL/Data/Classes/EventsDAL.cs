@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using WBS.DAL.Data.Interfaces;
 using WBS.DAL.Layers.Interfaces;
 using WBS.DAL.Layers;
+using WBS.DAL.Data.Helpers;
 
 namespace WBS.DAL.Data.Classes
 {
@@ -49,6 +50,11 @@ namespace WBS.DAL.Data.Classes
         public Event Get(object id)
         {
             return _events_crud.Get(id);
+        }
+
+        public IEnumerable<Event> Get(List<Filter> filters, Sort sort)
+        {
+            return _events_crud.Get(filters, sort);
         }
 
         public Event Update(Event item)
