@@ -15,7 +15,16 @@ const styles = () => ({
         background: "red",
         "&:hover": { background: "#b50606", backgroundClip: "padding-box" }
     },
-    container: { minWidth: "400px" }
+    container: {
+        minWidth: "400px"
+    },
+    loaderContainer: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        minHeight: 140
+    },
+    loader: { color: '#8EBF9B' }
 });
 
 export default styles;

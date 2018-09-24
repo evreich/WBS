@@ -43,8 +43,6 @@ export default (route,
     return connect(mapStateToProps, mapDispatchToProps)(Select);
 }
 
-
-//TODO: reselect!!!
 const defaultMapStateToProps = componentName => state => (
     state.components[componentName]
         ? {

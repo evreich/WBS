@@ -64,8 +64,8 @@ namespace WBS.API.Helpers
             _logger.LogInformation("Getting information is started");
 
             //TODO: реализовать необходимые преобразования, в зависимости от того, в каком виде данные придут с клиента
-            //List<Filter> filtersList = ParseFilters(filters);
-            //Sort sortObj = ParseSort(sort);
+            //List<Filter> filtersList = ParseHelper.ParseFilters(filters);
+            //Sort sortObj = ParseHelper.ParseSort(sort);
 
             List<Filter> filtersList = new List<Filter>();
             Sort sortObj = new Sort();
