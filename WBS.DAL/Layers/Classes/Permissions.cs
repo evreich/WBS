@@ -110,7 +110,7 @@ namespace WBS.DAL.Layers.Classes
             throw new NoPermissionsException("У пользователя отсутствует право на чтение");
         }
 
-       /* public IEnumerable<T> Get(List<Filter> filters, Sort sort)
+        public IEnumerable<T> Get(List<Filter> filters, Sort sort)
         {
             if (_allowGet)
             {
@@ -125,7 +125,7 @@ namespace WBS.DAL.Layers.Classes
                 }
             }
             throw new NoPermissionsException("У пользователя отсутствует право на чтение");
-        }*/
+        }
 
         public T Get(object id)
         {

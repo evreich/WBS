@@ -12,7 +12,7 @@ namespace WBS.DAL.Data.Helpers
     {
         public static IEnumerable<T> ApplyConditions<T>(IEnumerable<T> data, IEnumerable<Filter> filters) where T : class, IBaseEntity
         {
-            if (filters == null) return data;
+            if (filters == null || filters.Count() == 0) return data;
 
             ParameterExpression paramExpression = Expression.Parameter(typeof(T), "param");
             Func<T, bool> resultPredicate = null;
@@ -88,7 +88,7 @@ namespace WBS.DAL.Data.Helpers
 
         public static IEnumerable<T> ApplySort<T>(IEnumerable<T> data, Sort sort) where T : class, IBaseEntity
         {
-            if (sort == null)
+            if (sort == null || sort.PropertyName == null)
                 return data.OrderBy(f => f.Id);
             else
             {

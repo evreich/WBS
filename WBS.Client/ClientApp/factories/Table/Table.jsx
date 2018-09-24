@@ -150,6 +150,7 @@ const Table = ({
 
             handleSortByHeaderClick = (propertyName) => {
                 const { getDataTable, pagination } = this.props;
+                //TODO: direction в константы
                 const direction = this.sortingData.sortBy === propertyName && this.sortingData.sort === "asc"
                     ? "desc"
                     : "asc";
