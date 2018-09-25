@@ -35,7 +35,7 @@ namespace WBS.DAL.Descriptors
 
             List<FieldInfo> descriptorFields = new List<FieldInfo>();
             IEnumerable<RolesObjectFields> fields = _permissionsDAL.GetPermissionsForFields(typeName, assemblyName, roles);
-            var distinctFields = fields.Select(f => f.ObjectField.FieldName).Distinct().ToList();
+            var distinctFields = fields.OrderBy(f => f.Position).Select(f => f.ObjectField.FieldName).Distinct().ToList();
 
             distinctFields.ForEach(df =>
             {

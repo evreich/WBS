@@ -27,5 +27,7 @@ namespace WBS.DAL.Authorization.Models
 
         public int FieldComponentId { get; set; }
         public FieldComponent FieldComponent { get; set; }
+
+        public int Position { get; set; }
     }
 }

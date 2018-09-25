@@ -4,7 +4,7 @@ import CreateTable from "components/Commons/Table";
 import { getTable, clearTable, updateTable, changeData, deleteData } from '../tablesActions';
 
 const TABLE = "categoriesOfEquipment";
-const ROUTE = document.api.categoriesOfEquipment;
+const ROUTE = document.api ? document.api.categoriesOfEquipment : undefined;
 
 const mapStateToProps = state => 
     (state.tables[TABLE] ?

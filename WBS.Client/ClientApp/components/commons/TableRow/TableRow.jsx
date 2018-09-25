@@ -9,6 +9,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import VisibilityIcon from "@material-ui/icons/Visibility";
 import BorderColorIcon from "@material-ui/icons/BorderColor";
 
+import { columnHeaderPropType } from 'propTypes';
 import transformDataForRender from 'utils/transormDataForRender';
 import { columnHeaderPropType } from 'propTypes';
 import styles from 'stylesheets/button.css';

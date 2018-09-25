@@ -4,6 +4,7 @@ import FormatSelect from 'containers/textFields/selects/FormatSelect';
 import ResultCenterSelect from 'containers/textFields/selects/ResultCenterSelect';
 import SiteSelect from 'containers/textFields/selects/SiteSelect';
 import TypeOfInvestmentSelect from 'containers/textFields/selects/TypeOfInvestmentSelect';
+import MonthSelect from 'containers/textFields/selects/MonthSelect';
 
 import TechnicalServMultiSelect from 'containers/textFields/multiSelects/TechnicalServMultiSelect';
 import RoleMultiSelect from 'containers/textFields/multiSelects/RoleMultiSelect';
@@ -19,6 +20,7 @@ export default {
     'ResultCenterSelect': ResultCenterSelect,
     'SiteSelect': SiteSelect,
     'TypeOfInvestmentSelect': TypeOfInvestmentSelect,
+    'MonthSelect': MonthSelect,
 
     'TechnicalServMultiSelect': TechnicalServMultiSelect,
     'RoleMultiSelect': RoleMultiSelect,

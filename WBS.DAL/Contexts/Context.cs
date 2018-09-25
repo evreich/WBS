@@ -52,7 +52,8 @@ namespace WBS.DAL
                     new FieldComponent { Id = 7, Name = "TypeOfInvestmentSelect" },
                     new FieldComponent { Id = 8, Name = "TechnicalServMultiSelect" },
                     new FieldComponent { Id = 9, Name = "UserAutosuggestField" },
-                    new FieldComponent { Id = 10, Name = "TextFieldMultiline" }
+                    new FieldComponent { Id = 10, Name = "TextFieldMultiline" },
+                    new FieldComponent { Id = 11, Name = "MonthSelect" }
                 );
 
             //инициализация таблицы типов
