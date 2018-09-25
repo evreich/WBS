@@ -110,6 +110,23 @@ namespace WBS.DAL.Layers.Classes
             throw new NoPermissionsException("У пользователя отсутствует право на чтение");
         }
 
+        public IEnumerable<T> Get(List<Filter> filters, Sort sort)
+        {
+            if (_allowGet)
+            {
+                return _crud.Get(filters, sort);
+            }
+            else
+            {
+                var expressionDelegates = _typeExpressions.Where(exp => exp.AllowRead).Select(exp => exp.ExpressionDel);
+                if (expressionDelegates.Any())
+                {
+                    return _crud.Get(filters, sort).Where(item => permissionsDal.CheckCriterions<T>(item, expressionDelegates));
+                }
+            }
+            throw new NoPermissionsException("У пользователя отсутствует право на чтение");
+        }
+
         public T Get(object id)
         {
             if (_allowGet)

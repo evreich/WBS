@@ -56,11 +56,9 @@ namespace WBS.DAL.Layers.Classes
             }
         }
 
-
-        public virtual IEnumerable<T> Find(List<Filter> filters, Sort sort)
+        public IEnumerable<T> Get(List<Filter> filters, Sort sort)
         {
-
-            IEnumerable<T> data = _context.Set<T>();
+            IEnumerable<T> data = this.Get();
             data = QueryHelper.ApplyConditions(data, filters);
             data = QueryHelper.ApplySort(data, sort);
             return data;
@@ -70,13 +68,29 @@ namespace WBS.DAL.Layers.Classes
         {
             _context.Set<T>().Update(item);
             _context.SaveChanges();
-            var result = _context.Set<T>().Where(b => b.Id == item.Id).FirstOrDefault();
-            return result;
+            if(_queryable != null)
+            {
+                var result = _queryable.GetItems(_context.Set<T>().Where(b => b.Id == item.Id)).FirstOrDefault();
+                return result;
+            }
+            else
+            {
+                var result = _context.Set<T>().Where(b => b.Id == item.Id).FirstOrDefault();
+                return result;
+            }
         }
 
         public T Delete(object id)
         {
-            var item = _context.Set<T>().Where(b => b.Id == (int)id).FirstOrDefault();
+            T item;
+            if (_queryable != null)
+            {
+                item = _queryable.GetItems(_context.Set<T>().Where(b => b.Id == (int)id)).FirstOrDefault();
+            }
+            else
+            {
+                item = _context.Set<T>().Where(b => b.Id == (int)id).FirstOrDefault();
+            }
             if (item != null)
             {
                 _context.Set<T>().Remove(item);

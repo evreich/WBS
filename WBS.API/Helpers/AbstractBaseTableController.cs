@@ -4,14 +4,10 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Claims;
 using WBS.DAL;
 using WBS.DAL.Cache;
 using WBS.DAL.Data.Helpers;
-using WBS.DAL.Data.Interfaces;
 using WBS.DAL.Data.Models.ViewModels;
-using WBS.DAL.Descriptors;
-using WBS.DAL.Enums;
 using WBS.DAL.Layers.Interfaces;
 
 namespace WBS.API.Helpers
@@ -39,7 +35,7 @@ namespace WBS.API.Helpers
             return Ok((U)Activator.CreateInstance(typeof(U), item));
         }
 
-        [HttpGet("{currentPage}/{pageSize}")]
+        /*[HttpGet("{currentPage}/{pageSize}")]
         [Authorize]
         public virtual IActionResult Get(int currentPage = 0, int pageSize = 5)
         {
@@ -58,21 +54,22 @@ namespace WBS.API.Helpers
                 Data = dataForPage,
                 Pagination = new Pagination { CurrentPage = currentPage, ElementsPerPage = pageSize, ElementsCount = allData.Count() }
             });
-        }
+        }*/
         
-        /*
-         * Обобщенный метод с учетом фильтрации и сортировки
-        [HttpGet]
+        //Обобщенный метод с учетом фильтрации и сортировки
+        [HttpGet("{currentPage}/{pageSize}")]
         [Authorize]
         public virtual IActionResult Get(int currentPage = 0, int pageSize = 5, string filters = null, string sort = null) //as query params
         {
             _logger.LogInformation("Getting information is started");
 
             //TODO: реализовать необходимые преобразования, в зависимости от того, в каком виде данные придут с клиента
-            List<Filter> filtersList = ParseFilters(filters);
-            Sort sortObj = ParseSort(sort);
+            //List<Filter> filtersList = ParseHelper.ParseFilters(filters);
+            //Sort sortObj = ParseHelper.ParseSort(sort);
 
-            var allData = _dal.Find(filtersList, sortObj);
+            List<Filter> filtersList = new List<Filter>();
+            Sort sortObj = new Sort();
+            var allData = _baseDAL.Get(filtersList, sortObj);
             
             var dataForPage = allData.Skip((currentPage) * pageSize)
                             .Take(pageSize)
@@ -86,7 +83,6 @@ namespace WBS.API.Helpers
                 Pagination = new Pagination { CurrentPage = currentPage, ElementsPerPage = pageSize, ElementsCount = allData.Count() }
             });
         }
-*/
 
         [HttpPut]
         [Authorize]

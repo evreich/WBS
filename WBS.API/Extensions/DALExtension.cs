@@ -1,10 +1,7 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Caching.Memory;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using WBS.DAL;
-using WBS.DAL.Cache;
 using WBS.DAL.Data.Models;
 using WBS.DAL.Data.Classes;
 using WBS.DAL.Data.Interfaces;
@@ -13,7 +10,6 @@ using WBS.DAL.Layers.Classes;
 using WBS.DAL.Layers;
 using WBS.DAL.Authorization;
 using WBS.DAL.Authorization.Models;
-using System.Linq;
 using WBS.DAL.Exceptions;
 
 namespace WBS.API.Extensions

@@ -7,14 +7,14 @@ import TableRow from "@material-ui/core/TableRow";
 import TableSortLabel from "@material-ui/core/TableSortLabel";
 import Tooltip from "@material-ui/core/Tooltip";
 
-import TypesOfColumnData from "constants/typesOfColumnData";
+//import TypesOfColumnData from "constants/typesOfColumnData";
 import { columnHeaderPropType } from "propTypes";
 
 const SortedTableHead = props => {
     const { columnHeaders, order, orderBy, classes } = props;
 
     const handleColumnSortClick = sortColumnId => () => {
-        const onRequestSort = props.onRequestSort;
+        const { onRequestSort } = props;
         onRequestSort(sortColumnId);
     };
 
@@ -26,33 +26,39 @@ const SortedTableHead = props => {
                         column => (
                             <TableCell
                                 className={classes.cell}
-                                key={column.propName}
+                                key={column.field}
                                 sortDirection={
-                                    orderBy === column.propName ? order : false
+                                    orderBy === column.field ? order : false
                                 }
                             >
                                 <Tooltip
-                                    title="Sort"
-                                    placement={
+                                    title="Сортировать"
+                                    /*placement={
                                         column.type === TypesOfColumnData.NUMBER
                                             ? "bottom-end"
                                             : "bottom-start"
-                                    }
+                                    }*/
                                     enterDelay={300}
                                 >
-                                    <TableSortLabel
-                                        style={classes.label}
-                                        active={orderBy === column.propName}
-                                        direction={order}
-                                        onClick={handleColumnSortClick(column.propName)}
-                                    >
-                                        {column.label}
-                                    </TableSortLabel>
+                                    {
+                                        column.sortable ? (
+                                            <TableSortLabel
+                                                style={classes.label}
+                                                active={orderBy === column.field}
+                                                direction={order}
+                                                onClick={handleColumnSortClick(column.field)}
+                                            >
+                                                {column.header}
+                                            </TableSortLabel>
+                                        )
+                                            : <>{column.header}</>
+                                    }
                                 </Tooltip>
                             </TableCell>
                         ),
                         this
                     )}
+                <TableCell />
             </TableRow>
         </TableHead>
     );

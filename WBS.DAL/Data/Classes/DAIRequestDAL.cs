@@ -10,6 +10,7 @@ using WBS.DAL.Data.Models.ViewModels;
 using WBS.DAL.Data.Interfaces;
 using WBS.DAL.Layers.Interfaces;
 using WBS.DAL.Layers;
+using WBS.DAL.Data.Helpers;
 
 namespace WBS.DAL
 {
@@ -69,6 +70,11 @@ namespace WBS.DAL
         public DAIRequest Get(object id)
         {
             return _dai_requests_crud.Get(id);
+        }
+
+        public IEnumerable<DAIRequest> Get(List<Filter> filters, Sort sort)
+        {
+            return _dai_requests_crud.Get(filters, sort);
         }
 
         public DAIRequest Update(DAIRequest item)

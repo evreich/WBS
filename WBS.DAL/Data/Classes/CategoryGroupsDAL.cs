@@ -9,6 +9,7 @@ using System;
 using WBS.DAL.Data.Interfaces;
 using WBS.DAL.Layers.Interfaces;
 using WBS.DAL.Layers;
+using WBS.DAL.Data.Helpers;
 
 namespace WBS.DAL
 {
@@ -39,6 +40,11 @@ namespace WBS.DAL
         public CategoryGroup Get(object id)
         {
             return _categories_groups_crud.Get(id); ;
+        }
+
+        public IEnumerable<CategoryGroup> Get(List<Filter> filters, Sort sort)
+        {
+            return _categories_groups_crud.Get(filters, sort);
         }
 
         public CategoryGroup Update(CategoryGroup item)

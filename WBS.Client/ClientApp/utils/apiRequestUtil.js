@@ -19,6 +19,9 @@ export const rootRequest = (currRoute, onSuccess, onError, params) => {
 export const concatParamsToPath = queryParams =>
     queryParams &&
     Object.keys(queryParams).reduce(
-        (path, currKey) => (path = path.concat(currKey, "=", queryParams[currKey], ";")),
+        (path, currKey) => {
+            let currParam = typeof queryParams[currKey] === 'object' ? JSON.stringify(queryParams[currKey]) : queryParams[currKey];
+            return path.concat(currKey, "=", currParam, ";")
+        },
         "?"
     );

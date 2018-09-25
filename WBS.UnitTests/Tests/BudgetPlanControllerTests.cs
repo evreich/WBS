@@ -102,7 +102,7 @@ namespace WBS.Tests.Tests
             int defaultCurrentPage = 0;
             int defaultElementsPerPage = 5;
 
-            var result = ((OkObjectResult)budgetPlanController.Get()).Value;
+            var result = ((OkObjectResult)budgetPlanController.Get(defaultCurrentPage, defaultElementsPerPage)).Value;
             var allData = budgetPlansDalMock.Object.Get()
                 .Take(defaultElementsPerPage)
                 .Select(bp => new BudgetPlanViewModel(bp.Id, bp.Year, status));

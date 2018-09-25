@@ -1,26 +1,61 @@
-import React from "react";
+﻿import React from "react";
 import PropTypes from "prop-types";
 
 import MuiTableCell from "@material-ui/core/TableCell";
 import MuiTableRow from "@material-ui/core/TableRow";
+import IconButton from "@material-ui/core/IconButton";
+import { withStyles } from '@material-ui/core/styles';
+import DeleteIcon from "@material-ui/icons/Delete";
+import VisibilityIcon from "@material-ui/icons/Visibility";
+import BorderColorIcon from "@material-ui/icons/BorderColor";
 
 import { columnHeaderPropType } from 'propTypes';
 import transformDataForRender from 'utils/transormDataForRender';
+import { columnHeaderPropType } from 'propTypes';
+import styles from 'stylesheets/button.css';
 
 const TableRow = props => {
-    const { row, classes, displayedColumns, handleInfoButtonClick } = props;
+    const { row, classes, displayedColumns, showViewIcon, handleEditButtonClick, handleDeleteButtonClick } = props;
+    const { permissions } = row || {};
+
+    const onEditClick = () => handleEditButtonClick(row);
+    const onDeleteClick = () => {
+        if (window.confirm('Вы уверены?'))
+            handleDeleteButtonClick(row.id);
+    };
 
     return (
         <MuiTableRow
             className={classes.rowHover}
-            onClick={() => handleInfoButtonClick(row)}
         >
             {displayedColumns && displayedColumns.map(elem => (
-                <MuiTableCell key={elem.propName} className={classes.cell}>
-                    {transformDataForRender(row[elem.propName], elem.type)}
+                <MuiTableCell key={elem.field} className={classes.cell}>
+                    {transformDataForRender(row[elem.field], elem.type)}
                 </MuiTableCell>
             ))}
-
+            <MuiTableCell className={classes.actionsCell}>
+                {showViewIcon &&
+                    <IconButton className={classes.small}>
+                        <VisibilityIcon />
+                    </IconButton>
+                }
+                {
+                    permissions.accessToUpdate &&
+                    <IconButton className={classes.small}>
+                        <BorderColorIcon
+                            className={classes.iconSmall}
+                            onClick={onEditClick} />
+                    </IconButton>
+                }
+                {
+                    permissions.accessToDelete &&
+                    <IconButton className={classes.small}>
+                        <DeleteIcon
+                            className={classes.iconSmall}
+                            onClick={onDeleteClick} />
+                    </IconButton>
+                }
+            </MuiTableCell>
         </MuiTableRow>
     );
 };
@@ -28,8 +63,12 @@ const TableRow = props => {
 TableRow.propTypes = {
     classes: PropTypes.object.isRequired,
     row: PropTypes.object.isRequired,
-    handleInfoButtonClick: PropTypes.func,
-    displayedColumns: PropTypes.arrayOf(columnHeaderPropType).isRequired
+    displayedColumns: PropTypes.arrayOf(columnHeaderPropType).isRequired,
+
+    handleEditButtonClick: PropTypes.func,
+    handleDeleteButtonClick: PropTypes.func,
+
+    showViewIcon: PropTypes.bool
 };
 
-export default TableRow;
+export default withStyles(styles)(TableRow);
