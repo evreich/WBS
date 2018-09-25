@@ -9,6 +9,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Button from "@material-ui/core/Button";
 import { withStyles } from '@material-ui/core/styles';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 import styles from './ChangeItemModalWindow.css';
 import fields from 'constants/textFields';
@@ -57,7 +58,7 @@ export default (route,
         };
 
         render() {
-            const { close, /*data,*/ descriptors, classes, header, handleSubmit } = this.props;
+            const { close, descriptors, classes, header, handleSubmit, loading = true } = this.props;
 
             return (
                 <Dialog open={true} onClose={close} maxWidth={false} classes={{ paper: classes.container }}>
@@ -65,42 +66,48 @@ export default (route,
                         <div>{header}</div>
                     </DialogTitle>
                     <DialogContent>
-                        <form onSubmit={handleSubmit(this.submit)}>
-                            {
-                                descriptors &&
-                                Object.values(descriptors).map(field => {
-                                    const { fieldComponent, propName, label, canEdit } = field || {};
-                                    const component = fields[fieldComponent];
-                                    return (
-                                        <div key={propName}>
-                                            < Field
-                                                component={component}
-                                                name={propName}
-                                                label={label}
-                                                disabled={!canEdit}
-                                            />
-                                        </div>
-                                    )
-                                })
-                            }
-                            <DialogActions>
-                                <Button
-                                    type="submit"
-                                    variant="raised"
-                                    className={classes.saveButton}
-                                >
-                                    Сохранить
+                        {
+                            loading ?
+                                <div className={classes.loaderContainer}>
+                                    <CircularProgress className={classes.loader} size={75} />
+                                </div>
+                                :
+                                <form onSubmit={handleSubmit(this.submit)}>
+                                    {
+                                        descriptors &&
+                                        Object.values(descriptors).map(field => {
+                                            const { fieldComponent, propName, label, canEdit } = field || {};
+                                            const component = fields[fieldComponent];
+                                            return (
+                                                <div key={propName}>
+                                                    < Field
+                                                        component={component}
+                                                        name={propName}
+                                                        label={label}
+                                                        disabled={!canEdit}
+                                                    />
+                                                </div>
+                                            )
+                                        })
+                                    }
+                                    <DialogActions>
+                                        <Button
+                                            type="submit"
+                                            variant="raised"
+                                            className={classes.saveButton}
+                                        >
+                                            Сохранить
                                     </Button>
-                                <Button
-                                    onClick={close}
-                                    className={classes.cancelButton}
-                                >
-                                    Отмена
+                                        <Button
+                                            onClick={close}
+                                            className={classes.cancelButton}
+                                        >
+                                            Отмена
                                     </Button>
-                            </DialogActions>
-                        </form>
+                                    </DialogActions>
+                                </form>
+                        }
                     </DialogContent>
-
                 </Dialog>
             );
         }
@@ -122,7 +129,8 @@ export default (route,
         initialValues: PropTypes.object,
         currentPage: PropTypes.number,
         elementsPerPage: PropTypes.number,
-        itemId: PropTypes.number
+        itemId: PropTypes.number,
+        loading: PropTypes.bool
     };
 
     return connect(mapStateToProps, mapDispatchToProps)(
@@ -136,7 +144,8 @@ const defaultMapStateToProps = componentName => state => (
     state.components[componentName]
         ? {
             initialValues: state.components[componentName].data,
-            descriptors: state.components[componentName].descriptors
+            descriptors: state.components[componentName].descriptors,
+            loading: state.components[componentName].isFetching
         }
         : {}
 );

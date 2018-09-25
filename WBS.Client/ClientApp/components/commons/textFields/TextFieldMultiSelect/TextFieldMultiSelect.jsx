@@ -15,7 +15,6 @@ import styles from 'stylesheets/textField.css'
 //ожидается обязательный параметр items - массив обьектов вида {id, title}
 
 class TextFieldMultiSelect extends React.Component {
-
     render() {
         const { classes, items, input, label, meta: { touched, error } } = this.props;
         const values = input.value === ""
@@ -67,11 +66,12 @@ class TextFieldMultiSelect extends React.Component {
 
 
 TextFieldMultiSelect.propTypes = {
-    input: PropTypes.object,
+    items: PropTypes.array.isRequired,
     classes: PropTypes.object.isRequired,
+
+    input: PropTypes.object,
     label: PropTypes.string,
     placeholder: PropTypes.string,
-    items: PropTypes.array.isRequired,
     meta: PropTypes.object,
 };
 

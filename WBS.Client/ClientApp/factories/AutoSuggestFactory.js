@@ -15,8 +15,6 @@ class Select extends React.Component {
     }
     render() {
         const { suggestions, getItems, clearItems, ...other } = this.props;
-        const a = 1;
-        console.log(a);
         return <AutosuggestField
             suggestions={suggestions ? suggestions : []}
             getItems={getItems}

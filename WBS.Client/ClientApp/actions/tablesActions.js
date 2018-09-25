@@ -56,7 +56,7 @@ export function getTable(currentPage = 0, elementsPerPage = 5, route, title, que
 
         const queryPath = concatParamsToPath(queryParams);
         const commonPath = `${currentPage}/${elementsPerPage}`;
-        const allPath = queryPath ? queryPath.concat(commonPath) : commonPath
+        const allPath = queryPath ? commonPath.concat(queryPath) : commonPath
 
         request(
             {

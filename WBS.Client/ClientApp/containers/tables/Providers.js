@@ -2,7 +2,6 @@ import { connect } from "react-redux";
 
 import CreateTable from "factories/Table";
 import ModalWindow from "../modalWindows/ProviderModalWindow";
-import ProviderTableRow from "components/tableRows/ProviderTableRow";
 import {
     getTable,
     clearTable,
@@ -14,25 +13,22 @@ import {
     getPermissions
 } from 'actions/tablesActions';
 import { tableStyles } from 'stylesheets/tableLayoutAuto.css';
-import descriptors from "descriptors/providersDescriptors";
+import metaData from 'constants/tablesMetaData/providersMetaData'
 import api from 'constants/api';
 import objectTypes from 'constants/objectTypes';
+import { getProvidersTableData } from 'selectors/tableSelectors';
 
 const TABLE = "providers";
 const ROUTE = api.providers;
 
-const mapStateToProps = state => {
-    const props = (state.tables[TABLE] ?
+const mapStateToProps = state => (
+    state.tables[TABLE] ?
         {
-            ...state.tables[TABLE],
-            //TODO: send server error in form from redux store
-            //errors: state.tables[TABLE].errors
-        } : {});
-    if (state.tables[TABLE] && state.tables[TABLE].updatingItem)
-        props.modalFormInitialValues = state.tables[TABLE].data
-            .find((item) => item.id === state.tables[TABLE].updatingItem)
-    return props;
-}
+            data: getProvidersTableData(TABLE)(state),
+            pagination: state.tables[TABLE].pagination || {},
+            accessToCreate: state.tables[TABLE].permissions ? state.tables[TABLE].permissions.accessToCreate : false
+        } : {}
+);
 
 //TODO: повторяется одно и то же - вынести?
 const mapDispatchToProps = (dispatch) => ({
@@ -51,10 +47,9 @@ export default connect(
     mapDispatchToProps
 )(
     CreateTable({
-        dataFiledsInfo: descriptors,
+        metaData,
         title: TABLE,
         tableStyles: tableStyles,
-    RowComponent: ProviderTableRow,
-    ChangeItemModalWindow: ModalWindow
+        ChangeItemModalWindow: ModalWindow
     })
 );

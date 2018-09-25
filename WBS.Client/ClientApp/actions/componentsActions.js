@@ -51,13 +51,8 @@ export function getDataForModalForm(route, component, id) {
         }
 
         GET(`${route}${id}`, onSuccess, onError/*, params*/);
+        
     }
-
-    /*
-        return {
-            type: TYPE.GET_DATA_FOR_EDIT,
-            component
-        }*/
 }
 
 export function getDescriptorsForModalForm(component, objectType, id) {
