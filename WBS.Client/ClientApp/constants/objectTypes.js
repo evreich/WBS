@@ -8,5 +8,6 @@
     site: 'Site',
     typeOfInvestment: 'TypeOfInvestment',
     profile: 'User',
-    budgetPlan: 'BudgetPlan'
+    budgetPlan: 'BudgetPlan',
+    budgetLine: 'BudgetLine'
 }

@@ -11,7 +11,7 @@ class BudgetPlans extends React.Component{
         //const { siteId, budgetPlanId } = this.state;
         return <div>
             <BudgetPlansTable />
-            {this.props.updatingItem && <SiteComplex />} 
+            {this.props.updatingItem && <SiteComplex budgetPlanId = {this.props.updatingItem} />} 
         </div>;
     }
 }

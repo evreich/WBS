@@ -1,6 +1,6 @@
 ﻿import { connect } from "react-redux";
 
-import BudgetPlanTableRow from "../tables/BudgetPlans/BudgetPlanTableRow";
+import BudgetPlanTableRow from "components/tableRows/BudgetPlanTableRow";
 
 import {setUpdatingItem} from 'actions/tablesActions';
 

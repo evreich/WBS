@@ -25,6 +25,9 @@ namespace WBS.DAL.Data.Models
         public int CategoryOfEquipmentId { get; set; }
         public CategoryOfEquipment CategoryOfEquipment { get; set; }
 
+        public int CategoryGroupId { get; set; }
+        public CategoryGroup CategoryGroup { get; set; }
+
         public int? ResultCenterId { get; set; }
         public ResultCenter ResultCenter { get; set; }
 

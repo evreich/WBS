@@ -2,6 +2,6 @@
 import api from 'constants/api';
 import objectTypes from 'constants/objectTypes';
 
-const COMPONENT = 'BudgetPlanModalWindow';
+const COMPONENT = 'BudgetLineModalWindow';
 
-export default modalWindowFactory(api.budgetPlan, COMPONENT, objectTypes.budgetPlan);
+export default modalWindowFactory(api.budgetLine, COMPONENT, objectTypes.budgetLine);
